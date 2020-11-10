@@ -1,0 +1,71 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+// $font-size-root: 20px;
+// $primary: #21a0f3;
+// $accent: #4084ff;
+// $secondary: #ffe18d;
+// $success: #4caf7a;
+// $info: #2196f3;
+// $warning: #fb8c00;
+// $error: #ff5252;
+
+$primary: #223982;
+$accent: #3f3fbc;
+$secondary: #e0ef4d;
+$offWhite: #f6f6f6;
+$success: #f2edf0;
+$info: #3a3a3a;
+$warning: #fb8c00;
+$error: #ff5252;
+
+.heart {
+  height: 40px !important;
+  width: 40px !important;
+  left: calc(100% - 55px) !important;
+}
+.btn-selected {
+  color: #4084ff !important;
+}
+
+.margin-right {
+  margin-right: 10px;
+}
+.margin-left {
+  margin-left: 10px;
+}
+.margin-top {
+  margin-top: 10px;
+}
+.margin-bot {
+  margin-bottom: 10px;
+}
+
+.pad-right {
+  padding-right: 10px;
+}
+.pad-left {
+  padding-left: 10px;
+}
+.pad-top {
+  padding-top: 10px;
+}
+.pad-bot {
+  padding-bottom: 10px;
+}
+
+.btn-group {
+  display: flex;
+  margin-top: 5px;
+}
+.peep-btn {
+  width: 60px;
+}
+
+.highlight {
+  background-color: #424242 !important;
+  color: aqua !important;
+}
+.remove-margin {
+  margin: 0 !important;
+}
