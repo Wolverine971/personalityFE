@@ -15,7 +15,8 @@ export default {
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
       }
-    ]
+    ],
+    script: [{ src: 'https://cdnjs.deepai.org/deepai.min.js' }]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -25,7 +26,8 @@ export default {
   plugins: [
     { src: '~/plugins/socket.io.js', mode: 'client' },
     { src: '~/plugins/Vuelidate', mode: 'client' },
-    { src: '~/plugins/axiosIntercept', mode: 'client' }
+    { src: '~/plugins/axiosIntercept', mode: 'client' },
+    { src: '~/plugins/clip.js', mode: 'client' }
   ],
 
   server: {
@@ -108,5 +110,9 @@ export default {
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {}
+  build: {
+    extend (config) {
+      config.resolve.alias.vue = 'vue/dist/vue.common'
+    }
+  }
 }

@@ -1,11 +1,11 @@
-export default function({ $axios, redirect, store }) {
-  $axios.onRequest((config) => {
+export default function ({ $axios, redirect, store }) {
+  $axios.onRequest((config: any) => {
     const accessToken = store.getters.getAccessToken
     if (accessToken) {
       config.headers.common.Authorization = accessToken
     }
   })
-  $axios.onError(async (error) => {
+  $axios.onError(async (error: any) => {
     if (error.response.status === 500) {
       redirect('/auth')
     }

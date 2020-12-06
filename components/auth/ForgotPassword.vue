@@ -31,7 +31,7 @@ export default defineComponent({
   }),
   computed: {
     emailErrors () {
-      const errors = []
+      const errors: string[] = []
       if (!this.$v.email.$dirty) {
         return errors
       }
@@ -61,5 +61,4 @@ export default defineComponent({
 })
 </script>
 
-<style>
-</style>
+<style></style>

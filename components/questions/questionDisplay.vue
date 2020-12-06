@@ -7,7 +7,7 @@
     auto-grow
     readonly
     hide-details
-    :to="{path: '/questions', query: {id: question.id}}"
+    :to="{ path: '/questions', query: { id: question.id } }"
     router
     class="pad-bot"
   >
@@ -19,26 +19,22 @@
       >
         {{ question.likes.length }}
         <v-icon>
-          {{ question.likes.includes($auth.user.email) ? 'mdi-cookie' : 'mdi-cookie-outline' }}
+          {{
+            question.likes.includes($auth.user.email)
+              ? 'mdi-cookie'
+              : 'mdi-cookie-outline'
+          }}
         </v-icon>
       </v-btn>
-      <v-btn
-        outlined
-        class="margin-right"
-      >
+      <v-btn outlined class="margin-right">
         {{ question.comments.length }}
         <v-icon color="primary">
           mdi-comment-outline
         </v-icon>
       </v-btn>
-      <v-btn
-        outlined
-        class="btn-selected"
-      >
+      <v-btn outlined class="btn-selected">
         {{ question.subscribers.length }}
-        <v-icon>
-          face
-        </v-icon>
+        <v-icon> face </v-icon>
       </v-btn>
     </template>
   </v-textarea>
@@ -57,5 +53,4 @@ export default {
   }
 }
 </script>
-<style>
-</style>
+<style></style>

@@ -1,9 +1,9 @@
-export function getQuestionsFromData(esQuestions) {
+export function getQuestionsFromData(esQuestions: any[]) {
   if (esQuestions) {
     return esQuestions.map((q) => {
       return {
         id: q._id,
-        question: q._source.question
+        question: q._source.question,
       }
     })
   } else {
@@ -11,7 +11,7 @@ export function getQuestionsFromData(esQuestions) {
   }
 }
 
-export function getCommentFromData(esComment) {
+export function getCommentFromData(esComment: any) {
   if (esComment) {
     // return esComments.map((c) => {
     return {
@@ -20,7 +20,7 @@ export function getCommentFromData(esComment) {
       likes: esComment._source.likes,
       authorId: esComment._source.authorId,
       parentId: esComment._source.parentId,
-      commentIds: esComment._source.commentIds
+      commentIds: esComment._source.commentIds,
     }
   } else {
     return null
