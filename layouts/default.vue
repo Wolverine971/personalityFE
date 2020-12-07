@@ -36,8 +36,8 @@
                   </v-list>
                 </v-menu>
               </v-app-bar-nav-icon>
-              <v-toolbar-title class="primary--text" text>
-                {{ title }}
+              <v-toolbar-title class="primary--text bubble-font" text>
+                <h1>{{ title }}</h1>
               </v-toolbar-title>
               <v-spacer />
               <v-menu>
@@ -117,7 +117,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'The Personality App'
+      title: '9takes'
     }
   },
   computed: {

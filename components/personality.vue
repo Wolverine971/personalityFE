@@ -129,7 +129,6 @@ export default {
   },
   methods: {
     async submitPost () {
-      console.log(this.newPost)
       const formData = new FormData()
       const post = this.newPost
       formData.append('text', post)

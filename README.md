@@ -9,7 +9,6 @@ $ npm install
 # serve with hot reload at localhost:3000
 $ npm run devt
 
-# build for production and launch server
 $ npm run build
 $ npm run start
 
@@ -17,9 +16,18 @@ $ npm run start
 $ npm run generate
 ```
 
+BE- https://github.com/Wolverine971/personalityBE
+Apollo-
+
+
+
 ToDo
 
-- I relate button- with waving hand
+- Trello Board https://trello.com/b/TBY5udwx/personality-app
+- <del>I relate button- with waving hand
+- <del>Personality type pages
+- <del>Login/ Register
+- Refresh token automatically
 - Personality pages- only people of that personality type can upvote or downvote
 - Adds page for each personality type
 

@@ -17,7 +17,7 @@
       :items="typeAhead"
       :search-input.sync="question"
       label="Search Questions"
-      :menu-props="{ 'closeOnContentClick': true }"
+      :menu-props="{ closeOnContentClick: true }"
       :item-text="question"
       @update:list-index="change"
       @keydown.enter="addQuestion(question)"
@@ -25,23 +25,21 @@
       <template v-slot:append>
         <v-row>
           <heartbeat v-if="typeAheadLoading" class="heart" />
-          <v-btn v-if="!typeAheadLoading && question && key === -1" text @click="addQuestion(question)">
+          <v-btn
+            v-if="!typeAheadLoading && question && key === -1"
+            text
+            @click="addQuestion(question)"
+          >
             <v-icon>search</v-icon>
           </v-btn>
         </v-row>
       </template>
-      <template
-        v-slot:item="{ item }"
-      >
-        <v-list-item
-          @click.stop.prevent="goToQuestion(item)"
-        >
+      <template v-slot:item="{ item }">
+        <v-list-item @click.stop.prevent="goToQuestion(item)">
           {{ item.question }}
           <v-spacer />
           <v-list-item-action @click.stop>
-            <v-btn
-              icon
-            >
+            <v-btn icon>
               <v-icon>keyboard_arrow_right</v-icon>
             </v-btn>
           </v-list-item-action>
@@ -75,23 +73,24 @@
                   small
                   v-bind="attrs"
                   class="margin-right"
-                  :class="{ 'btn-selected': q.likes.includes($auth.user.email) }"
+                  :class="{
+                    'btn-selected': q.likes.includes($auth.user.email),
+                  }"
                   v-on="on"
                   @click="likeQuestion(q)"
                 >
                   <v-icon>
-                    {{ q.likes.includes($auth.user.email) ? 'mdi-cookie' : 'mdi-cookie-outline' }}
+                    {{
+                      q.likes.includes($auth.user.email)
+                        ? 'mdi-cookie'
+                        : 'mdi-cookie-outline'
+                    }}
                   </v-icon>
                 </v-btn>
               </template>
               {{ q.likes.length }}
             </v-tooltip>
-            <v-btn
-              outlined
-              small
-              class="margin-right"
-              @click="goToQuestion(q)"
-            >
+            <v-btn outlined small class="margin-right" @click="goToQuestion(q)">
               <v-icon color="primary">
                 mdi-comment-outline
               </v-icon>
@@ -100,26 +99,28 @@
               outlined
               small
               class="remove-margin"
-              :class="{ 'btn-selected': q.subscribers.includes($auth.user.email) }"
+              :class="{
+                'btn-selected': q.subscribers.includes($auth.user.email),
+              }"
               @click="subscribe(q)"
             >
               <span class="peep-btn">
-                {{ q.subscribers.includes($auth.user.email) ? 'peeped' : 'peep' }}
+                {{
+                  q.subscribers.includes($auth.user.email) ? 'peeped' : 'peep'
+                }}
               </span>
-              <v-icon>
-                face
-              </v-icon>
+              <v-icon> face </v-icon>
             </v-btn>
           </v-card-actions>
         </v-card>
 
-        <v-row v-if="(questionsCount < totalQuestions) && !questionsLoading" @click="loadMoreQuestions">
+        <v-row
+          v-if="questionsCount < totalQuestions && !questionsLoading"
+          @click="loadMoreQuestions"
+        >
           <v-btn>Load More</v-btn>
         </v-row>
-        <v-progress-linear
-          v-else-if="questionsLoading"
-          indeterminate
-        />
+        <v-progress-linear v-else-if="questionsLoading" indeterminate />
       </v-col>
     </div>
   </v-container>
@@ -176,7 +177,6 @@ export default {
       this.allQuestions = Object.keys(questions).map((q) => {
         return questions[q]
       })
-      console.log(this.allQuestions)
     },
     allQuestions (val) {
       this.questionsCount = val.length
@@ -184,9 +184,6 @@ export default {
   },
   mounted () {
     //  gotta get the paginated questions from graphql
-    console.log(this.$route)
-    console.log('questions created')
-    // const allQuestions = this.$store.getters.getAllQuestions
     if (!this.totalQuestions) {
       this.$store.dispatch('getPaginatedQuestions', this.pageSize)
     } else {
@@ -211,7 +208,6 @@ export default {
     }, 1000),
     async addQuestion (question) {
       if (this.key === -1) {
-        console.log('addQuestion')
         const resp = await this.$axios.get(
           `${endpoints.questionAdd}/${question}`
         )
@@ -225,7 +221,6 @@ export default {
       }
     },
     goToQuestion (item) {
-      console.log('loadQuestion')
       this.typeAhead = []
       this.$router.push({ path: `/questions/${item.id}` })
       this.$router.go(1)
@@ -302,5 +297,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

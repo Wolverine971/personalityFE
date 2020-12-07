@@ -94,7 +94,6 @@ export default {
       })
     },
     change (val) {
-      console.log(val)
       this.login = val
     }
   }

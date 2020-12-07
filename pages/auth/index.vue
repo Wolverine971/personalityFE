@@ -21,9 +21,7 @@
         <Login />
         <br>
         <br>
-        <a @click="forgotPassword = true">
-          Forgot Password
-        </a>
+        <a @click="forgotPassword = true"> Forgot Password </a>
       </div>
     </div>
   </div>
@@ -96,7 +94,6 @@ export default {
     },
 
     change (val) {
-      console.log(val)
       this.login = val
       if (this.login) {
         this.forgotPassword = false

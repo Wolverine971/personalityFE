@@ -77,7 +77,6 @@ export default defineComponent({
   },
   methods: {
     async register () {
-      console.log('register')
       if (this.$v) {
         // this.$v.$touch()
         const data = {

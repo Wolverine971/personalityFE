@@ -28,8 +28,7 @@ export default {
   name: 'Dashboard',
   components: { QuestionDisplay },
   data () {
-    return {
-    }
+    return {}
   },
 
   computed: {
@@ -40,10 +39,8 @@ export default {
       return this.$store.getters.getNewQuestions
     }
   },
-  watch: {
-  },
+  watch: {},
   mounted () {
-    console.log('dash')
     const dash = this.$store.getters.getNewQuestions
     if (dash.length === 0 || this.$store.getters.getRefreshDashboard) {
       this.$store.dispatch('getDashboard')
@@ -52,7 +49,6 @@ export default {
   },
   methods: {
     goTo (item) {
-      console.log(item)
       this.$router.push({ path: `/questions/${item.id}` })
       // $router.push({name: 'next-page', params: {foo: 1}})
       this.$router.go(1)
@@ -61,5 +57,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

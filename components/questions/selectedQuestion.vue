@@ -50,9 +50,7 @@
           <span class="peep-btn">
             {{ isSubscribed ? 'peeped' : 'peep' }}
           </span>
-          <v-icon>
-            face
-          </v-icon>
+          <v-icon> face </v-icon>
         </v-btn>
       </div>
     </div>
@@ -133,7 +131,6 @@ export default {
   },
   methods: {
     cancel () {
-      console.log('selected question')
       this.comment = ''
     },
     async likeQuestion () {
@@ -201,16 +198,9 @@ export default {
         } else {
           this.$store.dispatch('toastError', 'Failed To Get Question')
         }
-        // } else {
-        //   // this.question = question
-        //   this.comments = [...question.comments]
-        //   this.likes = [...question.likes]
-        //   this.subscribers = [...question.subscribers]
-        // }
       }
     },
     async submitComment () {
-      console.log('submit comment')
       try {
         const resp = await this.$axios.post(
           `${endpoints.addComment}/question/${this.question.id}`,
@@ -223,21 +213,18 @@ export default {
           this.question = Object.assign({}, this.question, {
             comments: this.comments
           })
-          console.log('submit comment')
           this.$store.commit('addAllQuestions', [this.question])
           this.$store.dispatch('toastSuccess', 'Comment Submitted')
           this.comment = ''
         } else {
           this.$store.dispatch('toastError', 'Failed To Submit Comment')
         }
-        console.log(this.question.comments)
       } catch (error) {
         console.log(error)
         this.$store.dispatch('toastError', 'Comment Submittion Failed')
       }
     },
     async subscribe () {
-      console.log('subscribe')
       try {
         const isSubscribed = !this.isSubscribed
         let resp = null
@@ -281,5 +268,4 @@ export default {
 .pad-answer {
   margin-left: 10px;
 }
-
 </style>

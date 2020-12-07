@@ -1,19 +1,21 @@
 <template>
-  <div
-    v-if="componentComment"
-  >
-    <v-textarea
-      :value="componentComment.comment"
-      type="m"
-      outlined
-      filled
-      rows="1"
-      auto-grow
-      solo
-      readonly
-      hide-details
-      class="pad-bot"
-    />
+  <v-card v-if="componentComment">
+    <v-card-title>
+      <v-avatar
+        elevation="2"
+        icon
+        outlined
+        raised
+        large
+        class="bubble-font"
+        :class="`class${componentComment.author.enneagramId}`"
+      >
+        {{ componentComment.author.enneagramId }}
+      </v-avatar>
+      <p class="ml-3">
+        {{ componentComment.comment }}
+      </p>
+    </v-card-title>
     <div class="btn-group">
       <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
@@ -33,11 +35,7 @@
         </template>
         {{ componentComment.likes.length }}
       </v-tooltip>
-      <v-btn
-        outlined
-        small
-        @click="expandComment"
-      >
+      <v-btn outlined small @click="expandComment">
         <v-icon color="primary">
           mdi-comment-outline
         </v-icon>
@@ -45,12 +43,18 @@
     </div>
 
     <div class="comment-div">
-      <v-expansion-panels v-if="componentComment.comments.length" @click="checkComments">
+      <v-expansion-panels
+        v-if="componentComment.comments.length"
+        @click="checkComments"
+      >
         <v-expansion-panel>
           <v-expansion-panel-header>
             {{ componentComment.comments.length }} Comments
           </v-expansion-panel-header>
-          <v-expansion-panel-content v-for="(c, i) in componentComment.comments" :key="i">
+          <v-expansion-panel-content
+            v-for="(c, i) in componentComment.comments"
+            :key="i"
+          >
             <comment :comment="c" />
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -60,7 +64,7 @@
         <div v-show="commentIsExpanded" class="margin-top">
           <v-textarea
             ref="newComment"
-            v-model="commentComment"
+            v-model="commentOnComment"
             type="text"
             placeholder="Make a comment"
             outlined
@@ -70,10 +74,7 @@
             class="user-comment"
           >
             <template slot="append">
-              <v-btn
-                v-if="commentComment"
-                @click="submitComment"
-              >
+              <v-btn v-if="commentOnComment" @click="submitComment">
                 Submit Comment
               </v-btn>
             </template>
@@ -81,16 +82,17 @@
         </div>
       </v-expand-transition>
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>
 import { endpoints } from '../../models/endpoints'
+import { comment } from '../../models/interfaces'
 export default {
   name: 'Comment',
   props: {
     comment: {
-      type: Object,
+      type: comment,
       required: true,
       default: null
     }
@@ -100,7 +102,7 @@ export default {
     likes: [],
     componentComment: null,
     commentIsExpanded: false,
-    commentComment: ''
+    commentOnComment: ''
   }),
   computed: {},
   watch: {
@@ -130,7 +132,6 @@ export default {
   },
   methods: {
     async likeComment () {
-      console.log('liked comment')
       try {
         const isLiked = !this.isLiked
         let resp = null
@@ -164,7 +165,7 @@ export default {
         const resp = await this.$axios.post(
           `${endpoints.addComment}/comment/${this.componentComment.id}`,
           {
-            comment: this.commentComment
+            comment: this.commentOnComment
           }
         )
         if (resp) {
@@ -172,7 +173,7 @@ export default {
             ? [...this.componentComment.comments, resp.data]
             : [resp.data]
 
-          this.commentComment = ''
+          this.commentOnComment = ''
           this.$store.dispatch('toastSuccess', 'Comment Submitted')
         }
       } catch (error) {

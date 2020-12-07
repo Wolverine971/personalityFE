@@ -205,7 +205,7 @@ export const actions = {
           }
         })
         .catch((error: Error) => {
-          console.log(error.stack)
+          console.log(error)
           console.log('getaccessToken false 2')
           return false
         })
@@ -273,7 +273,6 @@ export const actions = {
       .get(`${endpoints.getPosts}/${type}`)
       .then((resp: any) => {
         if (resp && resp.data) {
-          console.log('got dashboard')
           commit('setPosts', { type, data: resp.data })
           // commit('setSubscriptions', resp.data.subscriptions)
         }

@@ -21,16 +21,10 @@ export default {
   computed: {},
   watch: {
     enneagramType (val) {
-      console.log(val)
       this.$router.push({ path: `/personality/${val}` })
       this.$router.go(1)
     }
-  },
-  mounted () {
-    console.log('profile mounted')
-  },
-
-  methods: {}
+  }
 }
 </script>
 

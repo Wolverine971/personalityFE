@@ -14,6 +14,21 @@ export default {
         rel: 'stylesheet',
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap'
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Londrina+Shadow&display=swap'
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@900&display=swap'
       }
     ],
     script: [{ src: 'https://cdnjs.deepai.org/deepai.min.js' }]

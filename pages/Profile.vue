@@ -4,11 +4,7 @@
     <div v-if="$auth.user">
       <v-form>
         <v-row>
-          <v-col
-            cols="12"
-            sm="6"
-            md="3"
-          >
+          <v-col cols="12" sm="6" md="3">
             <v-text-field
               v-model="$auth.user.firstName"
               v-model.trim="$auth.user.firstName"
@@ -17,11 +13,7 @@
             />
           </v-col>
 
-          <v-col
-            cols="12"
-            sm="6"
-            md="3"
-          >
+          <v-col cols="12" sm="6" md="3">
             <v-text-field
               v-model="$auth.user.lastName"
               v-model.trim="$auth.user.lastName"
@@ -29,11 +21,7 @@
               @input="formDisabled = false"
             />
           </v-col>
-          <v-col
-            cols="12"
-            sm="6"
-            md="3"
-          >
+          <v-col cols="12" sm="6" md="3">
             <v-text-field
               v-model="$auth.user.email"
               v-model.trim="$auth.user.email"
@@ -41,11 +29,7 @@
               @input="formDisabled = false"
             />
           </v-col>
-          <v-col
-            class="d-flex"
-            cols="12"
-            sm="6"
-          >
+          <v-col class="d-flex" cols="12" sm="6">
             <v-select
               v-model="$auth.user.enneagramId"
               :items="enneagramTypes"
@@ -53,11 +37,7 @@
               @change="formDisabled = false"
             />
           </v-col>
-          <v-col
-            class="d-flex"
-            cols="12"
-            sm="6"
-          >
+          <v-col class="d-flex" cols="12" sm="6">
             <v-select
               v-model="$auth.user.mbtiId"
               :items="MBTITypes"
@@ -67,10 +47,7 @@
             />
           </v-col>
         </v-row>
-        <v-btn
-          :disabled="formDisabled"
-          @click="submit"
-        >
+        <v-btn :disabled="formDisabled" @click="submit">
           Submit
         </v-btn>
       </v-form>
@@ -106,10 +83,6 @@ export default {
     formDisabled: true
   }),
   middleware: 'authenticated',
-  computed: {},
-  mounted () {
-    console.log('profile mounted')
-  },
 
   methods: {
     submit () {
@@ -136,10 +109,10 @@ export default {
       }
 
       this.$axios.put(endpoints.updateUserRoute, data)
+      this.$store.dispatch('toastSuccess', 'Updated Profile')
     }
   }
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
