@@ -1,15 +1,5 @@
 <template>
   <v-container>
-    <!-- <v-btn
-      v-if="selectedQuestion"
-      class="ma-2"
-      outlined
-      @click="$router.go(-1)"
-    >
-      <v-icon> keyboard_backspace</v-icon>
-      Back to All questions
-    </v-btn> -->
-
     <h1>Search for Questions</h1>
 
     <v-combobox
@@ -74,14 +64,14 @@
                   v-bind="attrs"
                   class="margin-right"
                   :class="{
-                    'btn-selected': q.likes.includes($auth.user.email),
+                    'btn-selected': q.likes.includes($auth.user.id),
                   }"
                   v-on="on"
                   @click="likeQuestion(q)"
                 >
                   <v-icon>
                     {{
-                      q.likes.includes($auth.user.email)
+                      q.likes.includes($auth.user.id)
                         ? 'mdi-cookie'
                         : 'mdi-cookie-outline'
                     }}
@@ -100,14 +90,12 @@
               small
               class="remove-margin"
               :class="{
-                'btn-selected': q.subscribers.includes($auth.user.email),
+                'btn-selected': q.subscribers.includes($auth.user.id),
               }"
               @click="subscribe(q)"
             >
               <span class="peep-btn">
-                {{
-                  q.subscribers.includes($auth.user.email) ? 'peeped' : 'peep'
-                }}
+                {{ q.subscribers.includes($auth.user.id) ? 'peeped' : 'peep' }}
               </span>
               <v-icon> face </v-icon>
             </v-btn>
@@ -143,7 +131,6 @@ export default {
       pageSize: 10,
       selection: null,
       questionsCount: 0,
-      //   selectedQuestion: null,
       typeAheadLoading: false,
       questionsLoading: false,
       key: -1
@@ -161,7 +148,6 @@ export default {
     selection (val, oldVal) {
       if (val && val !== oldVal) {
         if (typeof val === 'object') {
-          // this.selectedQuestion = val
           this.goToQuestion(val)
           this.selection = ''
         }
@@ -183,7 +169,6 @@ export default {
     }
   },
   mounted () {
-    //  gotta get the paginated questions from graphql
     if (!this.totalQuestions) {
       this.$store.dispatch('getPaginatedQuestions', this.pageSize)
     } else {
@@ -212,7 +197,6 @@ export default {
           `${endpoints.questionAdd}/${question}`
         )
         if (resp) {
-          //   this.selectedQuestion = resp.data
           this.goToQuestion(resp.data)
           this.$store.dispatch('toastSuccess', 'Asked Question')
         } else {
@@ -228,14 +212,14 @@ export default {
 
     async likeQuestion (q) {
       try {
-        const isAlreadyLiked = q.likes.includes(this.$auth.user.email)
+        const isAlreadyLiked = q.likes.includes(this.$auth.user.id)
         let resp = null
         let newLikes = []
         if (!isAlreadyLiked) {
-          newLikes = [...q.likes, this.$auth.user.email]
+          newLikes = [...q.likes, this.$auth.user.id]
           resp = await this.$axios.get(`${endpoints.likeQuestion}/${q.id}/add`)
         } else {
-          newLikes = q.likes.filter(l => l !== this.$auth.user.email)
+          newLikes = q.likes.filter(l => l !== this.$auth.user.id)
           resp = await this.$axios.get(
             `${endpoints.likeQuestion}/${q.id}/remove`
           )
@@ -256,16 +240,14 @@ export default {
 
     async subscribe (q) {
       try {
-        const isAlreadySubed = q.subscribers.includes(this.$auth.user.email)
+        const isAlreadySubed = q.subscribers.includes(this.$auth.user.id)
         let resp = null
         let newSubscribers = []
         if (!isAlreadySubed) {
-          newSubscribers = [...q.subscribers, this.$auth.user.email]
+          newSubscribers = [...q.subscribers, this.$auth.user.id]
           resp = await this.$axios.get(`${endpoints.subQuestion}/${q.id}/add`)
         } else {
-          newSubscribers = q.subscribers.filter(
-            l => l !== this.$auth.user.email
-          )
+          newSubscribers = q.subscribers.filter(l => l !== this.$auth.user.id)
           resp = await this.$axios.get(
             `${endpoints.subQuestion}/${q.id}/remove`
           )

@@ -13,7 +13,6 @@ export function getQuestionsFromData(esQuestions: any[]) {
 
 export function getCommentFromData(esComment: any) {
   if (esComment) {
-    // return esComments.map((c) => {
     return {
       id: esComment._id,
       comment: esComment._source.comment,

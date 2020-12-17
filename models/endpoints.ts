@@ -13,8 +13,11 @@ export const endpoints = {
   getComment: '/api/comment',
   likeComment: '/api/comment/like',
 
+  getSortedComments: '/api/question/sort',
+
   postContent: '/api/content',
   getPosts: '/api/content/all',
+  likeContent: '/api/content/like',
 
   // dashboard
   getDashboard: '/api/dashboard',
@@ -26,5 +29,5 @@ export const endpoints = {
   logoutRoute: '/api/user/logout',
   refreshTokenRoute: '/api/user/refresh_token/',
   updateUserRoute: '/api/user/updateOne',
-  getUserRoute: '/api/user/getOne',
+  getUserRoute: '/api/user/getUser',
 }

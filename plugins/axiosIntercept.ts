@@ -6,11 +6,14 @@ export default function ({ $axios, redirect, store }) {
     }
   })
   $axios.onError(async (error: any) => {
-    if (error.response.status === 500) {
-      redirect('/auth')
-    }
     console.log('error')
-    if (error.response && error.response.status === 403) {
+    if (
+      !error.isAxiosError &&
+      error.response &&
+      error.response.status === 500
+    ) {
+      redirect('/auth')
+    } else if (error.response && error.response.status === 403) {
       console.log('jwt expired')
       const refreshToken = store.$auth.$storage._state['_token.local']
 
@@ -18,12 +21,22 @@ export default function ({ $axios, redirect, store }) {
         console.log('redirecting1!!!')
         return redirect('/auth')
       } else {
+        const {
+          config,
+          response: { status },
+        } = error
+        const originalRequest = config
         const resp = await store.dispatch('getAccessToken', refreshToken)
         if (!resp) {
           console.log('redirecting2!!!')
           return redirect('/auth')
         } else {
+          const retryOriginalRequest = new Promise((resolve) => {
+            originalRequest.headers.Authorization = resp
+            resolve($axios(originalRequest))
+          })
           console.log('stay on page!!!')
+          return retryOriginalRequest
         }
       }
     }

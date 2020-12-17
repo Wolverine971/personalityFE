@@ -29,7 +29,6 @@ import { defineComponent, ref } from '@nuxtjs/composition-api'
 import { validationMixin } from 'vuelidate'
 import { useVuelidate } from '@vuelidate/core'
 import { email, required, minLength } from 'vuelidate/lib/validators'
-// vuelidate/validators'
 import { endpoints } from '~/models/endpoints'
 
 export default defineComponent({
@@ -78,17 +77,13 @@ export default defineComponent({
   methods: {
     async register () {
       if (this.$v) {
-        // this.$v.$touch()
         const data = {
           email: this.emailAddress,
           password: this.password
         }
         try {
-          const resp = await this.$axios.post(endpoints.registerRoute, data) // api.register(data)
+          const resp = await this.$axios.post(endpoints.registerRoute, data)
           if (resp) {
-            // this.$router.push({
-            //   path: '/auth'
-            // })
             this.$emit('goToLogin', true)
           }
         } catch (error) {

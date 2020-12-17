@@ -55,30 +55,15 @@ export default {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
-    // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     '@nuxtjs/composition-api',
-    // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
-
-    '@nuxtjs/auth',
-    '@nuxtjs/toast'
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth', '@nuxtjs/toast'],
 
   auth: {
-    // cookie: {
-    //   options: {
-    //     path: '/'
-    //   }
-    // },
     redirect: {
       login: '/auth',
       logout: '/auth',
@@ -111,7 +96,6 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    // proxyHeaders: false
     baseURL: 'http://localhost:3001/',
     headers: {
       'Access-Control-Allow-Origin': 'http://localhost:3000/'

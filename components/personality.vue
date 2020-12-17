@@ -2,7 +2,7 @@
   <div>
     {{ selectedType }}
 
-    <v-card>
+    <v-card v-if="selectedType === $auth.user.enneagramId">
       <v-card-title v-if="showElem">
         <canvas id="c" />
       </v-card-title>
@@ -46,20 +46,39 @@
     </v-tabs>
     <v-card>
       <v-card v-for="(item, i) in selectedPosts" :key="i">
-        <v-card-title v-if="item.img" class="pic-box">
+        <v-card-title>
           <img
+            v-if="item.img"
             :src="`https://personality-app.s3.amazonaws.com/${item.img}`"
-            class="pic-display"
+            class="pic-box pic-display"
           >
-        </v-card-title>
-        <v-card-text v-if="item.text">
-          <p class="user-comment">
+
+          <p v-if="item.text" class="user-comment">
             {{ item.text }}
           </p>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn> Comment </v-btn>
-        </v-card-actions>
+        </v-card-title>
+
+        <interact
+          v-if="selectedType === $auth.user.enneagramId"
+          :post="item"
+          @emitComment="newComment($event)"
+        />
+
+        <div class="comment-div">
+          <v-expansion-panels v-if="item.comments && item.comments.length">
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                {{ item.comments.length }} Comments
+              </v-expansion-panel-header>
+              <v-expansion-panel-content
+                v-for="(c, j) in item.comments"
+                :key="j"
+              >
+                <comment :comment="c" />
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </div>
       </v-card>
     </v-card>
   </div>
@@ -84,11 +103,7 @@ export default {
       },
       options: {
         url: '/upload',
-        paramName: 'file',
-        acceptedFiles: {
-          extensions: ['image/*'],
-          message: 'You are uploading an invalid file'
-        }
+        paramName: 'file'
       },
       newPost: '',
       src: null,
@@ -130,15 +145,29 @@ export default {
   methods: {
     async submitPost () {
       const formData = new FormData()
-      const post = this.newPost
-      formData.append('text', post)
-      formData.append('img', this.src)
-      // this.$axios.setHeader('Content-Type', 'multipart/form-data', ['post'])
+      if (this.newPost) {
+        formData.append('text', this.newPost)
+      }
+      if (this.src) {
+        formData.append('img', this.src)
+      }
+      formData.append('enneagramType', this.selectedType)
 
-      await this.$axios.post(`${endpoints.postContent}/${this.type}`, formData)
+      const resp = await this.$axios.post(
+        `${endpoints.postContent}/${this.type}`,
+        formData
+      )
+      if (resp && resp.data) {
+        this.$store.commit('setPosts', {
+          type: this.selectedType,
+          data: resp.data
+        })
+        this.newPost = ''
+        this.showElem = false
+        this.src = null
 
-      this.$store.dispatch('toastSuccess', 'Post Submitted')
-      this.$store.dispatch('getPosts', this.selectedType)
+        this.$store.dispatch('toastSuccess', 'Post Submitted')
+      }
     },
 
     uploadImage () {
@@ -148,42 +177,28 @@ export default {
       if (fileElem && fileElem.files) {
         const width = 500
         const height = 300
-        // const fileName = fileElem.files[0].name
         const reader = new FileReader()
         reader.readAsDataURL(fileElem.files[0])
         reader.onload = (event) => {
           const img = new Image()
           img.src = event.target.result
-          // this.src = fileElem.files[0]
           this.showElem = event.target.result
           img.onload = () => {
-            // const elem = document.get('canvas')
-            // const elem = document.createElement('canvas')
             const elem = document.getElementById('c')
             elem.width = width
             elem.height = height
             const ctx = elem.getContext('2d')
-            // img.width and img.height will contain the original dimensions
             ctx.drawImage(img, 0, 0, width, height)
-            // ctx.canvas.toBlob(
-            //   (blob) => {
-            //     const file = new File([blob], fileName, {
-            //       type: 'image/jpeg',
-            //       lastModified: Date.now()
-            //     })
-            //   },
-            //   'image/jpeg',
-            //   1
-            // )
-            // const dataURL = elem.toDataURL('image/jpeg', 0.7) // or canvas.toDataURL('image/png');
-            // this.src = dataURL
             this.src = fileElem.files[0]
-            // toDataURL("image/jpeg",0.7);
             this.imgLoading = false
           }
           reader.onerror = error => console.log(error)
         }
       }
+    },
+
+    newComment (event) {
+      console.log(event)
     }
   }
 }

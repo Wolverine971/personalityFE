@@ -46,11 +46,8 @@ export default defineComponent({
         const data = {
           email: this.email
         }
-        const resp = await this.$axios.post(endpoints.forgotPasswordRoute, data) // api.forgotPassword(this.email)
+        const resp = await this.$axios.post(endpoints.forgotPasswordRoute, data)
         if (resp) {
-          // this.$router.push({
-          //   path: '/auth'
-          // })
           this.$emit('goToLogin', true)
         }
       } catch (error) {

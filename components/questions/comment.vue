@@ -9,6 +9,7 @@
         large
         class="bubble-font"
         :class="`class${componentComment.author.enneagramId}`"
+        color="offWhite"
       >
         {{ componentComment.author.enneagramId }}
       </v-avatar>
@@ -16,80 +17,34 @@
         {{ componentComment.comment }}
       </p>
     </v-card-title>
-    <div class="btn-group">
-      <v-tooltip top>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            outlined
-            small
-            v-bind="attrs"
-            :class="{ 'btn-selected': isLiked }"
-            class="margin-right"
-            v-on="on"
-            @click="likeComment"
-          >
-            <v-icon>
-              {{ isLiked ? 'mdi-cookie' : 'mdi-cookie-outline' }}
-            </v-icon>
-          </v-btn>
-        </template>
-        {{ componentComment.likes.length }}
-      </v-tooltip>
-      <v-btn outlined small @click="expandComment">
-        <v-icon color="primary">
-          mdi-comment-outline
-        </v-icon>
-      </v-btn>
-    </div>
+    <interact :post="componentComment" @emitComment="newComment($event)" />
 
-    <div class="comment-div">
-      <v-expansion-panels
-        v-if="componentComment.comments.length"
-        @click="checkComments"
-      >
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-            {{ componentComment.comments.length }} Comments
-          </v-expansion-panel-header>
-          <v-expansion-panel-content
-            v-for="(c, i) in componentComment.comments"
-            :key="i"
-          >
-            <comment :comment="c" />
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-
-      <v-expand-transition>
-        <div v-show="commentIsExpanded" class="margin-top">
-          <v-textarea
-            ref="newComment"
-            v-model="commentOnComment"
-            type="text"
-            placeholder="Make a comment"
-            outlined
-            rows="1"
-            auto-grow
-            solo
-            class="user-comment"
-          >
-            <template slot="append">
-              <v-btn v-if="commentOnComment" @click="submitComment">
-                Submit Comment
-              </v-btn>
-            </template>
-          </v-textarea>
-        </div>
-      </v-expand-transition>
-    </div>
+    <v-expansion-panels
+      v-if="componentComment.comments.length"
+      @click="checkComments"
+    >
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          {{ componentComment.comments.length }} Comments
+        </v-expansion-panel-header>
+        <v-expansion-panel-content
+          v-for="(c, i) in componentComment.comments"
+          :key="i"
+        >
+          <comment :comment="c" />
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-card>
 </template>
 
 <script>
 import { endpoints } from '../../models/endpoints'
+import Interact from '../shared/interact'
 import { comment } from '../../models/interfaces'
 export default {
   name: 'Comment',
+  components: { Interact },
   props: {
     comment: {
       type: comment,
@@ -108,14 +63,14 @@ export default {
   watch: {
     likes (likes) {
       if (likes) {
-        this.isLiked = likes.includes(this.$auth.user.email)
+        this.isLiked = likes.includes(this.$auth.user.id)
       } else {
         this.isLiked = false
       }
     },
     comment (comment) {
       this.componentComment = comment
-      this.isLiked = comment.likes.includes(this.$auth.user.email)
+      this.isLiked = comment.likes.includes(this.$auth.user.id)
       this.likes = comment.likes
     }
   },
@@ -137,12 +92,12 @@ export default {
         let resp = null
         let newLikes = []
         if (isLiked) {
-          newLikes = [...this.likes, this.$auth.user.email]
+          newLikes = [...this.likes, this.$auth.user.id]
           resp = await this.$axios.get(
             `${endpoints.likeComment}/${this.componentComment.id}/add`
           )
         } else {
-          newLikes = this.likes.filter(l => l !== this.$auth.user.email)
+          newLikes = this.likes.filter(l => l !== this.$auth.user.id)
           resp = await this.$axios.get(
             `${endpoints.likeComment}/${this.componentComment.id}/remove`
           )
@@ -192,6 +147,11 @@ export default {
         )
         this.componentComment = Object.assign({}, resp.data)
       }
+    },
+    newComment (event) {
+      this.componentComment.comments = this.componentComment.comments
+        ? [event, ...this.componentComment.comments]
+        : [event]
     }
   }
 }

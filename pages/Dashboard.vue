@@ -23,7 +23,6 @@
 
 <script>
 import QuestionDisplay from '../components/questions/questionDisplay'
-// import { getQuestionsFromData } from '../utils'
 export default {
   name: 'Dashboard',
   components: { QuestionDisplay },
@@ -50,7 +49,6 @@ export default {
   methods: {
     goTo (item) {
       this.$router.push({ path: `/questions/${item.id}` })
-      // $router.push({name: 'next-page', params: {foo: 1}})
       this.$router.go(1)
     }
   }

@@ -54,8 +54,6 @@ export const state = {
   posts: null,
 }
 
-// export type RootState = ReturnType<typeof state>
-
 export const getters = {
   isAuthenticated(state: AppState) {
     return !!state.user
@@ -124,7 +122,6 @@ export const mutations = {
     if (!state.allQuestions) {
       state.allQuestions = {}
     }
-    // state.allQuestions = Object.assign({}, state.allQuestions, questions)
     const moreQuestions: any = {}
     questions.forEach((q: any) => {
       moreQuestions[q.id] = Object.assign({}, q)
@@ -156,14 +153,10 @@ export const mutations = {
     if (!state.posts) {
       state.posts = {}
     }
-    // state.allQuestions = Object.assign({}, state.allQuestions, questions)
     const morePosts: any = {
       [posts.type]: posts.data,
     }
-    // posts.data.forEach((q: any) => {
-    //   morePosts[posts.type] = Object.assign({}, q)
-    // })
-    state.posts = Object.assign({}, morePosts, state.posts)
+    state.posts = Object.assign({}, state.posts, morePosts)
   },
 }
 
@@ -235,7 +228,6 @@ export const actions = {
     })
   },
   getPaginatedQuestions({ commit, getters }: any, pageSize: number) {
-    // :pageSize/:cursorId
     let cursorId = getters.getAllQuestionsCursorId
     console.log('getPaginatedQuestions')
     return this.$axios
@@ -274,7 +266,6 @@ export const actions = {
       .then((resp: any) => {
         if (resp && resp.data) {
           commit('setPosts', { type, data: resp.data })
-          // commit('setSubscriptions', resp.data.subscriptions)
         }
       })
   },

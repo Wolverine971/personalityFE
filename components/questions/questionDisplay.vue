@@ -14,13 +14,13 @@
     <template v-if="question.likes" slot="append">
       <v-btn
         outlined
-        :class="{ 'btn-selected': question.likes.includes($auth.user.email) }"
+        :class="{ 'btn-selected': question.likes.includes($auth.user.id) }"
         class="margin-right"
       >
         {{ question.likes.length }}
         <v-icon>
           {{
-            question.likes.includes($auth.user.email)
+            question.likes.includes($auth.user.id)
               ? 'mdi-cookie'
               : 'mdi-cookie-outline'
           }}
