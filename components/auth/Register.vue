@@ -14,6 +14,7 @@
       <v-text-field
         v-model="password"
         label="Password"
+        type="password"
         hint="At least 8 characters"
         min="8"
         required

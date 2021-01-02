@@ -103,12 +103,13 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: 'http://localhost:3001/', // `${process.env.BASE_URL}:3001/`,
+    baseURL: (process.env.BE_URL ? process.env.BE_URL : 'http://localhost:3001/'), // `${process.env.BASE_URL}:3001/`,
     headers: {
       'Access-Control-Allow-Origin': [
-        'http://localhost:3000',
-        'http://192.168.1.251/',
-        'http://www.9takes.com/'
+        process.env.ORIGIN
+        // 'http://localhost:3000',
+        // 'http://192.168.1.251/',
+        // 'http://www.9takes.com/'
       ]
     },
     withCredentials: true

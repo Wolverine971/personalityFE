@@ -120,9 +120,6 @@ export default {
   },
 
   mounted () {
-    // eslint-disable-next-line nuxt/no-globals-in-created
-    console.log(document)
-
     let visibilityChange
     if (typeof document.hidden !== 'undefined') {
       visibilityChange = 'visibilitychange'
@@ -140,8 +137,6 @@ export default {
   },
   sockets: {
     connect () {
-      console.log('socket connected')
-      // socket.emit('join', userId)
       if (this.$auth && this.$auth.user && this.$auth.user.id) {
         this.$socket.client.emit('join', this.$auth.user.id)
         this.$socket.$subscribe('seeUserActivity', (data) => {

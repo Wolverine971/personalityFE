@@ -182,9 +182,6 @@ export const actions: any = {
     try {
       const data: any = await this.$auth.loginWith('local', { data: user })
       if (data.data) {
-        console.log('login refresh: ' + data.data.refreshToken)
-        console.log('login access: ' + data.data.accessToken)
-
         this.$auth.setUserToken(data.data.refreshToken)
         this.$auth.setUser(data.data.user)
         commit('setAccessToken', data.data.accessToken)
@@ -214,9 +211,6 @@ export const actions: any = {
             console.log('getaccessToken false 1')
             return false
           } else {
-            console.log('getAccessToken refresh: ' + data.refreshToken)
-            console.log('getAccessToken access: ' + data.accessToken)
-
             this.$auth.setUserToken(data.refreshToken)
             this.$auth.setUser(data.user)
             commit('setAccessToken', data.accessToken)
@@ -285,7 +279,6 @@ export const actions: any = {
   getDashboard ({ commit }: any): any {
     return this.$axios.get(endpoints.getDashboard).then((resp: any) => {
       if (resp && resp.data) {
-        console.log('got dashboard')
         commit('setNewQuestions', resp.data.newQuestions)
         commit('setAskedQuestions', resp.data.askedQuestions)
         commit('setSubscriptions', resp.data.subscriptions)

@@ -15,6 +15,7 @@
         v-model="password"
         label="Enter your password"
         hint="At least 8 characters"
+        type="password"
         min="8"
         required
         :rules="passwordRules"
