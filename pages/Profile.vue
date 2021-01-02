@@ -37,7 +37,7 @@
               @change="formDisabled = false"
             />
           </v-col>
-          <v-col class="d-flex" cols="12" sm="6">
+          <!-- <v-col class="d-flex" cols="12" sm="6">
             <v-select
               v-model="$auth.user.mbtiId"
               :items="MBTITypes"
@@ -45,7 +45,7 @@
               label="MBTI"
               @change="formDisabled = false"
             />
-          </v-col>
+          </v-col> -->
         </v-row>
         <v-btn :disabled="formDisabled" @click="submit">
           Submit
@@ -61,25 +61,7 @@ export default {
   data: () => ({
     index: null,
     staticUser: {},
-    enneagramTypes: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    MBTITypes: [
-      { type: 'ISTJ', name: ' The Inspector' },
-      { type: 'ISTP', name: ' The Crafter' },
-      { type: 'ISFJ', name: ' The Protector' },
-      { type: 'ISFP', name: ' The Artist' },
-      { type: 'INFJ', name: ' The Advocate' },
-      { type: 'INFP', name: ' The Mediator' },
-      { type: 'INTJ', name: ' The Architect' },
-      { type: 'INTP', name: ' The Thinker' },
-      { type: 'ESTP', name: ' The Persuader' },
-      { type: 'ESTJ', name: ' The Director' },
-      { type: 'ESFP', name: ' The Performer' },
-      { type: 'ESFJ', name: ' The Caregiver' },
-      { type: 'ENFP', name: ' The Champion' },
-      { type: 'ENFJ', name: ' The Giver' },
-      { type: 'ENTP', name: ' The Debater' },
-      { type: 'ENTJ', name: ' The Commander' }
-    ],
+    enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
     formDisabled: true
   }),
   middleware: 'authenticated',
@@ -101,11 +83,8 @@ export default {
 
         enneagramId: this.staticUser.enneagramId
           ? this.staticUser.enneagramId
-          : this.$auth.user.enneagramId,
+          : this.$auth.user.enneagramId
 
-        mbtiId: this.staticUser.mbtiId
-          ? this.staticUser.mbtiId
-          : this.$auth.user.mbtiId
       }
 
       this.$axios.put(endpoints.updateUserRoute, data)

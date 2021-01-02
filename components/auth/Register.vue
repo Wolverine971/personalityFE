@@ -1,85 +1,87 @@
 <template>
-  <div>
+  <div class="col-center">
     <h1>Register</h1>
-    <form>
+    <v-form
+      ref="registerForm"
+      class="form-width"
+    >
       <v-text-field
         v-model="emailAddress"
         label="E-mail"
-        :error-messages="emailErrors"
+        :rules="emailRules"
         required
-        @input="$v.emailAddress.$touch()"
-        @blur="$v.emailAddress.$touch()"
       />
       <v-text-field
         v-model="password"
-        label="Enter your password"
+        label="Password"
         hint="At least 8 characters"
         min="8"
         required
-        :error-messages="passwordErrors"
+        :rules="passwordRules"
       />
-      <v-btn @click="register">
+      <div class="wrap-on-small">
+        <v-select
+          v-model="enneagramType"
+          :items="enneagramTypes"
+          label="What is your Enneagram Type?"
+          :rules="enneagramRules"
+          required
+        />
+        <enneagram-instructions class="btn-center" @typeSelected="typeChosen" />
+      </div>
+      <v-btn
+        @click="register"
+      >
         Register
       </v-btn>
-    </form>
+    </v-form>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+<script>
+import { defineComponent } from '@nuxtjs/composition-api'
 import { validationMixin } from 'vuelidate'
-import { useVuelidate } from '@vuelidate/core'
 import { email, required, minLength } from 'vuelidate/lib/validators'
+import EnneagramInstructions from '../shared/enneagramInstructions'
 import { endpoints } from '~/models/endpoints'
 
 export default defineComponent({
-  setup () {
-    const emailAddress = ref('')
-    const rules = {
-      emailAddress: { required, email },
-      password: { required, minLength }
-    }
-
-    const $v = useVuelidate(rules, { name, emailAddress })
-
-    return { name, emailAddress, $v }
-  },
 
   name: 'Register',
   mixins: [validationMixin],
-  data: () => ({
-    email: '',
-    password: ''
-  }),
-
-  computed: {
-    emailErrors () {
-      const errors: string[] = []
-      if (this.$v.email) {
-        if (!this.$v.email.$dirty) {
-          return errors
-        }
-        !this.$v.emailAddress.email && errors.push('Must be valid e-mail')
-        !this.$v.emailAddress.required && errors.push('E-mail is required')
-      }
-      return errors
-    },
-    passwordErrors () {
-      const errors: string[] = []
-      if (this.$v.password) {
-        if (!this.$v.password.$dirty) {
-          return errors
-        }
-        !this.$v.password.required && errors.push('password is required.')
-      }
-      return errors
-    }
+  validations: {
+    emailAddress: { required, email },
+    password: { required, minLength: minLength(8) },
+    enneagramType: { required }
   },
+  data: () => ({
+    emailAddress: '',
+    password: '',
+    enneagramType: null,
+    enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+    ],
+    passwordRules: [
+      v => !!v || 'Password is required',
+      v => (v && v.length >= 8) || 'Password must be at least 8 characters'
+    ],
+    enneagramRules: [
+      v => !!v || 'Enneagram Type is required'
+    ]
+  }),
+  components: {
+    EnneagramInstructions
+  },
+
   methods: {
     async register () {
-      if (this.$v) {
+      if (this.$refs.registerForm.validate()) {
         const data = {
           email: this.emailAddress,
-          password: this.password
+          password: this.password,
+          enneagramType: this.enneagramType
         }
         try {
           const resp = await this.$axios.post(endpoints.registerRoute, data)
@@ -88,9 +90,29 @@ export default defineComponent({
           }
         } catch (error) {
           console.log(error)
+          this.$store.dispatch('toastError', error)
         }
       }
+    },
+    typeChosen (e) {
+      console.log(e)
+      this.enneagramType = e
     }
   }
+
 })
 </script>
+<style>
+.wrap-on-small {
+    display: flex;
+  }
+@media only screen and (max-width: 380px) {
+  .wrap-on-small {
+    display: block;
+  }
+}
+.btn-center {
+  margin-left: 30px;
+  margin-top: 10px;
+}
+</style>

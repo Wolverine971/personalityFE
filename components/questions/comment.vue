@@ -1,5 +1,5 @@
 <template>
-  <v-card v-if="componentComment">
+  <div v-if="componentComment && componentComment.comment" :class="'shadow'">
     <v-card-title>
       <v-avatar
         elevation="2"
@@ -7,7 +7,6 @@
         outlined
         raised
         large
-        class="bubble-font"
         :class="`class${componentComment.author.enneagramId}`"
         color="offWhite"
       >
@@ -21,10 +20,11 @@
 
     <v-expansion-panels
       v-if="componentComment.comments.length"
-      @click="checkComments"
+      v-model="panels"
+      inset
     >
       <v-expansion-panel>
-        <v-expansion-panel-header>
+        <v-expansion-panel-header @click="checkComments">
           {{ componentComment.comments.length }} Comments
         </v-expansion-panel-header>
         <v-expansion-panel-content
@@ -35,20 +35,24 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-  </v-card>
+  </div>
 </template>
 
 <script>
 import { endpoints } from '../../models/endpoints'
 import Interact from '../shared/interact'
-import { comment } from '../../models/interfaces'
 export default {
   name: 'Comment',
   components: { Interact },
   props: {
     comment: {
-      type: comment,
+      type: Object,
       required: true,
+      default: null
+    },
+    type: {
+      type: String,
+      required: false,
       default: null
     }
   },
@@ -57,7 +61,8 @@ export default {
     likes: [],
     componentComment: null,
     commentIsExpanded: false,
-    commentOnComment: ''
+    commentOnComment: '',
+    panels: []
   }),
   computed: {},
   watch: {
@@ -68,10 +73,18 @@ export default {
         this.isLiked = false
       }
     },
-    comment (comment) {
+    async comment (comment) {
       this.componentComment = comment
-      this.isLiked = comment.likes.includes(this.$auth.user.id)
-      this.likes = comment.likes
+      this.panels = []
+      if (comment.comment) {
+        this.isLiked = comment.likes.includes(this.$auth.user.id)
+        this.likes = comment.likes
+      } else {
+        const resp = await this.$axios.get(
+          `${endpoints.getComment}/${this.componentComment.id}`
+        )
+        this.componentComment = Object.assign({}, resp.data)
+      }
     }
   },
   async mounted () {

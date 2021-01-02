@@ -2,7 +2,6 @@
   <v-textarea
     :value="question.question"
     type="text"
-    filled
     rows="1"
     auto-grow
     readonly
@@ -41,13 +40,17 @@
 </template>
 
 <script>
-import { selectedQuestion } from '../../models/interfaces'
 export default {
   name: 'QuestionDisplay',
   props: {
     question: {
-      type: selectedQuestion,
+      type: Object,
       required: true,
+      default: null
+    },
+    type: {
+      type: String,
+      required: false,
       default: null
     }
   }

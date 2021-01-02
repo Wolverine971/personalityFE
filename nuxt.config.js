@@ -31,7 +31,9 @@ export default {
           'https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@900&display=swap'
       }
     ],
-    script: [{ src: 'https://cdnjs.deepai.org/deepai.min.js' }]
+    script: [
+      { src: 'https://cdnjs.deepai.org/deepai.min.js' }
+    ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -42,11 +44,11 @@ export default {
     { src: '~/plugins/socket.io.js', mode: 'client' },
     { src: '~/plugins/Vuelidate', mode: 'client' },
     { src: '~/plugins/axiosIntercept', mode: 'client' },
-    { src: '~/plugins/clip.js', mode: 'client' }
+    { src: '~/plugins/axios.ts', mode: 'client' }
   ],
 
   server: {
-    port: 3000, // default: 3000
+    // port: 3000, // default: 3000
     host: '0.0.0.0' // default: localhost
   },
 
@@ -61,7 +63,12 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth', '@nuxtjs/toast'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    '@nuxtjs/auth',
+    '@nuxtjs/toast'
+  ],
 
   auth: {
     redirect: {
@@ -96,9 +103,13 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: 'http://localhost:3001/',
+    baseURL: 'http://localhost:3001/', // `${process.env.BASE_URL}:3001/`,
     headers: {
-      'Access-Control-Allow-Origin': 'http://localhost:3000/'
+      'Access-Control-Allow-Origin': [
+        'http://localhost:3000',
+        'http://192.168.1.251/',
+        'http://www.9takes.com/'
+      ]
     },
     withCredentials: true
   },

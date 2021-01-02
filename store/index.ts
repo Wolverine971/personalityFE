@@ -1,9 +1,8 @@
-import { getQuestionsFromData } from '~/utils'
-import axios from 'axios'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 import { endpoints } from '../models/endpoints'
+import { getQuestionsFromData } from '~/utils'
 
 Vue.use(Vuex)
 export interface AppState {
@@ -28,9 +27,13 @@ export interface AppState {
   subscriptions: any[]
 
   posts: any
+
+  askedQuestions: any
+
+  notifications: any[]
 }
 // STATE
-export const state = {
+export const state: AppState = {
   user: null,
 
   userALT: null,
@@ -41,7 +44,7 @@ export const state = {
 
   dashboard: null,
 
-  allQuestionsCursorId: null,
+  allQuestionsCursorId: '',
 
   allQuestionsCount: 0,
 
@@ -52,73 +55,78 @@ export const state = {
   subscriptions: [],
 
   posts: null,
+
+  askedQuestions: null,
+
+  notifications: []
 }
 
 export const getters = {
-  isAuthenticated(state: AppState) {
+  isAuthenticated (state: AppState) {
     return !!state.user
   },
-  loggedUser(state: AppState) {
+  loggedUser (state: AppState) {
     return state.user
   },
-  getAccessToken(state: AppState) {
+  getAccessToken (state: AppState) {
     return state.accessToken
   },
-  getUser(state: AppState) {
+  getUser (state: AppState) {
     return state.user
   },
-  route(state: AppState) {
-    return axios.create({
-      baseURL: 'http://localhost:3001/',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        authorization: state.accessToken,
-      },
-    })
-  },
-  getAllQuestions(state: AppState) {
+  getAllQuestions (state: AppState) {
     return state.allQuestions
   },
 
-  getDashboard(state: AppState) {
+  getDashboard (state: AppState) {
     return state.dashboard
   },
-  getAllQuestionsCursorId(state: AppState) {
+  getAllQuestionsCursorId (state: AppState) {
     return state.allQuestionsCursorId
   },
-  getAllQuestionsCount(state: AppState) {
+  getAllQuestionsCount (state: AppState) {
     return state.allQuestionsCount
   },
-  getRefreshDashboard(state: AppState) {
+  getRefreshDashboard (state: AppState) {
     return state.refreshDashboard
   },
-  getNewQuestions(state: AppState) {
+  getNewQuestions (state: AppState) {
     if (state.newQuestions && state.newQuestions.hits) {
       return getQuestionsFromData(state.newQuestions.hits.hits)
     } else {
       return []
     }
   },
-  getSubscriptions(state: AppState) {
+  getSubscriptions (state: AppState) {
     return state.subscriptions
   },
-  getPosts(state: AppState) {
+  getPosts (state: AppState) {
     return state.posts
   },
+  getAskedQuestions (state: AppState) {
+    if (state.askedQuestions && state.askedQuestions.hits) {
+      return getQuestionsFromData(state.askedQuestions.hits.hits)
+    } else {
+      return []
+    }
+  },
+  getNotifications (state: AppState) {
+    return state.notifications
+  }
 }
 
 // MUTATIONS
 export const mutations = {
-  user(state: AppState, user: null) {
+  user (state: AppState, user: null) {
     state.user = user
   },
-  setUser(state: AppState, user: any) {
+  setUser (state: AppState, user: any) {
     state.user = user
   },
-  setAccessToken(state: AppState, token: string) {
+  setAccessToken (state: AppState, token: string) {
     state.accessToken = token
   },
-  addAllQuestions(state: AppState, questions: any[]) {
+  addAllQuestions (state: AppState, questions: any[]) {
     if (!state.allQuestions) {
       state.allQuestions = {}
     }
@@ -131,50 +139,69 @@ export const mutations = {
       state.allQuestionsCount = state.allQuestionsCount + questions.length
     }
   },
-  setDashboard(state: AppState, subscriptions: any[]) {
+  setDashboard (state: AppState, subscriptions: any[]) {
     state.dashboard = subscriptions
   },
-  setAllQuestionsCursorId(state: AppState, cursorId: string) {
+  setAllQuestionsCursorId (state: AppState, cursorId: string) {
     state.allQuestionsCursorId = cursorId
   },
-  setAllQuestionsCount(state: AppState, count: number) {
+  setAllQuestionsCount (state: AppState, count: number) {
     state.allQuestionsCount = count
   },
-  setRefreshDashboard(state: AppState, tF: boolean) {
+  setRefreshDashboard (state: AppState, tF: boolean) {
     state.refreshDashboard = tF
   },
-  setNewQuestions(state: AppState, newQuestions: any) {
+  setNewQuestions (state: AppState, newQuestions: any) {
     state.newQuestions = newQuestions
   },
-  setSubscriptions(state: AppState, subscriptions: any[]) {
+  setSubscriptions (state: AppState, subscriptions: any[]) {
     state.subscriptions = subscriptions
   },
-  setPosts(state: AppState, posts: any) {
+  setPosts (state: AppState, posts: any) {
     if (!state.posts) {
       state.posts = {}
     }
     const morePosts: any = {
-      [posts.type]: posts.data,
+      [posts.type]: posts.data
     }
     state.posts = Object.assign({}, state.posts, morePosts)
   },
+  setAskedQuestions (state: AppState, askedQuestions: any) {
+    state.askedQuestions = askedQuestions
+  },
+  SOCKET_notifications (state: AppState, notifications: any[]) {
+    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+    console.log(notifications)
+    state.notifications = notifications
+  }
 }
 
 // ACTIONS
-export const actions = {
-  async login({ commit }: any, user: { email: any; password: any }) {
-    const data = await this.$auth.loginWith('local', { data: user })
-    console.log('login refresh: ' + data.data.refreshToken)
-    console.log('login access: ' + data.data.accessToken)
+export const actions: any = {
+  async login ({ commit, dispatch }: any, user: { email: any; password: any }) {
+    try {
+      const data: any = await this.$auth.loginWith('local', { data: user })
+      if (data.data) {
+        console.log('login refresh: ' + data.data.refreshToken)
+        console.log('login access: ' + data.data.accessToken)
 
-    this.$auth.setUserToken(data.data.refreshToken)
-    this.$auth.setUser(data.data.user)
-    commit('setAccessToken', data.data.accessToken)
+        this.$auth.setUserToken(data.data.refreshToken)
+        this.$auth.setUser(data.data.user)
+        commit('setAccessToken', data.data.accessToken)
 
-    return true
+        return true
+      } else {
+        // console.log(data.response.data)
+        dispatch('toastError', data.response.data)
+        return false
+      }
+    } catch (error) {
+      console.log(error)
+      return false
+    }
   },
 
-  getAccessToken({ commit }: any, refreshToken: string): any {
+  getAccessToken ({ commit }: any, refreshToken: string): any {
     console.log('$store call to get access token')
     if (!refreshToken) {
       console.log('failed to pass refreshToken in $store')
@@ -205,29 +232,33 @@ export const actions = {
     }
   },
 
-  toastSuccess({ commit }: any, text: string) {
-    this.$toast.success(text, {
-      theme: 'toasted-primary',
-      position: 'top-right',
-      duration: 3000,
-    })
+  toastSuccess ({ commit }: any, text: string) {
+    if (commit) {
+      this.$toast.success(text, {
+        theme: 'toasted-primary',
+        position: 'top-right',
+        duration: 3000
+      })
+    }
   },
-  toastError({ commit }: any, text: string) {
-    this.$toast.error(text, {
-      theme: 'toasted-primary',
-      position: 'top-right',
-      duration: 3000,
-    })
+  toastError ({ commit }: any, text: string) {
+    if (commit) {
+      this.$toast.error(text, {
+        theme: 'toasted-primary',
+        position: 'top-right',
+        duration: 3000
+      })
+    }
   },
 
-  getUser({ commit }: any) {
+  getUser ({ commit }: any) {
     return this.$axios.$get(endpoints.refreshTokenRoute).then((data: any) => {
       if (data) {
         commit('setUser', data.user)
       }
     })
   },
-  getPaginatedQuestions({ commit, getters }: any, pageSize: number) {
+  getPaginatedQuestions ({ commit, getters }: any, pageSize: number) {
     let cursorId = getters.getAllQuestionsCursorId
     console.log('getPaginatedQuestions')
     return this.$axios
@@ -242,7 +273,7 @@ export const actions = {
         }
       })
   },
-  async nuxtServerInit({ dispatch }: any, { $auth, redirect }: any) {
+  async nuxtServerInit ({ dispatch }: any, { $auth, redirect }: any) {
     const refreshToken = $auth.getToken('local')
     if (!refreshToken) {
       console.log('nuxt server init')
@@ -251,16 +282,17 @@ export const actions = {
       await dispatch('getAccessToken', refreshToken)
     }
   },
-  getDashboard({ commit }: any): any {
+  getDashboard ({ commit }: any): any {
     return this.$axios.get(endpoints.getDashboard).then((resp: any) => {
       if (resp && resp.data) {
         console.log('got dashboard')
         commit('setNewQuestions', resp.data.newQuestions)
+        commit('setAskedQuestions', resp.data.askedQuestions)
         commit('setSubscriptions', resp.data.subscriptions)
       }
     })
   },
-  getPosts({ commit }: any, type: string): any {
+  getPosts ({ commit }: any, type: string): any {
     return this.$axios
       .get(`${endpoints.getPosts}/${type}`)
       .then((resp: any) => {
@@ -268,7 +300,7 @@ export const actions = {
           commit('setPosts', { type, data: resp.data })
         }
       })
-  },
+  }
 }
 
 const createStore = () =>
@@ -276,14 +308,7 @@ const createStore = () =>
     state,
     mutations,
     getters,
-    actions,
+    actions
   })
-export const localInstance = axios.create({
-  baseURL: 'http://localhost:3001/',
-  headers: {
-    'Access-Control-Allow-Origin': 'http://localhost:3000/',
-  },
-  withCredentials: true,
-})
 
 export default createStore

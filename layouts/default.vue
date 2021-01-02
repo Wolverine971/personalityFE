@@ -1,11 +1,11 @@
 <template>
   <v-app id="inspire">
     <v-container>
-      <v-toolbar>
+      <v-toolbar class="fun-color">
         <v-app-bar-nav-icon>
-          <v-menu>
+          <v-menu transition="fab-transition">
             <template v-slot:activator="{ on: menu, attrs }">
-              <v-btn color="primary" text v-bind="attrs" v-on="{ ...menu }">
+              <v-btn color="" text v-bind="attrs" v-on="{ ...menu }">
                 <v-icon>menu</v-icon>
               </v-btn>
             </template>
@@ -27,13 +27,16 @@
             </v-list>
           </v-menu>
         </v-app-bar-nav-icon>
-        <v-toolbar-title class="primary--text bubble-font" text>
+        <v-toolbar-title text>
           <h1>{{ title }}</h1>
         </v-toolbar-title>
         <v-spacer />
+        <v-btn color="" text :to="'/dashboard'">
+          <v-icon>notifications</v-icon>
+        </v-btn>
         <v-menu>
           <template v-slot:activator="{ on: menu, attrs }">
-            <v-btn color="primary" text v-bind="attrs" v-on="{ ...menu }">
+            <v-btn color="" text v-bind="attrs" v-on="{ ...menu }">
               <v-icon>account_circle</v-icon>
             </v-btn>
           </template>
@@ -62,6 +65,8 @@
 </template>
 
 <script>
+import debounce from 'lodash.debounce'
+import { endpoints } from '../models/endpoints'
 export default {
   /* eslint-disable no-console */
   name: 'DefaultLayout',
@@ -113,11 +118,46 @@ export default {
       return this.$router.options.routes
     }
   },
-  updated () {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        console.log('*****************DJ SW**************************')
-      })
+
+  mounted () {
+    // eslint-disable-next-line nuxt/no-globals-in-created
+    console.log(document)
+
+    let visibilityChange
+    if (typeof document.hidden !== 'undefined') {
+      visibilityChange = 'visibilitychange'
+    } else if (typeof document.mozHidden !== 'undefined') {
+      visibilityChange = 'mozvisibilitychange'
+    } else if (typeof document.msHidden !== 'undefined') {
+      visibilityChange = 'msvisibilitychange'
+    } else if (typeof document.webkitHidden !== 'undefined') {
+      visibilityChange = 'webkitvisibilitychange'
+    }
+
+    document.addEventListener(visibilityChange, this.handlerClose)
+    window.addEventListener('focus', this.handlerClose)
+    window.addEventListener('blur', this.handlerClose)
+  },
+  sockets: {
+    connect () {
+      console.log('socket connected')
+      // socket.emit('join', userId)
+      if (this.$auth && this.$auth.user && this.$auth.user.id) {
+        this.$socket.client.emit('join', this.$auth.user.id)
+        this.$socket.$subscribe('seeUserActivity', (data) => {
+          console.log(data)
+          // this.msg = data.message
+        })
+        this.$socket.$subscribe(`push:notifications:${this.$auth.user.id}`, (data) => {
+          console.log(data)
+          // this.msg = data.message
+        })
+      }
+    },
+    notification (e, f) {
+      console.log('new notification')
+      console.log(e)
+      console.log(f)
     }
   },
 
@@ -129,7 +169,33 @@ export default {
       this.$router.push({
         path: '/auth'
       })
-    }
+    },
+    handlerClose: debounce(function (e) {
+      if (this.$auth.user) {
+        e.preventDefault()
+        const focus = document.hasFocus()
+        if (focus) {
+          console.log('has focus')
+          this.$axios.get(endpoints.userEnter).then((resp) => {
+            if (resp) {
+              console.log(resp)
+            }
+          })
+        } else {
+          console.log('lost focus')
+          this.$axios.get(endpoints.userLeave).then((resp) => {
+            if (resp) {
+              console.log(resp)
+            }
+          })
+        }
+      }
+    }, 1000)
   }
 }
 </script>
+<style >
+.fun-color{
+  background: linear-gradient(to right, pink, #89cff0);
+}
+</style>

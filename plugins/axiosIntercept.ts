@@ -1,4 +1,4 @@
-export default function ({ $axios, redirect, store }) {
+export default function ({ $axios, redirect, store }: any) {
   $axios.onRequest((config: any) => {
     const accessToken = store.getters.getAccessToken
     if (accessToken) {
@@ -22,8 +22,7 @@ export default function ({ $axios, redirect, store }) {
         return redirect('/auth')
       } else {
         const {
-          config,
-          response: { status },
+          config
         } = error
         const originalRequest = config
         const resp = await store.dispatch('getAccessToken', refreshToken)
@@ -39,6 +38,8 @@ export default function ({ $axios, redirect, store }) {
           return retryOriginalRequest
         }
       }
+    } else {
+      return error
     }
   })
 }

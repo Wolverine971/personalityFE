@@ -4,7 +4,7 @@
     <v-select
       v-model="enneagramType"
       :items="enneagramTypes"
-      label="Enneagram"
+      label="Which personality would you like to view?"
       @change="formDisabled = false"
     />
   </div>
@@ -14,7 +14,7 @@
 export default {
   name: 'Personality',
   data: () => ({
-    enneagramTypes: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
     enneagramType: null
   }),
   middleware: 'authenticated',

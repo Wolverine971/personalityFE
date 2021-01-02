@@ -1,14 +1,15 @@
 <template>
-  <div>
+  <div class="col-center">
     <h1>Login</h1>
-    <form>
+    <v-form
+      ref="loginForm"
+      class="form-width"
+    >
       <v-text-field
-        v-model="email"
+        v-model="emailAddress"
         label="E-mail"
-        :error-messages="emailErrors"
+        :rules="emailRules"
         required
-        @input="$v.email.$touch()"
-        @blur="$v.email.$touch()"
       />
       <v-text-field
         v-model="password"
@@ -16,62 +17,45 @@
         hint="At least 8 characters"
         min="8"
         required
-        :error-messages="passwordErrors"
+        :rules="passwordRules"
       />
+
       <v-btn @click="goLogin">
         login
       </v-btn>
       <v-btn @click="clear">
         clear
       </v-btn>
-    </form>
+    </v-form>
   </div>
 </template>
 <script>
-import { validationMixin } from 'vuelidate'
-import { required, email, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Login',
-  mixins: [validationMixin],
-  validations: {
-    email: { required, email },
-    password: { required, minLength }
-  },
+
   data: () => ({
-    email: '',
+    emailAddress: '',
     password: '',
     login: true,
-    selected: 0
+    selected: 0,
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail not valid'
+    ],
+    passwordRules: [
+      v => !!v || 'Password is required',
+      v => (v && v.length >= 8) || 'Password not Valid'
+    ]
   }),
 
-  computed: {
-    passwordErrors () {
-      const errors = []
-      if (!this.$v.password.$dirty) {
-        return errors
-      }
-      !this.$v.password.required && errors.push('password is required.')
-      return errors
-    },
-    emailErrors () {
-      const errors = []
-      if (!this.$v.email.$dirty) {
-        return errors
-      }
-      !this.$v.email.email && errors.push('Must be valid e-mail')
-      !this.$v.email.required && errors.push('E-mail is required')
-      return errors
-    }
-  },
   methods: {
     goLogin () {
-      this.$v.$touch()
-      const data = {
-        email: this.email,
-        password: this.password
-      }
-      try {
+      if (this.$refs.loginForm.validate()) {
+        const data = {
+          email: this.emailAddress,
+          password: this.password
+        }
         this.$store.dispatch('login', data).then((resp) => {
           if (resp) {
             this.$router.push({
@@ -79,14 +63,13 @@ export default {
             })
           }
         })
-      } catch (error) {
-        console.log(error)
       }
     },
     clear () {
-      this.$v.$reset()
-      this.password = ''
-      this.email = ''
+      // this.$v.$reset()
+      // this.password = ''
+      // this.email = ''
+      this.$refs.loginForm.reset()
     },
     forgotPassword () {
       this.$router.push({

@@ -7,50 +7,38 @@
       </div>
       <v-card>
         <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
+          Welcome to 9takes
         </v-card-title>
         <v-card-text>
           <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
+            9takes illudes to a theory that there can be 9 takes on any subject.
+            These nine takes come from the enneagram personality test, which digs into our core motivations and fears and forms 9 goups of thinking or personalities.
+            Here in this site we will get at those differences and commonalities, through question and answering.
           </p>
           <p>
-            For more information on Vuetify, check out the
+            First and foremost inorder to use this site you need to know your ennagram numnber.
+            Our advice is to go to an enneagram site read the number descriptions and through reflection and asking friends decide on which number you most resonate with.
             <a
-              href="https://vuetifyjs.com"
+              href="https://www.enneagraminstitute.com/type-descriptions"
               target="_blank"
               rel="noopener noreferrer"
             >
-              documentation </a>.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a>.
+              Enneagram Descriptions </a>.
           </p>
           <p>
             Find a bug? Report it on the github
             <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
+              href="https://github.com/Wolverine971/personalityFE"
               target="_blank"
               rel="noopener noreferrer"
               title="contribute"
             >
-              issue board </a>.
+              Personality Frontend </a>.
           </p>
           <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
+            Thank you for checking out the 9takes community.
           </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
+
           <hr class="my-3">
           <a
             href="https://nuxtjs.org/"
@@ -60,18 +48,12 @@
             Nuxt Documentation
           </a>
           <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
         </v-card-text>
         <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire">
-            Continue
+          <v-btn to="/questions">
+            See the Questions
+          </v-btn> <v-spacer /> <v-btn to="/personality">
+            Personality Walls
           </v-btn>
         </v-card-actions>
       </v-card>

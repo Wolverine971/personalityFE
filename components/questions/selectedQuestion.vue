@@ -5,7 +5,6 @@
         :value="question.question"
         label="Selected Question"
         type="text"
-        filled
         rows="1"
         auto-grow
         readonly
@@ -19,7 +18,7 @@
     <v-col>
       <v-col v-if="comments && comments.length && showComments">
         <div v-for="(c, i) in comments" :key="i" class="comment-div">
-          <comment :comment="c" />
+          <comment :comment="c" :type="'root'" />
         </div>
       </v-col>
       <v-col v-else>

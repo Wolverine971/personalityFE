@@ -17,7 +17,7 @@
       <div v-if="forgotPassword">
         <forgot-password @goToLogin="change(true)" />
       </div>
-      <div v-else>
+      <div v-else class="col-center">
         <Login />
         <br>
         <br>

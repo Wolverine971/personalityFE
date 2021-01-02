@@ -30,4 +30,7 @@ export const endpoints = {
   refreshTokenRoute: '/api/user/refresh_token/',
   updateUserRoute: '/api/user/updateOne',
   getUserRoute: '/api/user/getUser',
+
+  userLeave: '/api/user/leave',
+  userEnter: '/api/user/enter'
 }

@@ -1,57 +1,51 @@
 <template>
-  <div>
+  <div class="col-center">
     <h1>Forgot Password</h1>
-    <form>
+    <v-form
+      ref="forgotForm"
+      class="form-width"
+    >
       <v-text-field
-        v-model="email"
+        v-model="emailAddress"
         label="Enter your email"
+        :rules="emailRules"
         required
-        :error-messages="emailErrors"
       />
       <v-btn @click="sendLink">
         Send Link
       </v-btn>
-    </form>
+    </v-form>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from '@nuxtjs/composition-api'
-import { validationMixin } from 'vuelidate'
-import { required, email } from 'vuelidate/lib/validators'
 import { endpoints } from '~/models/endpoints'
 export default defineComponent({
   name: 'ForgotPassword',
-  mixins: [validationMixin],
-  validations: {
-    email: { required, email }
-  },
+
   data: () => ({
-    email: ''
+    emailAddress: '',
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+    ]
   }),
-  computed: {
-    emailErrors () {
-      const errors: string[] = []
-      if (!this.$v.email.$dirty) {
-        return errors
-      }
-      !this.$v.email.email && errors.push('Must be valid e-mail')
-      !this.$v.email.required && errors.push('E-mail is required')
-      return errors
-    }
-  },
+
   methods: {
     async sendLink () {
-      try {
-        const data = {
-          email: this.email
+      if (this.$refs.forgotForm.validate()) {
+        try {
+          const data = {
+            email: this.email
+          }
+          const resp = await this.$axios.post(endpoints.forgotPasswordRoute, data)
+          if (resp) {
+            this.$emit('goToLogin', true)
+          }
+        } catch (error) {
+          console.log(error)
         }
-        const resp = await this.$axios.post(endpoints.forgotPasswordRoute, data)
-        if (resp) {
-          this.$emit('goToLogin', true)
-        }
-      } catch (error) {
-        console.log(error)
       }
     }
   }

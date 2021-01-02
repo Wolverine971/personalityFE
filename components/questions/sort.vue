@@ -1,46 +1,45 @@
 <template>
-  <div>
-    <v-card v-if="type === 'comments'" class="margin-top">
-      <v-row no-gutters>
-        <v-select
-          v-model="params.enneagramTypes"
-          :items="enneaTypes"
-          dense
-          multiple
-          label="Enneagram Type"
-          @change="search"
-        >
-          <template slot="default">
-            All Types
-          </template>
-        </v-select>
-        <v-select
-          v-model="params.dateRange"
-          :items="dateChoices"
-          dense
-          label="Date Range"
-          @change="search"
-        >
-          <template slot="default">
-            All Time
-          </template>
-        </v-select>
-        <v-select
-          v-model="params.sortBy"
-          :items="sortByChoices"
-          dense
-          label="Sort By"
-          item-text="id"
-          value="id"
-          @change="search"
-        >
-          <template slot="default">
-            Newest
-          </template>
-        </v-select>
-      </v-row>
-    </v-card>
-  </div>
+  <v-row v-if="type === 'comments'" no-gutters class="margin-top">
+    <v-select
+      v-model="params.enneagramTypes"
+      :items="enneaTypes"
+      dense
+      multiple
+      outlined
+      label="Enneagram Type"
+      @change="search"
+    >
+      <template slot="default">
+        All Types
+      </template>
+    </v-select>
+    <v-select
+      v-model="params.dateRange"
+      :items="dateChoices"
+      dense
+      outlined
+      label="Date Range"
+      @change="search"
+    >
+      <template slot="default">
+        All Time
+      </template>
+    </v-select>
+    <v-select
+      v-model="params.sortBy"
+      :items="sortByChoices"
+      dense
+      outlined
+      label="Sort By"
+      item-text="id"
+      value="id"
+      @change="search"
+    >
+      <template slot="default">
+        Newest
+      </template>
+    </v-select>
+  </v-row>
 </template>
 
 <script>

@@ -6,6 +6,11 @@
     <h1 v-else>
       {{ otherError }}
     </h1>
+    <img
+      :src="`https://http.cat/${error.statusCode}`"
+      alt=""
+      class="error-img"
+    >
     <NuxtLink to="/">
       Home page
     </NuxtLink>
@@ -40,5 +45,9 @@ export default {
 <style scoped>
 h1 {
   font-size: 20px;
+}
+.error-img {
+  width: 50%;
+  align-self: center;
 }
 </style>
