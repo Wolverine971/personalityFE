@@ -1,70 +1,74 @@
 <template>
   <v-app id="inspire">
     <v-container>
-      <v-toolbar class="fun-color">
-        <v-app-bar-nav-icon>
-          <v-menu transition="fab-transition">
+      <client-only>
+        <v-toolbar class="fun-color">
+          <v-app-bar-nav-icon>
+            <v-menu transition="fab-transition">
+              <template v-slot:activator="{ on: menu, attrs }">
+                <v-btn color="" text v-bind="attrs" v-on="{ ...menu }">
+                  <v-icon>menu</v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="(item, i) in items"
+                  :key="i"
+                  :to="{ path: item.to, query: {} }"
+                  :disabled="
+                    (item.validation && !$auth.user) || item.inprogress
+                  "
+                  router
+                  exact
+                >
+                  <v-list-item-action>
+                    <v-icon>{{ item.icon }}</v-icon>
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="item.title" />
+                    <span class="coming-soon">
+                      {{ item.inprogress ? 'Coming Soon' : '' }}
+                      {{ item.validation && !$auth.user ? 'Login' : '' }}
+                    </span>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-app-bar-nav-icon>
+          <v-toolbar-title text>
+            <h1>{{ title }}</h1>
+          </v-toolbar-title>
+          <v-spacer />
+          <v-btn color="" text :to="'/dashboard'">
+            <v-icon>notifications</v-icon>
+          </v-btn>
+          <v-menu>
             <template v-slot:activator="{ on: menu, attrs }">
               <v-btn color="" text v-bind="attrs" v-on="{ ...menu }">
-                <v-icon>menu</v-icon>
+                <v-icon>account_circle</v-icon>
               </v-btn>
             </template>
             <v-list>
-              <v-list-item
-                v-for="(item, i) in items"
-                :key="i"
-                :to="{ path: item.to, query: {} }"
-                :disabled="(item.validation && !$auth.user) || item.inprogress"
-                router
-                exact
-              >
-                <v-list-item-action>
-                  <v-icon>{{ item.icon }}</v-icon>
-                </v-list-item-action>
+              <!-- :disabled="(item.validation && !$auth.user)" -->
+              <v-list-item v-if="!$auth.user" :to="'/auth'" router exact>
                 <v-list-item-content>
-                  <v-list-item-title v-text="item.title" />
-                  <span class="coming-soon">
-                    {{ item.inprogress ? 'Coming Soon' : '' }}
-                    {{ (item.validation && !$auth.user) ? 'Login' : '' }}
-                  </span>
+                  <v-list-item-title v-text="'Login/ Register'" />
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item v-if="$auth.user" :to="'/profile'" router exact>
+                <v-list-item-content>
+                  <v-list-item-title v-text="'Profile'" />
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item v-if="$auth.user" @click="logout">
+                <v-list-item-content>
+                  <v-list-item-title v-text="'Logout'" />
                 </v-list-item-content>
               </v-list-item>
             </v-list>
           </v-menu>
-        </v-app-bar-nav-icon>
-        <v-toolbar-title text>
-          <h1>{{ title }}</h1>
-        </v-toolbar-title>
-        <v-spacer />
-        <v-btn color="" text :to="'/dashboard'">
-          <v-icon>notifications</v-icon>
-        </v-btn>
-        <v-menu>
-          <template v-slot:activator="{ on: menu, attrs }">
-            <v-btn color="" text v-bind="attrs" v-on="{ ...menu }">
-              <v-icon>account_circle</v-icon>
-            </v-btn>
-          </template>
-          <v-list>
-            <!-- :disabled="(item.validation && !$auth.user)" -->
-            <v-list-item v-if="!$auth.user" :to="'/auth'" router exact>
-              <v-list-item-content>
-                <v-list-item-title v-text="'Login/ Register'" />
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item v-if="$auth.user" :to="'/profile'" router exact>
-              <v-list-item-content>
-                <v-list-item-title v-text="'Profile'" />
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item v-if="$auth.user" @click="logout">
-              <v-list-item-content>
-                <v-list-item-title v-text="'Logout'" />
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </v-toolbar>
+        </v-toolbar>
+      </client-only>
 
       <v-main>
         <v-container>
@@ -122,7 +126,6 @@ export default {
           to: '/questions/DeepSearch',
           inprogress: true
         }
-
       ],
       miniVariant: false,
       right: true,
@@ -160,10 +163,13 @@ export default {
           console.log(data)
           // this.msg = data.message
         })
-        this.$socket.$subscribe(`push:notifications:${this.$auth.user.id}`, (data) => {
-          console.log(data)
-          // this.msg = data.message
-        })
+        this.$socket.$subscribe(
+          `push:notifications:${this.$auth.user.id}`,
+          (data) => {
+            console.log(data)
+            // this.msg = data.message
+          }
+        )
       }
     },
     notification (e, f) {
@@ -207,8 +213,8 @@ export default {
   }
 }
 </script>
-<style >
-.fun-color{
+<style>
+.fun-color {
   background: linear-gradient(to right, pink, #89cff0);
 }
 </style>

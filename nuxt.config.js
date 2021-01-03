@@ -14,21 +14,6 @@ export default {
         rel: 'stylesheet',
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
-      },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap'
-      },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css2?family=Londrina+Shadow&display=swap'
-      },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@900&display=swap'
       }
     ],
     script: [
@@ -119,8 +104,14 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    extend (config) {
-      config.resolve.alias.vue = 'vue/dist/vue.common'
-    }
-  }
+    // extend (config) {
+    //   config.resolve.alias.vue = 'vue/dist/vue.common'
+    // }
+  },
+  // generate: {
+  //   minify: {
+  //     collapseWhitespace: false
+  //   }
+  // },
+  target: 'static'
 }
