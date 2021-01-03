@@ -7,6 +7,7 @@ export const endpoints = {
   getAllQuestions: '/api/question/all',
   likeQuestion: '/api/question/like',
   getQuestion: '/api/question',
+  getJustQuestion: 'api/question/single',
   subQuestion: '/api/question/subscribe',
 
   addComment: '/api/comment/add',
@@ -32,5 +33,7 @@ export const endpoints = {
   getUserRoute: '/api/user/getUser',
 
   userLeave: '/api/user/leave',
-  userEnter: '/api/user/enter'
+  userEnter: '/api/user/enter',
+  login: '/api/user/login',
+  logout: '/api/auth/logout'
 }

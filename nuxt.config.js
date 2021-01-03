@@ -71,12 +71,12 @@ export default {
   ],
 
   auth: {
-    redirect: {
-      login: '/auth',
-      logout: '/auth',
-      callback: '/auth',
-      home: '/auth'
-    },
+    // redirect: {
+    //   login: '/auth',
+    //   logout: '/auth',
+    //   callback: '/auth',
+    //   home: '/auth'
+    // },
     localStorage: false,
     strategies: {
       local: {
@@ -107,9 +107,6 @@ export default {
     headers: {
       'Access-Control-Allow-Origin': [
         process.env.ORIGIN
-        // 'http://localhost:3000',
-        // 'http://192.168.1.251/',
-        // 'http://www.9takes.com/'
       ]
     },
     withCredentials: true

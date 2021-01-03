@@ -2,6 +2,7 @@
   <v-row v-if="type === 'comments'" no-gutters class="margin-top">
     <v-select
       v-model="params.enneagramTypes"
+      :disabled="!$auth.user"
       :items="enneaTypes"
       dense
       multiple
@@ -15,6 +16,7 @@
     </v-select>
     <v-select
       v-model="params.dateRange"
+      :disabled="!$auth.user"
       :items="dateChoices"
       dense
       outlined
@@ -27,6 +29,7 @@
     </v-select>
     <v-select
       v-model="params.sortBy"
+      :disabled="!$auth.user"
       :items="sortByChoices"
       dense
       outlined

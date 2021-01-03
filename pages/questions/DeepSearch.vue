@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'Question',
+  name: 'DeepSearch',
   components: {},
   data () {
     return {

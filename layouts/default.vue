@@ -14,6 +14,7 @@
                 v-for="(item, i) in items"
                 :key="i"
                 :to="{ path: item.to, query: {} }"
+                :disabled="(item.validation && !$auth.user) || item.inprogress"
                 router
                 exact
               >
@@ -22,6 +23,10 @@
                 </v-list-item-action>
                 <v-list-item-content>
                   <v-list-item-title v-text="item.title" />
+                  <span class="coming-soon">
+                    {{ item.inprogress ? 'Coming Soon' : '' }}
+                    {{ (item.validation && !$auth.user) ? 'Login' : '' }}
+                  </span>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -41,12 +46,18 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-item :to="'/profile'" router exact>
+            <!-- :disabled="(item.validation && !$auth.user)" -->
+            <v-list-item v-if="!$auth.user" :to="'/auth'" router exact>
+              <v-list-item-content>
+                <v-list-item-title v-text="'Login/ Register'" />
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item v-if="$auth.user" :to="'/profile'" router exact>
               <v-list-item-content>
                 <v-list-item-title v-text="'Profile'" />
               </v-list-item-content>
             </v-list-item>
-            <v-list-item @click="logout">
+            <v-list-item v-if="$auth.user" @click="logout">
               <v-list-item-content>
                 <v-list-item-title v-text="'Logout'" />
               </v-list-item-content>
@@ -82,30 +93,36 @@ export default {
           to: '/'
         },
         {
-          icon: 'emoji_people',
-          title: 'Meetup',
-          to: '/meetup'
+          icon: 'psychology',
+          title: 'Personality Walls',
+          to: '/personality'
         },
+
         {
           icon: 'question_answer',
           title: 'Question and Answer',
           to: '/questions'
         },
-        {
-          icon: 'mdi-comment-search-outline',
-          title: 'Search Questions',
-          to: '/questions/SearchQuestion'
-        },
+
         {
           icon: 'dashboard',
           title: 'Dashboard',
-          to: '/Dashboard'
+          to: '/Dashboard',
+          validation: true
         },
         {
-          icon: 'psychology',
-          title: 'Personality',
-          to: '/personality'
+          icon: 'emoji_people',
+          title: 'Meetup',
+          to: '/meetup',
+          inprogress: true
+        },
+        {
+          icon: 'mdi-comment-search-outline',
+          title: 'Deep Search',
+          to: '/questions/DeepSearch',
+          inprogress: true
         }
+
       ],
       miniVariant: false,
       right: true,
@@ -160,6 +177,7 @@ export default {
     logout () {
       this.$store.commit('setAccessToken', '')
       this.$auth.setUserToken('')
+      this.$auth.setUser(null)
 
       this.$router.push({
         path: '/auth'

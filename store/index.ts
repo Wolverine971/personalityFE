@@ -267,11 +267,11 @@ export const actions: any = {
         }
       })
   },
-  async nuxtServerInit ({ dispatch }: any, { $auth, redirect }: any) {
+  async nuxtServerInit ({ dispatch }: any, { $auth }: any) {
     const refreshToken = $auth.getToken('local')
     if (!refreshToken) {
       console.log('nuxt server init')
-      return redirect('/auth')
+      // return redirect('/auth')
     } else {
       await dispatch('getAccessToken', refreshToken)
     }

@@ -40,12 +40,29 @@
           </p>
 
           <hr class="my-3">
+          Built using
+          <a
+            href="https://vuejs.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Vue
+          </a>
+          ,
           <a
             href="https://nuxtjs.org/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Nuxt Documentation
+            Nuxt
+          </a>
+          , and a whole bunch of other
+          <a
+            href="https://github.com/Wolverine971/personalityBE"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            stuff
           </a>
           <br>
         </v-card-text>

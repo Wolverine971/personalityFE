@@ -69,28 +69,40 @@ export default {
   },
   methods: {
     async getQuestion (questionId) {
-      if (
-        this.alreadyFetchedQuestions &&
-        this.alreadyFetchedQuestions[questionId] &&
-        this.alreadyFetchedQuestions[questionId].comments
-      ) {
-        this.question = Object.assign(
-          {},
-          this.alreadyFetchedQuestions[questionId]
-        )
-        this.comments = [...this.alreadyFetchedQuestions[questionId].comments]
-        this.likes = [...this.alreadyFetchedQuestions[questionId].likes]
-        this.subscribers = [
-          ...this.alreadyFetchedQuestions[questionId].subscribers
-        ]
+      if (this.$auth.user) {
+        if (
+          this.alreadyFetchedQuestions &&
+          this.alreadyFetchedQuestions[questionId] &&
+          this.alreadyFetchedQuestions[questionId].comments
+        ) {
+          this.question = Object.assign(
+            {},
+            this.alreadyFetchedQuestions[questionId]
+          )
+          this.comments = [...this.alreadyFetchedQuestions[questionId].comments]
+          this.likes = [...this.alreadyFetchedQuestions[questionId].likes]
+          this.subscribers = [
+            ...this.alreadyFetchedQuestions[questionId].subscribers
+          ]
+        } else {
+          const resp = await this.$axios.get(
+            `${endpoints.getQuestion}/${questionId}`
+          )
+
+          if (resp && resp.data) {
+            this.commentorIds = resp.data.commentorIds
+            this.showComments = this.commentorIds[this.$auth.user.id]
+            this.question = Object.assign({}, resp.data)
+            this.$store.commit('addAllQuestions', [resp.data])
+          } else {
+            this.$store.dispatch('toastError', 'Failed To Get Question')
+          }
+        }
       } else {
         const resp = await this.$axios.get(
-          `${endpoints.getQuestion}/${questionId}`
+            `${endpoints.getJustQuestion}/${questionId}`
         )
-
         if (resp && resp.data) {
-          this.commentorIds = resp.data.commentorIds
-          this.showComments = this.commentorIds[this.$auth.user.id]
           this.question = Object.assign({}, resp.data)
           this.$store.commit('addAllQuestions', [resp.data])
         } else {

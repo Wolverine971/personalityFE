@@ -1,5 +1,14 @@
 <template>
   <div>
+    <v-btn
+      class="ma-2"
+      outlined
+      :to="{path: '/personality', query: {}}"
+      router
+    >
+      <v-icon> keyboard_backspace</v-icon>
+      Personality Selection
+    </v-btn>
     <personality />
   </div>
 </template>

@@ -63,15 +63,17 @@
                   small
                   v-bind="attrs"
                   class="margin-right"
-                  :class="{
-                    'btn-selected': q.likes.includes($auth.user.id),
-                  }"
+                  :class="
+                    $auth.user && q.likes.includes($auth.user.id)
+                      ? 'btn-selected'
+                      : ''
+                  "
                   v-on="on"
                   @click="likeQuestion(q)"
                 >
                   <v-icon>
                     {{
-                      q.likes.includes($auth.user.id)
+                      $auth.user && q.likes.includes($auth.user.id)
                         ? 'mdi-cookie'
                         : 'mdi-cookie-outline'
                     }}
@@ -89,13 +91,19 @@
               outlined
               small
               class="remove-margin"
-              :class="{
-                'btn-selected': q.subscribers.includes($auth.user.id),
-              }"
+              :class="
+                $auth.user && q.subscribers.includes($auth.user.id)
+                  ? 'btn-selected'
+                  : ''
+              "
               @click="subscribe(q)"
             >
               <span class="peep-btn">
-                {{ q.subscribers.includes($auth.user.id) ? 'peeped' : 'peep' }}
+                {{
+                  $auth.user && q.subscribers.includes($auth.user.id)
+                    ? 'peeped'
+                    : 'peep'
+                }}
               </span>
               <v-icon> face </v-icon>
             </v-btn>
@@ -192,16 +200,20 @@ export default {
       }
     }, 1000),
     async addQuestion (question) {
-      if (this.key === -1) {
-        const resp = await this.$axios.get(
-          `${endpoints.questionAdd}/${question}`
-        )
-        if (resp) {
-          this.goToQuestion(resp.data)
-          this.$store.dispatch('toastSuccess', 'Asked Question')
-        } else {
-          this.$store.dispatch('toastError', 'Failed to Ask Question')
+      if (this.$auth.user) {
+        if (this.key === -1) {
+          const resp = await this.$axios.get(
+            `${endpoints.questionAdd}/${question}`
+          )
+          if (resp) {
+            this.goToQuestion(resp.data)
+            this.$store.dispatch('toastSuccess', 'Asked Question')
+          } else {
+            this.$store.dispatch('toastError', 'Failed to Ask Question')
+          }
         }
+      } else {
+        this.$store.dispatch('toastError', 'Must Login')
       }
     },
     goToQuestion (item) {
@@ -211,59 +223,71 @@ export default {
     },
 
     async likeQuestion (q) {
-      try {
-        const isAlreadyLiked = q.likes.includes(this.$auth.user.id)
-        let resp = null
-        let newLikes = []
-        if (!isAlreadyLiked) {
-          newLikes = [...q.likes, this.$auth.user.id]
-          resp = await this.$axios.get(`${endpoints.likeQuestion}/${q.id}/add`)
-        } else {
-          newLikes = q.likes.filter(l => l !== this.$auth.user.id)
-          resp = await this.$axios.get(
-            `${endpoints.likeQuestion}/${q.id}/remove`
-          )
-        }
-        if (resp) {
-          q.likes = [...newLikes]
+      if (this.$auth.user) {
+        try {
+          const isAlreadyLiked = q.likes.includes(this.$auth.user.id)
+          let resp = null
+          let newLikes = []
           if (!isAlreadyLiked) {
-            this.$store.dispatch('toastSuccess', 'Liked Comment')
+            newLikes = [...q.likes, this.$auth.user.id]
+            resp = await this.$axios.get(
+              `${endpoints.likeQuestion}/${q.id}/add`
+            )
           } else {
-            this.$store.dispatch('toastSuccess', 'Unliked Comment')
+            newLikes = q.likes.filter(l => l !== this.$auth.user.id)
+            resp = await this.$axios.get(
+              `${endpoints.likeQuestion}/${q.id}/remove`
+            )
           }
+          if (resp) {
+            q.likes = [...newLikes]
+            if (!isAlreadyLiked) {
+              this.$store.dispatch('toastSuccess', 'Liked Comment')
+            } else {
+              this.$store.dispatch('toastSuccess', 'Unliked Comment')
+            }
+          }
+        } catch (error) {
+          console.log(error)
+          this.$store.dispatch('toastError', 'Question Like Failed')
         }
-      } catch (error) {
-        console.log(error)
-        this.$store.dispatch('toastError', 'Question Like Failed')
+      } else {
+        this.$store.dispatch('toastError', 'Must Login')
       }
     },
 
     async subscribe (q) {
-      try {
-        const isAlreadySubed = q.subscribers.includes(this.$auth.user.id)
-        let resp = null
-        let newSubscribers = []
-        if (!isAlreadySubed) {
-          newSubscribers = [...q.subscribers, this.$auth.user.id]
-          resp = await this.$axios.get(`${endpoints.subQuestion}/${q.id}/add`)
-        } else {
-          newSubscribers = q.subscribers.filter(l => l !== this.$auth.user.id)
-          resp = await this.$axios.get(
-            `${endpoints.subQuestion}/${q.id}/remove`
-          )
-        }
-        if (resp) {
-          q.subscribers = [...newSubscribers]
+      if (this.$auth.user) {
+        try {
+          const isAlreadySubed = q.subscribers.includes(this.$auth.user.id)
+          let resp = null
+          let newSubscribers = []
           if (!isAlreadySubed) {
-            this.$store.dispatch('toastSuccess', 'Subscribed')
+            newSubscribers = [...q.subscribers, this.$auth.user.id]
+            resp = await this.$axios.get(`${endpoints.subQuestion}/${q.id}/add`)
           } else {
-            this.$store.dispatch('toastSuccess', 'Unsubscribed')
+            newSubscribers = q.subscribers.filter(
+              l => l !== this.$auth.user.id
+            )
+            resp = await this.$axios.get(
+              `${endpoints.subQuestion}/${q.id}/remove`
+            )
           }
-          this.$store.commit('setRefreshDashboard', true)
+          if (resp) {
+            q.subscribers = [...newSubscribers]
+            if (!isAlreadySubed) {
+              this.$store.dispatch('toastSuccess', 'Subscribed')
+            } else {
+              this.$store.dispatch('toastSuccess', 'Unsubscribed')
+            }
+            this.$store.commit('setRefreshDashboard', true)
+          }
+        } catch (error) {
+          console.log(error)
+          this.$store.dispatch('toastError', 'Question Like Failed')
         }
-      } catch (error) {
-        console.log(error)
-        this.$store.dispatch('toastError', 'Question Like Failed')
+      } else {
+        this.$store.dispatch('toastError', 'Must Login')
       }
     },
     async loadMoreQuestions () {

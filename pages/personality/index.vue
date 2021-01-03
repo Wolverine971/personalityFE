@@ -1,6 +1,6 @@
 <template>
   <div>
-    Personality Page
+    Personality Walls
     <v-select
       v-model="enneagramType"
       :items="enneagramTypes"

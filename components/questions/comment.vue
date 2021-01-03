@@ -57,28 +57,16 @@ export default {
     }
   },
   data: () => ({
-    isLiked: false,
-    likes: [],
     componentComment: null,
     commentIsExpanded: false,
-    commentOnComment: '',
     panels: []
   }),
   computed: {},
   watch: {
-    likes (likes) {
-      if (likes) {
-        this.isLiked = likes.includes(this.$auth.user.id)
-      } else {
-        this.isLiked = false
-      }
-    },
     async comment (comment) {
       this.componentComment = comment
       this.panels = []
       if (comment.comment) {
-        this.isLiked = comment.likes.includes(this.$auth.user.id)
-        this.likes = comment.likes
       } else {
         const resp = await this.$axios.get(
           `${endpoints.getComment}/${this.componentComment.id}`
@@ -96,63 +84,8 @@ export default {
     } else {
       this.componentComment = this.comment
     }
-    this.likes = this.componentComment.likes
   },
   methods: {
-    async likeComment () {
-      try {
-        const isLiked = !this.isLiked
-        let resp = null
-        let newLikes = []
-        if (isLiked) {
-          newLikes = [...this.likes, this.$auth.user.id]
-          resp = await this.$axios.get(
-            `${endpoints.likeComment}/${this.componentComment.id}/add`
-          )
-        } else {
-          newLikes = this.likes.filter(l => l !== this.$auth.user.id)
-          resp = await this.$axios.get(
-            `${endpoints.likeComment}/${this.componentComment.id}/remove`
-          )
-        }
-        if (resp) {
-          this.componentComment.likes = [...newLikes]
-          this.likes = newLikes
-          if (isLiked) {
-            this.$store.dispatch('toastSuccess', 'Liked Comment')
-          } else {
-            this.$store.dispatch('toastSuccess', 'Unliked Comment')
-          }
-        }
-      } catch (error) {
-        this.$store.dispatch('toastError', 'Comment Like Failed')
-      }
-    },
-    async submitComment () {
-      try {
-        const resp = await this.$axios.post(
-          `${endpoints.addComment}/comment/${this.componentComment.id}`,
-          {
-            comment: this.commentOnComment
-          }
-        )
-        if (resp) {
-          this.componentComment.comments = this.componentComment.comments
-            ? [...this.componentComment.comments, resp.data]
-            : [resp.data]
-
-          this.commentOnComment = ''
-          this.$store.dispatch('toastSuccess', 'Comment Submitted')
-        }
-      } catch (error) {
-        console.log(error)
-        this.$store.dispatch('toastError', 'Comment Submittion Failed')
-      }
-    },
-    expandComment () {
-      this.commentIsExpanded = true
-      this.$refs.newComment.focus()
-    },
     async checkComments () {
       if (!this.componentComment.comment) {
         const resp = await this.$axios.get(

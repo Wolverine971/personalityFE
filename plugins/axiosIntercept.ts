@@ -18,8 +18,10 @@ export default function ({ $axios, redirect, store }: any) {
       const refreshToken = store.$auth.$storage._state['_token.local']
 
       if (!refreshToken) {
-        console.log('redirecting1!!!')
-        return redirect('/auth')
+        return
+
+        // console.log('redirecting1!!!')
+        // return redirect('/auth')
       } else {
         const {
           config

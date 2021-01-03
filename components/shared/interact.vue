@@ -4,6 +4,7 @@
       <v-tooltip v-if="likes" top>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
+            :disabled="!$auth.user"
             outlined
             small
             v-bind="attrs"
@@ -19,13 +20,14 @@
         </template>
         {{ likes.length }}
       </v-tooltip>
-      <v-btn outlined small class="margin-right" @click="expandComment">
+      <v-btn outlined small class="margin-right" :disabled="!$auth.user" @click="expandComment">
         <v-icon color="primary">
           mdi-comment-outline
         </v-icon>
       </v-btn>
       <v-btn
         v-if="type === 'question'"
+        :disabled="!$auth.user"
         outlined
         small
         :class="{ 'btn-selected': isSubscribed }"
@@ -92,17 +94,21 @@ export default {
       }
     },
     likes (likes) {
-      if (likes) {
-        this.isLiked = likes.includes(this.$auth.user.id)
-      } else {
-        this.isLiked = false
+      if (this.$auth.user) {
+        if (likes) {
+          this.isLiked = likes.includes(this.$auth.user.id)
+        } else {
+          this.isLiked = false
+        }
       }
     },
     subscribers (subs) {
-      if (subs) {
-        this.isSubscribed = subs.includes(this.$auth.user.id)
-      } else {
-        this.isSubscribed = false
+      if (this.$auth.user) {
+        if (subs) {
+          this.isSubscribed = subs.includes(this.$auth.user.id)
+        } else {
+          this.isSubscribed = false
+        }
       }
     }
   },
@@ -116,98 +122,114 @@ export default {
       this.$emit('triggerNewSearch', this.params)
     },
     async like () {
-      try {
-        const isLiked = !this.isLiked
-        let resp
-        let newLikes
+      if (this.$auth.user) {
+        try {
+          const isLiked = !this.isLiked
+          let resp
+          let newLikes
 
-        isLiked
-          ? (newLikes = [...this.likes, this.$auth.user.id])
-          : (newLikes = this.likes.filter(l => l !== this.$auth.user.id))
+          isLiked
+            ? (newLikes = [...this.likes, this.$auth.user.id])
+            : (newLikes = this.likes.filter(l => l !== this.$auth.user.id))
 
-        if (this.type === 'question') {
-          resp = await this.$axios.get(
-            `${endpoints.likeQuestion}/${this.post.id}/${
-              isLiked ? 'add' : 'remove'
-            }`
-          )
-          if (resp && resp.data) {
-            this.post.likes = [...newLikes]
-            this.$store.commit('addAllQuestions', [this.post])
+          if (this.type === 'question') {
+            resp = await this.$axios.get(
+              `${endpoints.likeQuestion}/${this.post.id}/${
+                isLiked ? 'add' : 'remove'
+              }`
+            )
+            if (resp && resp.data) {
+              this.post.likes = [...newLikes]
+              this.$store.commit('addAllQuestions', [this.post])
+            }
+          } else if (this.type === 'comment') {
+            resp = await this.$axios.get(
+              `${endpoints.likeComment}/${this.post.id}/${
+                isLiked ? 'add' : 'remove'
+              }`
+            )
+          } else {
+            resp = await this.$axios.get(
+              `${endpoints.likeContent}/${this.post.id}/${
+                isLiked ? 'add' : 'remove'
+              }`
+            )
           }
-        } else if (this.type === 'comment') {
-          resp = await this.$axios.get(
-            `${endpoints.likeComment}/${this.post.id}/${
-              isLiked ? 'add' : 'remove'
-            }`
-          )
-        } else {
-          resp = await this.$axios.get(
-            `${endpoints.likeContent}/${this.post.id}/${
-              isLiked ? 'add' : 'remove'
-            }`
-          )
-        }
 
-        this.likes = newLikes
-        if (isLiked) {
-          this.$store.dispatch('toastSuccess', 'Liked Comment')
-        } else {
-          this.$store.dispatch('toastSuccess', 'Unliked Comment')
+          this.likes = newLikes
+          if (isLiked) {
+            this.$store.dispatch('toastSuccess', 'Liked Comment')
+          } else {
+            this.$store.dispatch('toastSuccess', 'Unliked Comment')
+          }
+        } catch (error) {
+          this.$store.dispatch('toastError', 'Question Like Failed')
         }
-      } catch (error) {
-        this.$store.dispatch('toastError', 'Question Like Failed')
+      } else {
+        this.$store.dispatch('toastError', 'Must Login')
       }
     },
     async submitComment () {
-      const resp = await this.$axios.post(
-        `${endpoints.addComment}/${this.type}/${this.post.id}`,
-        {
-          comment: this.comment
+      if (this.$auth.user) {
+        const resp = await this.$axios.post(
+          `${endpoints.addComment}/${this.type}/${this.post.id}`,
+          {
+            comment: this.comment
+          }
+        )
+        if (resp && resp.data) {
+          this.comment = ''
+          this.$emit('emitComment', resp.data)
+          this.$store.dispatch('toastSuccess', 'Comment Submitted')
+        } else {
+          this.$store.dispatch('toastError', 'Failed To Submit Comment')
         }
-      )
-      if (resp && resp.data) {
-        this.comment = ''
-        this.$emit('emitComment', resp.data)
-        this.$store.dispatch('toastSuccess', 'Comment Submitted')
       } else {
-        this.$store.dispatch('toastError', 'Failed To Submit Comment')
+        this.$store.dispatch('toastError', 'Must Login')
       }
     },
     async subscribe () {
-      try {
-        const isSubscribed = !this.isSubscribed
-        let newSubscribers = []
+      if (this.$auth.user) {
+        try {
+          const isSubscribed = !this.isSubscribed
+          let newSubscribers = []
 
-        const resp = await this.$axios.get(
-          `${endpoints.subQuestion}/${this.post.id}/${
-            isSubscribed ? 'add' : 'remove'
-          }`
-        )
-        if (resp && resp.data) {
-          if (isSubscribed) {
-            newSubscribers = [...this.subscribers, this.$auth.user.id]
-            this.$store.dispatch('toastSuccess', 'Subscibed')
+          const resp = await this.$axios.get(
+            `${endpoints.subQuestion}/${this.post.id}/${
+              isSubscribed ? 'add' : 'remove'
+            }`
+          )
+          if (resp && resp.data) {
+            if (isSubscribed) {
+              newSubscribers = [...this.subscribers, this.$auth.user.id]
+              this.$store.dispatch('toastSuccess', 'Subscibed')
+            } else {
+              newSubscribers = this.subscribers.filter(
+                l => l !== this.$auth.user.id
+              )
+              this.$store.dispatch('toastSuccess', 'Unsubscibed')
+            }
+            this.post.subscribers = [...newSubscribers]
+            this.subscribers = newSubscribers
+            this.$store.commit('addAllQuestions', [this.post])
+            this.$store.commit('setRefreshDashboard', true)
           } else {
-            newSubscribers = this.subscribers.filter(
-              l => l !== this.$auth.user.id
-            )
-            this.$store.dispatch('toastSuccess', 'Unsubscibed')
+            this.$store.dispatch('toastError', 'Failed To Subscribe')
           }
-          this.post.subscribers = [...newSubscribers]
-          this.subscribers = newSubscribers
-          this.$store.commit('addAllQuestions', [this.post])
-          this.$store.commit('setRefreshDashboard', true)
-        } else {
-          this.$store.dispatch('toastError', 'Failed To Subscribe')
+        } catch (error) {
+          this.$store.dispatch('toastError', 'Question Like Failed')
         }
-      } catch (error) {
-        this.$store.dispatch('toastError', 'Question Like Failed')
+      } else {
+        this.$store.dispatch('toastError', 'Must Login')
       }
     },
     expandComment () {
-      this.commentIsExpanded = true
-      this.$refs.newComment.focus()
+      if (this.$auth.user) {
+        this.commentIsExpanded = true
+        this.$refs.newComment.focus()
+      } else {
+        this.$store.dispatch('toastError', 'Must Login')
+      }
     },
     parsePost (post) {
       this.likes = [...post.likes]
@@ -217,7 +239,7 @@ export default {
         : post.src
           ? 'content'
           : 'comment'
-      if (this.type === 'question') {
+      if (this.type === 'question' && this.$auth.user) {
         this.commentIsExpanded = !post.commentorIds[this.$auth.user.id]
         this.subscribers = [...post.subscribers]
       }
