@@ -8,7 +8,7 @@
       </template>
       <v-card>
         <v-card-title>
-          Here are the broad strokes for finding out your enneagram.
+          Here are the broad strokes to find out your enneagram.
         </v-card-title>
         <v-card-text>
           <h1>Questions</h1>

@@ -184,6 +184,7 @@ export const actions: any = {
       if (data.data) {
         this.$auth.setUserToken(data.data.refreshToken)
         this.$auth.setUser(data.data.user)
+        commit('setUser', data.data.user)
         commit('setAccessToken', data.data.accessToken)
 
         return true
@@ -211,8 +212,10 @@ export const actions: any = {
             console.log('getaccessToken false 1')
             return false
           } else {
+            console.log('gotAccessToken')
             this.$auth.setUserToken(data.refreshToken)
             this.$auth.setUser(data.user)
+            commit('setUser', data.user)
             commit('setAccessToken', data.accessToken)
 
             return data.accessToken

@@ -9,6 +9,7 @@ export const endpoints = {
   getQuestion: '/api/question',
   getJustQuestion: 'api/question/single',
   subQuestion: '/api/question/subscribe',
+  clearNotifications: '/api/question/notifications',
 
   addComment: '/api/comment/add',
   getComment: '/api/comment',

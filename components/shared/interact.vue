@@ -20,7 +20,13 @@
         </template>
         {{ likes.length }}
       </v-tooltip>
-      <v-btn outlined small class="margin-right" :disabled="!$auth.user" @click="expandComment">
+      <v-btn
+        outlined
+        small
+        class="margin-right"
+        :disabled="!$auth.user"
+        @click="expandComment"
+      >
         <v-icon color="primary">
           mdi-comment-outline
         </v-icon>
@@ -54,12 +60,17 @@
           hide-details
           class="pad-bot user-comment margin-left"
         >
-          <template slot="append">
+          <template v-if="!$vuetify.breakpoint.mobile" slot="append">
             <v-btn v-if="comment" @click="submitComment">
               Submit Comment
             </v-btn>
           </template>
         </v-textarea>
+        <div v-if="$vuetify.breakpoint.mobile" class="margin-bot">
+          <v-btn v-if="comment" @click="submitComment">
+            Submit Comment
+          </v-btn>
+        </div>
       </div>
     </v-expand-transition>
   </div>

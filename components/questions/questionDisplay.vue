@@ -1,42 +1,79 @@
 <template>
-  <v-textarea
-    :value="question.question"
-    type="text"
-    rows="1"
-    auto-grow
-    readonly
-    hide-details
-    :to="{ path: '/questions', query: { id: question.id } }"
-    router
-    class="pad-bot"
-  >
-    <template v-if="question.likes" slot="append">
-      <v-btn
-        outlined
-        :class="{ 'btn-selected': question.likes.includes($auth.user.id) }"
-        class="margin-right"
-      >
-        {{ question.likes.length }}
-        <v-icon>
-          {{
-            question.likes.includes($auth.user.id)
-              ? 'mdi-cookie'
-              : 'mdi-cookie-outline'
-          }}
-        </v-icon>
-      </v-btn>
-      <v-btn outlined class="margin-right">
-        {{ question.comments.length }}
-        <v-icon color="primary">
-          mdi-comment-outline
-        </v-icon>
-      </v-btn>
-      <v-btn outlined class="btn-selected">
-        {{ question.subscribers.length }}
-        <v-icon> face </v-icon>
-      </v-btn>
-    </template>
-  </v-textarea>
+  <div>
+    <v-textarea
+      :value="question.question"
+      type="text"
+      rows="1"
+      outlined
+      auto-grow
+      readonly
+      hide-details
+      :to="{ path: '/questions', query: { id: question.id } }"
+      router
+      class="margin-bot scroll"
+    >
+      <template v-if="!$vuetify.breakpoint.mobile" slot="append">
+        <v-btn
+          outlined
+          :class="{
+            'btn-selected':
+              question.likes && question.likes.includes($auth.user.id),
+          }"
+          class="margin-right"
+        >
+          {{ question.likes ? question.likes.length : '' }}
+          <v-icon>
+            {{
+              question.likes && question.likes.includes($auth.user.id)
+                ? 'mdi-cookie'
+                : 'mdi-cookie-outline'
+            }}
+          </v-icon>
+        </v-btn>
+        <v-btn outlined class="margin-right">
+          {{ question.comments ? question.comments.length : '' }}
+          <v-icon color="primary">
+            mdi-comment-outline
+          </v-icon>
+        </v-btn>
+        <v-btn outlined class="btn-selected">
+          {{ question.subscribers ? question.subscribers.length : '' }}
+          <v-icon> face </v-icon>
+        </v-btn>
+      </template>
+    </v-textarea>
+    <div v-if="$vuetify.breakpoint.mobile" class="margin-bot">
+      <div class="btn-group">
+        <v-btn
+          outlined
+          :class="{
+            'btn-selected':
+              question.likes && question.likes.includes($auth.user.id),
+          }"
+          class="margin-right"
+        >
+          {{ question.likes ? question.likes.length : '' }}
+          <v-icon>
+            {{
+              question.likes && question.likes.includes($auth.user.id)
+                ? 'mdi-cookie'
+                : 'mdi-cookie-outline'
+            }}
+          </v-icon>
+        </v-btn>
+        <v-btn outlined class="margin-right">
+          {{ question.comments ? question.comments.length : '' }}
+          <v-icon color="primary">
+            mdi-comment-outline
+          </v-icon>
+        </v-btn>
+        <v-btn outlined class="btn-selected">
+          {{ question.subscribers ? question.subscribers.length : '' }}
+          <v-icon> face </v-icon>
+        </v-btn>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -53,7 +90,14 @@ export default {
       required: false,
       default: null
     }
+  },
+  mounted () {
+    console.log(this.$vuetify.breakpoint.mobile)
   }
 }
 </script>
-<style></style>
+<style>
+.scroll {
+  overflow: scroll;
+}
+</style>

@@ -12,7 +12,7 @@
       >
         {{ componentComment.author.enneagramId }}
       </v-avatar>
-      <p class="ml-3">
+      <p :id="componentComment.id" class="ml-3">
         {{ componentComment.comment }}
       </p>
     </v-card-title>

@@ -39,9 +39,19 @@
             <h1>{{ title }}</h1>
           </v-toolbar-title>
           <v-spacer />
-          <v-btn color="" text :to="'/dashboard'">
-            <v-icon>notifications</v-icon>
-          </v-btn>
+
+          <v-menu>
+            <template v-slot:activator="{ on: menu, attrs }">
+              <v-btn color="" text v-bind="attrs" :disabled="!$auth.user" v-on="{ ...menu }">
+                <v-icon :color="(notifications && notifications.length) ? 'blue' : ''">
+                  {{ (notifications && notifications.length) ? 'notifications_active' : 'notifications' }}
+                </v-icon>
+                {{ notifications.length }}
+              </v-btn>
+            </template>
+            <notifications :notifications="notifications" />
+          </v-menu>
+
           <v-menu>
             <template v-slot:activator="{ on: menu, attrs }">
               <v-btn color="" text v-bind="attrs" v-on="{ ...menu }">
@@ -82,9 +92,12 @@
 <script>
 import debounce from 'lodash.debounce'
 import { endpoints } from '../models/endpoints'
+import notifications from '~/components/notifications.vue'
 export default {
+
   /* eslint-disable no-console */
   name: 'DefaultLayout',
+  components: { notifications },
 
   data () {
     return {
@@ -130,46 +143,56 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: '9takes'
+      title: '9takes',
+      notifications: []
     }
   },
   computed: {
     routes () {
       return this.$router.options.routes
+    },
+    user () {
+      return this.$store.getters.getUser
+    }
+  },
+  watch: {
+    user (user) {
+      if (this.$socket && user) {
+        this.$socket.client.emit('join', this.$auth.user.id)
+        this.$socket.$subscribe(
+          `push:notifications:${this.$auth.user.id}`,
+          async (data) => {
+            console.log(data)
+            const notification = await JSON.parse(data)
+            if (notification) {
+              this.notifications = [...notification]
+            }
+          }
+        )
+      }
     }
   },
 
   mounted () {
-    let visibilityChange
-    if (typeof document.hidden !== 'undefined') {
-      visibilityChange = 'visibilitychange'
-    } else if (typeof document.mozHidden !== 'undefined') {
-      visibilityChange = 'mozvisibilitychange'
-    } else if (typeof document.msHidden !== 'undefined') {
-      visibilityChange = 'msvisibilitychange'
-    } else if (typeof document.webkitHidden !== 'undefined') {
-      visibilityChange = 'webkitvisibilitychange'
-    }
+    // let visibilityChange
+    // if (typeof document.hidden !== 'undefined') {
+    //   visibilityChange = 'visibilitychange'
+    // } else if (typeof document.mozHidden !== 'undefined') {
+    //   visibilityChange = 'mozvisibilitychange'
+    // } else if (typeof document.msHidden !== 'undefined') {
+    //   visibilityChange = 'msvisibilitychange'
+    // } else if (typeof document.webkitHidden !== 'undefined') {
+    //   visibilityChange = 'webkitvisibilitychange'
+    // }
 
-    document.addEventListener(visibilityChange, this.handlerClose)
-    window.addEventListener('focus', this.handlerClose)
-    window.addEventListener('blur', this.handlerClose)
+    // document.addEventListener(visibilityChange, this.handlerClose)
+    // window.addEventListener('focus', this.handlerClose)
+    // window.addEventListener('blur', this.handlerClose)
   },
   sockets: {
     connect () {
       if (this.$auth && this.$auth.user && this.$auth.user.id) {
         this.$socket.client.emit('join', this.$auth.user.id)
-        this.$socket.$subscribe('seeUserActivity', (data) => {
-          console.log(data)
-          // this.msg = data.message
-        })
-        this.$socket.$subscribe(
-          `push:notifications:${this.$auth.user.id}`,
-          (data) => {
-            console.log(data)
-            // this.msg = data.message
-          }
-        )
       }
     },
     notification (e, f) {
