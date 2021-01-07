@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div id="c-box">
     {{ selectedType }}
-
-    <v-card v-if="selectedType === $auth.user.enneagramId">
+    <v-card v-if="$auth.user && selectedType === $auth.user.enneagramId">
       <v-card-title v-if="showElem">
-        <canvas id="c" />
+        <img id="img" :src="src" alt="">
       </v-card-title>
       <v-card-text>
         <heartbeat v-if="imgLoading" class="heart" />
@@ -51,6 +50,7 @@
             v-if="item.img"
             :src="`https://personality-app.s3.amazonaws.com/${item.img}`"
             class="pic-box pic-display"
+            :style="{ width: picWidth - 30 + 'px' }"
           >
 
           <p v-if="item.text" class="user-comment">
@@ -110,7 +110,8 @@ export default {
       imgLoading: false,
       tab: 'null',
       selectedPosts: [],
-      showElem: false
+      showElem: false,
+      picWidth: 0
     }
   },
   computed: {
@@ -141,6 +142,8 @@ export default {
     if (!this.posts) {
       this.$store.dispatch('getPosts', this.selectedType)
     }
+    const box = document.getElementById('c-box')
+    this.picWidth = box.clientWidth
   },
   methods: {
     async submitPost () {
@@ -149,7 +152,8 @@ export default {
         formData.append('text', this.newPost)
       }
       if (this.src) {
-        formData.append('img', this.src)
+        const fileElem = document.getElementById('fileElem')
+        formData.append('img', fileElem.files[0])
       }
       formData.append('enneagramType', this.selectedType)
 
@@ -175,25 +179,16 @@ export default {
 
       const fileElem = document.getElementById('fileElem')
       if (fileElem && fileElem.files) {
-        const width = 500
-        const height = 300
         const reader = new FileReader()
         reader.readAsDataURL(fileElem.files[0])
+        this.showElem = true
         reader.onload = (event) => {
-          const img = new Image()
-          img.src = event.target.result
-          this.showElem = event.target.result
-          img.onload = () => {
-            const elem = document.getElementById('c')
-            elem.width = width
-            elem.height = height
-            const ctx = elem.getContext('2d')
-            ctx.drawImage(img, 0, 0, width, height)
-            this.src = fileElem.files[0]
-            this.imgLoading = false
-          }
-          reader.onerror = error => console.log(error)
+          this.src = event.target.result
+          this.imgLoading = false
+          const img = document.getElementById('img')
+          img.width = this.picWidth - 30
         }
+        reader.onerror = error => console.log(error)
       }
     },
 

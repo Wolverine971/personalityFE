@@ -92,6 +92,9 @@ $error: #ff5252;
   min-width: 500px;
 }
 
+.v-card__title {
+  word-break: normal !important;
+}
 
 @media only screen and (max-width: 500px) {
   .form-width {
@@ -107,6 +110,10 @@ $error: #ff5252;
 
 .coming-soon{
   color: pink;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 body {

@@ -1,6 +1,6 @@
 <template>
   <v-list v-if="notifs && notifs.length">
-    <v-list-item v-for="(notification, i) in notifs" :key="i" class="selectable">
+    <v-list-item v-for="(notification, i) in notifs" :key="i" class="clickable">
       <v-list-item-content @click="goToNotification(notification, i)">
         <v-list-item-title v-if="notification.question">
           <p class="overFlow">
@@ -103,10 +103,8 @@ export default {
   max-width: 300px;
   margin-bottom: 5px !important;
 }
-.selectable {
-  cursor: pointer;
-}
-.selectable:hover {
+
+.clickable:hover {
   background-color: #fafafb;
 }
 </style>
