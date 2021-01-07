@@ -56,12 +56,12 @@ export default {
   ],
 
   auth: {
-    // redirect: {
-    //   login: '/auth',
-    //   logout: '/auth',
-    //   callback: '/auth',
-    //   home: '/auth'
-    // },
+    redirect: {
+      login: '/auth',
+      logout: '/auth',
+      callback: '/auth',
+      home: '/auth'
+    },
     localStorage: false,
     strategies: {
       local: {
@@ -88,7 +88,7 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: (process.env.BE_URL ? process.env.BE_URL : 'http://localhost:3001/'), // `${process.env.BASE_URL}:3001/`,
+    baseURL: process.env.BE_URL || 'http://localhost:3001/', // `${process.env.BASE_URL}:3001/`,
     headers: {
       'Access-Control-Allow-Origin': [
         process.env.ORIGIN
@@ -105,5 +105,8 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
   },
-  target: 'static'
+  target: 'static',
+  env: {
+    BE_URL: process.env.BE_URL || 'http://localhost:3001/'
+  }
 }

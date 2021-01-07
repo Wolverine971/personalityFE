@@ -3,7 +3,7 @@ import Vue from 'vue'
 import VueSocketIOExt from 'vue-socket.io-extended'
 
 export default ({ store }) => {
-  Vue.use(VueSocketIOExt, io('http://localhost:3001/notifications'), {
+  Vue.use(VueSocketIOExt, io(`${process.env.BE_URL}notifications`), {
     store
   })
 }

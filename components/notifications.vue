@@ -23,10 +23,6 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title v-text="'No Notifications'" />
-        <v-list-item-title>
-          <p>No Notifications</p>
-          <p>{{ notifs }}</p>
-        </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
   </v-list>
