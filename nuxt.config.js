@@ -94,8 +94,12 @@ export default {
         process.env.ORIGIN,
         'https://9takes.com',
         'https://9takes.com/',
+        'http://9takes.com',
+        'http://9takes.com/',
         'https://9takes.com:3001',
-        'https://9takes.com:3001/'
+        'https://9takes.com:3001/',
+        'http://9takes.com:3001',
+        'http://9takes.com:3001/'
       ]
     },
     withCredentials: true
