@@ -91,7 +91,11 @@ export default {
     baseURL: process.env.BE_URL || 'http://localhost:3001/', // `${process.env.BASE_URL}:3001/`,
     headers: {
       'Access-Control-Allow-Origin': [
-        process.env.ORIGIN
+        process.env.ORIGIN,
+        'https://9takes.com',
+        'https://9takes.com/',
+        'https://9takes.com:3001',
+        'https://9takes.com:3001/'
       ]
     },
     withCredentials: true
