@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="clickable">
     <v-textarea
       :value="question.question"
       type="text"
@@ -10,9 +10,9 @@
       hide-details
       :to="{ path: '/questions', query: { id: question.id } }"
       router
-      class="margin-bot scroll"
+      class="margin-bot"
     >
-      <template v-if="!$vuetify.breakpoint.mobile" slot="append">
+      <template v-if="!$vuetify.breakpoint.mobile && interact" slot="append">
         <v-btn
           outlined
           :class="{
@@ -42,7 +42,7 @@
         </v-btn>
       </template>
     </v-textarea>
-    <div v-if="$vuetify.breakpoint.mobile" class="margin-bot">
+    <div v-if="$vuetify.breakpoint.mobile && interact" class="margin-bot">
       <div class="btn-group">
         <v-btn
           outlined
@@ -89,6 +89,11 @@ export default {
       type: String,
       required: false,
       default: null
+    },
+    interact: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   mounted () {
@@ -97,7 +102,4 @@ export default {
 }
 </script>
 <style>
-.scroll {
-  overflow: scroll;
-}
 </style>

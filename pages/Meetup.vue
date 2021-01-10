@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'Meetup',
-  middleware: 'authenticated'
+  middleware: ['disabled']
 }
 </script>
 

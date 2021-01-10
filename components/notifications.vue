@@ -62,9 +62,14 @@ export default {
       this.$router.go(1)
       this.notifs.splice(i, 1)
       await this.$axios.put(endpoints.clearNotifications)
-      document.getElementById(n.notification.id).scrollIntoView()
-      const vis = window.find(n.notification.text)
-      console.log(vis)
+      setTimeout(() => {
+        const scrollSpot = document.getElementById(n.notification.id)
+        if (scrollSpot) {
+          scrollSpot.scrollIntoView()
+          const vis = window.find(n.notification.text)
+          console.log(vis)
+        }
+      }, 1000)
     },
     msToTime (time) {
       const newDate = new Date()

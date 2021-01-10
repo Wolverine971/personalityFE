@@ -1,15 +1,16 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - personalityFE',
-    title: 'personalityFE',
+    titleTemplate: '%s - for personality ya know',
+    title: '9takes',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
+
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'svg', href: '/cotton-candy.svg', author: 'https://www.flaticon.com/authors/freepik' },
       {
         rel: 'stylesheet',
         href:
@@ -92,6 +93,8 @@ export default {
     headers: {
       'Access-Control-Allow-Origin': [
         process.env.ORIGIN,
+        'http://localhost:3000/',
+        'http://localhost:3000',
         'https://9takes.com',
         'https://9takes.com/',
         'http://9takes.com',
@@ -113,7 +116,7 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
   },
-  target: 'static',
+  target: 'static', // 'universal',
   env: {
     BE_URL: process.env.BE_URL || 'http://localhost:3001/'
   }

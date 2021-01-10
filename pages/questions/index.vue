@@ -29,6 +29,7 @@
 import AddQuestion from '../../components/shared/addQuestion'
 export default {
   name: 'Index',
+  // middleware: 'accessToken',
 
   components: { AddQuestion },
   data () {

@@ -2,11 +2,11 @@
   <v-app id="inspire">
     <v-container>
       <client-only>
-        <v-toolbar class="fun-color">
+        <v-toolbar class="fun-color color-blue">
           <v-app-bar-nav-icon>
             <v-menu transition="fab-transition">
               <template v-slot:activator="{ on: menu, attrs }">
-                <v-btn color="" text v-bind="attrs" v-on="{ ...menu }">
+                <v-btn class="color-blue" text v-bind="attrs" v-on="{ ...menu }">
                   <v-icon>menu</v-icon>
                 </v-btn>
               </template>
@@ -35,18 +35,34 @@
               </v-list>
             </v-menu>
           </v-app-bar-nav-icon>
-          <v-toolbar-title text>
+          <v-toolbar-title text class="color-blue">
             <h1>{{ title }}</h1>
           </v-toolbar-title>
           <v-spacer />
 
           <v-menu>
             <template v-slot:activator="{ on: menu, attrs }">
-              <v-btn color="" text v-bind="attrs" :disabled="!$auth.user" v-on="{ ...menu }">
-                <v-icon :color="(notifications && notifications.length) ? 'blue' : ''">
-                  {{ (notifications && notifications.length) ? 'notifications_active' : 'notifications' }}
+              <v-btn
+                :class="
+                  notifications && notifications.length ? 'noti-blue' : 'color-pink'
+                "
+                text
+                v-bind="attrs"
+                :disabled="!$auth.user"
+                v-on="{ ...menu }"
+              >
+                <v-icon
+                  :class="
+                    notifications && notifications.length ? 'noti-blue' : 'color-pink'
+                  "
+                >
+                  {{
+                    notifications && notifications.length
+                      ? 'notifications_active'
+                      : 'notifications'
+                  }}
                 </v-icon>
-                {{ notifications.length }}
+                {{ notifications.length ? notifications.length : '' }}
               </v-btn>
             </template>
             <notifications :notifications="notifications" />
@@ -54,7 +70,7 @@
 
           <v-menu>
             <template v-slot:activator="{ on: menu, attrs }">
-              <v-btn color="" text v-bind="attrs" v-on="{ ...menu }">
+              <v-btn class="color-pink" text v-bind="attrs" v-on="{ ...menu }">
                 <v-icon>account_circle</v-icon>
               </v-btn>
             </template>
@@ -94,7 +110,6 @@ import debounce from 'lodash.debounce'
 import { endpoints } from '../models/endpoints'
 import notifications from '~/components/notifications.vue'
 export default {
-
   /* eslint-disable no-console */
   name: 'DefaultLayout',
   components: { notifications },
@@ -184,7 +199,6 @@ export default {
     // } else if (typeof document.webkitHidden !== 'undefined') {
     //   visibilityChange = 'webkitvisibilitychange'
     // }
-
     // document.addEventListener(visibilityChange, this.handlerClose)
     // window.addEventListener('focus', this.handlerClose)
     // window.addEventListener('blur', this.handlerClose)
@@ -236,8 +250,10 @@ export default {
   }
 }
 </script>
-<style>
+
+<style lang="scss">
+@import '../assets/variables.scss';
 .fun-color {
-  background: linear-gradient(to right, pink, #89cff0);
+  background: linear-gradient(to right, $cPink, $cBlue);
 }
 </style>

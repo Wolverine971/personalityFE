@@ -14,6 +14,7 @@
 export default {
   name: 'DeepSearch',
   components: {},
+  middleware: ['disabled'],
   data () {
     return {
       question: ''

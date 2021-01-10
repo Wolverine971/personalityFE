@@ -3,22 +3,20 @@
     v-model="selection"
     :items="typeAhead"
     :search-input.sync="question"
-    label="Search Questions"
+    :label="(!typeAheadLoading && question && key === -1) ? 'Create Question' : 'Search Questions'"
     :menu-props="{ closeOnContentClick: true }"
     :item-text="question"
     @update:list-index="change"
   >
     <template v-slot:append>
-      <div>
-        <heartbeat v-if="typeAheadLoading" class="heart" />
-        <v-btn
-          v-if="!typeAheadLoading && question && key === -1"
-          text
-          @click="addQuestion(question)"
-        >
-          Add Question
-        </v-btn>
-      </div>
+      <heartbeat v-if="typeAheadLoading" class="heart" />
+      <v-btn
+        v-if="!typeAheadLoading && question && key === -1"
+        text
+        @click="addQuestion(question)"
+      >
+        Add Question
+      </v-btn>
     </template>
     <template v-slot:item="{ item }">
       <v-list-item @click.stop.prevent="goToQuestion(item)">

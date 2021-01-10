@@ -27,8 +27,8 @@
       Subscriptions
     </h2>
     <v-col v-if="subscriptions && subscriptions.length">
-      <div v-for="item in subscriptions" :key="item.id" @click="goTo(item)">
-        <question-display :question="item" @click="goTo(item)" />
+      <div v-for="sub in subscriptions" :key="sub.id" @click="goTo(sub)">
+        <question-display :question="sub" :interact="true" @click="goTo(sub)" />
       </div>
     </v-col>
     <div v-else>
@@ -39,8 +39,8 @@
       New Questions
     </h2>
     <v-col v-if="newQuestions && newQuestions.length">
-      <div v-for="item in newQuestions" :key="item.id" @click="goTo(item)">
-        <question-display :question="item" @click="goTo(item)" />
+      <div v-for="nqs in newQuestions" :key="nqs.id" @click="goTo(nqs)">
+        <question-display :question="nqs" :interact="false" @click="goTo(nqs)" />
       </div>
     </v-col>
 
@@ -48,13 +48,15 @@
       Asked Questions
     </h2>
     <v-col v-if="askedQuestions && askedQuestions.length">
-      <div v-for="item in askedQuestions" :key="item.id" @click="goTo(item)">
-        <question-display :question="item" @click="goTo(item)" />
+      <div v-for="aqs in askedQuestions" :key="aqs.id" @click="goTo(aqs)">
+        <question-display :question="aqs" :interact="false" @click="goTo(aqs)" />
       </div>
     </v-col>
 
     <div v-else>
-      <h2>No Questions Asked</h2>
+      <v-col>
+        <p>You have asked no qestions</p>
+      </v-col>
     </div>
   </div>
 </template>
@@ -67,7 +69,7 @@ export default {
   data () {
     return {}
   },
-  middleware: 'authenticated',
+  middleware: ['accessToken', 'loggedIn'],
 
   computed: {
     subscriptions () {

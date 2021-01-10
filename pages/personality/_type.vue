@@ -17,7 +17,8 @@
 import Personality from '../../components/personality'
 export default {
   name: 'Type',
-  components: { Personality }
+  components: { Personality },
+  middleware: ['accessToken']
 }
 </script>
 

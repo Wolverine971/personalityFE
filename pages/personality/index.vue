@@ -1,6 +1,6 @@
 <template>
   <div>
-    Personality Walls
+    <h1>Personality Walls</h1>
     <v-select
       v-model="enneagramType"
       :items="enneagramTypes"
@@ -17,8 +17,13 @@ export default {
     enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
     enneagramType: null
   }),
-  middleware: 'authenticated',
-  computed: {},
+  // middleware: ['loggedIn'],
+  middleware: ['accessToken'],
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    }
+  },
   watch: {
     enneagramType (val) {
       this.$router.push({ path: `/personality/${val}` })

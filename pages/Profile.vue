@@ -64,7 +64,7 @@ export default {
     enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
     formDisabled: true
   }),
-  middleware: 'authenticated',
+  middleware: ['loggedIn'], //, 'accessToken'
 
   methods: {
     submit () {

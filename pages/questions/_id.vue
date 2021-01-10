@@ -18,6 +18,7 @@ import SelectedQuestion from '../../components/questions/selectedQuestion'
 export default {
   name: 'Id',
   components: { SelectedQuestion }
+  // middleware: 'accessToken'
 }
 </script>
 

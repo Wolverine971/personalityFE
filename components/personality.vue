@@ -1,13 +1,14 @@
 <template>
   <div id="c-box">
-    {{ selectedType }}
-    <v-card v-if="$auth.user && selectedType === $auth.user.enneagramId">
+    <h1 class="brick-background">
+      &nbsp;&nbsp;{{ selectedType }} Wall
+    </h1>
+    <v-card v-if="interact">
       <v-card-title v-if="showElem">
         <img id="img" :src="src" alt="">
       </v-card-title>
       <v-card-text>
         <heartbeat v-if="imgLoading" class="heart" />
-
         <input
           id="fileElem"
           ref="fileElem"
@@ -26,7 +27,6 @@
           auto-grow
           dense
           hide-details
-          class="user-comment"
         />
       </v-card-text>
       <v-card-actions>
@@ -44,52 +44,21 @@
       <v-tab>Text</v-tab>
     </v-tabs>
     <v-card>
-      <v-card v-for="(item, i) in selectedPosts" :key="i">
-        <v-card-title>
-          <img
-            v-if="item.img"
-            :src="`https://personality-app.s3.amazonaws.com/${item.img}`"
-            class="pic-box pic-display"
-            :style="{ width: picWidth - 30 + 'px' }"
-          >
-
-          <p v-if="item.text" class="user-comment">
-            {{ item.text }}
-          </p>
-        </v-card-title>
-
-        <interact
-          v-if="selectedType === $auth.user.enneagramId"
-          :post="item"
-          @emitComment="newComment($event)"
-        />
-
-        <div class="comment-div">
-          <v-expansion-panels v-if="item.comments && item.comments.length">
-            <v-expansion-panel>
-              <v-expansion-panel-header>
-                {{ item.comments.length }} Comments
-              </v-expansion-panel-header>
-              <v-expansion-panel-content
-                v-for="(c, j) in item.comments"
-                :key="j"
-              >
-                <comment :comment="c" />
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </div>
-      </v-card>
+      <div v-for="(item, i) in selectedPosts" :key="i">
+        <Content :content="item" :selected-type="selectedType" :interact="interact" />
+      </div>
     </v-card>
   </div>
 </template>
 
 <script>
 import { endpoints } from '../models/endpoints'
+import Content from './content.vue'
 import Heartbeat from './shared/heart'
 export default {
   name: 'Personality',
-  components: { Heartbeat },
+  components: { Heartbeat, Content },
+  middleware: ['accessToken'],
   data () {
     return {
       selectedType: null,
@@ -111,7 +80,8 @@ export default {
       tab: 'null',
       selectedPosts: [],
       showElem: false,
-      picWidth: 0
+      picWidth: 0,
+      interact: false
     }
   },
   computed: {
@@ -125,6 +95,10 @@ export default {
   watch: {
     type (val) {
       this.selectedType = val
+      if (!this.posts[this.selectedType]) {
+        this.$store.dispatch('getPosts', this.selectedType)
+      }
+      this.canInteract()
     },
     tab (val) {
       console.log(val)
@@ -138,14 +112,20 @@ export default {
     }
   },
   mounted () {
-    this.selectedType = this.$route.params.type
-    if (!this.posts) {
-      this.$store.dispatch('getPosts', this.selectedType)
-    }
-    const box = document.getElementById('c-box')
-    this.picWidth = box.clientWidth
+    this.init()
   },
   methods: {
+    init () {
+      this.selectedType = this.$route.params.type
+      if (!this.posts || !this.posts[this.selectedType]) {
+        this.$store.dispatch('getPosts', this.selectedType)
+      } else {
+        this.selectedPosts = this.posts[this.selectedType]
+      }
+      const box = document.getElementById('c-box')
+      this.picWidth = box.clientWidth
+      this.canInteract()
+    },
     async submitPost () {
       const formData = new FormData()
       if (this.newPost) {
@@ -192,22 +172,16 @@ export default {
       }
     },
 
-    newComment (event) {
-      console.log(event)
+    canInteract () {
+      this.interact = !!((this.$auth.user && this.selectedType === this.$auth.user.enneagramId))
     }
   }
 }
 </script>
 
 <style>
-.border {
-  border: 1px solid blue;
-}
-.pic-display {
-  max-width: 1000px;
-}
-.pic-box {
-  display: flex;
-  justify-content: center;
+
+.brick-background {
+  background: url('https://api.iconify.design/bi:bricks.svg?color=pink&height=47');
 }
 </style>

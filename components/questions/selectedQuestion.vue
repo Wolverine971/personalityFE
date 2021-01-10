@@ -15,13 +15,15 @@
 
       <sort :type="'comments'" @triggerNewSearch="filterComments($event)" />
     </div>
-    <v-col v-if="comments && comments.length && showComments">
-      <div v-for="(c, i) in comments" :key="i" class="comment-div">
-        <comment :comment="c" :type="'root'" />
-      </div>
-    </v-col>
-    <v-col v-else>
-      Answer Question to see other comments
+    <v-col>
+      <v-col v-if="comments && comments.length && showComments">
+        <div v-for="(c, i) in comments" :key="i" class="comment-div">
+          <comment :comment="c" :interact="true" />
+        </div>
+      </v-col>
+      <v-col v-else>
+        Answer Question to see other comments
+      </v-col>
     </v-col>
   </div>
 </template>
@@ -77,8 +79,6 @@ export default {
             {},
             this.alreadyFetchedQuestions[questionId]
           )
-          this.commentorIds = this.alreadyFetchedQuestions[questionId].commentorIds
-          this.showComments = this.commentorIds[this.$auth.user.id]
           this.comments = [...this.alreadyFetchedQuestions[questionId].comments]
           this.likes = [...this.alreadyFetchedQuestions[questionId].likes]
           this.subscribers = [

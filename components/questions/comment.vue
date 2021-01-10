@@ -1,5 +1,5 @@
 <template>
-  <div v-if="componentComment && componentComment.comment" :class="'shadow'">
+  <div v-if="componentComment" :id="componentComment.id" :class="'shadow'" @mouseover="showCookies = true">
     <v-card-title>
       <v-avatar
         elevation="2"
@@ -12,11 +12,15 @@
       >
         {{ componentComment.author.enneagramId }}
       </v-avatar>
-      <p :id="componentComment.id" class="ml-3">
-        {{ componentComment.comment }}
-      </p>
+      <cookie-comment
+        class="ml-3"
+        :text="componentComment.comment"
+        :likes="componentComment.likes.length"
+        :parent-id="componentComment.id"
+        :show-cookies="showCookies"
+      />
     </v-card-title>
-    <interact :post="componentComment" @emitComment="newComment($event)" />
+    <interact v-if="interact" :post="componentComment" @emitComment="newComment($event)" @likeChange="likeChange" />
 
     <v-expansion-panels
       v-if="componentComment.comments.length"
@@ -31,7 +35,7 @@
           v-for="(c, i) in componentComment.comments"
           :key="i"
         >
-          <comment :comment="c" />
+          <comment :comment="c" :interact="true" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -41,25 +45,27 @@
 <script>
 import { endpoints } from '../../models/endpoints'
 import Interact from '../shared/interact'
+import CookieComment from '../shared/cookieComment'
 export default {
   name: 'Comment',
-  components: { Interact },
+  components: { Interact, CookieComment },
   props: {
     comment: {
       type: Object,
       required: true,
       default: null
     },
-    type: {
-      type: String,
-      required: false,
-      default: null
+    interact: {
+      type: Boolean,
+      required: true,
+      default: true
     }
   },
   data: () => ({
     componentComment: null,
     commentIsExpanded: false,
-    panels: []
+    panels: [],
+    showCookies: false
   }),
   computed: {},
   watch: {
@@ -98,15 +104,16 @@ export default {
       this.componentComment.comments = this.componentComment.comments
         ? [event, ...this.componentComment.comments]
         : [event]
+    },
+    likeChange (event) {
+      this.componentComment.likes = event
     }
   }
 }
 </script>
 
 <style>
-.user-comment {
-  color: aqua;
-}
+
 .comment-div {
   margin: 0 0 10px 10px;
 }

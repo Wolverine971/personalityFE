@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="btn-group">
-      <v-tooltip v-if="likes" top>
+      <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             :disabled="!$auth.user"
@@ -13,6 +13,7 @@
             v-on="on"
             @click="like"
           >
+            {{ $vuetify.breakpoint.mobile ? likes.length : '' }}
             <v-icon>
               {{ isLiked ? 'mdi-cookie' : 'mdi-cookie-outline' }}
             </v-icon>
@@ -58,7 +59,7 @@
           rows="1"
           auto-grow
           hide-details
-          class="pad-bot user-comment margin-left"
+          class="pad-bot  margin-left"
         >
           <template v-if="!$vuetify.breakpoint.mobile" slot="append">
             <v-btn v-if="comment" @click="submitComment">
@@ -127,11 +128,6 @@ export default {
     this.parsePost(this.post)
   },
   methods: {
-    search () {
-      console.log(this.params)
-      console.log('search')
-      this.$emit('triggerNewSearch', this.params)
-    },
     async like () {
       if (this.$auth.user) {
         try {
@@ -168,6 +164,7 @@ export default {
           }
 
           this.likes = newLikes
+          this.$emit('likeChange', this.likes)
           if (isLiked) {
             this.$store.dispatch('toastSuccess', 'Liked Comment')
           } else {
@@ -247,7 +244,7 @@ export default {
 
       this.type = post.subscribers
         ? 'question'
-        : post.src
+        : post.userId
           ? 'content'
           : 'comment'
       if (this.type === 'question' && this.$auth.user) {

@@ -3,7 +3,7 @@
     <v-col cols="12" sm="8" md="6">
       <v-card>
         <v-card-title class="headline">
-          Welcome to 9takes
+          <h1>Welcome to 9takes</h1>
         </v-card-title>
         <v-card-text>
           <!-- OSMEAC
@@ -53,13 +53,13 @@
             -Command and Signal
 
             -Admin and Logistics -->
-          <h3>Situation</h3>
+          <h2>Situation</h2>
           <p>
             We live in a world where people are different.
             We all know people are different but we don't exactly know how or in what ways we are different.
             And we get suprised when people don't do, think or feel the way we do.
           </p>
-          <h3>Solution</h3>
+          <h2>Solution</h2>
           <p>
             9takes seeks to explore our psychology by creating a community where we can discover our similarities and differences.
             9takes gets its roots from the enneagram where broadly speaking there are 9 types of personality.
@@ -67,7 +67,7 @@
             <!-- These nine takes come from the enneagram personality test, which digs into our core motivations and fears and forms 9 goups of thinking or personalities. -->
             Here in this site we will get at those differences and commonalities, through question and answering.
           </p>
-          <h3>How to use this site</h3>
+          <h2>How to use this site</h2>
           <p>
             First and foremost inorder to use this site you need to know your ennagram numnber.
             Our advice is to go to an enneagram site read the number descriptions and through reflection and asking friends decide on which number you most resonate with.
