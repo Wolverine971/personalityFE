@@ -1,6 +1,9 @@
 # 9takes.com
 
-[![9takes](./static/9takes.png)](https://9takes.com)
+<a href="https://9takes.com">
+<img src="static/9takes.png" alt="there is supposed to be a sweet pic here">
+</a>
+
 
 Personaity question and answering based on the Enneagram
 - Ask questions to community
