@@ -1,6 +1,6 @@
 # 9takes.com
 
-[![9takes.com](./static/9takes.png)](https://9takes.com/)
+[[/static/9takes.png]](https://9takes.com/)
 
 
 Personaity question and answering based on the Enneagram
@@ -44,16 +44,18 @@ $ npm run generate
 ### ToDo
 
 
-- <del>Question and Answering
-- <del>Dashboard
-- <del>Hosting- Domain- SSL
-- <del>I relate button- with waving hand
-- <del>Personality type pages
-- <del>Login/ Register
-- <del>Refresh token automatically
-- <del>Personality pages- only people of that personality type can upvote or downvote
-- Add page for each personality type
+- [x]  <del>Question and Answering
+- [x]  <del>Dashboard
+- [x]  <del>Hosting- Domain- SSL
+- [x]  <del>I relate button- with waving hand
+- [x]  <del>Personality type pages
+- [x]  <del>Login/ Register
+- [x]  <del>Refresh token automatically
+- [x]  <del>Personality pages- only people of that personality type can upvote or downvote
+- [ ]  Add static page for each personality type
+- [ ]  Comment Pagination
+- [ ]  Wall Pagination
 
 
 
-Thanks for checking this out!
+Thanks for checking this out! :smiley:
