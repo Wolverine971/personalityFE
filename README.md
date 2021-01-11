@@ -1,7 +1,6 @@
 # 9takes.com
 
-[[/static/9takes.png]](https://9takes.com/)
-
+[![9takes](./static/9takes.png)](https://9takes.com)
 
 Personaity question and answering based on the Enneagram
 - Ask questions to community
