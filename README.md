@@ -1,8 +1,8 @@
 # 9takes.com
 
-<a href="https://9takes.com">
-<img src="static/9takes.png" alt="there is supposed to be a sweet pic here">
-</a>
+
+<img src="static/9takes.png" href="https://9takes.com"><figcaption>"whoa checkout this sweet site @ 9takes.com" -someone really cool</figcaption></figure>
+
 
 
 Personaity question and answering based on the Enneagram
