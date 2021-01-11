@@ -11,6 +11,7 @@ export default {
 
     link: [
       { rel: 'icon', type: 'svg', href: '/cotton-candy.svg', author: 'https://www.flaticon.com/authors/freepik' },
+      { rel: 'icon', type: 'image/x-icon', href: '/cotton-candy.svg', author: 'https://www.flaticon.com/authors/freepik' },
       {
         rel: 'stylesheet',
         href:
