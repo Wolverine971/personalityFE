@@ -16,7 +16,7 @@ export interface AppState {
 
   dashboard: any
 
-  allQuestionsCursorId: string
+  allQuestionsLastDate: string
 
   allQuestionsCount: number
 
@@ -44,7 +44,7 @@ export const state: AppState = {
 
   dashboard: null,
 
-  allQuestionsCursorId: '',
+  allQuestionsLastDate: '',
 
   allQuestionsCount: 0,
 
@@ -81,8 +81,8 @@ export const getters = {
   getDashboard (state: AppState) {
     return state.dashboard
   },
-  getAllQuestionsCursorId (state: AppState) {
-    return state.allQuestionsCursorId
+  getAllQuestionsLastDate (state: AppState) {
+    return state.allQuestionsLastDate
   },
   getAllQuestionsCount (state: AppState) {
     return state.allQuestionsCount
@@ -135,15 +135,12 @@ export const mutations = {
       moreQuestions[q.id] = Object.assign({}, q)
     })
     state.allQuestions = Object.assign({}, moreQuestions, state.allQuestions)
-    if (state.allQuestionsCount) {
-      state.allQuestionsCount = state.allQuestionsCount + questions.length
-    }
   },
   setDashboard (state: AppState, subscriptions: any[]) {
     state.dashboard = subscriptions
   },
-  setAllQuestionsCursorId (state: AppState, cursorId: string) {
-    state.allQuestionsCursorId = cursorId
+  setAllQuestionsLastDate (state: AppState, lastDate: string) {
+    state.allQuestionsLastDate = lastDate
   },
   setAllQuestionsCount (state: AppState, count: number) {
     state.allQuestionsCount = count
@@ -256,15 +253,15 @@ export const actions: any = {
     })
   },
   getPaginatedQuestions ({ commit, getters }: any, pageSize: number) {
-    let cursorId = getters.getAllQuestionsCursorId
+    let lastDate = getters.getAllQuestionsLastDate
     console.log('getPaginatedQuestions')
     return this.$axios
-      .get(`${endpoints.getAllQuestions}/${pageSize}/${cursorId || ''}`)
+      .get(`${endpoints.getAllQuestions}/${pageSize}/${lastDate || ''}`)
       .then((response: any) => {
         if (response && response.data) {
-          cursorId =
-            response.data.questions[response.data.questions.length - 1].id
-          commit('setAllQuestionsCursorId', cursorId)
+          lastDate =
+            response.data.questions[response.data.questions.length - 1].dateCreated
+          commit('setAllQuestionsLastDate', lastDate)
           commit('addAllQuestions', response.data.questions)
           commit('setAllQuestionsCount', response.data.count)
         }
@@ -272,6 +269,7 @@ export const actions: any = {
   },
   async nuxtServerInit ({ dispatch }: any, { $auth }: any) {
     const refreshToken = $auth.getToken('local')
+    console.log(refreshToken)
     if (!refreshToken) {
       console.log('nuxt server init')
       // return redirect('/auth')

@@ -51,9 +51,7 @@ export default {
   },
   watch: {
     questions (questions) {
-      this.allQuestions = Object.keys(questions).map((q) => {
-        return questions[q]
-      })
+      this.parseQuestions(questions)
     },
     allQuestions (val) {
       this.questionsCount = val.length
@@ -64,9 +62,7 @@ export default {
       this.$store.dispatch('getPaginatedQuestions', this.pageSize)
     } else {
       const questions = this.$store.getters.getAllQuestions
-      this.allQuestions = Object.keys(questions).map((q) => {
-        return questions[q]
-      })
+      this.parseQuestions(questions)
     }
   },
   methods: {
@@ -79,6 +75,13 @@ export default {
       this.typeAhead = []
       this.$router.push({ path: `/questions/${item.id}` })
       this.$router.go(1)
+    },
+    parseQuestions (questions) {
+      this.allQuestions = Object.keys(questions).map((q) => {
+        return questions[q]
+      }).sort(function (a, b) {
+        return new Date(b.dateCreated) - new Date(a.dateCreated)
+      })
     }
 
   }
