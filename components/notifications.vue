@@ -10,7 +10,7 @@
             Comment: {{ notification.notification.text }}
           </p>
           <p>
-            {{ msToTime(notification.time) }}
+            {{ getTime(notification.time) }}
           </p>
         </v-list-item-title>
         <v-list-item-title v-else>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { msToTime } from '../utils'
 import { endpoints } from '~/models/endpoints'
 export default {
   name: 'Notifications',
@@ -71,27 +72,8 @@ export default {
         }
       }, 1000)
     },
-    msToTime (time) {
-      const newDate = new Date()
-      let s = newDate - new Date(time)
-
-      const ms = s % 1000
-      s = (s - ms) / 1000
-      const secs = s % 60
-      s = (s - secs) / 60
-      const mins = s % 60
-      s = (s - mins) / 60
-      const hrs = s % 60
-      s = (s - hrs) / 24
-      const days = s % 24
-
-      if (days) {
-        return days + ' days ago'
-      } else if (hrs) {
-        return hrs + ' hours ago'
-      } else {
-        return mins + ' minutes ' + secs + ' seconds ago'
-      }
+    getTime (time) {
+      return msToTime(time)
     }
   }
 }

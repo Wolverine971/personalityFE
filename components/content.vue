@@ -1,5 +1,6 @@
 <template>
   <v-card :id="content.id" @mouseover="showCookies = true">
+    <p>{{ getTime(content.dateCreated) }}</p>
     <v-card-title>
       <img
         v-if="content.img"
@@ -7,10 +8,6 @@
         class="pic-box pic-display"
         :style="{ width: picWidth - 30 + 'px' }"
       >
-
-      <p v-if="content.text">
-        {{ content.text }}
-      </p>
       <cookie-comment
         class="ml-3"
         :text="content.text"
@@ -28,16 +25,18 @@
     />
 
     <div class="comment-div">
-      <v-expansion-panels v-if="content.comments && content.comments.length">
+      <v-expansion-panels v-if="content.comments && content.comments.count">
         <v-expansion-panel>
           <v-expansion-panel-header>
-            {{ content.comments.length }} Comments
+            {{ content.comments.count }} Comments
           </v-expansion-panel-header>
-          <v-expansion-panel-content
-            v-for="(c, j) in content.comments"
-            :key="j"
-          >
-            <comment :comment="c" :interact="interact" />
+          <v-expansion-panel-content>
+            <all-comments
+              v-if="content.comments.comments"
+              :comments="content.comments"
+              :parent-id="content.id"
+              :display-count="false"
+            />
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -46,19 +45,17 @@
 </template>
 
 <script>
+import { msToTime } from '../utils'
 export default {
   name: 'Content',
+  components: { AllComments: () => import('./questions/comments') },
   props: {
     content: {
       type: Object,
       required: true,
       default: null
     },
-    selectedType: {
-      type: String,
-      required: true,
-      default: null
-    },
+
     interact: {
       type: Boolean,
       required: true,
@@ -77,12 +74,27 @@ export default {
   },
   methods: {
     newComment (event) {
-      this.content.comments = this.content.comments
-        ? [event, ...this.content.comments]
-        : [event]
+      let newComments
+      if (this.content.comments.comments) {
+        newComments = [event, ...this.content.comments.comments]
+      } else {
+        newComments = [event]
+      }
+
+      this.content.comments = Object.assign(
+        {},
+        this.content.comments,
+        {
+          comments: newComments
+        }
+      )
+      this.content.comments.count += 1
     },
     likeChange (event) {
       this.content.likes = event
+    },
+    getTime (time) {
+      return msToTime(time)
     }
   }
 }

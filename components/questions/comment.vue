@@ -1,5 +1,10 @@
 <template>
-  <div v-if="componentComment" :id="componentComment.id" :class="'shadow'" @mouseover="showCookies = true">
+  <div
+    v-if="componentComment"
+    :id="componentComment.id"
+    :class="'shadow'"
+    @mouseover="showCookies = true"
+  >
     <v-card-title>
       <v-avatar
         elevation="2"
@@ -20,22 +25,29 @@
         :show-cookies="showCookies"
       />
     </v-card-title>
-    <interact v-if="interact" :post="componentComment" @emitComment="newComment($event)" @likeChange="likeChange" />
+    <interact
+      v-if="interact"
+      :post="componentComment"
+      @emitComment="newComment($event)"
+      @likeChange="likeChange"
+    />
 
     <v-expansion-panels
-      v-if="componentComment.comments.length"
+      v-if="componentComment.comments.count"
       v-model="panels"
       inset
     >
       <v-expansion-panel>
-        <v-expansion-panel-header @click="checkComments">
-          {{ componentComment.comments.length }} Comments
+        <v-expansion-panel-header>
+          {{ componentComment.comments.count }} Comments
         </v-expansion-panel-header>
-        <v-expansion-panel-content
-          v-for="(c, i) in componentComment.comments"
-          :key="i"
-        >
-          <comment :comment="c" :interact="true" />
+        <v-expansion-panel-content>
+          <all-comments
+            v-if="componentComment.comments.comments"
+            :comments="componentComment.comments"
+            :parent-id="componentComment.id"
+            :display-count="false"
+          />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -48,7 +60,7 @@ import Interact from '../shared/interact'
 import CookieComment from '../shared/cookieComment'
 export default {
   name: 'Comment',
-  components: { Interact, CookieComment },
+  components: { Interact, CookieComment, AllComments: () => import('./comments.vue') },
   props: {
     comment: {
       type: Object,
@@ -67,7 +79,6 @@ export default {
     panels: [],
     showCookies: false
   }),
-  computed: {},
   watch: {
     async comment (comment) {
       this.componentComment = comment
@@ -93,7 +104,7 @@ export default {
   },
   methods: {
     async checkComments () {
-      if (!this.componentComment.comment) {
+      if (!this.componentComment.comments.comment) {
         const resp = await this.$axios.get(
           `${endpoints.getComment}/${this.componentComment.id}`
         )
@@ -101,9 +112,25 @@ export default {
       }
     },
     newComment (event) {
-      this.componentComment.comments = this.componentComment.comments
-        ? [event, ...this.componentComment.comments]
-        : [event]
+      let newComments
+      if (this.componentComment.comments.comments) {
+        newComments = [event, ...this.componentComment.comments.comments]
+      } else {
+        newComments = [event]
+      }
+
+      this.componentComment = Object.assign({}, this.componentComment, {
+        comments: Object.assign(
+          {},
+          this.componentComment.comments,
+          {
+            comments: newComments
+          },
+          {
+            count: (this.componentComment.comments.count += 1)
+          }
+        )
+      })
     },
     likeChange (event) {
       this.componentComment.likes = event
@@ -113,7 +140,6 @@ export default {
 </script>
 
 <style>
-
 .comment-div {
   margin: 0 0 10px 10px;
 }

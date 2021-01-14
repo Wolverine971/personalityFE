@@ -12,15 +12,15 @@
         class="pad-bot"
       />
       <interact :post="question" @emitComment="newComment($event)" />
-
       <sort :type="'comments'" @triggerNewSearch="filterComments($event)" />
     </div>
+
     <v-col>
-      <v-col v-if="comments && comments.length && showComments">
-        <div v-for="(c, i) in comments" :key="i" class="comment-div">
-          <comment :comment="c" :interact="true" />
-        </div>
-      </v-col>
+      <comments
+        v-if="showComments"
+        :comments="question.comments"
+        :parent-id="question.id"
+      />
       <v-col v-else>
         Answer Question to see other comments
       </v-col>
@@ -32,22 +32,17 @@
 import { endpoints } from '../../models/endpoints'
 import Interact from '../shared/interact'
 import Sort from './sort'
-import Comment from './comment'
+import Comments from './comments'
 export default {
   name: 'SelectedQuestion',
-  components: { Comment, Sort, Interact },
+  components: { Sort, Interact, Comments },
 
   data: () => ({
     comment: '',
-    isLiked: false,
     question: null,
-    comments: [],
-    likes: [],
-    subscribers: [],
-    isSubscribed: false,
     commentCursorId: null,
     commentorIds: {},
-    showComments: null
+    showComments: false
   }),
   computed: {
     alreadyFetchedQuestions () {
@@ -79,11 +74,8 @@ export default {
             {},
             this.alreadyFetchedQuestions[questionId]
           )
-          this.comments = [...this.alreadyFetchedQuestions[questionId].comments]
-          this.likes = [...this.alreadyFetchedQuestions[questionId].likes]
-          this.subscribers = [
-            ...this.alreadyFetchedQuestions[questionId].subscribers
-          ]
+          this.commentorIds = this.question.commentorIds
+          this.showComments = this.commentorIds[this.$auth.user.id]
         } else {
           const resp = await this.$axios.get(
             `${endpoints.getQuestion}/${questionId}`
@@ -100,7 +92,7 @@ export default {
         }
       } else {
         const resp = await this.$axios.get(
-            `${endpoints.getJustQuestion}/${questionId}`
+          `${endpoints.getJustQuestion}/${questionId}`
         )
         if (resp && resp.data) {
           this.question = Object.assign({}, resp.data)
@@ -118,21 +110,24 @@ export default {
         `${endpoints.getSortedComments}/${this.questionId}`,
         event
       )
-      if (resp && resp.data && resp.data.length) {
-        this.cursorId = resp.data[resp.data.length - 1].id
-        this.comments = [...resp.data]
-        this.question = Object.assign({}, this.question, {
-          comments: this.comments
-        })
+      if (resp && resp.data && resp.data.comments) {
+        if (resp.data.comments.length) {
+          this.cursorId = resp.data.comments[resp.data.comments.length - 1].dateCreated
+        }
+        this.question.comments = resp.data
         this.$store.commit('addAllQuestions', [this.question])
       }
     },
     newComment (event) {
       this.showComments = true
-      this.comments = [event, ...this.comments]
+      const newComments = [event, ...this.question.comments.comments]
       this.question.commentorIds[this.$auth.user.id] = 1
       this.question = Object.assign({}, this.question, {
-        comments: this.comments
+        comments: Object.assign({}, this.question.comments, {
+          comments: newComments
+        }, {
+          count: this.question.comments.count += 1
+        })
       })
       this.$store.commit('addAllQuestions', [this.question])
     }

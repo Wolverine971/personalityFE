@@ -18,7 +18,7 @@ export default function ({ $axios, redirect, store }: any) {
       const refreshToken = store.$auth.$storage._state['_token.local']
 
       if (!refreshToken) {
-        return
+        console.log('no refresh token')
 
         // console.log('redirecting1!!!')
         // return redirect('/auth')

@@ -85,7 +85,6 @@ export default {
   watch: {},
   mounted () {
     const dash = this.$store.getters.getNewQuestions
-    // debugger
     if (dash.length === 0 || this.$store.getters.getRefreshDashboard) {
       this.$store.dispatch('getDashboard')
       this.$store.commit('setRefreshDashboard', false)

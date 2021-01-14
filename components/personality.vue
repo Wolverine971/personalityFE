@@ -1,7 +1,7 @@
 <template>
   <div id="c-box">
     <h1 class="brick-background">
-      &nbsp;&nbsp;{{ selectedType }} Wall
+&nbsp;&nbsp;{{ selectedType }} Wall
     </h1>
     <v-card v-if="interact">
       <v-card-title v-if="showElem">
@@ -43,11 +43,21 @@
       <v-tab>Images</v-tab>
       <v-tab>Text</v-tab>
     </v-tabs>
-    <v-card>
-      <div v-for="(item, i) in selectedPosts" :key="i">
-        <Content :content="item" :selected-type="selectedType" :interact="interact" />
-      </div>
-    </v-card>
+    <h3>Total Posts {{ count }}</h3>
+    <v-col>
+      <v-card>
+        <div v-for="(item, i) in selectedPosts" :key="i">
+          <Content
+            :content="item"
+            :interact="interact"
+          />
+        </div>
+      </v-card>
+      <v-row v-if="currentCount < count && !contentLoading" @click="loadMore">
+        <v-btn>Load More</v-btn>
+      </v-row>
+      <v-progress-linear v-else-if="contentLoading" indeterminate />
+    </v-col>
   </div>
 </template>
 
@@ -62,18 +72,6 @@ export default {
   data () {
     return {
       selectedType: null,
-      props: {
-        files: [
-          {
-            name: 'test',
-            status: false
-          }
-        ]
-      },
-      options: {
-        url: '/upload',
-        paramName: 'file'
-      },
       newPost: '',
       src: null,
       imgLoading: false,
@@ -81,7 +79,11 @@ export default {
       selectedPosts: [],
       showElem: false,
       picWidth: 0,
-      interact: false
+      interact: false,
+      count: 0,
+      lastDate: '',
+      contentLoading: false,
+      currentCount: 0
     }
   },
   computed: {
@@ -105,7 +107,13 @@ export default {
     },
     posts (vals) {
       if (vals) {
-        this.selectedPosts = vals[this.type]
+        if (vals[this.type]) {
+          this.parseContent(vals[this.type].content)
+          this.count = vals[this.type].count
+        } else {
+          this.selectedPosts = []
+          this.count = 0
+        }
       } else {
         this.selectedPosts = []
       }
@@ -116,11 +124,15 @@ export default {
   },
   methods: {
     init () {
+      this.contentLoading = true
       this.selectedType = this.$route.params.type
       if (!this.posts || !this.posts[this.selectedType]) {
         this.$store.dispatch('getPosts', this.selectedType)
       } else {
-        this.selectedPosts = this.posts[this.selectedType]
+        this.parseContent(this.posts[this.selectedType].content)
+        // this.selectedPosts = this.posts[this.selectedType].content
+        // this.lastDate = this.selectedPosts[this.selectedPosts.length - 1].dateCreated
+        this.count = this.posts[this.selectedType].count
       }
       const box = document.getElementById('c-box')
       this.picWidth = box.clientWidth
@@ -142,9 +154,14 @@ export default {
         formData
       )
       if (resp && resp.data) {
+        this.selectedPosts = [resp.data, ...this.selectedPosts]
+        this.count += 1
+        this.currentCount += 1
         this.$store.commit('setPosts', {
-          type: this.selectedType,
-          data: resp.data
+          [this.selectedType]: {
+            content: this.selectedPosts,
+            count: this.count
+          }
         })
         this.newPost = ''
         this.showElem = false
@@ -173,14 +190,38 @@ export default {
     },
 
     canInteract () {
-      this.interact = !!((this.$auth.user && this.selectedType === this.$auth.user.enneagramId))
+      this.interact = !!(
+        this.$auth.user && this.selectedType === this.$auth.user.enneagramId
+      )
+    },
+    loadMore () {
+      this.contentLoading = true
+      console.log('getPaginatedContent')
+      return this.$axios
+        .get(`${endpoints.getPosts}/${this.selectedType}/${this.lastDate || ''}`)
+        .then((resp) => {
+          if (resp && resp.data) {
+            const content = [...this.selectedPosts, ...resp.data.content]
+            this.$store.commit('setPosts', {
+              [this.selectedType]: {
+                content,
+                count: this.count
+              }
+            })
+          }
+        })
+    },
+    parseContent (content) {
+      this.lastDate = content[content.length - 1].dateCreated
+      this.selectedPosts = [...content]
+      this.currentCount += content.length
+      this.contentLoading = false
     }
   }
 }
 </script>
 
 <style>
-
 .brick-background {
   background: url('https://api.iconify.design/bi:bricks.svg?color=pink&height=47');
 }

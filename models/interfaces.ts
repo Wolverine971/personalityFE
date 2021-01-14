@@ -14,3 +14,8 @@ export interface comment {
   likes: string[]
   parentId: string
 }
+
+export interface ContentPost {
+  content: any[],
+  count: number
+}

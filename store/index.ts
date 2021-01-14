@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import { endpoints } from '../models/endpoints'
 import { getQuestionsFromData } from '~/utils'
+import { ContentPost } from '~/models/interfaces'
 
 Vue.use(Vuex)
 export interface AppState {
@@ -154,14 +155,11 @@ export const mutations = {
   setSubscriptions (state: AppState, subscriptions: any[]) {
     state.subscriptions = subscriptions
   },
-  setPosts (state: AppState, posts: any) {
+  setPosts (state: AppState, postContent: { type: ContentPost}) {
     if (!state.posts) {
       state.posts = {}
     }
-    const morePosts: any = {
-      [posts.type]: posts.data
-    }
-    state.posts = Object.assign({}, state.posts, morePosts)
+    state.posts = Object.assign({}, state.posts, postContent)
   },
   setAskedQuestions (state: AppState, askedQuestions: any) {
     state.askedQuestions = askedQuestions
@@ -291,7 +289,9 @@ export const actions: any = {
       .get(`${endpoints.getPosts}/${type}`)
       .then((resp: any) => {
         if (resp && resp.data) {
-          commit('setPosts', { type, data: resp.data })
+          commit('setPosts', {
+            [type]: resp.data
+          })
         }
       })
   }

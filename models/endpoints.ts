@@ -20,6 +20,8 @@ export const endpoints = {
   postContent: '/api/content',
   getPosts: '/api/content/all',
   likeContent: '/api/content/like',
+  // used to load more content and comments
+  loadMoreContent: '/api/content/loadMore',
 
   // dashboard
   getDashboard: '/api/dashboard',
