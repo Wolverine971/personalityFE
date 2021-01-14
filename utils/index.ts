@@ -27,8 +27,8 @@ export function getCommentFromData (esComment: any) {
 }
 
 export const msToTime = (time: any) => {
-  const newDate = new Date()
-  const date = new Date(time)
+  const newDate: any = new Date()
+  const date: any = new Date(time)
   // it just works ok, gosh :)
   let s = newDate - date
 
