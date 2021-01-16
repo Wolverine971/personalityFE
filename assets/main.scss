@@ -1,8 +1,8 @@
 @import "../assets/variables.scss";
 
 .heart {
-  height: 40px !important;
-  width: 40px !important;
+  height: 30px !important;
+  width: 30px !important;
   left: calc(100% - 55px) !important;
 }
 .btn-selected {
@@ -124,6 +124,12 @@ h2{
   color: $cPink
 }
 h3{
+  color: $cBlue
+}
+h4{
+  color: $cPink
+}
+h5{
   color: $cBlue
 }
 

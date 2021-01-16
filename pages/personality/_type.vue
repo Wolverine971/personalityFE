@@ -18,7 +18,12 @@ import Personality from '../../components/personality'
 export default {
   name: 'Type',
   components: { Personality },
-  middleware: ['accessToken']
+  middleware: ['accessToken'],
+  head () {
+    return {
+      title: this.$route.params.type
+    }
+  }
 }
 </script>
 

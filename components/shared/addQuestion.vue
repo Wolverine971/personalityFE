@@ -4,14 +4,17 @@
     :items="typeAhead"
     :search-input.sync="question"
     :label="(!typeAheadLoading && question && key === -1) ? 'Create Question' : 'Search Questions'"
+    :prepend-inner-icon="(!typeAheadLoading && question && key === -1) ? 'add_circle_outline' : 'search'"
     :menu-props="{ closeOnContentClick: true }"
     :item-text="question"
     @update:list-index="change"
+    @click:prepend-inner="addQuestion(question)"
   >
     <template v-slot:append>
       <heartbeat v-if="typeAheadLoading" class="heart" />
       <v-btn
         v-if="!typeAheadLoading && question && key === -1"
+        class="btn-height"
         text
         @click="addQuestion(question)"
       >
@@ -113,4 +116,7 @@ export default {
 </script>
 
 <style>
+.btn-height {
+  height: 15px !important;
+}
 </style>

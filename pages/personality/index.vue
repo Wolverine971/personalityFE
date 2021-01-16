@@ -30,6 +30,18 @@ export default {
       this.$router.go(1)
     }
   }
+  // head () {
+  //   return {
+  //     script: [
+  //       {
+  //         src: 'https://cdnjs.deepai.org/deepai.min.js',
+  //         async: true,
+  //         defer: true
+  //       }
+  //     ]
+  //   }
+  // }
+
 }
 </script>
 
