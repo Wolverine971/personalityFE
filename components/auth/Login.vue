@@ -67,18 +67,7 @@ export default {
       }
     },
     clear () {
-      // this.$v.$reset()
-      // this.password = ''
-      // this.email = ''
       this.$refs.loginForm.reset()
-    },
-    forgotPassword () {
-      this.$router.push({
-        path: '/auth'
-      })
-    },
-    change (val) {
-      this.login = val
     }
   }
 }

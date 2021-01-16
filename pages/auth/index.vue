@@ -14,15 +14,12 @@
       <Register @goToLogin="change(true)" />
     </div>
     <div v-if="login">
-      <div v-if="forgotPassword">
-        <forgot-password @goToLogin="change(true)" />
-      </div>
-      <div v-else class="col-center">
-        <Login />
-        <br>
-        <br>
-        <a @click="forgotPassword = true"> Forgot Password </a>
-      </div>
+      <Login />
+      <br>
+      <br>
+      <NuxtLink to="/auth/forgotPassword">
+        Forgot Password
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -31,11 +28,10 @@ import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
 import Register from '../../components/auth/Register'
 import Login from '../../components/auth/Login'
-import ForgotPassword from '../../components/auth/ForgotPassword'
 
 export default {
   name: 'Index',
-  components: { Register, Login, ForgotPassword },
+  components: { Register, Login },
   mixins: [validationMixin],
   validations: {
     email: { required, email },
@@ -45,8 +41,7 @@ export default {
     email: '',
     password: '',
     login: true,
-    selected: 0,
-    forgotPassword: false
+    selected: 0
   }),
 
   computed: {
@@ -95,9 +90,6 @@ export default {
 
     change (val) {
       this.login = val
-      if (this.login) {
-        this.forgotPassword = false
-      }
     }
   }
 }

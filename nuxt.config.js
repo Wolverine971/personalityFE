@@ -3,23 +3,67 @@ export default {
   head: {
     titleTemplate: '%s - for personality ya know',
     title: '9takes',
+    htmlAttrs: {
+      lang: 'en',
+      amp: true
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...'
+      },
+      { 'http-equiv': 'content-language', content: 'en' },
+      { property: 'og:url', content: 'https://9takes.com' },
+      {
+        property: 'og:description',
+        content:
+          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...'
+      },
+      { property: 'og:title', content: '9takes' },
+      {
+        name: 'twitter:description',
+        content:
+          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...'
+      },
+      {
+        name: 'twitter:title',
+        content: '9takes | Home for personality Q&A'
+      },
+      {
+        name: 'keywords',
+        content:
+          'enneagram, personality, personality network, enneagram questions, enneagram answers, personality explaination, Q&A, ask a question, type 1, type 2, type 3, type 4, type 5, type 6, type 7, type 8, type 9'
+      }
     ],
 
     link: [
-      { rel: 'icon', type: 'svg', href: '/cotton-candy.svg', author: 'https://www.flaticon.com/authors/freepik' },
-      { rel: 'icon', type: 'image/x-icon', href: '/cotton-candy.svg', author: 'https://www.flaticon.com/authors/freepik' },
+      {
+        rel: 'icon',
+        type: 'svg',
+        href: '/cotton-candy.svg',
+        author: 'https://www.flaticon.com/authors/freepik',
+        async: true,
+        defer: true
+      },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/cotton-candy.svg',
+        author: 'https://www.flaticon.com/authors/freepik',
+        async: true,
+        defer: true
+      },
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
+        async: true,
+        defer: true
       }
-    ],
-    script: [
-      { src: 'https://cdnjs.deepai.org/deepai.min.js' }
     ]
   },
 
@@ -50,12 +94,7 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    '@nuxtjs/auth',
-    '@nuxtjs/toast'
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth', '@nuxtjs/toast'],
 
   auth: {
     redirect: {
@@ -115,8 +154,7 @@ export default {
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-  },
+  build: {},
   target: 'static', // 'universal',
   env: {
     BE_URL: process.env.BE_URL || 'http://localhost:3001/'

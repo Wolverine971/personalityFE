@@ -174,16 +174,18 @@ export default {
     user (user) {
       if (this.$socket && user) {
         this.$socket.client.emit('join', this.$auth.user.id)
-        this.$socket.$subscribe(
-          `push:notifications:${this.$auth.user.id}`,
-          async (data) => {
-            console.log(data)
-            const notification = await JSON.parse(data)
-            if (notification) {
-              this.notifications = [...notification]
+        if (this.$socket.$subscribe) {
+          this.$socket.$subscribe(
+            `push:notifications:${this.$auth.user.id}`,
+            async (data) => {
+              console.log(data)
+              const notification = await JSON.parse(data)
+              if (notification) {
+                this.notifications = [...notification]
+              }
             }
-          }
-        )
+          )
+        }
       }
     }
   },

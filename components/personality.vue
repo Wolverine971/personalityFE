@@ -43,7 +43,12 @@
       <v-tab>Images</v-tab>
       <v-tab>Text</v-tab>
     </v-tabs>
-    <h3>Total Posts {{ count }}</h3>
+    <h3 v-if="count">
+      {{ "Total Posts " + count }}
+    </h3>
+    <h3 v-else>
+      {{ $auth.user ? "Total Posts 0" : "No Content For You!" }}
+    </h3>
     <v-col>
       <v-card>
         <div v-for="(item, i) in selectedPosts" :key="i">
@@ -123,11 +128,14 @@ export default {
     this.init()
   },
   methods: {
-    init () {
+    async init () {
       this.contentLoading = true
       this.selectedType = this.$route.params.type
       if (!this.posts || !this.posts[this.selectedType]) {
-        this.$store.dispatch('getPosts', this.selectedType)
+        const success = await this.$store.dispatch('getPosts', this.selectedType)
+        if (!success) {
+          this.contentLoading = false
+        }
       } else {
         this.parseContent(this.posts[this.selectedType].content)
         // this.selectedPosts = this.posts[this.selectedType].content
@@ -168,6 +176,8 @@ export default {
         this.src = null
 
         this.$store.dispatch('toastSuccess', 'Post Submitted')
+      } else {
+        this.$store.dispatch('toastError', 'Post Submit Fail')
       }
     },
 
@@ -212,8 +222,13 @@ export default {
         })
     },
     parseContent (content) {
-      this.lastDate = content[content.length - 1].dateCreated
-      this.selectedPosts = [...content]
+      if (content && content.length) {
+        this.lastDate = content[content.length - 1].dateCreated
+        this.selectedPosts = [...content]
+      } else {
+        this.lastDate = null
+        this.selectedPosts = []
+      }
       this.currentCount += content.length
       this.contentLoading = false
     }

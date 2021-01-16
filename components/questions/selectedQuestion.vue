@@ -88,6 +88,7 @@ export default {
             this.$store.commit('addAllQuestions', [resp.data])
           } else {
             this.$store.dispatch('toastError', 'Failed To Get Question')
+            this.$router.replace({ path: '/questions' })
           }
         }
       } else {
@@ -99,6 +100,7 @@ export default {
           this.$store.commit('addAllQuestions', [resp.data])
         } else {
           this.$store.dispatch('toastError', 'Failed To Get Question')
+          this.$router.replace({ path: '/questions' })
         }
       }
     },

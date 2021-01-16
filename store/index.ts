@@ -284,7 +284,7 @@ export const actions: any = {
       }
     })
   },
-  getPosts ({ commit }: any, type: string): any {
+  getPosts ({ commit, dispatch }: any, type: string): any {
     return this.$axios
       .get(`${endpoints.getPosts}/${type}`)
       .then((resp: any) => {
@@ -292,7 +292,15 @@ export const actions: any = {
           commit('setPosts', {
             [type]: resp.data
           })
+          return true
+        } else {
+          dispatch('toastError', 'Failed To Get Posts')
+          return false
         }
+      })
+      .catch(() => {
+        dispatch('toastError', 'Failed To Get Posts')
+        return false
       })
   }
 }
