@@ -2,6 +2,7 @@
 
 export default {
   customVariables: ['~/assets/variables.scss'],
+  treeShake: true,
   breakpoint: {},
   icons: {},
   lang: {},

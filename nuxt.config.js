@@ -1,7 +1,7 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - for personality ya know',
+    titleTemplate: '%s - for all personalities',
     title: '9takes',
     htmlAttrs: {
       lang: 'en',
@@ -42,9 +42,16 @@ export default {
 
     link: [
       {
+        rel: 'shortcut icon',
+        href: './static/cotton-candy.ico',
+        author: 'https://www.flaticon.com/authors/freepik',
+        async: true,
+        defer: true
+      },
+      {
         rel: 'icon',
         type: 'svg',
-        href: '/cotton-candy.svg',
+        href: './static/cotton-candy.svg',
         author: 'https://www.flaticon.com/authors/freepik',
         async: true,
         defer: true
@@ -52,7 +59,7 @@ export default {
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: '/cotton-candy.svg',
+        href: './static/cotton-candy.svg',
         author: 'https://www.flaticon.com/authors/freepik',
         async: true,
         defer: true
@@ -155,6 +162,24 @@ export default {
   },
   googleAnalytics: {
     id: process.env.ORIGIN === 'https://9takes.com' ? process.env.GOOGLE : ''
+  },
+
+  pwa: {
+    manifest: {
+      name: '9takes',
+      short_name: '9takes',
+      lang: 'en',
+      theme_color: '#8fceee',
+      useWebmanifestExtension: true
+    },
+    meta: {
+      /* meta options */
+      favicon: './static/cotton-candy.ico',
+      description: 'Community for questions and answers based on personality'
+    },
+    icon: {
+      source: './static/cotton-candy.png'
+    }
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

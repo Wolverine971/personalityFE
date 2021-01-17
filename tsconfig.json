@@ -30,6 +30,7 @@
       "@types/node",
       "@nuxt/types",
       "@nuxtjs/axios",
+      "@nuxtjs/vuetify",
       "vuetify"
     ]
   },

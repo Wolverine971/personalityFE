@@ -29,18 +29,20 @@ export default {
       this.$router.push({ path: `/personality/${val}` })
       this.$router.go(1)
     }
+  },
+  head () {
+    return {
+      title: 'Wall Selection',
+      meta: [
+        {
+          hid: 'wall selection description',
+          name: 'description',
+          content:
+          'Select which enneagram type wall/ page you want to go to'
+        }
+      ]
+    }
   }
-  // head () {
-  //   return {
-  //     script: [
-  //       {
-  //         src: 'https://cdnjs.deepai.org/deepai.min.js',
-  //         async: true,
-  //         defer: true
-  //       }
-  //     ]
-  //   }
-  // }
 
 }
 </script>
