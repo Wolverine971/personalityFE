@@ -90,7 +90,8 @@ export default {
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/composition-api',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/google-analytics'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -151,6 +152,9 @@ export default {
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     optionsPath: './vuetify.options.js'
+  },
+  googleAnalytics: {
+    id: process.env.ORIGIN === 'https://9takes.com' ? process.env.GOOGLE : ''
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
