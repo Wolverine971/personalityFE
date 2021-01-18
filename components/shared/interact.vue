@@ -59,7 +59,7 @@
           rows="1"
           auto-grow
           hide-details
-          class="pad-bot  margin-left"
+          class="pad-bot margin-left"
         >
           <template v-if="!$vuetify.breakpoint.mobile" slot="append">
             <v-btn v-if="comment" @click="submitComment">
@@ -153,13 +153,13 @@ export default {
             resp = await this.$axios.get(
               `${endpoints.likeComment}/${this.post.id}/${
                 isLiked ? 'add' : 'remove'
-              }`
+              }/${this.$auth.user.enneagramId}`
             )
           } else {
             resp = await this.$axios.get(
               `${endpoints.likeContent}/${this.post.id}/${
                 isLiked ? 'add' : 'remove'
-              }`
+              }/${this.$auth.user.enneagramId}`
             )
           }
 
@@ -180,7 +180,9 @@ export default {
     async submitComment () {
       if (this.$auth.user) {
         const resp = await this.$axios.post(
-          `${endpoints.addComment}/${this.type}/${this.post.id}`,
+          `${endpoints.addComment}/${this.type}/${this.post.id}/${
+            this.type === 'content' ? this.$auth.user.enneagramId : ''
+          }`,
           {
             comment: this.comment
           }

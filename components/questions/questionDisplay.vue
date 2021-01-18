@@ -1,6 +1,12 @@
 <template>
   <div class="clickable">
-    <v-textarea
+    <v-card class="margin-bot">
+      <v-card-text class="margin-bot pad-bot clickable" :to="{ path: '/questions', query: { id: question.id } }" router>
+        {{ question.question }}
+      </v-card-text>
+    </v-card>
+    <div v-if="interact" class="margin-bot">
+      <!-- <v-textarea
       :value="question.question"
       type="text"
       rows="1"
@@ -42,7 +48,7 @@
         </v-btn>
       </template>
     </v-textarea>
-    <div v-if="$vuetify.breakpoint.mobile && interact" class="margin-bot">
+    <div v-if="$vuetify.breakpoint.mobile && interact" class="margin-bot"> -->
       <div class="btn-group">
         <v-btn
           outlined

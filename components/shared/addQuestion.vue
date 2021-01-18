@@ -89,7 +89,7 @@ export default {
       if (this.$auth.user) {
         if (this.key === -1) {
           const resp = await this.$axios.get(
-            `${endpoints.questionAdd}/${question}`
+            `${endpoints.questionAdd}/${question}/${this.$auth.user.enneagramId}`
           )
           if (resp) {
             this.goToQuestion(resp.data)
