@@ -161,7 +161,7 @@ export default {
     optionsPath: './vuetify.options.js'
   },
   googleAnalytics: {
-    id: process.env.ORIGIN === 'https://9takes.com' ? process.env.GOOGLE : ''
+    id: process.env.GOOGLE
   },
 
   pwa: {
