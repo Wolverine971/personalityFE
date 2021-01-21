@@ -62,10 +62,9 @@
 </template>
 
 <script>
-import QuestionDisplay from '../components/questions/questionDisplay'
 export default {
   name: 'Dashboard',
-  components: { QuestionDisplay },
+  components: { QuestionDisplay: () => import('../components/questions/questionDisplay') },
   data () {
     return {}
   },

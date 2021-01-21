@@ -37,13 +37,12 @@
 
 <script>
 import debounce from 'lodash.debounce'
-import Heartbeat from '../../components/shared/heart'
 import { getQuestionsFromData } from '../../utils'
 import { endpoints } from '~/models/endpoints'
 export default {
   name: 'AddQuestion',
 
-  components: { Heartbeat },
+  components: { Heartbeat: () => import('../../components/shared/heart') },
   data () {
     return {
       question: '',

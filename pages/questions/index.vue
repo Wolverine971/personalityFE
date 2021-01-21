@@ -26,12 +26,11 @@
 </template>
 
 <script>
-import AddQuestion from '../../components/shared/addQuestion'
 export default {
   name: 'Index',
   // middleware: 'accessToken',
 
-  components: { AddQuestion },
+  components: { AddQuestion: () => import('../../components/shared/addQuestion') },
   data () {
     return {
       allQuestions: [],

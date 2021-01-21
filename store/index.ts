@@ -215,7 +215,7 @@ export const actions: any = {
         })
         .catch((error: Error) => {
           console.log(error)
-          console.log('getaccessToken false 2')
+          console.log('getAccessToken false 2')
           return false
         })
     }

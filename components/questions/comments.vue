@@ -28,10 +28,9 @@
 
 <script>
 import { endpoints } from '../../models/endpoints'
-import Comment from './comment'
 export default {
   name: 'AllComments',
-  components: { Comment },
+  components: { Comment: () => import('./comment') },
   props: {
     comments: {
       type: Object,

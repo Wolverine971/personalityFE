@@ -68,11 +68,9 @@
 
 <script>
 import { endpoints } from '../models/endpoints'
-import Content from './content.vue'
-import Heartbeat from './shared/heart'
 export default {
   name: 'Personality',
-  components: { Heartbeat, Content },
+  components: { Heartbeat: () => import('./shared/heart'), Content: () => import('./content.vue') },
   middleware: ['accessToken'],
   data () {
     return {

@@ -30,12 +30,13 @@
 
 <script>
 import { endpoints } from '../../models/endpoints'
-import Interact from '../shared/interact'
-import Sort from './sort'
-import Comments from './comments'
 export default {
   name: 'SelectedQuestion',
-  components: { Sort, Interact, Comments },
+  components: {
+    Sort: () => import('./sort'),
+    Interact: () => import('../shared/interact'),
+    Comments: () => import('./comments')
+  },
 
   data: () => ({
     comment: '',
@@ -114,7 +115,8 @@ export default {
       )
       if (resp && resp.data && resp.data.comments) {
         if (resp.data.comments.length) {
-          this.cursorId = resp.data.comments[resp.data.comments.length - 1].dateCreated
+          this.cursorId =
+            resp.data.comments[resp.data.comments.length - 1].dateCreated
         }
         this.question.comments = resp.data
         this.$store.commit('addAllQuestions', [this.question])
@@ -125,11 +127,16 @@ export default {
       const newComments = [event, ...this.question.comments.comments]
       this.question.commenterIds[this.$auth.user.id] = 1
       this.question = Object.assign({}, this.question, {
-        comments: Object.assign({}, this.question.comments, {
-          comments: newComments
-        }, {
-          count: this.question.comments.count += 1
-        })
+        comments: Object.assign(
+          {},
+          this.question.comments,
+          {
+            comments: newComments
+          },
+          {
+            count: (this.question.comments.count += 1)
+          }
+        )
       })
       this.$store.commit('addAllQuestions', [this.question])
     }

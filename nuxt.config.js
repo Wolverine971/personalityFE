@@ -4,8 +4,7 @@ export default {
     titleTemplate: '%s - for all personalities',
     title: '9takes',
     htmlAttrs: {
-      lang: 'en',
-      amp: true
+      lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
@@ -44,32 +43,24 @@ export default {
       {
         rel: 'shortcut icon',
         href: '/cotton-candy.ico',
-        author: 'https://www.flaticon.com/authors/freepik',
-        async: true,
-        defer: true
+        author: 'https://www.flaticon.com/authors/freepik'
       },
       {
         rel: 'icon',
         type: 'svg',
         href: '/cotton-candy.svg',
-        author: 'https://www.flaticon.com/authors/freepik',
-        async: true,
-        defer: true
+        author: 'https://www.flaticon.com/authors/freepik'
       },
       {
         rel: 'icon',
         type: 'image/x-icon',
         href: '/cotton-candy.svg',
-        author: 'https://www.flaticon.com/authors/freepik',
-        async: true,
-        defer: true
+        author: 'https://www.flaticon.com/authors/freepik'
       },
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
-        async: true,
-        defer: true
+          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
       }
     ]
   },
@@ -97,12 +88,11 @@ export default {
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/composition-api',
-    '@nuxtjs/vuetify',
-    '@nuxtjs/google-analytics'
+    '@nuxtjs/vuetify'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth', '@nuxtjs/toast'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth', '@nuxtjs/toast', '@nuxtjs/google-analytics'],
 
   auth: {
     redirect: {
@@ -161,7 +151,7 @@ export default {
     optionsPath: './vuetify.options.js'
   },
   googleAnalytics: {
-    id: process.env.GOOGLE
+    id: process.env.ORIGIN === 'https://9takes.com' ? process.env.GOOGLE : ''
   },
 
   pwa: {
@@ -178,7 +168,7 @@ export default {
       description: 'Community for questions and answers based on personality'
     },
     icon: {
-      source: '/cotton-candy.png'
+      source: '/icon.png'
     }
   },
 
@@ -208,7 +198,15 @@ export default {
   // },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    loaders: {
+      cssModules: {
+        modules: {
+          localIdentName: '[hash:base64:4]'
+        }
+      }
+    }
+  },
   // target: 'static', // 'universal',
   env: {
     BE_URL: process.env.BE_URL || 'http://localhost:3001/'

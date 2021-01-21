@@ -14,10 +14,9 @@
 </template>
 
 <script>
-import Personality from '../../components/personality'
 export default {
   name: 'Type',
-  components: { Personality },
+  components: { Personality: () => import('../../components/personality') },
   middleware: ['accessToken'],
   validate ({ params }) {
     if (params.type.match(/(?<!\S)\d(?!\S)/)) {
