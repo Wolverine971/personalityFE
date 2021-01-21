@@ -4,11 +4,6 @@ import colors from 'vuetify/es5/util/colors'
 
 Vue.use(Vuetify, {
   treeShake: true,
-  defaultAssets: {
-    font: {
-      family: 'Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif !important'
-    }
-  },
   theme: {
     primary: '#121212', // a color that is not in the material colors palette
     accent: colors.grey.darken3,

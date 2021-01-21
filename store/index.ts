@@ -249,7 +249,6 @@ export const actions: any = {
   },
   getPaginatedQuestions ({ commit, getters }: any, pageSize: number) {
     let lastDate = getters.getAllQuestionsLastDate
-    console.log('getPaginatedQuestions')
     return this.$axios
       .get(`${endpoints.getAllQuestions}/${pageSize}/${lastDate || ''}`)
       .then((response: any) => {

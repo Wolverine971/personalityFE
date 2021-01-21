@@ -56,17 +56,12 @@ export default {
         type: 'image/x-icon',
         href: '/cotton-candy.svg',
         author: 'https://www.flaticon.com/authors/freepik'
-      },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
       }
     ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ['~/assets/main.scss'],
+  css: ['~/assets/main.scss', '~/assets/googleFonts.scss'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
@@ -134,6 +129,8 @@ export default {
         'http://localhost:3000/',
         'http://localhost:3000',
         'https://9takes.com',
+        'https://www.9takes.com',
+        'https://www.9takes.com/',
         'https://9takes.com/',
         'http://9takes.com',
         'http://9takes.com/',
@@ -168,7 +165,8 @@ export default {
       description: 'Community for questions and answers based on personality'
     },
     icon: {
-      source: '/icon.png'
+      source: '/iconz.png',
+      fileName: 'iconz.png'
     }
   },
 
@@ -199,6 +197,7 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    // analyze: true,
     loaders: {
       cssModules: {
         modules: {
@@ -207,8 +206,9 @@ export default {
       }
     }
   },
-  // target: 'static', // 'universal',
+  target: 'static', // 'universal',
   env: {
-    BE_URL: process.env.BE_URL || 'http://localhost:3001/'
+    BE_URL: process.env.BE_URL || 'http://localhost:3001/',
+    GOOGLE: process.env.GOOGLE
   }
 }

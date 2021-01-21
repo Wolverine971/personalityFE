@@ -105,7 +105,12 @@ export default defineComponent({
             this.registerSuccess = true
             // this.$emit('goToLogin', true)
           } else {
+            let message = 'Failed to register'
+            if (resp && resp.response && resp.response.data) {
+              message = resp.response.data
+            }
             this.registerSuccess = false
+            this.$store.dispatch('toastError', message)
           }
         } catch (error) {
           console.log(error)
