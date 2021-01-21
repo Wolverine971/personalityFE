@@ -54,65 +54,80 @@
             -Command and Signal
 
             -Admin and Logistics -->
-          <h2>Situation</h2>
+          <h2>
+            <v-icon color="#7f9c7f">
+              public
+            </v-icon>
+            Situation
+          </h2>
           <p>
-            We live in a world where people are different. We all know people
+            Are people all the same? Are people all different? We are similar to
+            some people, and to others we are not. Why do we get angry, anxious,
+            or feel inferior towards others? Let me suggest it is because we
+            believe others should either act, think or feel like how we do.
+            <!-- We live in a world where people are different. We all know people
             are different but we don't exactly know how or in what ways we are
             different. And we tend to get surprised when people don't do, think
-            or feel the way we do.
+            or feel the way we do. -->
           </p>
-          <h2>Solution</h2>
+          <h2>
+            <v-icon color="#969675">
+              emoji_objects
+            </v-icon>
+            Solution
+          </h2>
           <p>
-            9takes seeks to explore our psychology by creating a community where
+            9takes seeks to create a community where our similarities and
+            differences can be celebrated. We do this through asking thoughtful
+            questions and giving honest answers and filtering everything through
+            the lense of the enneagram. In the enneagram there are 9 core
+            personality types which means there can be at least 9 categorical
+            takes on any subject or situation.
+            <!-- 9takes seeks to explore our psychology by creating a community where
             we can discover our similarities and differences. 9takes gets its
             roots from the enneagram where broadly speaking there are 9 types of
             personality. Therefore there can be at least 9 takes on any subject
-            or situation.
+            or situation. -->
             <!-- These nine takes come from the enneagram personality test, which digs into our core motivations and fears and forms 9 goups of thinking or personalities. -->
             Here in this site we will get at those differences and
             commonalities, through question and answering.
             <u>Our goal to start conversations and provide a lense through which
               we can generate empathy and curiosity for one another.</u>
           </p>
-          <h2>How to use this site</h2>
-          <p>
-            First and foremost in order to use this site you need to know your
-            enneagram number. Our advice is to go to an enneagram site, read the
-            number descriptions and through reflection and asking friends,
-            decide on which number you most resonate with. We suggest reading
-            the
-            <a
-              href="https://www.enneagraminstitute.com/type-descriptions"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Enneagram Institute's type descriptions</a>
-            if you don't know your enneagram type.
-            <!-- <a
-              href="https://www.enneagraminstitute.com/type-descriptions"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Enneagram Descriptions </a>. -->
-          </p>
-          <h3>Please note that this site is constantly being improved</h3>
-          <p>
-            We welcome feedback and suggestions. Any suggestions should be sent
-            to <a href="mailto:usersup@9takes.com">usersup@9takes.com</a>
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/Wolverine971/personalityFE"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              Personality Frontend </a>.
-          </p>
+          <h2>
+            <v-icon color="#ad5252">
+              info
+            </v-icon>
+            Site Mechanics
+          </h2>
+          <ul>
+            <li>
+              Know or find out your <a
+                href="https://www.enneagraminstitute.com/type-descriptions"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Enneagram Number</a>
+            </li>
+            <li>Inorder to see answers to questions, you have to answer the question</li>
+            <li>Personality walls are for viewing, you can only post on your own personaity type's wall</li>
+          </ul>
+          <h2>
+            <v-icon color="#887373">
+              build
+            </v-icon>
+            Constantly Under Construction
+          </h2>
+          <ul>
+            <li>
+              We welcome feedback and suggestions. Any suggestions should be sent
+              to <a href="mailto:usersup@9takes.com">usersup@9takes.com</a>
+            </li>
+          </ul>
+          <hr class="my-3">
           <p>Thank you for checking out the 9takes community.</p>
 
           <hr class="my-3">
-          Built using
+          <!-- Built using
           <a
             href="https://vuejs.org/"
             target="_blank"
@@ -135,8 +150,8 @@
             rel="noopener noreferrer"
           >
             stuff
-          </a>
-          <br>
+          </a> -->
+          <!-- <br> -->
         </v-card-text>
         <v-card-actions>
           <v-btn to="/questions">
@@ -157,9 +172,6 @@ export default {
     titleTemplate: '%s - Home for personality Q&A',
     title: '9takes',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { 'http-equiv': 'content-language', content: 'en' },
       {
         name: 'description',
         content:

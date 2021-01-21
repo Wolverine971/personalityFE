@@ -67,8 +67,7 @@ export default {
         const scrollSpot = document.getElementById(n.notification.id)
         if (scrollSpot) {
           scrollSpot.scrollIntoView()
-          const vis = window.find(n.notification.text)
-          console.log(vis)
+          window.find(n.notification.text)
         }
       }, 1000)
     },

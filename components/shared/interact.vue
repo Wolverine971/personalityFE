@@ -250,7 +250,7 @@ export default {
           ? 'content'
           : 'comment'
       if (this.type === 'question' && this.$auth.user) {
-        this.commentIsExpanded = !post.commentorIds[this.$auth.user.id]
+        this.commentIsExpanded = !post.commenterIds[this.$auth.user.id]
         this.subscribers = [...post.subscribers]
       }
     }

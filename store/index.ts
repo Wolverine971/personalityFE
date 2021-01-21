@@ -195,7 +195,6 @@ export const actions: any = {
   },
 
   getAccessToken ({ commit }: any, refreshToken: string): any {
-    console.log('$store call to get access token')
     if (!refreshToken) {
       console.log('failed to pass refreshToken in $store')
       return false
@@ -204,10 +203,8 @@ export const actions: any = {
         .$get(endpoints.refreshTokenRoute + refreshToken)
         .then((data: any) => {
           if (!data.accessToken) {
-            console.log('getaccessToken false 1')
             return false
           } else {
-            console.log('gotAccessToken')
             this.$auth.setUserToken(data.refreshToken)
             this.$auth.setUser(data.user)
             commit('setUser', data.user)
@@ -293,7 +290,7 @@ export const actions: any = {
           })
           return true
         } else {
-          dispatch('toastError', 'Failed To Get Posts')
+          dispatch('toastError', 'Must Login')
           return false
         }
       })

@@ -206,7 +206,6 @@ export default {
     },
     loadMore () {
       this.contentLoading = true
-      console.log('getPaginatedContent')
       return this.$axios
         .get(`${endpoints.getPosts}/${this.selectedType}/${this.lastDate || ''}`)
         .then((resp) => {

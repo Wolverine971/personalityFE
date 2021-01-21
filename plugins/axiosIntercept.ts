@@ -36,7 +36,6 @@ export default function ({ $axios, redirect, store }: any) {
             originalRequest.headers.Authorization = resp
             resolve($axios(originalRequest))
           })
-          console.log('stay on page!!!')
           return retryOriginalRequest
         }
       }

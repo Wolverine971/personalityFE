@@ -102,9 +102,7 @@ export default {
       default: true
     }
   },
-  mounted () {
-    console.log(this.$vuetify.breakpoint.mobile)
-  }
+  mounted () {}
 }
 </script>
 <style>

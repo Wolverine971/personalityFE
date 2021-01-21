@@ -36,14 +36,14 @@ export default {
       {
         name: 'keywords',
         content:
-          'enneagram, personality, personality network, enneagram questions, enneagram answers, personality explaination, Q&A, ask a question, type 1, type 2, type 3, type 4, type 5, type 6, type 7, type 8, type 9'
+          'enneagram, personality, personality network, enneagram questions, enneagram answers, personality explanation, Q&A, ask a question, type 1, type 2, type 3, type 4, type 5, type 6, type 7, type 8, type 9'
       }
     ],
 
     link: [
       {
         rel: 'shortcut icon',
-        href: './static/cotton-candy.ico',
+        href: '/cotton-candy.ico',
         author: 'https://www.flaticon.com/authors/freepik',
         async: true,
         defer: true
@@ -51,7 +51,7 @@ export default {
       {
         rel: 'icon',
         type: 'svg',
-        href: './static/cotton-candy.svg',
+        href: '/cotton-candy.svg',
         author: 'https://www.flaticon.com/authors/freepik',
         async: true,
         defer: true
@@ -59,7 +59,7 @@ export default {
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: './static/cotton-candy.svg',
+        href: '/cotton-candy.svg',
         author: 'https://www.flaticon.com/authors/freepik',
         async: true,
         defer: true
@@ -174,17 +174,42 @@ export default {
     },
     meta: {
       /* meta options */
-      favicon: './static/cotton-candy.ico',
+      favicon: '/cotton-candy.ico',
       description: 'Community for questions and answers based on personality'
     },
     icon: {
-      source: './static/cotton-candy.png'
+      source: '/cotton-candy.png'
     }
   },
 
+  // render: {
+
+  //   csp: {
+  //     // reportOnly: true,
+  //     hashAlgorithm: 'sha256',
+  //     policies: {
+  //       'default-src': ["'self'"],
+  //       'img-src': ['https:', '*.google-analytics.com'],
+  //       'worker-src': ["'self'"],
+  //       'style-src': ["'self'", "'unsafe-inline'", '*.materialdesignicons.min.css', '*.googleapis.com'],
+  //       'script-src': [
+  //         "'self'",
+  //         "'unsafe-inline'",
+  //         '*.google-analytics.com',
+  //         'https://cdnjs.deepai.org/deepai.min.js',
+  //         '*socket.io'
+  //       ],
+  //       'connect-src': ['*.google-analytics.com', 'https://cdnjs.deepai.org/deepai.min.js'],
+  //       'form-action': ["'self'"],
+  //       'frame-ancestors': ["'none'"],
+  //       'object-src': ["'none'"]
+  //     }
+  //   }
+  // },
+
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
-  target: 'static', // 'universal',
+  // target: 'static', // 'universal',
   env: {
     BE_URL: process.env.BE_URL || 'http://localhost:3001/'
   }

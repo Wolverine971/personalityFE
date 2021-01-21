@@ -255,7 +255,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          I am Type ...
+          I am a...
           <v-select
             v-model="chosenType"
             :items="enneagramTypes"
@@ -282,7 +282,6 @@ export default {
   methods: {
     chosen (type) {
       if (type) {
-        // console.log(type)
         this.$emit('typeSelected', type)
         this.dialog = false
       }

@@ -31,6 +31,7 @@ export const endpoints = {
   registerRoute: '/api/user/register',
   resetRoute: '/api/user/reset',
   resetPassword: '/api/user/resetPassword',
+  confirmRoute: '/api/user/confirm',
 
   forgotPasswordRoute: '/api/user/forgotPassword',
   logoutRoute: '/api/user/logout',

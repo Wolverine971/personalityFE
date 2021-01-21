@@ -1,41 +1,55 @@
 <template>
-  <div class="col-center">
-    <h1>Register</h1>
-    <v-form
-      ref="registerForm"
-      class="form-width"
-    >
-      <v-text-field
-        v-model="emailAddress"
-        label="E-mail"
-        :rules="emailRules"
-        required
-      />
-      <v-text-field
-        v-model="password"
-        label="Password"
-        type="password"
-        hint="At least 8 characters"
-        min="8"
-        required
-        :rules="passwordRules"
-      />
-      <div class="wrap-on-small">
-        <v-select
-          v-model="enneagramType"
-          :items="enneagramTypes"
-          label="What is your Enneagram Type?"
-          :rules="enneagramRules"
+  <div>
+    <div v-if="!registerSuccess" class="col-center">
+      <h1>Register</h1>
+      <v-form
+        ref="registerForm"
+        class="form-width"
+      >
+        <v-text-field
+          v-model="emailAddress"
+          label="E-mail"
+          :rules="emailRules"
           required
         />
-        <enneagram-instructions class="btn-center" @typeSelected="typeChosen" />
-      </div>
-      <v-btn
-        @click="register"
-      >
-        Register
-      </v-btn>
-    </v-form>
+        <v-text-field
+          v-model="password"
+          label="Password"
+          type="password"
+          hint="At least 8 characters"
+          min="8"
+          required
+          :rules="passwordRules"
+        />
+        <div class="wrap-on-small">
+          <v-select
+            v-model="enneagramType"
+            :items="enneagramTypes"
+            label="What is your Enneagram Type?"
+            :rules="enneagramRules"
+            required
+          />
+          <enneagram-instructions class="btn-center" @typeSelected="typeChosen" />
+        </div>
+        <v-btn
+          @click="register"
+        >
+          Register
+        </v-btn>
+      </v-form>
+    </div>
+    <div v-else class="col-center">
+      <h1>Register Success</h1>
+      <p>
+        Confirm your email address {{ emailAddress }}
+      </p>
+      <p>
+        Please confirm your email address then
+        <NuxtLink :to="{path: '/auth', query: {}}">
+          login
+        </NuxtLink>
+      </p>
+    </div>
   </div>
 </template>
 <script>
@@ -59,6 +73,7 @@ export default defineComponent({
     password: '',
     enneagramType: null,
     enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+    registerSuccess: false,
 
     emailRules: [
       v => !!v || 'E-mail is required',
@@ -86,11 +101,15 @@ export default defineComponent({
         }
         try {
           const resp = await this.$axios.post(endpoints.registerRoute, data)
-          if (resp) {
-            this.$emit('goToLogin', true)
+          if (resp && resp.data) {
+            this.registerSuccess = true
+            // this.$emit('goToLogin', true)
+          } else {
+            this.registerSuccess = false
           }
         } catch (error) {
           console.log(error)
+          this.registerSuccess = false
           this.$store.dispatch('toastError', error)
         }
       }

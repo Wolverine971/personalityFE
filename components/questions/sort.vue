@@ -86,8 +86,6 @@ export default {
   },
   methods: {
     search () {
-      console.log(this.params)
-      console.log('search')
       this.$emit('triggerNewSearch', this.params)
     }
   }

@@ -210,11 +210,6 @@ export default {
       if (this.$auth && this.$auth.user && this.$auth.user.id) {
         this.$socket.client.emit('join', this.$auth.user.id)
       }
-    },
-    notification (e, f) {
-      console.log('new notification')
-      console.log(e)
-      console.log(f)
     }
   },
 

@@ -33,22 +33,11 @@
 </template>
 <script>
 import { defineComponent } from '@nuxtjs/composition-api'
-import { validationMixin } from 'vuelidate'
-import { required, minLength } from 'vuelidate/lib/validators'
 import { endpoints } from '~/models/endpoints'
 
 export default defineComponent({
   name: 'Reset',
-  mixins: [validationMixin],
-  validations: {
-    password: { required, minLength: minLength(8) }
-  },
   data: () => ({
-    password: '',
-    passwordRules: [
-      v => !!v || 'Password is required',
-      v => (v && v.length >= 8) || 'Password must be at least 8 characters'
-    ],
     validLink: true
   }),
   computed: {

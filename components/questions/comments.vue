@@ -73,7 +73,6 @@ export default {
     },
     loadMore () {
       this.contentLoading = true
-      console.log('getPaginatedComments')
       return this.$axios
         .get(`${endpoints.loadMoreContent}/${this.parentId}/${this.lastDate}`)
         .then((resp) => {
