@@ -26,7 +26,7 @@
         {{ item.question }}
         <v-spacer />
         <v-list-item-action @click.stop>
-          <v-btn icon>
+          <v-btn outlined icon>
             <v-icon>keyboard_arrow_right</v-icon>
           </v-btn>
         </v-list-item-action>

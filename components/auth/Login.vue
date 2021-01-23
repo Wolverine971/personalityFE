@@ -1,6 +1,6 @@
 <template>
   <div class="col-center">
-    <h1>Login</h1>
+
     <v-form
       ref="loginForm"
       class="form-width"
@@ -21,10 +21,10 @@
         :rules="passwordRules"
       />
 
-      <v-btn @click="goLogin">
+      <v-btn outlined @click="goLogin">
         login
       </v-btn>
-      <v-btn @click="clear">
+      <v-btn outlined @click="clear">
         clear
       </v-btn>
     </v-form>

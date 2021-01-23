@@ -30,10 +30,10 @@
         />
       </v-card-text>
       <v-card-actions>
-        <v-btn :disabled="!newPost && !showElem" @click="submitPost">
+        <v-btn outlined :disabled="!newPost && !showElem" @click="submitPost">
           Post
         </v-btn>
-        <v-btn @click="$refs.fileElem.click()">
+        <v-btn outlined @click="$refs.fileElem.click()">
           {{ showElem ? 'Re-Upload File' : 'Upload File' }}
         </v-btn>
       </v-card-actions>
@@ -43,11 +43,8 @@
       <v-tab>Images</v-tab>
       <v-tab>Text</v-tab>
     </v-tabs>
-    <h3 v-if="count">
+    <h3>
       {{ "Total Posts " + count }}
-    </h3>
-    <h3 v-else>
-      {{ $auth.user ? "Total Posts 0" : "No Content For You!" }}
     </h3>
     <v-col>
       <v-card>
@@ -59,7 +56,9 @@
         </div>
       </v-card>
       <v-row v-if="currentCount < count && !contentLoading" @click="loadMore">
-        <v-btn>Load More</v-btn>
+        <v-btn outlined>
+          Load More
+        </v-btn>
       </v-row>
       <v-progress-linear v-else-if="contentLoading" indeterminate />
     </v-col>
@@ -198,9 +197,13 @@ export default {
     },
 
     canInteract () {
-      this.interact = !!(
-        this.$auth.user && this.selectedType === this.$auth.user.enneagramId
-      )
+      if (this.$auth.user) {
+        this.interact = !!(
+          this.$auth.user && this.selectedType === this.$auth.user.enneagramId
+        )
+      } else {
+        this.interact = false
+      }
     },
     loadMore () {
       this.contentLoading = true

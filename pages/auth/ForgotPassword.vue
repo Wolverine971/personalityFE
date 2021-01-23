@@ -21,7 +21,7 @@
           :rules="emailRules"
           required
         />
-        <v-btn @click="sendLink">
+        <v-btn outlined @click="sendLink">
           Send Link
         </v-btn>
       </v-form>

@@ -4,7 +4,7 @@
       <h1>Not Confirmed</h1>
       <p>
         Bad link, try to
-        <NuxtLink to="/auth">
+        <NuxtLink :to="{path: '/auth', query: {}}">
           re-register
         </NuxtLink>
       </p>
@@ -13,7 +13,7 @@
       <h1>Confirmation Success</h1>
       <p>
         Feel free to
-        <NuxtLink to="/auth">
+        <NuxtLink :to="{path: '/auth', query: {}}">
           login
         </NuxtLink>
       </p>

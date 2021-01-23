@@ -1,15 +1,14 @@
 <template>
   <div>
-    <v-row>
-      <v-btn-toggle v-model="selected">
-        <v-btn @click="change(true)">
-          Login
-        </v-btn>
-        <v-btn @click="change(false)">
-          Register
-        </v-btn>
-      </v-btn-toggle>
-    </v-row>
+    <v-btn-toggle v-model="selected">
+      <v-btn @click="change(true)">
+        Login
+      </v-btn>
+      <v-btn @click="change(false)">
+        Register
+      </v-btn>
+    </v-btn-toggle>
+    <br>
     <div v-if="!login">
       <Register @goToLogin="change(true)" />
     </div>

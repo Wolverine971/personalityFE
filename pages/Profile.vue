@@ -37,17 +37,8 @@
               @change="formDisabled = false"
             />
           </v-col>
-          <!-- <v-col class="d-flex" cols="12" sm="6">
-            <v-select
-              v-model="$auth.user.mbtiId"
-              :items="MBTITypes"
-              item-text="type"
-              label="MBTI"
-              @change="formDisabled = false"
-            />
-          </v-col> -->
         </v-row>
-        <v-btn :disabled="formDisabled" @click="submit">
+        <v-btn outlined :disabled="formDisabled" @click="submit">
           Submit
         </v-btn>
       </v-form>

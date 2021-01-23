@@ -39,7 +39,12 @@ export default {
         success: '#F2EDF0',
         info: '#3A3A3A',
         warning: '#FB8C00',
-        error: '#FF5252'
+        error: '#FF5252',
+        fmidnight: '#191970',
+        fpink: '#F72585',
+        // fjet: '#333533ff',
+        fcultured: '#F3F3F4',
+        florecentYellow: '#ccff00'
       }
     }
   }

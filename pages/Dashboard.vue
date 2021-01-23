@@ -32,7 +32,7 @@
       </div>
     </v-col>
     <div v-else>
-      <h2>No Subscriptions</h2>
+      <p>No Subscriptions</p>
     </div>
 
     <h2 id="newQs">

@@ -17,7 +17,9 @@
           v-if="questionsCount < totalQuestions && !questionsLoading"
           @click="loadMoreQuestions"
         >
-          <v-btn>Load More</v-btn>
+          <v-btn outlined>
+            Load More
+          </v-btn>
         </v-row>
         <v-progress-linear v-else-if="questionsLoading" indeterminate />
       </v-col>

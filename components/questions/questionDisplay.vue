@@ -67,9 +67,9 @@
             }}
           </v-icon>
         </v-btn>
-        <v-btn outlined class="margin-right">
-          {{ question.comments ? question.comments.length : '' }}
-          <v-icon color="primary">
+        <v-btn outlined class="margin-right" color="fpink">
+          {{ question.comments && question.comments.count ? question.comments.count : '' }}
+          <v-icon>
             mdi-comment-outline
           </v-icon>
         </v-btn>

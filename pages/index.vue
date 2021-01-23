@@ -1,11 +1,13 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
+    <v-col cols="12" md="6">
       <v-card>
         <v-card-title class="headline">
           <h1>Welcome to 9takes</h1>
-          <h5>A community for question and answering based on personality</h5>
         </v-card-title>
+        <v-card-subtitle>
+          <h3>A community for question and answering based on personality</h3>
+        </v-card-subtitle>
         <v-card-text>
           <!-- OSMEAC
             -Orientation:
@@ -102,11 +104,8 @@
           </h2>
           <ul>
             <li>
-              Know or find out your <a
-                href="https://www.enneagraminstitute.com/type-descriptions"
-                target="_blank"
-                rel="noopener noreferrer"
-              >Enneagram Number</a>
+              Know or find out your
+              <enneagram-instructions :label="'Enneagram Number'" :type="'a'" />
             </li>
             <li>Inorder to see answers to questions, you have to answer the question</li>
             <li>Personality walls are for viewing, you can only post on your own personaity type's wall</li>
@@ -127,37 +126,12 @@
           <p>Thank you for checking out the 9takes community.</p>
 
           <hr class="my-3">
-          <!-- Built using
-          <a
-            href="https://vuejs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vue
-          </a>
-          ,
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt
-          </a>
-          , and a whole bunch of other
-          <a
-            href="https://github.com/Wolverine971/personalityBE"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            stuff
-          </a> -->
-          <!-- <br> -->
         </v-card-text>
         <v-card-actions>
-          <v-btn to="/questions">
+          <v-btn outlined to="/questions">
             Go to Questions
           </v-btn> <v-spacer />
-          <v-btn to="/personality">
+          <v-btn outlined to="/personality">
             Go to the Walls
           </v-btn>
         </v-card-actions>
@@ -168,6 +142,9 @@
 
 <script>
 export default {
+  components: {
+    EnneagramInstructions: () => import('../components/shared/enneagramInstructions')
+  },
   head: {
     titleTemplate: '%s - Home for personality Q&A',
     title: '9takes',

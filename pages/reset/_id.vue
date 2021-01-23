@@ -12,7 +12,7 @@
           required
           :rules="passwordRules"
         />
-        <v-btn @click="reset">
+        <v-btn outlined @click="reset">
           Reset
         </v-btn>
       </v-form>
@@ -24,7 +24,7 @@
       </p>
       <p>
         If your link isn’t working for any reason,
-        you can <NuxtLink to="/auth/forgotPassword">
+        you can <NuxtLink :to="{path: '/auth/forgotPassword', query: {}}">
           request a new one
         </NuxtLink>
       </p>

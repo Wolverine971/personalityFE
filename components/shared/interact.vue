@@ -13,7 +13,7 @@
             v-on="on"
             @click="like"
           >
-            {{ $vuetify.breakpoint.mobile ? likes.length : '' }}
+            {{ $vuetify.breakpoint.mobile && likes.length ? likes.length : '' }}
             <v-icon>
               {{ isLiked ? 'mdi-cookie' : 'mdi-cookie-outline' }}
             </v-icon>
@@ -26,9 +26,10 @@
         small
         class="margin-right"
         :disabled="!$auth.user"
+        color="fpink"
         @click="expandComment"
       >
-        <v-icon color="primary">
+        <v-icon>
           mdi-comment-outline
         </v-icon>
       </v-btn>
@@ -62,13 +63,13 @@
           class="pad-bot margin-left"
         >
           <template v-if="!$vuetify.breakpoint.mobile" slot="append">
-            <v-btn v-if="comment" @click="submitComment">
+            <v-btn v-if="comment" outlined @click="submitComment">
               Submit Comment
             </v-btn>
           </template>
         </v-textarea>
         <div v-if="$vuetify.breakpoint.mobile" class="margin-bot">
-          <v-btn v-if="comment" @click="submitComment">
+          <v-btn v-if="comment" outlined @click="submitComment">
             Submit Comment
           </v-btn>
         </div>

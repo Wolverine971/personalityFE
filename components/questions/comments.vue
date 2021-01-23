@@ -19,7 +19,9 @@
         "
         @click="loadMore"
       >
-        <v-btn>Load More</v-btn>
+        <v-btn outlined>
+          Load More
+        </v-btn>
       </v-row>
       <v-progress-linear v-else-if="commentsLoading" indeterminate />
     </v-col>

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div v-if="!registerSuccess" class="col-center">
-      <h1>Register</h1>
       <v-form
         ref="registerForm"
         class="form-width"
@@ -29,9 +28,12 @@
             :rules="enneagramRules"
             required
           />
-          <enneagram-instructions class="btn-center" @typeSelected="typeChosen" />
+          <v-row justify="center">
+            <enneagram-instructions class="btn-center" @typeSelected="typeChosen" />
+          </v-row>
         </div>
         <v-btn
+          outlined
           @click="register"
         >
           Register
@@ -131,7 +133,7 @@ export default defineComponent({
 .wrap-on-small {
     display: flex;
   }
-@media only screen and (max-width: 380px) {
+@media only screen and (max-width: 500px) {
   .wrap-on-small {
     display: block;
   }
