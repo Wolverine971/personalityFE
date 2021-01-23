@@ -38,7 +38,12 @@ import { endpoints } from '~/models/endpoints'
 export default defineComponent({
   name: 'Reset',
   data: () => ({
-    validLink: true
+    validLink: true,
+    password: '',
+    passwordRules: [
+      v => !!v || 'Password is required',
+      v => (v && v.length >= 8) || 'Password not Valid'
+    ]
   }),
   computed: {
     id () {

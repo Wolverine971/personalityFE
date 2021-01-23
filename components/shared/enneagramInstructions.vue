@@ -6,7 +6,7 @@
         outlined
         dark
         v-bind="attrs"
-        color="florecentYellow"
+        color="fpink"
         v-on="on"
       >
         {{ label }}

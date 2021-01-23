@@ -6,7 +6,6 @@ export default function ({ $axios, redirect, store }: any) {
     }
   })
   $axios.onError(async (error: any) => {
-    console.log('error')
     if (
       !error.isAxiosError &&
       error.response &&
@@ -14,14 +13,9 @@ export default function ({ $axios, redirect, store }: any) {
     ) {
       redirect('/auth')
     } else if (error.response && error.response.status === 403) {
-      console.log('jwt expired')
       const refreshToken = store.$auth.$storage._state['_token.local']
 
       if (!refreshToken) {
-        console.log('no refresh token')
-
-        // console.log('redirecting1!!!')
-        // return redirect('/auth')
       } else {
         const {
           config
