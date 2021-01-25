@@ -86,7 +86,7 @@
         </v-list>
       </v-menu>
     </div>
-    <v-btn v-else to="/auth" color="fpink" class="shadow">
+    <v-btn v-else :to="{path: '/auth', query: {}}" color="fpink" class="shadow">
       Login/ Register
     </v-btn>
   </header>

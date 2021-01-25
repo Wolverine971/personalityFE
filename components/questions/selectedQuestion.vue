@@ -104,20 +104,22 @@ export default {
       }
     },
     async filterComments (event) {
-      if (this.cursorId) {
-        event.cursorId = this.cursorId
-      }
-      const resp = await this.$axios.post(
-        `${endpoints.getSortedComments}/${this.questionId}`,
-        event
-      )
-      if (resp && resp.data && resp.data.comments) {
-        if (resp.data.comments.length) {
-          this.cursorId =
-            resp.data.comments[resp.data.comments.length - 1].dateCreated
+      if (this.$auth.user) {
+        if (this.cursorId) {
+          event.cursorId = this.cursorId
         }
-        this.question.comments = resp.data
-        this.$store.commit('addAllQuestions', [this.question])
+        const resp = await this.$axios.post(
+          `${endpoints.getSortedComments}/${this.questionId}`,
+          event
+        )
+        if (resp && resp.data && resp.data.comments) {
+          if (resp.data.comments.length) {
+            this.cursorId =
+              resp.data.comments[resp.data.comments.length - 1].dateCreated
+          }
+          this.question.comments = resp.data
+          this.$store.commit('addAllQuestions', [this.question])
+        }
       }
     },
     newComment (event) {

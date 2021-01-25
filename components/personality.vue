@@ -184,7 +184,7 @@ export default {
       const fileElem = document.getElementById('fileElem')
       if (fileElem && fileElem.files && fileElem.files.length) {
         /* eslint-disable */
-        deepai.setApiKey(process.env.DEEPAI)
+        await deepai.setApiKey(process.env.DEEPAI)
         const result = await deepai.callStandardApi('content-moderation', {
           image: fileElem
         })
