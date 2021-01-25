@@ -251,13 +251,13 @@ export const actions: any = {
     let lastDate = getters.getAllQuestionsLastDate
     return this.$axios
       .get(`${endpoints.getAllQuestions}/${pageSize}/${lastDate || ''}`)
-      .then((response: any) => {
-        if (response && response.data) {
+      .then((resp: any) => {
+        if (resp && resp.data) {
           lastDate =
-            response.data.questions[response.data.questions.length - 1].dateCreated
+          resp.data.questions[resp.data.questions.length - 1].dateCreated
           commit('setAllQuestionsLastDate', lastDate)
-          commit('addAllQuestions', response.data.questions)
-          commit('setAllQuestionsCount', response.data.count)
+          commit('addAllQuestions', resp.data.questions)
+          commit('setAllQuestionsCount', resp.data.count)
         }
       })
   },

@@ -74,9 +74,11 @@ export default defineComponent({
         }
         try {
           const resp = await this.$axios.post(`${endpoints.resetPassword}/${this.id}`, data)
-          if (resp) {
+          if (resp && resp.data) {
             this.$router.push({ path: '/auth' })
             this.$store.dispatch('toastSuccess', 'Password Reset Success')
+          } else {
+            this.$store.dispatch('toastError', 'Password Reset Fail')
           }
         } catch (error) {
           console.log(error)

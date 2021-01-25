@@ -51,7 +51,7 @@ export default defineComponent({
             email: this.emailAddress
           }
           const resp = await this.$axios.post(endpoints.forgotPasswordRoute, data)
-          if (resp) {
+          if (resp && resp.data) {
             this.$router.push({ path: '/auth' })
             this.$store.dispatch('toastSuccess', 'Reset Password Link Sent')
           } else {

@@ -43,12 +43,18 @@
         </v-btn>
       </v-form>
     </div>
+    <br>
+    <hr>
+    <br>
+    <dashboard />
   </div>
 </template>
 <script>
 import { endpoints } from '../models/endpoints'
+import Dashboard from '../components/dashboard'
 export default {
   name: 'Profile',
+  components: { Dashboard },
   data: () => ({
     index: null,
     staticUser: {},

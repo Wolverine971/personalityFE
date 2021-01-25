@@ -18,7 +18,6 @@
         {{ componentComment.author.enneagramId }}
       </v-avatar>
       <cookie-comment
-        class="ml-3"
         :text="componentComment.comment"
         :likes="componentComment.likes.length"
         :parent-id="componentComment.id"
@@ -35,7 +34,7 @@
     <v-expansion-panels
       v-if="componentComment.comments.count"
       v-model="panels"
-      inset
+      popout
     >
       <v-expansion-panel>
         <v-expansion-panel-header>
@@ -104,6 +103,7 @@ export default {
   },
   methods: {
     async checkComments () {
+      debugger
       if (!this.componentComment.comments.comment) {
         const resp = await this.$axios.get(
           `${endpoints.getComment}/${this.componentComment.id}`
@@ -140,7 +140,4 @@ export default {
 </script>
 
 <style>
-.comment-div {
-  margin: 0 0 10px 10px;
-}
 </style>

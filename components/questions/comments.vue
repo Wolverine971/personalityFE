@@ -8,7 +8,6 @@
       v-for="(c, i) in displayedComments.comments"
       :key="i"
       class="comment-div"
-      @click="checkComments(c)"
     >
       <comment :comment="c" :interact="true" />
     </div>
@@ -90,7 +89,7 @@ export default {
         })
     },
     async checkComments (comment) {
-      if (!comment.comments.comments) {
+      if (!comment.comments) {
         const resp = await this.$axios.get(
           `${endpoints.getComment}/${comment.id}`
         )

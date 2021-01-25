@@ -29,11 +29,11 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <div class="pad-title">
+      <NuxtLink class="pad-title" router :to="{ path: '/', query: {} }">
         <h1 class="glow">
           {{ title }}
         </h1>
-      </div>
+      </NuxtLink>
     </div>
     <v-spacer />
     <div v-if="$auth.user">
@@ -86,7 +86,7 @@
         </v-list>
       </v-menu>
     </div>
-    <v-btn v-else :to="{path: '/auth', query: {}}" color="fpink" class="shadow">
+    <v-btn v-else :to="{path: '/auth', query: {}}" color="fpink" class="shadow btn-shrink-mobile">
       Login/ Register
     </v-btn>
   </header>
@@ -119,13 +119,6 @@ export default {
           icon: 'question_answer',
           title: 'Question and Answer',
           to: '/questions'
-        },
-
-        {
-          icon: 'dashboard',
-          title: 'Dashboard',
-          to: '/Dashboard',
-          validation: true
         },
         {
           icon: 'emoji_people',
