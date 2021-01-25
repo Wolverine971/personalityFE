@@ -15,15 +15,13 @@
       <sort :type="'comments'" @triggerNewSearch="filterComments($event)" />
     </div>
 
-    <v-col>
-      <comments
-        v-if="showComments"
-        :comments="question.comments"
-        :parent-id="question.id"
-      />
-      <v-col v-else>
-        Answer Question to see other comments
-      </v-col>
+    <comments
+      v-if="showComments"
+      :comments="question.comments"
+      :parent-id="question.id"
+    />
+    <v-col v-else>
+      Answer Question to see other comments
     </v-col>
   </div>
 </template>

@@ -209,6 +209,7 @@ export default {
   target: 'static', // 'universal',
   env: {
     BE_URL: process.env.BE_URL || 'http://localhost:3001/',
-    GOOGLE: process.env.GOOGLE
+    GOOGLE: process.env.GOOGLE,
+    DEEPAI: process.env.DEEPAI
   }
 }

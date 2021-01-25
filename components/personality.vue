@@ -21,7 +21,7 @@
         <v-textarea
           v-model="newPost"
           type="text"
-          placeholder="Post somefin"
+          placeholder="Post something"
           outlined
           rows="1"
           auto-grow
@@ -178,21 +178,33 @@ export default {
       }
     },
 
-    uploadImage () {
+    async uploadImage () {
       this.imgLoading = true
 
       const fileElem = document.getElementById('fileElem')
-      if (fileElem && fileElem.files) {
-        const reader = new FileReader()
-        reader.readAsDataURL(fileElem.files[0])
-        this.showElem = true
-        reader.onload = (event) => {
-          this.src = event.target.result
-          this.imgLoading = false
-          const img = document.getElementById('img')
-          img.width = this.picWidth - 30
+      if (fileElem && fileElem.files && fileElem.files.length) {
+        /* eslint-disable */
+        deepai.setApiKey(process.env.DEEPAI)
+        const result = await deepai.callStandardApi('content-moderation', {
+          image: fileElem
+        })
+        /* eslint-enable */
+        if (result && result.output && result.output.nsfw_score <= 0.1) {
+          const reader = new FileReader()
+          reader.readAsDataURL(fileElem.files[0])
+          this.showElem = true
+          reader.onload = (event) => {
+            this.src = event.target.result
+            this.imgLoading = false
+            const img = document.getElementById('img')
+            img.width = this.picWidth - 30
+          }
+          reader.onerror = error => console.log(error)
+        } else {
+          this.$store.dispatch('toastError', 'Image Upload Prevented')
         }
-        reader.onerror = error => console.log(error)
+      } else {
+        this.imgLoading = false
       }
     },
 
