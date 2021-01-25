@@ -103,7 +103,6 @@ export default {
   },
   methods: {
     async checkComments () {
-      debugger
       if (!this.componentComment.comments.comment) {
         const resp = await this.$axios.get(
           `${endpoints.getComment}/${this.componentComment.id}`
