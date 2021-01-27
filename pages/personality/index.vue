@@ -1,12 +1,6 @@
 <template>
   <div>
-    <h1>Personality Walls</h1>
-    <v-select
-      v-model="enneagramType"
-      :items="enneagramTypes"
-      label="Which personality would you like to view?"
-      @change="formDisabled = false"
-    />
+    <h3>Select a Wall</h3>
   </div>
 </template>
 
@@ -23,10 +17,6 @@ export default {
     }
   },
   watch: {
-    enneagramType (val) {
-      this.$router.push({ path: `/personality/${val}` })
-      this.$router.go(1)
-    }
   },
   head () {
     return {

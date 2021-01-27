@@ -1,6 +1,5 @@
 <template>
   <div class="col-center">
-
     <v-form
       ref="loginForm"
       class="form-width"

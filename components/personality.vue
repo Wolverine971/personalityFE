@@ -1,8 +1,5 @@
 <template>
-  <div id="c-box">
-    <h1 class="brick-background">
-&nbsp;&nbsp;{{ selectedType }} Wall
-    </h1>
+  <div>
     <v-card v-if="interact">
       <v-card-title v-if="showElem">
         <img id="img" :src="src" alt="">
@@ -47,7 +44,7 @@
       {{ "Total Posts " + count }}
     </h3>
     <v-col>
-      <v-card>
+      <v-card id="c-box">
         <div v-for="(item, i) in selectedPosts" :key="i">
           <Content
             :content="item"
@@ -70,6 +67,13 @@ import { endpoints } from '../models/endpoints'
 export default {
   name: 'Personality',
   components: { Heartbeat: () => import('./shared/heart'), Content: () => import('./content.vue') },
+  props: {
+    type: {
+      type: Number,
+      default: 0,
+      required: true
+    }
+  },
   middleware: ['accessToken'],
   data () {
     return {
@@ -89,9 +93,6 @@ export default {
     }
   },
   computed: {
-    type () {
-      return this.$route.params.type
-    },
     posts () {
       return this.$store.getters.getPosts
     }
@@ -127,7 +128,7 @@ export default {
   methods: {
     async init () {
       this.contentLoading = true
-      this.selectedType = this.$route.params.type
+      this.selectedType = this.type.toString()
       if (!this.posts || !this.posts[this.selectedType]) {
         const success = await this.$store.dispatch('getPosts', this.selectedType)
         if (!success) {
@@ -249,7 +250,4 @@ export default {
 </script>
 
 <style>
-.brick-background {
-  background: url('https://api.iconify.design/bi:bricks.svg?color=pink&height=47');
-}
 </style>
