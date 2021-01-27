@@ -60,18 +60,48 @@
             <v-icon color="#7f9c7f">
               public
             </v-icon>
-            Situation
+            The Main Idea
           </h2>
           <p>
-            Are people all the same? Are people all different? We are similar to
+            Why do we expect others to have the same reaction as us? If everyone
+            is different, then conflict and resolution is trickier to navigate
+            than we might think. When someone does something we disagree with,
+            many a times, it is rarely as intentional as we believe it to be, so
+            why are we so quick to take offense? The expectation of the other to
+            think, feel, and act the same as us, can impedes our understanding
+            of others more than we realize.
+
+            <!-- Are people all the same? Are people all different? We are similar to
             some people, and to others we are not. Why do we get angry, anxious,
             or feel inferior towards others? Let me suggest it is because we
-            believe others should either act, think or feel like how we do.
+            believe others should either act, think or feel like how we do. -->
             <!-- We live in a world where people are different. We all know people
             are different but we don't exactly know how or in what ways we are
             different. And we tend to get surprised when people don't do, think
             or feel the way we do. -->
           </p>
+          <h2>
+            <v-icon color="#ad5252">
+              help_outline
+            </v-icon>
+            How it works
+          </h2>
+          <ul>
+            <li>
+              Join the community of 9takes by finding out your
+              <enneagram-instructions :label="'enneagram!'" :type="'a'" />
+            </li>
+            <li>
+              All answers to questions will be hidden until you respond, we
+              welcome your voice to the conversation, go ahead, share your
+              thoughts!
+            </li>
+            <li>
+              Each Enneagram Wall is reserved for only that type's enneagram to
+              respond. You can only write on your enneagram wall but feel free
+              to peruse through the other walls to learn more!
+            </li>
+          </ul>
           <h2>
             <v-icon color="#969675">
               emoji_objects
@@ -79,12 +109,21 @@
             Solution
           </h2>
           <p>
-            9takes seeks to create a community where our similarities and
+            9takes is built on the belief that by asking raw and real questions
+            and giving honest answers we can gain a broader understanding of
+            those around us. 9takes gets is name from the enneagram and alludes
+            to the idea that there are nine different ways of viewing any
+            situation or question. Therefore, by asking questions and listening
+            to the answers we gain insight to the different viewpoints and spawn
+            conversations through which we can grow empathy and curiosity to
+            create a better our community.
+
+            <!-- 9takes seeks to create a community where our similarities and
             differences can be celebrated. We do this through asking thoughtful
             questions and giving honest answers and filtering everything through
             the lense of the enneagram. In the enneagram there are 9 core
             personality types which means there can be at least 9 categorical
-            takes on any subject or situation.
+            takes on any subject or situation. -->
             <!-- 9takes seeks to explore our psychology by creating a community where
             we can discover our similarities and differences. 9takes gets its
             roots from the enneagram where broadly speaking there are 9 types of
@@ -96,34 +135,19 @@
             <u>Our goal to start conversations and provide a lense through which
               we can generate empathy and curiosity for one another.</u>
           </p>
-          <h2>
-            <v-icon color="#ad5252">
-              info
-            </v-icon>
-            Site Mechanics
-          </h2>
-          <ul>
-            <li>
-              Know or find out your
-              <enneagram-instructions :label="'Enneagram Number'" :type="'a'" />
-            </li>
-            <li>Inorder to see answers to questions, you have to answer the question</li>
-            <li>Personality walls are for viewing, you can only post on your own personaity type's wall</li>
-          </ul>
-          <h2>
-            <v-icon color="#887373">
-              build
-            </v-icon>
+
+          <!-- <h2>
+            <v-icon color="#887373"> build </v-icon>
             Constantly Under Construction
           </h2>
           <ul>
             <li>
-              We welcome feedback and suggestions. Any suggestions should be sent
-              to <a href="mailto:usersup@9takes.com">usersup@9takes.com</a>
+              We welcome feedback and suggestions. Any suggestions should be
+              sent to <a href="mailto:usersup@9takes.com">usersup@9takes.com</a>
             </li>
           </ul>
-          <hr class="my-3">
-          <p>Thank you for checking out the 9takes community.</p>
+          <hr class="my-3" />
+          <p>Thank you for checking out the 9takes community.</p> -->
 
           <hr class="my-3">
         </v-card-text>
@@ -143,7 +167,8 @@
 <script>
 export default {
   components: {
-    EnneagramInstructions: () => import('../components/shared/enneagramInstructions')
+    EnneagramInstructions: () =>
+      import('../components/shared/enneagramInstructions')
   },
   head: {
     titleTemplate: '%s - Home for personality Q&A',

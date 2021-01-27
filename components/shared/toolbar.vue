@@ -29,11 +29,9 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <NuxtLink class="pad-title" router :to="{ path: '/', query: {} }">
-        <h1 class="glow">
-          {{ title }}
-        </h1>
-      </NuxtLink>
+      <h1 class="glow clickable-no-hov" @click="goHome">
+        {{ title }}
+      </h1>
     </div>
     <v-spacer />
     <div v-if="$auth.user">
@@ -184,9 +182,9 @@ export default {
     // document.addEventListener(visibilityChange, this.handlerClose)
     // window.addEventListener('focus', this.handlerClose)
     // window.addEventListener('blur', this.handlerClose)
-    this.header = document.getElementById('toolbar')
-    this.sticky = this.header.offsetTop
-    window.onscroll = () => { this.stickyFunc() }
+    // this.header = document.getElementById('toolbar')
+    // this.sticky = this.header.offsetTop
+    // window.onscroll = () => { this.stickyFunc() }
   },
   sockets: {
     connect () {
@@ -228,12 +226,9 @@ export default {
       }
     }, 1000),
 
-    stickyFunc () {
-      if (window.pageYOffset > this.sticky) {
-        this.header.classList.add('sticky')
-      } else {
-        this.header.classList.remove('sticky')
-      }
+    goHome () {
+      this.$router.push({ path: '/', query: {} })
+      this.$router.go(1)
     }
   }
 }
@@ -242,9 +237,6 @@ export default {
 <style lang="scss">
 @import '../../assets/variables.scss';
 
-.sticky {
-  top: 0;
-}
 .fun-color {
   background: $midnight !important;
 }
