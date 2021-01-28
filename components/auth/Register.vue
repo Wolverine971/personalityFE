@@ -33,6 +33,7 @@
           </v-row>
         </div>
         <v-btn
+          class="margin-top"
           outlined
           @click="register"
         >

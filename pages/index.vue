@@ -89,7 +89,7 @@
           <ul>
             <li>
               Join the community of 9takes by finding out your
-              <enneagram-instructions :label="'enneagram!'" :type="'a'" />
+              <enneagram-instructions :label="'enneagram!'" :type="'link'" />
             </li>
             <li>
               All answers to questions will be hidden until you respond, we

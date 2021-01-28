@@ -108,6 +108,12 @@
     position: relative !important;
   }
 }
+@media only screen and (max-width: 645px) {
+  .footer {
+    height: 75px !important;
+  }
+
+}
 
 .col-center {
   display: flex;

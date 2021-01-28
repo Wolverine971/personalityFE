@@ -68,202 +68,263 @@
             these sounds most like you?
           </p>
           <div v-if="coreEmotion === 'shame'">
-            <v-card class="hover-background" @click="chosen('2')">
-              <v-card-title>Type 2</v-card-title><v-card-text>
-                <h3>Description</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-2">
-                  The Caring, Interpersonal Type: Demonstrative, Generous,
-                  People-Pleasing, and Possessive
-                </blockquote>
-                <h3>Core Desire</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-2">
-                  To feel loved
-                </blockquote>
-                <h3>Core Fear</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-2">
-                  Of being unwanted, unworthy of being loved
-                </blockquote>
-              </v-card-text>
-            </v-card>
-            <a href="https://www.enneagraminstitute.com/type-2">
-              More Info
-            </a>
+            <div
+
+              :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
+              @click="chosen('2')"
+            >
+              <v-card>
+                <v-card-title>Type 2</v-card-title>
+                <v-card-text>
+                  <h3>Description</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-2">
+                    The Caring, Interpersonal Type: Demonstrative, Generous,
+                    People-Pleasing, and Possessive
+                  </blockquote>
+                  <h3>Core Desire</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-2">
+                    To feel loved
+                  </blockquote>
+                  <h3>Core Fear</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-2">
+                    Of being unwanted, unworthy of being loved
+                  </blockquote>
+                </v-card-text>
+              </v-card>
+              <a href="https://www.enneagraminstitute.com/type-2">
+                More Info
+              </a>
+            </div>
             <br>
-            <v-card class="hover-background" @click="chosen('3')">
-              <v-card-title>Type 3</v-card-title><v-card-text>
-                <h3>Description</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-3">
-                  The Success-Oriented, Pragmatic Type: Adaptive, Excelling,
-                  Driven, and Image-Conscious
-                </blockquote>
-                <h3>Core Desire</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-3">
-                  To feel valuable and worthwhile
-                </blockquote>
-                <h3>Core Fear</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-3">
-                  Of being worthless
-                </blockquote>
-              </v-card-text>
-            </v-card>
-            <a href="https://www.enneagraminstitute.com/type-3">
-              More Info
-            </a>
+            <div
+
+              :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
+              @click="chosen('3')"
+            >
+              <v-card>
+                <v-card-title>Type 3</v-card-title>
+                <v-card-text>
+                  <h3>Description</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-3">
+                    The Success-Oriented, Pragmatic Type: Adaptive, Excelling,
+                    Driven, and Image-Conscious
+                  </blockquote>
+                  <h3>Core Desire</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-3">
+                    To feel valuable and worthwhile
+                  </blockquote>
+                  <h3>Core Fear</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-3">
+                    Of being worthless
+                  </blockquote>
+                </v-card-text>
+              </v-card>
+              <a href="https://www.enneagraminstitute.com/type-3">
+                More Info
+              </a>
+            </div>
             <br>
-            <v-card class="hover-background" @click="chosen('4')">
-              <v-card-title>Type 4</v-card-title><v-card-text>
-                <h3>Description</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-4">
-                  The Sensitive, Withdrawn Type: Expressive, Dramatic,
-                  Self-Absorbed, and Temperamental
-                </blockquote>
-                <h3>Core Desire</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-4">
-                  To find themselves and their significance (to create an
-                  identity)
-                </blockquote>
-                <h3>Core Fear</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-4">
-                  That they have no identity or personal significance
-                </blockquote>
-              </v-card-text>
-            </v-card>
-            <a href="https://www.enneagraminstitute.com/type-4">
-              More Info
-            </a>
+            <div
+
+              :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
+              @click="chosen('4')"
+            >
+              <v-card>
+                <v-card-title>Type 4</v-card-title>
+                <v-card-text>
+                  <h3>Description</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-4">
+                    The Sensitive, Withdrawn Type: Expressive, Dramatic,
+                    Self-Absorbed, and Temperamental
+                  </blockquote>
+                  <h3>Core Desire</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-4">
+                    To find themselves and their significance (to create an
+                    identity)
+                  </blockquote>
+                  <h3>Core Fear</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-4">
+                    That they have no identity or personal significance
+                  </blockquote>
+                </v-card-text>
+              </v-card>
+              <a href="https://www.enneagraminstitute.com/type-4">
+                More Info
+              </a>
+            </div>
           </div>
           <div v-if="coreEmotion === 'fear'">
-            <v-card class="hover-background" @click="chosen('5')">
-              <v-card-title>Type 5</v-card-title><v-card-text>
-                <h3>Description</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-5">
-                  The Intense, Cerebral Type: Perceptive, Innovative, Secretive,
-                  and Isolated
-                </blockquote>
-                <h3>Core Desire</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-5">
-                  To be capable and competent
-                </blockquote>
-                <h3>Core Fear</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-5">
-                  Being useless, helpless, or incapable
-                </blockquote>
-              </v-card-text>
-            </v-card>
-            <a href="https://www.enneagraminstitute.com/type-5">
-              More Info
-            </a>
+            <div
+              :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
+              @click="chosen('5')"
+            >
+              <v-card>
+                <v-card-title>Type 5</v-card-title>
+                <v-card-text>
+                  <h3>Description</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-5">
+                    The Intense, Cerebral Type: Perceptive, Innovative,
+                    Secretive, and Isolated
+                  </blockquote>
+                  <h3>Core Desire</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-5">
+                    To be capable and competent
+                  </blockquote>
+                  <h3>Core Fear</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-5">
+                    Being useless, helpless, or incapable
+                  </blockquote>
+                </v-card-text>
+              </v-card>
+              <a href="https://www.enneagraminstitute.com/type-5">
+                More Info
+              </a>
+            </div>
             <br>
-            <v-card class="hover-background" @click="chosen('6')">
-              <v-card-title>Type 6</v-card-title><v-card-text>
-                <h3>Description</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-6">
-                  The Committed, Security-Oriented Type: Engaging, Responsible,
-                  Anxious, and Suspicious
-                </blockquote>
-                <h3>Core Desire</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-6">
-                  To have security and support
-                </blockquote>
-                <h3>Core Fear</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-6">
-                  Of being without support and guidance
-                </blockquote>
-              </v-card-text>
-            </v-card>
-            <a href="https://www.enneagraminstitute.com/type-6">
-              More Info
-            </a>
+            <div
+
+              :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
+              @click="chosen('6')"
+            >
+              <v-card>
+                <v-card-title>Type 6</v-card-title>
+                <v-card-text>
+                  <h3>Description</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-6">
+                    The Committed, Security-Oriented Type: Engaging,
+                    Responsible, Anxious, and Suspicious
+                  </blockquote>
+                  <h3>Core Desire</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-6">
+                    To have security and support
+                  </blockquote>
+                  <h3>Core Fear</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-6">
+                    Of being without support and guidance
+                  </blockquote>
+                </v-card-text>
+              </v-card>
+              <a href="https://www.enneagraminstitute.com/type-6">
+                More Info
+              </a>
+            </div>
             <br>
-            <v-card class="hover-background" @click="chosen('7')">
-              <v-card-title>Type 7</v-card-title><v-card-text>
-                <h3>Description</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-7">
-                  The Busy, Fun-Loving Type: Spontaneous, Versatile,
-                  Distractible, and Scattered
-                </blockquote>
-                <h3>Core Desire</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-7">
-                  To be satisfied and content—to have their needs fulfilled
-                </blockquote>
-                <h3>Core Fear</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-7">
-                  Of being deprived and in pain
-                </blockquote>
-              </v-card-text>
-            </v-card>
-            <a href="https://www.enneagraminstitute.com/type-7">
-              More Info
-            </a>
+            <div
+
+              :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
+              @click="chosen('7')"
+            >
+              <v-card>
+                <v-card-title>Type 7</v-card-title>
+                <v-card-text>
+                  <h3>Description</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-7">
+                    The Busy, Fun-Loving Type: Spontaneous, Versatile,
+                    Distractible, and Scattered
+                  </blockquote>
+                  <h3>Core Desire</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-7">
+                    To be satisfied and content—to have their needs fulfilled
+                  </blockquote>
+                  <h3>Core Fear</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-7">
+                    Of being deprived and in pain
+                  </blockquote>
+                </v-card-text>
+              </v-card>
+              <a href="https://www.enneagraminstitute.com/type-7">
+                More Info
+              </a>
+            </div>
           </div>
           <div v-if="coreEmotion === 'anger'">
-            <v-card class="hover-background" @click="chosen('8')">
-              <v-card-title>Type 8</v-card-title><v-card-text>
-                <h3>Description</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-8">
-                  The Powerful, Dominating Type: Self-Confident, Decisive,
-                  Willful, and Confrontational
-                </blockquote>
-                <h3>Core Desire</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-8">
-                  To protect themselves (to be in control of their own life and
-                  destiny)
-                </blockquote>
-                <h3>Core Fear</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-8">
-                  Of being harmed or controlled by others
-                </blockquote>
-              </v-card-text>
-            </v-card>
-            <a href="https://www.enneagraminstitute.com/type-8">
-              More Info
-            </a>
+            <div
+
+              :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
+              @click="chosen('8')"
+            >
+              <v-card>
+                <v-card-title>Type 8</v-card-title>
+                <v-card-text>
+                  <h3>Description</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-8">
+                    The Powerful, Dominating Type: Self-Confident, Decisive,
+                    Willful, and Confrontational
+                  </blockquote>
+                  <h3>Core Desire</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-8">
+                    To protect themselves (to be in control of their own life
+                    and destiny)
+                  </blockquote>
+                  <h3>Core Fear</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-8">
+                    Of being harmed or controlled by others
+                  </blockquote>
+                </v-card-text>
+              </v-card>
+              <a href="https://www.enneagraminstitute.com/type-8">
+                More Info
+              </a>
+            </div>
             <br>
-            <v-card class="hover-background" @click="chosen('9')">
-              <v-card-title>Type 9</v-card-title><v-card-text>
-                <h3>Description</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-9">
-                  The Easygoing, Self-Effacing Type: Receptive, Reassuring,
-                  Agreeable, and Complacent
-                </blockquote>
-                <h3>Core Desire</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-9">
-                  To have inner stability "peace of mind"
-                </blockquote>
-                <h3>Core Fear</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-9">
-                  Of loss and separation
-                </blockquote>
-              </v-card-text>
-            </v-card>
-            <a href="https://www.enneagraminstitute.com/type-9">
-              More Info
-            </a>
+            <div
+
+              :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
+              @click="chosen('9')"
+            >
+              <v-card>
+                <v-card-title>Type 9</v-card-title>
+                <v-card-text>
+                  <h3>Description</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-9">
+                    The Easygoing, Self-Effacing Type: Receptive, Reassuring,
+                    Agreeable, and Complacent
+                  </blockquote>
+                  <h3>Core Desire</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-9">
+                    To have inner stability "peace of mind"
+                  </blockquote>
+                  <h3>Core Fear</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-9">
+                    Of loss and separation
+                  </blockquote>
+                </v-card-text>
+              </v-card>
+              <a href="https://www.enneagraminstitute.com/type-9">
+                More Info
+              </a>
+            </div>
             <br>
-            <v-card class="hover-background" @click="chosen('1')">
-              <v-card-title>Type 1</v-card-title><v-card-text>
-                <h3>Description</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-1">
-                  The Rational, Idealistic Type: Principled, Purposeful,
-                  Self-Controlled, and Perfectionistic
-                </blockquote>
-                <h3>Core Desire</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-1">
-                  To be good, to have integrity, to be balanced
-                </blockquote>
-                <h3>Core Fear</h3>
-                <blockquote cite="https://www.enneagraminstitute.com/type-1">
-                  Of being corrupt/evil, defective
-                </blockquote>
-              </v-card-text>
-            </v-card>
-            <a href="https://www.enneagraminstitute.com/type-1">
-              More Info
-            </a>
+            <div
+
+              :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
+              @click="chosen('1')"
+            >
+              <v-card>
+                <v-card-title>Type 1</v-card-title><v-card-text>
+                  <h3>Description</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-1">
+                    The Rational, Idealistic Type: Principled, Purposeful,
+                    Self-Controlled, and Perfectionistic
+                  </blockquote>
+                  <h3>Core Desire</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-1">
+                    To be good, to have integrity, to be balanced
+                  </blockquote>
+                  <h3>Core Fear</h3>
+                  <blockquote cite="https://www.enneagraminstitute.com/type-1">
+                    Of being corrupt/evil, defective
+                  </blockquote>
+                </v-card-text>
+              </v-card>
+              <a href="https://www.enneagraminstitute.com/type-1">
+                More Info
+              </a>
+            </div>
           </div>
         </div>
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions v-if="type === 'btn'">
         <v-spacer />
         I am a...
         <v-select
@@ -302,7 +363,8 @@ export default {
   },
   methods: {
     chosen (type) {
-      if (type) {
+      debugger
+      if (type && this.type === 'btn') {
         this.$emit('typeSelected', type)
         this.dialog = false
       }

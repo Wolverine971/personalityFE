@@ -1,10 +1,17 @@
 <template>
   <footer class="master-container footer footer-shadow">
-    <p v-if="!$vuetify.breakpoint.mobile" class="no-margin">
-      <v-icon color="#887373">
-        build
-      </v-icon>
-      Constantly Under Construction
+    <p class="no-margin">
+      <a href="https://www.instagram.com/9takesdotcom/" target="_blank" class="no-decor">
+        <v-icon color="fpink">
+          mdi-instagram
+        </v-icon>
+      </a>
+      Socials
+      <a href="https://twitter.com/9takesdotcom" target="_blank" class="no-decor">
+        <v-icon color="fpink">
+          mdi-twitter
+        </v-icon>
+      </a>
     </p>
     <p class="no-margin">
       Please complete this <a href="https://c9dbh8z9igk.typeform.com/to/RHtEUlUt" target="_blank">survey</a> before leaving 9takes. It helps make the community better!
@@ -37,6 +44,9 @@ export default {
 }
 .no-margin {
     margin: 0 !important;
+}
+.no-decor{
+  text-decoration: none;
 }
 
 </style>
