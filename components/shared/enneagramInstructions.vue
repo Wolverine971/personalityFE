@@ -363,7 +363,6 @@ export default {
   },
   methods: {
     chosen (type) {
-      debugger
       if (type && this.type === 'btn') {
         this.$emit('typeSelected', type)
         this.dialog = false
