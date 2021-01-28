@@ -68,7 +68,8 @@ export default {
     { src: '~/plugins/socket.io.js', mode: 'client' },
     { src: '~/plugins/Vuelidate', mode: 'client' },
     { src: '~/plugins/axiosIntercept', mode: 'client' },
-    { src: '~/plugins/axios.ts', mode: 'client' }
+    { src: '~/plugins/axios.ts', mode: 'client' },
+    { src: '~/plugins/gtag.js', mode: 'client' }
   ],
 
   server: {
@@ -87,7 +88,7 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth', '@nuxtjs/toast', '@nuxtjs/google-analytics'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth', '@nuxtjs/toast'],
 
   auth: {
     redirect: {
@@ -146,9 +147,6 @@ export default {
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     optionsPath: './vuetify.options.js'
-  },
-  googleAnalytics: {
-    id: process.env.ORIGIN === 'https://9takes.com' ? process.env.GOOGLE : ''
   },
 
   pwa: {
