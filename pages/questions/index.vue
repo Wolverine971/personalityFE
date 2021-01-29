@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>Search for Questions</h1>
+    <h1>Search Or Add A Questions</h1>
     <add-question />
     <v-spacer />
     <div>

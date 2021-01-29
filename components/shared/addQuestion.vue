@@ -87,8 +87,9 @@ export default {
     async addQuestion (question) {
       if (this.$auth.user) {
         if (this.key === -1) {
+          const questionToSend = question.replace('?', '')
           const resp = await this.$axios.get(
-            `${endpoints.questionAdd}/${question}/${this.$auth.user.enneagramId}`
+            `${endpoints.questionAdd}/${questionToSend}/${this.$auth.user.enneagramId}`
           )
           if (resp) {
             this.goToQuestion(resp.data)
