@@ -203,6 +203,10 @@ export const actions: any = {
         .$get(endpoints.refreshTokenRoute + refreshToken)
         .then((data: any) => {
           if (!data.accessToken) {
+            this.$auth.setUserToken(null)
+            this.$auth.setUser(null)
+            commit('setUser', null)
+            commit('setAccessToken', null)
             return false
           } else {
             this.$auth.setUserToken(data.refreshToken)
@@ -216,6 +220,10 @@ export const actions: any = {
         .catch((error: Error) => {
           console.log(error)
           console.log('getAccessToken false 2')
+          this.$auth.setUserToken(null)
+          this.$auth.setUser(null)
+          commit('setUser', null)
+          commit('setAccessToken', null)
           return false
         })
     }
