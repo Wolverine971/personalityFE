@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!loading">
     <div v-if="!confirmationSuccess" class="col-center">
       <h1>Not Confirmed</h1>
       <p>
@@ -12,12 +12,15 @@
     <div v-else class="col-center">
       <h1>Confirmation Success</h1>
       <p>
-        Feel free to
+        You may now
         <NuxtLink :to="{path: '/auth', query: {}}">
           login
         </NuxtLink>
       </p>
     </div>
+  </div>
+  <div v-else>
+    <v-progress-circular indeterminate color="fpink" />
   </div>
 </template>
 <script>
@@ -28,7 +31,8 @@ export default defineComponent({
 
   name: 'Confirm',
   data: () => ({
-    confirmationSuccess: false
+    confirmationSuccess: false,
+    loading: true
   }),
   mounted () {
     this.$axios
@@ -39,10 +43,12 @@ export default defineComponent({
         } else {
           this.confirmationSuccess = false
         }
+        this.loading = false
       })
       .catch((error) => {
         this.$store.dispatch('toastError', error)
         this.confirmationSuccess = false
+        this.loading = false
       })
   }
 

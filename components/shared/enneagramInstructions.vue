@@ -20,30 +20,30 @@
         Here are the broad strokes to find out your enneagram.
       </v-card-title>
       <v-card-text>
-        <h1>Questions</h1>
         <p>
-          Which core emotion do you most encounter, wrestle with or deal with
-          the most? For example this emotion is in the back of your mind, maybe
-          you actively use it or supress it or even you realize it kinda comes
-          up unconciously alot?
+          Explore the 3 different core emotions.
+          Which of these core emotions would you say you encounter the most? In
+          other words, which emotion is in the back of your mind, maybe you
+          actively use it or suppress it or even you realize it kinda comes up
+          unconsciously alot?
         </p>
 
         <label for="btn-toggle"> Choose One:</label>
         <v-btn-toggle id="btn-toggle" tile style="display: block">
           <v-btn @click="coreEmotion = 'shame'">
-            Shame
+            Shame/ Grief
             <v-icon v-if="coreEmotion === 'shame'">
               keyboard_arrow_down
             </v-icon>
           </v-btn>
           <v-btn @click="coreEmotion = 'fear'">
-            Fear
+            Fear/ Anxiety
             <v-icon v-if="coreEmotion === 'fear'">
               keyboard_arrow_down
             </v-icon>
           </v-btn>
           <v-btn @click="coreEmotion = 'anger'">
-            Anger
+            Anger/ Rage
             <v-icon v-if="coreEmotion === 'anger'">
               keyboard_arrow_down
             </v-icon>
@@ -52,7 +52,6 @@
         <br>
         <div v-if="coreEmotion">
           <h2>
-            {{ coreEmotion.toUpperCase() }} Triad /
             {{
               coreEmotion === 'shame'
                 ? 'Heart'
@@ -60,16 +59,18 @@
                   ? 'Head'
                   : 'Body'
             }}
-            Center
+            Center /
+            {{
+              coreEmotion.charAt(0).toUpperCase() + coreEmotion.slice(1)
+            }}
+            Triad
           </h2>
           <h3>Which type sounds most like you?</h3>
           <p>
-            Take a moment and think carefully, maybe ask a friend, which of
-            these sounds most like you?
+            Take a moment and think carefully, maybe ask a friend.
           </p>
           <div v-if="coreEmotion === 'shame'">
             <div
-
               :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
               @click="chosen('2')"
             >
@@ -91,13 +92,15 @@
                   </blockquote>
                 </v-card-text>
               </v-card>
-              <a href="https://www.enneagraminstitute.com/type-2">
+              <a
+                href="https://www.enneagraminstitute.com/type-2"
+                target="_blank"
+              >
                 More Info
               </a>
             </div>
             <br>
             <div
-
               :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
               @click="chosen('3')"
             >
@@ -119,13 +122,15 @@
                   </blockquote>
                 </v-card-text>
               </v-card>
-              <a href="https://www.enneagraminstitute.com/type-3">
+              <a
+                href="https://www.enneagraminstitute.com/type-3"
+                target="_blank"
+              >
                 More Info
               </a>
             </div>
             <br>
             <div
-
               :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
               @click="chosen('4')"
             >
@@ -148,7 +153,10 @@
                   </blockquote>
                 </v-card-text>
               </v-card>
-              <a href="https://www.enneagraminstitute.com/type-4">
+              <a
+                href="https://www.enneagraminstitute.com/type-4"
+                target="_blank"
+              >
                 More Info
               </a>
             </div>
@@ -176,13 +184,15 @@
                   </blockquote>
                 </v-card-text>
               </v-card>
-              <a href="https://www.enneagraminstitute.com/type-5">
+              <a
+                href="https://www.enneagraminstitute.com/type-5"
+                target="_blank"
+              >
                 More Info
               </a>
             </div>
             <br>
             <div
-
               :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
               @click="chosen('6')"
             >
@@ -204,13 +214,15 @@
                   </blockquote>
                 </v-card-text>
               </v-card>
-              <a href="https://www.enneagraminstitute.com/type-6">
+              <a
+                href="https://www.enneagraminstitute.com/type-6"
+                target="_blank"
+              >
                 More Info
               </a>
             </div>
             <br>
             <div
-
               :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
               @click="chosen('7')"
             >
@@ -232,14 +244,16 @@
                   </blockquote>
                 </v-card-text>
               </v-card>
-              <a href="https://www.enneagraminstitute.com/type-7">
+              <a
+                href="https://www.enneagraminstitute.com/type-7"
+                target="_blank"
+              >
                 More Info
               </a>
             </div>
           </div>
           <div v-if="coreEmotion === 'anger'">
             <div
-
               :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
               @click="chosen('8')"
             >
@@ -262,13 +276,15 @@
                   </blockquote>
                 </v-card-text>
               </v-card>
-              <a href="https://www.enneagraminstitute.com/type-8">
+              <a
+                href="https://www.enneagraminstitute.com/type-8"
+                target="_blank"
+              >
                 More Info
               </a>
             </div>
             <br>
             <div
-
               :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
               @click="chosen('9')"
             >
@@ -290,13 +306,15 @@
                   </blockquote>
                 </v-card-text>
               </v-card>
-              <a href="https://www.enneagraminstitute.com/type-9">
+              <a
+                href="https://www.enneagraminstitute.com/type-9"
+                target="_blank"
+              >
                 More Info
               </a>
             </div>
             <br>
             <div
-
               :class="type === 'btn' ? 'clickable-no-hov hover-background' : ''"
               @click="chosen('1')"
             >
@@ -317,14 +335,17 @@
                   </blockquote>
                 </v-card-text>
               </v-card>
-              <a href="https://www.enneagraminstitute.com/type-1">
+              <a
+                href="https://www.enneagraminstitute.com/type-1"
+                target="_blank"
+              >
                 More Info
               </a>
             </div>
           </div>
         </div>
       </v-card-text>
-      <v-card-actions v-if="type === 'btn'">
+      <v-card-actions v-if="type === 'btn' && coreEmotion">
         <v-spacer />
         I am a...
         <v-select

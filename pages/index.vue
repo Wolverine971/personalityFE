@@ -1,11 +1,11 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" md="6">
+    <v-col cols="12" md="8">
       <v-card>
         <v-card-title class="headline">
           <h1>Welcome to 9takes</h1>
         </v-card-title>
-        <v-card-subtitle>
+        <v-card-subtitle class="min-marg-top">
           <h3>A community for question and answering based on personality</h3>
         </v-card-subtitle>
         <v-card-text>
@@ -57,19 +57,22 @@
 
             -Admin and Logistics -->
           <h2>
-            <v-icon color="#7f9c7f">
-              public
+            <v-icon color="fmidnight">
+              flag
             </v-icon>
-            The Main Idea
+            The Goal
           </h2>
           <p>
-            Why do we expect others to have the same reaction as us? If everyone
+            To start conversations and provide a lense through which we can
+            generate empathy and curiosity for one another.
+
+            <!-- Why do we expect others to have the same reaction as us? If everyone
             is different, then conflict and resolution is trickier to navigate
             than we might think. When someone does something we disagree with,
             many a times, it is rarely as intentional as we believe it to be, so
             why are we so quick to take offense? The expectation of the other to
             think, feel, and act the same as us, can impedes our understanding
-            of others more than we realize.
+            of others more than we realize. -->
 
             <!-- Are people all the same? Are people all different? We are similar to
             some people, and to others we are not. Why do we get angry, anxious,
@@ -80,7 +83,7 @@
             different. And we tend to get surprised when people don't do, think
             or feel the way we do. -->
           </p>
-          <h2>
+          <!-- <h2>
             <v-icon color="#ad5252">
               help_outline
             </v-icon>
@@ -101,22 +104,21 @@
               respond. You can only write on your enneagram wall but feel free
               to peruse through the other walls to learn more!
             </li>
-          </ul>
+          </ul> -->
           <h2>
-            <v-icon color="#969675">
-              emoji_objects
+            <v-icon color="fmidnight">
+              directions_walk
             </v-icon>
-            Solution
+            How We Get There
           </h2>
           <p>
-            9takes is built on the belief that by asking raw and real questions
-            and giving honest answers we can gain a broader understanding of
-            those around us. 9takes gets is name from the enneagram and alludes
-            to the idea that there are nine different ways of viewing any
-            situation or question. Therefore, by asking questions and listening
-            to the answers we gain insight to the different viewpoints and spawn
-            conversations through which we can grow empathy and curiosity to
-            create a better our community.
+            9takes is built on the idea that by asking raw and real questions
+            and giving honest answers we can gain a broad understanding of those
+            around us. 9takes gets is name from the enneagram and hints at there
+            being nine different ways of viewing any situation or question.
+            Therefore, to get at these different viewpoints we ask questions
+            which we hope will spawn follow on questions and a general curiosity
+            for the other... maybe even some empathy.
 
             <!-- 9takes seeks to create a community where our similarities and
             differences can be celebrated. We do this through asking thoughtful
@@ -129,11 +131,9 @@
             roots from the enneagram where broadly speaking there are 9 types of
             personality. Therefore there can be at least 9 takes on any subject
             or situation. -->
-            <!-- These nine takes come from the enneagram personality test, which digs into our core motivations and fears and forms 9 goups of thinking or personalities. -->
-            Here in this site we will get at those differences and
-            commonalities, through question and answering.
-            <u>Our goal to start conversations and provide a lense through which
-              we can generate empathy and curiosity for one another.</u>
+            <!-- These nine takes come from the enneagram personality test, which
+            digs into our core motivations and fears and forms 9 goups of thinking
+            or personalities. -->
           </p>
 
           <!-- <h2>
@@ -151,13 +151,32 @@
 
           <hr class="my-3">
         </v-card-text>
-        <v-card-actions>
-          <v-btn outlined to="/questions">
-            Go to Questions
-          </v-btn> <v-spacer />
-          <v-btn outlined to="/personality">
-            Go to the Walls
-          </v-btn>
+        <v-card-actions class="row-mid">
+          <div class="row-fif margin">
+            <h3>Questions</h3>
+            <p style="margin: 13px">
+              All answers to questions will be hidden until you respond, we
+              welcome your voice to the conversation, go ahead, share your
+              thoughts!
+            </p>
+            <v-btn outlined to="/questions">
+              <v-icon> keyboard_arrow_left </v-icon>
+              Go to Questions
+            </v-btn>
+          </div>
+          <v-divider vertical class="margin" />
+          <div class="row-fif margin">
+            <h3>Wall</h3>
+            <p style="margin: 13px">
+              Each Enneagram Wall is reserved for only that type's enneagram to
+              respond. You can only write on your enneagram wall but feel free
+              to peruse through the other walls to learn more!
+            </p>
+            <v-btn outlined to="/personality">
+              Go to the Walls
+              <v-icon> keyboard_arrow_right </v-icon>
+            </v-btn>
+          </div>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -166,10 +185,6 @@
 
 <script>
 export default {
-  components: {
-    EnneagramInstructions: () =>
-      import('../components/shared/enneagramInstructions')
-  },
   head: {
     titleTemplate: '%s - Home for personality Q&A',
     title: '9takes',
@@ -204,3 +219,30 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.min-marg-top {
+  margin-top: -10px !important;
+}
+.row-mid {
+  display: flex;
+}
+.row-fif {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 190px;
+  justify-content: space-around;
+}
+@media (max-width: 1265px) {
+  .row-fif {
+    width: 100%;
+  }
+  .row-mid {
+    flex-direction: column;
+  }
+  .margin {
+    margin: 10px 0;
+  }
+}
+</style>

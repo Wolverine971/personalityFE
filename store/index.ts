@@ -184,8 +184,11 @@ export const actions: any = {
 
         return true
       } else {
-        // console.log(data.response.data)
-        dispatch('toastError', data.response.data)
+        if (data.response && data.response.data) {
+          dispatch('toastError', data.response.data)
+        } else {
+          dispatch('toastError', 'Login Fail')
+        }
         return false
       }
     } catch (error) {

@@ -1,5 +1,19 @@
 <template>
   <div>
+    <v-row justify="space-between">
+      <v-btn outlined to="/questions">
+        <v-icon>
+          keyboard_arrow_left
+        </v-icon>
+        Questions
+      </v-btn>
+      <v-btn outlined to="/personality">
+        Walls
+        <v-icon>
+          keyboard_arrow_right
+        </v-icon>
+      </v-btn>
+    </v-row>
     <h1>Profile Page</h1>
     <div v-if="$auth.user">
       <v-form>

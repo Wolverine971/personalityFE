@@ -1,9 +1,8 @@
 <template>
   <div v-if="displayedComments && displayedComments.comments && displayedComments.comments.length">
     <p v-if="displayedComments && displayCount">
-      Total {{ displayedComments.count }}
+      Total Comments: {{ displayedComments.count }}
     </p>
-    <!-- <v-col v-if="displayedComments && displayedComments.comments && displayedComments.comments.length"> -->
     <div
       v-for="(c, i) in displayedComments.comments"
       :key="i"
@@ -23,7 +22,6 @@
       </v-btn>
     </v-row>
     <v-progress-linear v-else-if="commentsLoading" indeterminate />
-    <!-- </v-col> -->
   </div>
 </template>
 

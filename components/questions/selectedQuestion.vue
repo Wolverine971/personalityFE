@@ -2,8 +2,8 @@
   <div v-if="question">
     <div>
       <v-textarea
-        :value="question.question"
-        label="Selected Question"
+        :value="`${question.question}?`"
+        label="Question"
         type="text"
         rows="1"
         auto-grow

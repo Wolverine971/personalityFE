@@ -19,33 +19,47 @@
             </v-icon>
           </v-btn>
         </template>
-        {{ likes.length }}
+        Likes {{ likes.length }}
       </v-tooltip>
-      <v-btn
-        outlined
-        small
-        class="margin-right"
-        :disabled="!$auth.user"
-        color="fpink"
-        @click="expandComment"
-      >
-        <v-icon>
-          mdi-comment-outline
-        </v-icon>
-      </v-btn>
-      <v-btn
-        v-if="type === 'question'"
-        :disabled="!$auth.user"
-        outlined
-        small
-        :class="{ 'btn-selected': isSubscribed }"
-        @click="subscribe"
-      >
-        <span class="peep-btn">
-          {{ isSubscribed ? 'peeped' : 'peep' }}
-        </span>
-        <v-icon> face </v-icon>
-      </v-btn>
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            outlined
+            small
+            class="margin-right"
+            :disabled="!$auth.user"
+            color="fpink"
+            v-bind="attrs"
+            @click="expandComment"
+            v-on="on"
+          >
+            <v-icon>
+              mdi-comment-outline
+            </v-icon>
+          </v-btn>
+        </template>
+        Comment
+      </v-tooltip>
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-if="type === 'question'"
+            v-bind="attrs"
+            :disabled="!$auth.user"
+            outlined
+            small
+            :class="{ 'btn-selected': isSubscribed }"
+            v-on="on"
+            @click="subscribe"
+          >
+            <span class="peep-btn">
+              {{ isSubscribed ? 'peeped' : 'peep' }}
+            </span>
+            <v-icon> face </v-icon>
+          </v-btn>
+        </template>
+        Follow/ Subscribe
+      </v-tooltip>
     </div>
 
     <v-expand-transition>

@@ -1,15 +1,18 @@
 <template>
   <v-container>
-    <h1>Search Or Add A Questions</h1>
+    <h1>Search For Or Add A Questions</h1>
     <add-question />
     <v-spacer />
     <div>
-      <h2>All Questions</h2>
+      <h2>All Asked Questions</h2>
       <v-col>
-        Total: {{ totalQuestions }}
+        Total Questions: {{ totalQuestions }}
         <v-card v-for="q in allQuestions" :key="q.id" class="margin-bot">
           <v-card-text class="pad-bot clickable" @click="goToQuestion(q)">
-            {{ q.question }}
+            {{ q.question }}?
+            <v-icon>
+              keyboard_arrow_right
+            </v-icon>
           </v-card-text>
         </v-card>
 

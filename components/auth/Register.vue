@@ -28,7 +28,10 @@
             :rules="enneagramRules"
             required
           />
-          <v-row justify="center">
+          <v-row justify="center" class="align-center margin">
+            Or
+          </v-row>
+          <v-row justify="center" class="align-center">
             <enneagram-instructions class="btn-center" @typeSelected="typeChosen" />
           </v-row>
         </div>
@@ -142,5 +145,11 @@ export default defineComponent({
 .btn-center {
   margin-left: 30px;
   margin-top: 10px;
+}
+.align-center {
+  align-items: center;
+}
+.margin {
+  margin: 20px;
 }
 </style>
