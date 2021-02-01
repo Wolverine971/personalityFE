@@ -119,8 +119,7 @@ export default {
       }
 
       this.componentComment = Object.assign({}, this.componentComment, {
-        comments: Object.assign(
-          {},
+        comments: Object.assign({},
           this.componentComment.comments,
           {
             comments: newComments

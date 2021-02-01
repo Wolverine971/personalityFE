@@ -10,7 +10,47 @@
         readonly
         hide-details
         class="pad-bot"
-      />
+      >
+        <template
+          v-if="$auth.user && question.author.id === $auth.user.id"
+          v-slot:append
+        >
+          <v-dialog v-model="dialog" width="500">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="fpink"
+                v-bind="attrs"
+                v-on="on"
+                @click="updatedQuestion = question.question"
+              >
+                <v-icon> edit </v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title>
+                <h2>Edit Question</h2>
+              </v-card-title>
+              <v-card-text>
+                <v-textarea
+                  v-model="updatedQuestion"
+                  label="Update Question"
+                  type="text"
+                  rows="1"
+                  auto-grow
+                  hide-details
+                  class="pad-bot"
+                />
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color="fpink" @click="updateQuestion">
+                  Update Question
+                  <v-icon> keyboard_arrow_right </v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </template>
+      </v-textarea>
       <interact :post="question" @emitComment="newComment($event)" />
       <sort :type="'comments'" @triggerNewSearch="filterComments($event)" />
     </div>
@@ -41,7 +81,9 @@ export default {
     question: null,
     commentCursorId: null,
     commenterIds: {},
-    showComments: false
+    showComments: false,
+    updatedQuestion: '',
+    dialog: false
   }),
   computed: {
     alreadyFetchedQuestions () {
@@ -69,8 +111,7 @@ export default {
           this.alreadyFetchedQuestions[questionId] &&
           this.alreadyFetchedQuestions[questionId].comments
         ) {
-          this.question = Object.assign(
-            {},
+          this.question = Object.assign({},
             this.alreadyFetchedQuestions[questionId]
           )
           this.commenterIds = this.question.commenterIds
@@ -127,8 +168,7 @@ export default {
       const newComments = [event, ...this.question.comments.comments]
       this.question.commenterIds[this.$auth.user.id] = 1
       this.question = Object.assign({}, this.question, {
-        comments: Object.assign(
-          {},
+        comments: Object.assign({},
           this.question.comments,
           {
             comments: newComments
@@ -139,6 +179,26 @@ export default {
         )
       })
       this.$store.commit('addAllQuestions', [this.question])
+    },
+    async updateQuestion () {
+      const formattedQuestion = this.updatedQuestion.replace('?', '')
+      const resp = await this.$axios.post(
+        `${endpoints.updateQuestion}/${this.questionId}`,
+        {
+          question: formattedQuestion
+        }
+      )
+      if (resp && resp.data) {
+        this.question.question = formattedQuestion
+        this.question = Object.assign({}, this.question, {
+          question: formattedQuestion
+        })
+        this.$store.commit('addAllQuestions', [this.question])
+        this.$store.dispatch('toastSuccess', 'Updated Question')
+      } else {
+        this.$store.dispatch('toastError', 'Updated Question Failure')
+      }
+      this.dialog = false
     }
   }
 }

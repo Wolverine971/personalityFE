@@ -135,7 +135,7 @@ export const mutations = {
     questions.forEach((q: any) => {
       moreQuestions[q.id] = Object.assign({}, q)
     })
-    state.allQuestions = Object.assign({}, moreQuestions, state.allQuestions)
+    state.allQuestions = Object.assign({}, state.allQuestions, moreQuestions)
   },
   setDashboard (state: AppState, subscriptions: any[]) {
     state.dashboard = subscriptions
