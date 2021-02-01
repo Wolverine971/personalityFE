@@ -204,7 +204,7 @@ export default {
       }
     }
   },
-  // target: 'static', // 'universal',
+  target: 'static', // 'universal',
   env: {
     BE_URL: process.env.BE_URL || 'http://localhost:3001/',
     GOOGLE: process.env.GOOGLE,
