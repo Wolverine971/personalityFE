@@ -54,14 +54,14 @@
           outlined
           :class="{
             'btn-selected':
-              question.likes && question.likes.includes($auth.user.id),
+              question.likes && $auth.user && question.likes.includes($auth.user.id),
           }"
           class="margin-right"
         >
           {{ question.likes ? question.likes.length : '' }}
           <v-icon>
             {{
-              question.likes && question.likes.includes($auth.user.id)
+              question.likes && $auth.user && question.likes.includes($auth.user.id)
                 ? 'mdi-cookie'
                 : 'mdi-cookie-outline'
             }}

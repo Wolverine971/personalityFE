@@ -12,7 +12,7 @@
         class="pad-bot"
       >
         <template
-          v-if="$auth.user && question.author.id === $auth.user.id"
+          v-if="$auth.user && question.author && question.author.id === $auth.user.id"
           v-slot:append
         >
           <v-dialog v-model="dialog" width="500">
