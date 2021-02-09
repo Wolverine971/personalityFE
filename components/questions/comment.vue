@@ -22,6 +22,8 @@
         :likes="componentComment.likes.length"
         :parent-id="componentComment.id"
         :show-cookies="showCookies"
+        :author="componentComment.author.id"
+        @commentUpdated="$emit('commentUpdated', $event)"
       />
     </v-card-title>
     <interact

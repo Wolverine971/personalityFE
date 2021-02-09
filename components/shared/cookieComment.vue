@@ -1,6 +1,12 @@
 <template>
-  <p class="ml-3">
+  <p class="ml-3 flex-together">
     {{ text }}
+    <edit-content
+      v-if="$auth.user && author && author === $auth.user.id"
+      :content="text"
+      :label="'Update Comment'"
+      @updateContent="$emit('commentUpdated', $event)"
+    />
   </p>
 </template>
 
@@ -27,8 +33,12 @@ export default {
       type: Boolean,
       required: true,
       default: null
+    },
+    author: {
+      type: String,
+      required: true,
+      default: ''
     }
-
   },
   data () {
     return {
@@ -61,13 +71,12 @@ export default {
       }
     }
   },
-  mounted () {
-  },
+  mounted () {},
   methods: {
-
     drawCookies (cookies, recurse) {
       if (cookies <= 0 && recurse) {
-        this.canvasBox.style.backgroundImage = 'url(' + this.canvas.toDataURL('image/png') + ')'
+        this.canvasBox.style.backgroundImage =
+          'url(' + this.canvas.toDataURL('image/png') + ')'
         return
       }
       const height = parseInt(this.height)
@@ -94,11 +103,7 @@ export default {
           let cookiesCreated = 0
           if (cookieCount === 1) {
             cookiesCreated++
-            this.ctx.drawImage(
-              img,
-              0,
-              0
-            )
+            this.ctx.drawImage(img, 0, 0)
             // this.canvasBox.style.backgroundImage = 'url(' + this.canvas.toDataURL('image/png') + ')'
           } else {
             for (let i = 0; i < contHeight; i++) {
@@ -119,7 +124,8 @@ export default {
             if (more > 0) {
               this.drawCookies(more, true)
             } else {
-              this.canvasBox.style.backgroundImage = 'url(' + this.canvas.toDataURL('image/png') + ')'
+              this.canvasBox.style.backgroundImage =
+                'url(' + this.canvas.toDataURL('image/png') + ')'
             }
           }
         }
@@ -128,15 +134,13 @@ export default {
           // ffc0cb
           // #ff0000
           const pinkColor = 'ffd1d9'
-          img.src =
-          `https://api.iconify.design/mdi-cookie-outline.svg?color=%23${pinkColor}&height=${cookieDiameter}`
+          img.src = `https://api.iconify.design/mdi-cookie-outline.svg?color=%23${pinkColor}&height=${cookieDiameter}`
           this.color = 'blue'
         } else {
           // 8acfef
           // aedef4
           const blueColor = 'aedef4'
-          img.src =
-          `https://api.iconify.design/mdi-cookie-outline.svg?color=%23${blueColor}&rotate=270deg&height=${cookieDiameter}`
+          img.src = `https://api.iconify.design/mdi-cookie-outline.svg?color=%23${blueColor}&rotate=270deg&height=${cookieDiameter}`
           this.color = 'pink'
         }
       }
@@ -159,4 +163,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.flex-together {
+  justify-content: space-between;
+  display: flex;
+  flex: 1;
+}
+</style>

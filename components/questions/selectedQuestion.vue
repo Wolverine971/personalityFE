@@ -15,40 +15,7 @@
           v-if="$auth.user && question.author && question.author.id === $auth.user.id"
           v-slot:append
         >
-          <v-dialog v-model="dialog" width="500">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="fpink"
-                v-bind="attrs"
-                v-on="on"
-                @click="updatedQuestion = question.question"
-              >
-                <v-icon> edit </v-icon>
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <h2>Edit Question</h2>
-              </v-card-title>
-              <v-card-text>
-                <v-textarea
-                  v-model="updatedQuestion"
-                  label="Update Question"
-                  type="text"
-                  rows="1"
-                  auto-grow
-                  hide-details
-                  class="pad-bot"
-                />
-              </v-card-text>
-              <v-card-actions>
-                <v-btn color="fpink" @click="updateQuestion">
-                  Update Question
-                  <v-icon> keyboard_arrow_right </v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+          <edit-content :content="question.question" :label="'Update Question'" @updateContent="updateQuestion" />
         </template>
       </v-textarea>
       <interact :post="question" @emitComment="newComment($event)" />
@@ -59,6 +26,7 @@
       v-if="showComments"
       :comments="question.comments"
       :parent-id="question.id"
+      @commentUpdated="updateComment"
     />
     <v-col v-else>
       Answer Question to see other comments
@@ -73,17 +41,15 @@ export default {
   components: {
     Sort: () => import('./sort'),
     Interact: () => import('../shared/interact'),
-    Comments: () => import('./comments')
+    Comments: () => import('./comments'),
+    EditContent: () => import('../shared/editContent.vue')
   },
 
   data: () => ({
-    comment: '',
     question: null,
     commentCursorId: null,
     commenterIds: {},
-    showComments: false,
-    updatedQuestion: '',
-    dialog: false
+    showComments: false
   }),
   computed: {
     alreadyFetchedQuestions () {
@@ -180,25 +146,40 @@ export default {
       })
       this.$store.commit('addAllQuestions', [this.question])
     },
-    async updateQuestion () {
-      const formattedQuestion = this.updatedQuestion.replace('?', '')
+    async updateQuestion (event) {
       const resp = await this.$axios.post(
         `${endpoints.updateQuestion}/${this.questionId}`,
         {
-          question: formattedQuestion
+          question: event
         }
       )
       if (resp && resp.data) {
-        this.question.question = formattedQuestion
+        this.question.question = event
         this.question = Object.assign({}, this.question, {
-          question: formattedQuestion
+          question: event
         })
         this.$store.commit('addAllQuestions', [this.question])
         this.$store.dispatch('toastSuccess', 'Updated Question')
       } else {
-        this.$store.dispatch('toastError', 'Updated Question Failure')
+        this.$store.dispatch('toastError', 'Update Question Failure')
       }
-      this.dialog = false
+    },
+    async updateComment (event) {
+      const selectedComment = this.question.comments.comments[event.index]
+      const resp = await this.$axios.post(
+        `${endpoints.updateComment}/${selectedComment.id}`,
+        {
+          comment: event.comment
+        }
+      )
+      if (resp && resp.data) {
+        this.question.comments.comments[event.index].comment = event.comment
+
+        this.$store.commit('addAllQuestions', [this.question])
+        this.$store.dispatch('toastSuccess', 'Updated Comment')
+      } else {
+        this.$store.dispatch('toastError', 'Update Comment Failure')
+      }
     }
   }
 }

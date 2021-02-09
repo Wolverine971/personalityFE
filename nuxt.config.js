@@ -154,7 +154,7 @@ export default {
       name: '9takes',
       short_name: '9takes',
       lang: 'en',
-      theme_color: '#8fceee',
+      theme_color: '#191970',
       useWebmanifestExtension: true
     },
     meta: {

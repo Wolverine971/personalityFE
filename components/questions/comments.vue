@@ -8,7 +8,7 @@
       :key="i"
       class="comment-div"
     >
-      <comment :comment="c" :interact="true" />
+      <comment :comment="c" :interact="true" @commentUpdated="$emit('commentUpdated', {index: i, comment: $event})" />
     </div>
     <v-row
       v-if="

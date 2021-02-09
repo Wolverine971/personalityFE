@@ -112,7 +112,6 @@
   .footer {
     height: 75px !important;
   }
-
 }
 
 .col-center {
@@ -153,6 +152,10 @@ h5 {
   color: $midnight;
 }
 
+.color-btn {
+  color: $fPink !important;
+}
+
 .color-blue {
   color: $midnight !important;
 }
@@ -167,10 +170,11 @@ h5 {
   box-shadow: 1px 1px 10px 0 #fff, 0 3px 12px 0 #f0f, 0 5px 17px 0 #0ff !important;
 }
 .footer-shadow {
-  box-shadow: 0px 0px 10px 0 black, 0px -3px 12px 0 #0f0f44, 0px -5px 17px 0 #191970 !important;
+  box-shadow: 0px 0px 10px 0 black, 0px -3px 12px 0 #0f0f44,
+    0px -5px 17px 0 #191970 !important;
 }
 
-.brick-background{
+.brick-background {
   background: url('https://api.iconify.design/bi:bricks.svg?color=pink&height=47');
 }
 

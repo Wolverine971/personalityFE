@@ -15,6 +15,7 @@ export const endpoints = {
   addComment: '/api/comment/add',
   getComment: '/api/comment',
   likeComment: '/api/comment/like',
+  updateComment: '/api/comment/update',
 
   getSortedComments: '/api/question/sort',
 
