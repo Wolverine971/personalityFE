@@ -26,6 +26,8 @@
           auto-grow
           hide-details
           class="pad-bot"
+          maxlength="1000"
+          counter
         />
       </v-card-text>
       <v-card-actions>

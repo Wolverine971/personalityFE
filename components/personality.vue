@@ -24,6 +24,8 @@
           auto-grow
           dense
           hide-details
+          maxlength="500"
+          counter
         />
       </v-card-text>
       <v-card-actions>

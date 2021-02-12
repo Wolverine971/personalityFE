@@ -75,6 +75,8 @@
           auto-grow
           hide-details
           class="pad-bot margin-left"
+          maxlength="500"
+          counter
         >
           <template v-if="!$vuetify.breakpoint.mobile" slot="append">
             <v-btn v-if="comment" outlined @click="submitComment">

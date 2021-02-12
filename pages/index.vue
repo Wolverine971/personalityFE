@@ -114,10 +114,10 @@
           <p>
             9takes is built on the idea that by asking raw and real questions
             and giving honest answers we can gain a broad understanding of those
-            around us. 9takes gets is name from the enneagram and hints at there
+            around us. 9takes gets its name from the enneagram and hints at there
             being nine different ways of viewing any situation or question.
             Therefore, to get at these different viewpoints we ask questions
-            which we hope will spawn follow on questions and a general curiosity
+            which we hope will spawn follow up questions and a general curiosity
             for the other... maybe even some empathy.
 
             <!-- 9takes seeks to create a community where our similarities and
@@ -151,31 +151,44 @@
 
           <hr class="my-3">
         </v-card-text>
-        <v-card-actions class="row-mid">
-          <div class="row-fif margin">
-            <h3>Questions</h3>
-            <p style="margin: 13px">
-              All answers to questions will be hidden until you respond, we
-              welcome your voice to the conversation, go ahead, share your
-              thoughts!
-            </p>
-            <v-btn outlined to="/questions">
-              <v-icon> keyboard_arrow_left </v-icon>
-              Go to Questions
-            </v-btn>
+        <v-card-actions>
+          <div class="row-mid">
+            <div class="row-fif margin">
+              <h3>Questions</h3>
+              <p style="margin: 13px">
+                All answers to questions will be hidden until you respond, we
+                welcome your voice to the conversation, go ahead, share your
+                thoughts!
+              </p>
+              <v-btn outlined to="/questions">
+                <v-icon> keyboard_arrow_left </v-icon>
+                Go to Questions
+              </v-btn>
+            </div>
+            <v-divider vertical class="margin" />
+            <div class="row-fif margin">
+              <h3>Wall</h3>
+              <p style="margin: 13px">
+                Each Enneagram Wall is reserved for only that type's enneagram to
+                respond. You can only write on your enneagram wall but feel free
+                to peruse through the other walls to learn more!
+              </p>
+              <v-btn outlined to="/personality">
+                Go to the Walls
+                <v-icon> keyboard_arrow_right </v-icon>
+              </v-btn>
+            </div>
           </div>
-          <v-divider vertical class="margin" />
-          <div class="row-fif margin">
-            <h3>Wall</h3>
-            <p style="margin: 13px">
-              Each Enneagram Wall is reserved for only that type's enneagram to
-              respond. You can only write on your enneagram wall but feel free
-              to peruse through the other walls to learn more!
+        </v-card-actions>
+        <hr class="my-3">
+        <v-card-actions>
+          <div class="center-div">
+            <h3>One More Thing</h3>
+            <p>
+              All Comments, Questions, and Wall posts are <b>anonymous</b>
+              <br>
+              The only thing that ids you to the community is your type
             </p>
-            <v-btn outlined to="/personality">
-              Go to the Walls
-              <v-icon> keyboard_arrow_right </v-icon>
-            </v-btn>
           </div>
         </v-card-actions>
       </v-card>
@@ -244,5 +257,11 @@ export default {
   .margin {
     margin: 10px 0;
   }
+}
+.center-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 </style>

@@ -7,6 +7,8 @@
     :prepend-inner-icon="(!typeAheadLoading && question && key === -1) ? 'add_circle_outline' : 'search'"
     :menu-props="{ closeOnContentClick: true }"
     :item-text="question"
+    maxlength="500"
+    counter
     @update:list-index="change"
     @click:prepend-inner="addQuestion(question)"
   >

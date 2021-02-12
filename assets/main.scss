@@ -110,7 +110,7 @@
 }
 @media only screen and (max-width: 645px) {
   .footer {
-    height: 75px !important;
+    height: 95px !important;
   }
 }
 
@@ -176,6 +176,10 @@ h5 {
 
 .brick-background {
   background: url('https://api.iconify.design/bi:bricks.svg?color=pink&height=47');
+}
+
+.toasted {
+  font-family: sans-serif;
 }
 
 @media (min-width: 960px) {

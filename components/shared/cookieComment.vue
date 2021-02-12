@@ -88,7 +88,7 @@ export default {
       const cookieBox = Math.round(Math.sqrt(cookieArea) * 100) / 100
 
       const cookieRadius = Math.sqrt(cookieArea / 2.14)
-      const cookieDiameter = Math.round(cookieRadius * 2 * 100) / 100
+      const cookieDiameter = Math.round(cookieRadius * 40) / 100
       if (cookies > 0) {
         const img = new Image()
 
@@ -149,7 +149,7 @@ export default {
       this.canvasBox = document.getElementById(this.parentId)
 
       this.width = this.canvasBox.clientWidth
-      this.height = this.canvasBox.clientHeight
+      this.height = this.canvasBox.clientHeight + 28
 
       this.canvas = document.createElement('canvas')
 
