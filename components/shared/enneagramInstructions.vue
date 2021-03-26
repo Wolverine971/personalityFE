@@ -17,15 +17,75 @@
     </template>
     <v-card>
       <v-card-title>
-        Here are the broad strokes to find out your enneagram.
+        Broad Strokes Of The Enneagram.
       </v-card-title>
+      <v-card-subtitle>
+        - 5 minutes
+      </v-card-subtitle>
       <v-card-text>
         <p>
+          There are 3 core/ dominate emotions according to the Enneagram.
+          Anger, Fear, and Shame
+        </p>
+        <p>
+          Along with that there are 3 centers of Intelligence.
+
+          Head, Heart, Body
+        </p>
+        <p>
+          These core/ dominant emotions and centers of intelligence form triads where each emotion lies within an intelligence center
+        </p>
+        <p>
+          They map together like this:
+        </p>
+        <ul>
+          <li>
+            Body Intelligence -> Anger
+          </li>
+          <li>
+            Head Intelligence -> Fear
+          </li>
+          <li>
+            Heart Intelligence -> Shame
+          </li>
+        </ul>
+        <br>
+        <!-- <p>
+          Within each triad there are 3 core enneagram types
+        </p>
+        <ul>
+          <li>
+            Body Intelligence -> Anger
+            8 9 1
+          </li>
+          <li>
+            Head Intelligence -> Fear
+            2 3 4
+          </li>
+          <li>
+            Heart Intelligence -> Shame
+            5 6 7
+          </li>
+        </ul> -->
+        <!-- Body Intelligence -> Anger
+          8 9 1
+          Head Intelligence -> Fear
+          2 3 4
+          Heart Intelligence -> Shame
+          5 6 7 -->
+        <p>
+          Each type per triad uses that core emotion in a different way.
+          One actively uses that emotion, or externalizes that emotion.
+          One is unaware of that driving emotion that drives them to action.
+          One represses that emotion, or internalizes that emotion.
+
+          With there being 9 enneagram types there are 3 types for each core emotion.
+
           Explore the 3 different core emotions.
           Which of these core emotions would you say you encounter the most? In
           other words, which emotion is in the back of your mind, maybe you
           actively use it or suppress it or even you realize it kinda comes up
-          unconsciously alot?
+          unconsciously a lot?
         </p>
 
         <label for="btn-toggle"> Choose One:</label>
@@ -366,7 +426,7 @@ export default {
     label: {
       type: String,
       required: false,
-      default: 'Find Out Enneagram'
+      default: 'Find Out Enneagram Here'
     },
     type: {
       type: String,

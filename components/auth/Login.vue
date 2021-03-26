@@ -59,7 +59,7 @@ export default {
         this.$store.dispatch('login', data).then((resp) => {
           if (resp) {
             this.$router.push({
-              path: '/profile'
+              path: '/questions'
             })
           }
         })

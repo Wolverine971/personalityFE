@@ -6,7 +6,7 @@
           <h1>Welcome to 9takes</h1>
         </v-card-title>
         <v-card-subtitle class="min-marg-top">
-          <h3>A community for question and answering based on personality</h3>
+          <h3>This is community for questions</h3>
         </v-card-subtitle>
         <v-card-text>
           <!-- OSMEAC

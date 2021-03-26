@@ -61,7 +61,7 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ['~/assets/main.scss', '~/assets/googleFonts.scss'],
+  css: ['~/assets/main.scss', '~/assets/googleFonts.scss'], // , '~/assets/googleFonts.scss'
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
@@ -84,7 +84,8 @@ export default {
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/composition-api',
-    '@nuxtjs/vuetify'
+    // '@nuxtjs/vuetify',
+    ['@nuxtjs/vuetify', { defaultAssets: false }]
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -155,7 +156,7 @@ export default {
       short_name: '9takes',
       lang: 'en',
       theme_color: '#191970',
-      useWebmanifestExtension: true
+      useWebmanifestExtension: false
     },
     meta: {
       /* meta options */
@@ -194,6 +195,7 @@ export default {
   // },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
+  // https://medium.com/shard-labs/how-to-drastically-reduce-your-bundle-size-and-load-time-in-vue-js-54370d513fdf
   build: {
     // analyze: true,
     loaders: {
