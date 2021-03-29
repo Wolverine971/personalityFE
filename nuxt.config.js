@@ -85,7 +85,7 @@ export default {
     '@nuxt/typescript-build',
     '@nuxtjs/composition-api',
     // '@nuxtjs/vuetify',
-    ['@nuxtjs/vuetify', { defaultAssets: false }]
+    ['@nuxtjs/vuetify']
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
