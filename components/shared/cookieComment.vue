@@ -56,6 +56,8 @@ export default {
         if (newLikes) {
           this.getBox()
           this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+          // canvas updates https://www.youtube.com/watch?v=ySS4G1J1tt0
+          // this.ctx.reset()
           this.drawCookies(newLikes)
         } else {
           const canvasBox = document.getElementById(this.parentId)

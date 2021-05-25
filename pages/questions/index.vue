@@ -5,7 +5,7 @@
     <v-spacer />
     <div>
       <h2>All Asked Questions</h2>
-      <v-col>
+      <div class="col">
         Total Questions: {{ totalQuestions }}
         <v-card v-for="q in allQuestions" :key="q.id" class="margin-bot">
           <v-card-text class="pad-bot clickable" @click="goToQuestion(q)">
@@ -16,16 +16,17 @@
           </v-card-text>
         </v-card>
 
-        <v-row
+        <div
           v-if="questionsCount < totalQuestions && !questionsLoading"
+          class="row"
           @click="loadMoreQuestions"
         >
           <v-btn outlined>
             Load More
           </v-btn>
-        </v-row>
+        </div>
         <v-progress-linear v-else-if="questionsLoading" indeterminate />
-      </v-col>
+      </div>
     </div>
   </v-container>
 </template>

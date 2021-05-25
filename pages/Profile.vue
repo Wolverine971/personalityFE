@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row justify="space-between">
+    <div class="row space-between">
       <v-btn outlined to="/questions">
         <v-icon>
           keyboard_arrow_left
@@ -13,45 +13,45 @@
           keyboard_arrow_right
         </v-icon>
       </v-btn>
-    </v-row>
+    </div>
     <h1>Profile Page</h1>
     <div v-if="$auth.user">
       <v-form>
-        <v-row>
-          <v-col cols="12" sm="6" md="3">
+        <div class="row space-between">
+          <div class="col text-min-width">
             <v-text-field
               v-model="$auth.user.firstName"
               v-model.trim="$auth.user.firstName"
               label="First Name"
               @input="formDisabled = false"
             />
-          </v-col>
+          </div>
 
-          <v-col cols="12" sm="6" md="3">
+          <div class="col text-min-width">
             <v-text-field
               v-model="$auth.user.lastName"
               v-model.trim="$auth.user.lastName"
               label="Last Name"
               @input="formDisabled = false"
             />
-          </v-col>
-          <v-col cols="12" sm="6" md="3">
+          </div>
+          <div class="col text-min-width">
             <v-text-field
               v-model="$auth.user.email"
               v-model.trim="$auth.user.email"
               label="Email"
               @input="formDisabled = false"
             />
-          </v-col>
-          <v-col class="d-flex" cols="12" sm="6">
+          </div>
+          <div class="col text-min-width">
             <v-select
               v-model="$auth.user.enneagramId"
               :items="enneagramTypes"
               label="Enneagram"
               @change="formDisabled = false"
             />
-          </v-col>
-        </v-row>
+          </div>
+        </div>
         <v-btn outlined :disabled="formDisabled" @click="submit">
           Submit
         </v-btn>

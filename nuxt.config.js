@@ -42,19 +42,19 @@ export default {
     link: [
       {
         rel: 'shortcut icon',
-        href: '/cotton-candy.ico',
+        href: '/enneagramPng.png',
         author: 'https://www.flaticon.com/authors/freepik'
       },
       {
         rel: 'icon',
         type: 'svg',
-        href: '/cotton-candy.svg',
+        href: '/enneagramPng.png',
         author: 'https://www.flaticon.com/authors/freepik'
       },
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: '/cotton-candy.svg',
+        href: '/enneagramPng.png',
         author: 'https://www.flaticon.com/authors/freepik'
       }
     ]
@@ -160,7 +160,7 @@ export default {
     },
     meta: {
       /* meta options */
-      favicon: '/cotton-candy.ico',
+      favicon: '/enneagramPng.png',
       description: 'Community for questions and answers based on personality'
     },
     icon: {
@@ -206,7 +206,7 @@ export default {
       }
     }
   },
-  target: 'static', // 'universal',
+  // target: 'static', // 'universal',
   env: {
     BE_URL: process.env.BE_URL || 'http://localhost:3001/',
     GOOGLE: process.env.GOOGLE,

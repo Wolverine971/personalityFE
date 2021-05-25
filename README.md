@@ -54,9 +54,13 @@ $ npm run generate
 - [x]  <del>Login/ Register
 - [x]  <del>Refresh token automatically
 - [x]  <del>Personality pages- only people of that personality type can upvote or downvote
-- [ ]  Add static page for each personality type
-- [ ]  Comment Pagination
-- [ ]  Wall Pagination
+- [x]  <del>Add static page for each personality type
+- [x]  <del>Comment Pagination
+- [x]  <del>Wall Pagination
+- [ ]  Enneagram Relationships
+- [ ]  Realtime Active User Display
+- [ ]  Messaging
+- [ ]  User Reveal Request Response
 
 
 

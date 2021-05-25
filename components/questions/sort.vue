@@ -1,9 +1,9 @@
 <template>
-  <v-row v-if="type === 'comments'" no-gutters class="margin-top">
+  <div v-if="type === 'comments'" no-gutters class="margin-top row">
     <v-select
       v-model="params.enneagramTypes"
       :disabled="!$auth.user"
-      :items="enneaTypes"
+      :items="selectableTypes"
       dense
       multiple
       outlined
@@ -42,7 +42,7 @@
         Newest
       </template>
     </v-select>
-  </v-row>
+  </div>
 </template>
 
 <script>
@@ -51,6 +51,11 @@ export default {
   props: {
     type: {
       type: String,
+      required: true,
+      default: null
+    },
+    selectableTypes: {
+      type: Array,
       required: true,
       default: null
     }

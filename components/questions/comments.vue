@@ -1,26 +1,27 @@
 <template>
   <div v-if="displayedComments && displayedComments.comments && displayedComments.comments.length">
-    <p v-if="displayedComments && displayCount">
+    <h5 v-if="displayedComments && displayCount">
       Total Comments: {{ displayedComments.count }}
-    </p>
+    </h5>
     <div
       v-for="(c, i) in displayedComments.comments"
       :key="i"
-      class="comment-div"
+      class="comment-div margin-top"
     >
       <comment :comment="c" :interact="true" @commentUpdated="$emit('commentUpdated', {index: i, comment: $event})" />
     </div>
-    <v-row
+    <div
       v-if="
         displayedComments.comments.length < displayedComments.count &&
           !commentsLoading
       "
+      class="margin-top row"
       @click="loadMore"
     >
       <v-btn outlined>
         Load More
       </v-btn>
-    </v-row>
+    </div>
     <v-progress-linear v-else-if="commentsLoading" indeterminate />
   </div>
 </template>

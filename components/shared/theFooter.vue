@@ -30,6 +30,8 @@ export default {
 .footer {
   background: #ffffff !important;
   height: 64px;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;

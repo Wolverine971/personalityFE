@@ -28,12 +28,12 @@
             :rules="enneagramRules"
             required
           />
-          <v-row justify="center" class="align-center margin">
+          <div class="row align-center margin">
             Or
-          </v-row>
-          <v-row justify="center" class="align-center">
+          </div>
+          <div class="row align-center">
             <enneagram-instructions class="btn-center" @typeSelected="typeChosen" />
-          </v-row>
+          </div>
         </div>
         <v-btn
           class="margin-top"

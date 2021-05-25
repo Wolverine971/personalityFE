@@ -79,6 +79,34 @@
   color: #9e4c37 !important;
 }
 
+.class1Background {
+  background-color: #f8ac18 !important;
+}
+.class2Background {
+  background-color: #c1d32f !important;
+}
+.class3Background {
+  background-color: #7d9138 !important;
+}
+.class4Background {
+  background-color: #0ba25b !important;
+}
+.class5Background {
+  background-color: #1b6499 !important;
+}
+.class6Background {
+  background-color: #7769a6 !important;
+}
+.class7Background {
+  background-color: #7ca4d5 !important;
+}
+.class8Background {
+  background-color: #e63724 !important;
+}
+.class9Background {
+  background-color: #9e4c37 !important;
+}
+
 .form-width {
   max-width: 1000px;
   min-width: 500px;
@@ -122,6 +150,24 @@
 .row-center {
   display: flex;
   align-items: center;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+.space-between {
+  justify-content: space-between;
 }
 
 .coming-soon {
@@ -202,6 +248,11 @@ h5 {
 
 .main-margin {
   margin: 64px 0;
+  justify-content: center;
+}
+
+.text-min-width {
+  min-width: 200px;
 }
 
 .toolbar {

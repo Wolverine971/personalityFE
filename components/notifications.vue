@@ -57,18 +57,16 @@ export default {
   },
   methods: {
     async goToNotification (notification, i) {
-      const n = notification
-      console.log(n)
-      this.$router.push({ path: `/questions/${n.question.id}` })
+      this.$router.push({ path: `/questions/${notification.question.id}` })
       this.$router.go(1)
       this.notifs.splice(i, 1)
       await this.$axios.put(endpoints.clearNotifications)
       setTimeout(() => {
-        const scrollSpot = document.getElementById(n.notification.id)
+        const scrollSpot = document.getElementById(notification.notification.id)
         if (scrollSpot) {
           scrollSpot.scrollIntoView()
           if (window) {
-            window.find(n.notification.text)
+            window.find(notification.notification.text)
           }
         }
       }, 1000)

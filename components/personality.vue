@@ -45,7 +45,7 @@
     <h3>
       {{ "Total Posts " + count }}
     </h3>
-    <v-col>
+    <div class="col">
       <v-card id="c-box">
         <div v-for="(item, i) in selectedPosts" :key="i">
           <Content
@@ -54,13 +54,13 @@
           />
         </div>
       </v-card>
-      <v-row v-if="currentCount < count && !contentLoading" @click="loadMore">
+      <div v-if="currentCount < count && !contentLoading" class="row" @click="loadMore">
         <v-btn outlined>
           Load More
         </v-btn>
-      </v-row>
+      </div>
       <v-progress-linear v-else-if="contentLoading" indeterminate />
-    </v-col>
+    </div>
   </div>
 </template>
 

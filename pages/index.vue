@@ -1,7 +1,8 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" md="8">
+  <div class="row align-center">
+    <div class="col align-center">
       <v-card>
+        <!-- https://introjs.com/ -->
         <v-card-title class="headline">
           <h1>Welcome to 9takes</h1>
         </v-card-title>
@@ -192,12 +193,13 @@
           </div>
         </v-card-actions>
       </v-card>
-    </v-col>
-  </v-row>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
+  // <!-- https://introjs.com/ -->
   head: {
     titleTemplate: '%s - Home for personality Q&A',
     title: '9takes',
@@ -233,6 +235,7 @@ export default {
 }
 </script>
 <style lang="scss">
+
 .min-marg-top {
   margin-top: -10px !important;
 }

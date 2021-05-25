@@ -264,8 +264,7 @@ export const actions: any = {
       .get(`${endpoints.getAllQuestions}/${pageSize}/${lastDate || ''}`)
       .then((resp: any) => {
         if (resp && resp.data) {
-          lastDate =
-          resp.data.questions[resp.data.questions.length - 1].dateCreated
+          lastDate = resp.data.questions[resp.data.questions.length - 1].dateCreated
           commit('setAllQuestionsLastDate', lastDate)
           commit('addAllQuestions', resp.data.questions)
           commit('setAllQuestionsCount', resp.data.count)

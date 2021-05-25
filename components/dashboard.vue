@@ -15,35 +15,35 @@
     <h3 id="subs">
       Questions Peeped
     </h3>
-    <v-col v-if="subscriptions && subscriptions.length">
+    <div v-if="subscriptions && subscriptions.length" class="col">
       <div v-for="sub in subscriptions" :key="sub.id" @click="goTo(sub)">
         <question-display :question="sub" :interact="true" @click="goTo(sub)" />
       </div>
-    </v-col>
-    <v-col v-else>
+    </div>
+    <div v-else class="col">
       <p>No Questions Following</p>
-    </v-col>
+    </div>
 
     <h3 id="askedQs">
       Asked Questions
     </h3>
-    <v-col v-if="askedQuestions && askedQuestions.length">
+    <div v-if="askedQuestions && askedQuestions.length" class="col">
       <div v-for="aqs in askedQuestions" :key="aqs.id" @click="goTo(aqs)">
         <question-display :question="aqs" :interact="false" @click="goTo(aqs)" />
       </div>
-    </v-col>
-    <v-col v-else>
+    </div>
+    <div v-else class="col">
       <p>You have asked no qestions</p>
-    </v-col>
+    </div>
 
     <h3 id="newQs">
       New Questions
     </h3>
-    <v-col v-if="newQuestions && newQuestions.length">
+    <div v-if="newQuestions && newQuestions.length" class="col">
       <div v-for="nqs in newQuestions" :key="nqs.id" @click="goTo(nqs)">
         <question-display :question="nqs" :interact="false" @click="goTo(nqs)" />
       </div>
-    </v-col>
+    </div>
   </div>
 </template>
 
