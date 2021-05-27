@@ -44,5 +44,7 @@ export const endpoints = {
   userLeave: '/api/user/leave',
   userEnter: '/api/user/enter',
   login: '/api/user/login',
-  logout: '/api/auth/logout'
+  logout: '/api/auth/logout',
+
+  relationship: '/api/relationship'
 }

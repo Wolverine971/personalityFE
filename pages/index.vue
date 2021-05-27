@@ -1,6 +1,6 @@
 <template>
   <div class="row align-center">
-    <div class="col align-center">
+    <div class="m-col align-center">
       <v-card>
         <!-- https://introjs.com/ -->
         <v-card-title class="headline">

@@ -5,7 +5,7 @@
     <v-spacer />
     <div>
       <h2>All Asked Questions</h2>
-      <div class="col">
+      <div class="m-col">
         Total Questions: {{ totalQuestions }}
         <v-card v-for="q in allQuestions" :key="q.id" class="margin-bot">
           <v-card-text class="pad-bot clickable" @click="goToQuestion(q)">

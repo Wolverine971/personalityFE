@@ -18,7 +18,7 @@
     <div v-if="$auth.user">
       <v-form>
         <div class="row space-between">
-          <div class="col text-min-width">
+          <div class="m-col text-min-width">
             <v-text-field
               v-model="$auth.user.firstName"
               v-model.trim="$auth.user.firstName"
@@ -27,7 +27,7 @@
             />
           </div>
 
-          <div class="col text-min-width">
+          <div class="m-col text-min-width">
             <v-text-field
               v-model="$auth.user.lastName"
               v-model.trim="$auth.user.lastName"
@@ -35,7 +35,7 @@
               @input="formDisabled = false"
             />
           </div>
-          <div class="col text-min-width">
+          <div class="m-col text-min-width">
             <v-text-field
               v-model="$auth.user.email"
               v-model.trim="$auth.user.email"
@@ -43,7 +43,7 @@
               @input="formDisabled = false"
             />
           </div>
-          <div class="col text-min-width">
+          <div class="m-col text-min-width">
             <v-select
               v-model="$auth.user.enneagramId"
               :items="enneagramTypes"

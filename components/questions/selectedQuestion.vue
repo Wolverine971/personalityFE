@@ -56,7 +56,7 @@
     </div>
     <!-- </v-card-text> -->
 
-    <div v-else class="col">
+    <div v-else class="m-col">
       Answer Question to see other answers
     </div>
   </div>
@@ -121,17 +121,7 @@ export default {
           if (resp && resp.data) {
             this.commenterIds = resp.data.commenterIds
             this.showComments = this.commenterIds[this.$auth.user.id]
-            // debugger
             this.getTypes(resp.data.comments.comments)
-            // const commentsObj = {}
-            // let commentTypes = []
-            // resp.data.comments.comments.forEach((c) => {
-            //   if (c.author && !commentsObj[c.author.enneagramId]) {
-            //     commentTypes = [...commentTypes, c.author.enneagramId]
-            //     commentsObj[c.author.enneagramId] = 1
-            //   }
-            // })
-            // this.commentTypes = commentTypes
             this.question = Object.assign({}, resp.data)
             this.$store.commit('addAllQuestions', [resp.data])
           } else {

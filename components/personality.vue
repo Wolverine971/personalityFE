@@ -45,7 +45,7 @@
     <h3>
       {{ "Total Posts " + count }}
     </h3>
-    <div class="col">
+    <div class="m-col">
       <v-card id="c-box">
         <div v-for="(item, i) in selectedPosts" :key="i">
           <Content
