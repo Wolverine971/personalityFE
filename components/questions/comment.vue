@@ -29,6 +29,7 @@
     <interact
       v-if="interact"
       :post="componentComment"
+      :type="'comment'"
       @emitComment="newComment($event)"
       @likeChange="likeChange"
     />
@@ -61,7 +62,11 @@ import Interact from '../shared/interact'
 import CookieComment from '../shared/cookieComment'
 export default {
   name: 'Comment',
-  components: { Interact, CookieComment, AllComments: () => import('./comments.vue') },
+  components: {
+    Interact,
+    CookieComment,
+    AllComments: () => import('./comments.vue')
+  },
   props: {
     comment: {
       type: Object,
@@ -76,7 +81,6 @@ export default {
   },
   data: () => ({
     componentComment: null,
-    commentIsExpanded: false,
     panels: [],
     showCookies: false
   }),
@@ -121,7 +125,8 @@ export default {
       }
 
       this.componentComment = Object.assign({}, this.componentComment, {
-        comments: Object.assign({},
+        comments: Object.assign(
+          {},
           this.componentComment.comments,
           {
             comments: newComments

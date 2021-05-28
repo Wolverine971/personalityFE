@@ -20,6 +20,7 @@
     <interact
       v-if="interact"
       :post="content"
+      :type="'content'"
       @emitComment="newComment($event)"
       @likeChange="likeChange"
     />
@@ -81,13 +82,9 @@ export default {
         newComments = [event]
       }
 
-      this.content.comments = Object.assign(
-        {},
-        this.content.comments,
-        {
-          comments: newComments
-        }
-      )
+      this.content.comments = Object.assign({}, this.content.comments, {
+        comments: newComments
+      })
       this.content.comments.count += 1
     },
     likeChange (event) {

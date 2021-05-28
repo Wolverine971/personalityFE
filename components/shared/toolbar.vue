@@ -37,15 +37,8 @@
     <div v-if="$auth.user">
       <v-menu>
         <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn
-            color="fpink"
-            text
-            v-bind="attrs"
-            v-on="{ ...menu }"
-          >
-            <v-icon
-              color="fpink"
-            >
+          <v-btn color="fpink" text v-bind="attrs" v-on="{ ...menu }">
+            <v-icon color="fpink">
               {{
                 notifications && notifications.length
                   ? 'notifications_active'
@@ -84,7 +77,12 @@
         </v-list>
       </v-menu>
     </div>
-    <v-btn v-else :to="{path: '/auth', query: {}}" color="fpink" class="shadow btn-shrink-mobile">
+    <v-btn
+      v-else
+      :to="{ path: '/auth', query: {} }"
+      color="fpink"
+      class="shadow btn-shrink-mobile"
+    >
       Login/ Register
     </v-btn>
   </header>
@@ -117,6 +115,11 @@ export default {
           icon: 'question_answer',
           title: 'Question and Answer',
           to: '/questions'
+        },
+        {
+          icon: 'mdi-account-multiple',
+          title: 'Relationships',
+          to: '/relationships'
         },
         {
           icon: 'emoji_people',
@@ -249,23 +252,26 @@ export default {
 }
 @-webkit-keyframes glow {
   to {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
+      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
   }
   from {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
   }
 }
 @keyframes glow {
   to {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
+      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
   }
   from {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
   }
 }
 
-.pad-title{
+.pad-title {
   padding: 0 50px;
 }
-
 </style>

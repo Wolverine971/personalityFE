@@ -11,11 +11,6 @@
         hide-details
         class="pad-bot limit-height"
       >
-        <!-- <template v-slot:label>
-          <h5 class="qLabel">
-            Question
-          </h5>
-        </template> -->
         <template
           v-if="
             $auth.user &&
@@ -31,21 +26,20 @@
           />
         </template>
       </v-textarea>
-      <interact :post="question" @emitComment="newComment($event)" />
+      <interact
+        :post="question"
+        :type="'question'"
+        @emitComment="newComment($event)"
+      />
     </div>
     <div v-if="showComments" class="margin-top">
-      <!-- <v-card-title>Sorting</v-card-title> -->
-      <!-- <v-card-subtitle>Sorting</v-card-subtitle> -->
-      <!-- <v-card-actions> -->
       <h5>Sorting</h5>
       <sort
         :type="'comments'"
         :selectable-types="commentTypes"
         @triggerNewSearch="filterComments($event)"
       />
-      <!-- </v-card-actions> -->
     </div>
-    <!-- <v-card-text> -->
     <div v-if="showComments" class="margin-top">
       <comments
         v-if="showComments"
@@ -54,8 +48,6 @@
         @commentUpdated="updateComment"
       />
     </div>
-    <!-- </v-card-text> -->
-
     <div v-else class="m-col">
       Answer Question to see other answers
     </div>

@@ -33,9 +33,7 @@
             @click="expandComment"
             v-on="on"
           >
-            <v-icon>
-              mdi-comment-outline
-            </v-icon>
+            <v-icon> mdi-comment-outline </v-icon>
           </v-btn>
         </template>
         Comment
@@ -103,6 +101,11 @@ export default {
       type: Object,
       required: true,
       default: null
+    },
+    type: {
+      type: String,
+      required: true,
+      default: null
     }
   },
   data () {
@@ -112,8 +115,7 @@ export default {
       likes: [],
       subscribers: [],
       isSubscribed: false,
-      commentIsExpanded: false,
-      type: ''
+      commentIsExpanded: false
     }
   },
   watch: {
@@ -156,6 +158,8 @@ export default {
             ? (newLikes = [...this.likes, this.$auth.user.id])
             : (newLikes = this.likes.filter(l => l !== this.$auth.user.id))
 
+          this.likes = newLikes
+          this.$emit('likeChange', this.likes)
           if (this.type === 'question') {
             resp = await this.$axios.get(
               `${endpoints.likeQuestion}/${this.post.id}/${
@@ -172,16 +176,19 @@ export default {
                 isLiked ? 'add' : 'remove'
               }/${this.$auth.user.enneagramId}`
             )
-          } else {
+          } else if (this.type === 'content') {
             resp = await this.$axios.get(
               `${endpoints.likeContent}/${this.post.id}/${
                 isLiked ? 'add' : 'remove'
               }/${this.$auth.user.enneagramId}`
             )
+          } else {
+            resp = await this.$axios.get(
+              `${endpoints.likeThread}/${this.post.id}/${
+                isLiked ? 'add' : 'remove'
+              }/${this.$auth.user.enneagramId}`
+            )
           }
-
-          this.likes = newLikes
-          this.$emit('likeChange', this.likes)
           if (isLiked) {
             this.$store.dispatch('toastSuccess', 'Liked Comment')
           } else {
@@ -260,12 +267,6 @@ export default {
     },
     parsePost (post) {
       this.likes = [...post.likes]
-
-      this.type = post.subscribers
-        ? 'question'
-        : post.userId
-          ? 'content'
-          : 'comment'
       if (this.type === 'question' && this.$auth.user) {
         this.commentIsExpanded = !post.commenterIds[this.$auth.user.id]
         this.subscribers = [...post.subscribers]

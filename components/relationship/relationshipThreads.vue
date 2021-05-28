@@ -1,6 +1,5 @@
 <template>
   <div v-if="shownRelationship">
-    <h2>All Threads</h2>
     <div class="m-col">
       <v-card>
         <v-card-text>
@@ -18,19 +17,40 @@
           />
         </v-card-text>
         <v-card-actions>
-          <v-btn outlined @click="submitPost">
-            Post
-          </v-btn>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                v-bind="attrs"
+                outlined
+                :disabled="!text"
+                v-on="on"
+                @click="submitPost"
+              >
+                Post
+              </v-btn>
+            </template>
+            <span>send it</span>
+          </v-tooltip>
         </v-card-actions>
       </v-card>
 
       Total Threads: {{ shownRelationship.count }}
-      <v-card v-for="thread in shownRelationship.RelationshipData" :key="thread.id" class="margin-bot">
-        <thread :thread="thread" />
+      <v-card
+        v-for="(thread, i) in shownRelationship.RelationshipData"
+        :key="i"
+        class="margin-bot"
+      >
+        <thread
+          :thread="thread"
+          @threadUpdated="threadUpdated({ index: i, text: $event })"
+        />
       </v-card>
 
       <div
-        v-if="shownRelationship.RelationshipData.length < shownRelationship.count && !loading"
+        v-if="
+          shownRelationship.RelationshipData.length < shownRelationship.count &&
+            !loading
+        "
         class="row"
         @click="loadMore"
       >
@@ -80,24 +100,61 @@ export default {
     this.shownRelationship = this.relationship
   },
   methods: {
-    createThread () {
-      console.log(this.text)
-    },
     loadMore () {
-      console.log('load more')
+      this.loading = true
+      this.contentLoading = true
+      return this.$axios
+        .get(
+          `${endpoints.relationship}/${this.selectedType}/${
+            this.lastDate || ''
+          }`
+        )
+        .then((resp) => {
+          if (resp && resp.data) {
+            const content = [...this.selectedPosts, ...resp.data.content]
+            this.$store.commit('setPosts', {
+              [this.selectedType]: {
+                content,
+                count: this.count
+              }
+            })
+          }
+        })
     },
     async submitPost () {
       console.log('submit post')
-      // /create/:id1/:id2
       const resp = await this.$axios.post(
-            `${endpoints.relationship}/create/${this.types[0]}/${this.types[1]}`, { text: this.text }
+        `${endpoints.relationship}/create/${this.types[0]}/${this.types[1]}`,
+        { text: this.text }
       )
       if (resp && resp.data) {
         console.log(resp.data)
-        this.shownRelationship.RelationshipData = [...this.shownRelationship.RelationshipData, resp.data]
+        this.shownRelationship.RelationshipData = [
+          resp.data,
+          ...this.shownRelationship.RelationshipData
+        ]
         this.shownRelationship.count += 1
+        this.text = ''
       } else {
         console.log('failed')
+      }
+    },
+    async threadUpdated (event) {
+      debugger
+      const selectedComment = {
+        ...this.shownRelationship.RelationshipData[event.index]
+      }
+      const resp = await this.$axios.post(
+        `${endpoints.updateThread}/${selectedComment.id}`,
+        {
+          text: event.text
+        }
+      )
+      if (resp && resp.data) {
+        this.shownRelationship.RelationshipData[event.index].text = event.text
+        this.$store.dispatch('toastSuccess', 'Updated Thread')
+      } else {
+        this.$store.dispatch('toastError', 'Update Thread Failure')
       }
     }
   }

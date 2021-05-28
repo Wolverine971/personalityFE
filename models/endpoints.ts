@@ -46,5 +46,7 @@ export const endpoints = {
   login: '/api/user/login',
   logout: '/api/auth/logout',
 
-  relationship: '/api/relationship'
+  relationship: '/api/relationship',
+  likeThread: '/api/relationship/like',
+  updateThread: '/api/relationship/update'
 }

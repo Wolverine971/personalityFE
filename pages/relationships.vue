@@ -4,24 +4,31 @@
     <h2>Share Experiences</h2>
     <div class="circle-container cont">
       <div class="row">
-        <div class="m-col col-width align-center">
+        <div class="m-col col-width align-center justify-start">
           <div v-for="(type, i) in enneagramTypes" :key="i">
-            <v-btn
-              class="circle"
-              fab
-              :disabled="lock"
-              :class="`class${type.name}Background ${
-                type.name === type1 ? 'big' : ''
-              }`"
-              @click="type1 = type.name"
-            >
-              {{ type.name }}
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  class="circle"
+                  fab
+                  v-bind="attrs"
+                  :disabled="lock"
+                  :class="`class${type.name}Background ${
+                    type.name === type1 ? 'big' : ''
+                  }`"
+                  v-on="on"
+                  @click="type1 = type.name"
+                >
+                  {{ type.name }}
+                </v-btn>
+              </template>
+              <span>pick me, {{ type.tooltip1 }}</span>
+            </v-tooltip>
           </div>
         </div>
 
-        <div class="circle-join-box">
-          <div v-if="!relationshipThreads" class="m-col align-center">
+        <div v-if="(type1 || type2) && !threads" class="circle-join-box">
+          <div class="m-col align-center">
             <v-btn
               v-if="type1 && type2"
               class="view-btn"
@@ -47,32 +54,38 @@
               {{ type2 }}
             </v-btn>
           </div>
-          <div v-else>
-            <v-btn
-              v-if="type1 && type2"
-              @click="unlock"
-            >
+        </div>
+        <div v-else class="circle-join-box">
+          <div class="m-col">
+            <v-btn v-if="type1 && type2" @click="unlock">
               View Another Relationship
             </v-btn>
             <relationship-threads
-              :relationship="relationshipThreads"
+              :relationship="threads"
               :types="[type1, type2]"
             />
           </div>
         </div>
-        <div class="m-col col-width align-center">
+        <div class="m-col col-width align-center justify-start">
           <div v-for="(type, i) in enneagramTypes" :key="i">
-            <v-btn
-              class="circle"
-              fab
-              :disabled="lock"
-              :class="`class${type.name}Background ${
-                type.name === type2 ? 'big' : ''
-              }`"
-              @click="type2 = type.name"
-            >
-              {{ type.name }}
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  v-bind="attrs"
+                  class="circle"
+                  fab
+                  :disabled="lock"
+                  :class="`class${type.name}Background ${
+                    type.name === type2 ? 'big' : ''
+                  }`"
+                  v-on="on"
+                  @click="type2 = type.name"
+                >
+                  {{ type.name }}
+                </v-btn>
+              </template>
+              <span>relationships? {{ type.tooltip2 }}</span>
+            </v-tooltip>
           </div>
         </div>
       </div>
@@ -89,130 +102,115 @@ export default {
       import('../components/relationship/relationshipThreads')
   },
   data: () => ({
-    shuffleSpeed: 'shuffleMedium',
     enneagramTypes: [
       {
         name: 1,
-        expanded: false
+        expanded: false,
+        tooltip1: 'we so perfect',
+        tooltip2: 'already improving mine'
       },
       {
         name: 2,
-        expanded: false
+        expanded: false,
+        tooltip1: 'we so nice',
+        tooltip2: 'yes plz'
       },
       {
         name: 3,
-        expanded: false
+        expanded: false,
+        tooltip1: 'we so awesome',
+        tooltip2: 'get on my lvl'
       },
       {
         name: 4,
-        expanded: false
+        expanded: false,
+        tooltip1: 'we so deep',
+        tooltip2: 'maybe, maybe not'
       },
       {
         name: 5,
-        expanded: false
+        expanded: false,
+        tooltip1: 'we so smart',
+        tooltip2:
+          "google defines a relationship as: 'the way in which two or more concepts, objects, or people are connected, or the state of being connected'"
       },
       {
         name: 6,
-        expanded: false
+        expanded: false,
+        tooltip1: 'we so loyal',
+        tooltip2: 'part of the ship part of the crew'
       },
       {
         name: 7,
-        expanded: false
+        expanded: false,
+        tooltip1: 'we so fun',
+        tooltip2: 'sure if you can keep up'
       },
       {
         name: 8,
-        expanded: false
+        expanded: false,
+        tooltip1: 'we so strong',
+        tooltip2: 'lets fight!'
       },
-      { name: 9, expanded: false }
+      {
+        name: 9,
+        expanded: false,
+        tooltip1: 'we so calm ;)',
+        tooltip2: 'mmmmmmmmh'
+      }
     ],
-    selectedType: null,
-    selectedIndex: null,
-    enneagramType: -1,
     type1: '',
     type2: '',
-    relationshipThreads: null,
-    lock: false
+    threads: null,
+    lock: false,
+    viewRelationship: false
   }),
   computed: {
     user () {
       return this.$store.getters.getUser
     }
   },
-  watch: {
-    enneagramType (val) {
-      this.$router.push({ path: `/relationships/${val}` })
-      this.$router.go(1)
-    }
-  },
   methods: {
     async seeRelationship () {
+      this.viewRelationship = !this.viewRelationship
       this.lock = true
       const resp = await this.$axios.get(
         `${endpoints.relationship}/${this.type1}/${this.type2}/10`
       )
       if (resp && resp.data) {
         console.log(resp.data)
-        this.relationshipThreads = resp.data
+        this.threads = resp.data
       } else {
         console.log('failed')
       }
     },
     unlock () {
       this.lock = false
-      this.relationshipThreads = null
+      this.threads = null
     }
   },
   head () {
     return {
-      title: 'Relationships'
+      title: 'Relationships',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Relationships across enneagram types'
+        }
+      ]
     }
   }
 }
 </script>
 
 <style lang="scss">
-// .noshow{
-//   // display: none;
-//   visibility: hidden;
-//   opacity: 0;
-// }
-
 .col-width {
   width: 100px;
 }
 .types {
   font-size: 10em;
 }
-.hidden {
-  display: none;
-  // visibility: hidden;
-  opacity: 0;
-}
-
-.shuffleMedium-move {
-  transition: transform 1s;
-  top: 300px;
-  transform-origin: right bottom;
-  animation-name: opacityOnAndOff;
-  visibility: visible;
-  opacity: 1;
-}
-@keyframes opacityOnAndOff {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-// .shuffleMedium-leave {
-//   transition: transform 1s;
-//   top: 300px;
-//   transform-origin: right bottom;
-// }
 
 .circle-container {
   display: flex;
@@ -220,15 +218,6 @@ export default {
   list-style: none;
   margin: 50px auto 20px auto;
   flex-wrap: wrap;
-}
-.hoverBackground {
-  :hover {
-    border-radius: 50%;
-    background-color: rgb(24, 24, 122);
-  }
-}
-.noBackground {
-  background-color: transparent !important;
 }
 .circle {
   width: 5vw;
@@ -250,61 +239,6 @@ export default {
   }
   &:nth-child(odd) {
     align-self: flex-start;
-  }
-
-}
-
-.circle-pair {
-  z-index: 2;
-  opacity: 0.6;
-  border-radius: 50%;
-  height: 56px;
-  width: 56px;
-  align-items: center;
-  display: flex;
-  flex: 1 0 auto;
-  justify-content: center;
-  line-height: normal;
-}
-
-.little_circle {
-  width: 20px;
-  height: 20px;
-  // background-color: #61619e;
-  border-radius: 50%;
-  font: {
-    size: 10px;
-    family: sans-serif;
-    weight: bold;
-  }
-  cursor: pointer;
-  line-height: 20px;
-  text-align: center;
-
-  transition: all 1s linear;
-  display: block;
-
-  transition: transform 1s;
-  top: 300px;
-  transform-origin: right bottom;
-  animation-name: opacityOnAndOff;
-  visibility: visible;
-  opacity: 0.4;
-  :hover {
-    background-color: rgb(124, 61, 61) !important;
-    color: blue;
-  }
-}
-
-@keyframes opacityOnAndOff {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }
 
@@ -348,5 +282,4 @@ export default {
   position: absolute;
   top: calc(50% - 18px);
 }
-
 </style>
