@@ -3,7 +3,10 @@ export function getQuestionsFromData (esQuestions: any[]) {
     return esQuestions.map((q) => {
       return {
         id: q._id,
-        question: q._source.question
+        question: q._source.question,
+        comments: q._source.comments,
+        createdDate: q._source.createdDate,
+        likes: q._source.likes
       }
     })
   } else {

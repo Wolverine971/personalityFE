@@ -140,7 +140,6 @@ export default {
       }
     },
     async threadUpdated (event) {
-      debugger
       const selectedComment = {
         ...this.shownRelationship.RelationshipData[event.index]
       }

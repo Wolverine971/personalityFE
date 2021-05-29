@@ -9,10 +9,24 @@
         Total Questions: {{ totalQuestions }}
         <v-card v-for="q in allQuestions" :key="q.id" class="margin-bot">
           <v-card-text class="pad-bot clickable" @click="goToQuestion(q)">
-            {{ q.question }}?
-            <v-icon>
-              keyboard_arrow_right
-            </v-icon>
+            <div class="row space-between">
+              <div>
+                {{ q.question }}?
+              </div>
+              <div>
+                <v-btn icon>
+                  <v-icon> mdi-cookie-outline </v-icon>
+                  {{ q.likes.length }}
+                </v-btn>
+                <v-btn icon>
+                  <v-icon> mdi-comment-outline </v-icon>
+                  {{ q.comments.count }}
+                </v-btn>
+                <v-btn outlined icon>
+                  <v-icon>keyboard_arrow_right</v-icon>
+                </v-btn>
+              </div>
+            </div>
           </v-card-text>
         </v-card>
 
@@ -82,6 +96,7 @@ export default {
       this.$router.go(1)
     },
     parseQuestions (questions) {
+      console.log(questions)
       this.allQuestions = Object.keys(questions).map((q) => {
         return questions[q]
       }).sort(function (a, b) {

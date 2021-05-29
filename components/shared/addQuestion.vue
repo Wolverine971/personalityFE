@@ -3,8 +3,16 @@
     v-model="selection"
     :items="typeAhead"
     :search-input.sync="question"
-    :label="(!typeAheadLoading && question && key === -1) ? 'Create Question' : 'Search Questions'"
-    :prepend-inner-icon="(!typeAheadLoading && question && key === -1) ? 'add_circle_outline' : 'search'"
+    :label="
+      !typeAheadLoading && question && key === -1
+        ? 'Create Question'
+        : 'Search Questions'
+    "
+    :prepend-inner-icon="
+      !typeAheadLoading && question && key === -1
+        ? 'add_circle_outline'
+        : 'search'
+    "
     :menu-props="{ closeOnContentClick: true }"
     :item-text="question"
     maxlength="500"
@@ -27,10 +35,20 @@
       <v-list-item @click.stop.prevent="goToQuestion(item)">
         {{ item.question }}
         <v-spacer />
-        <v-list-item-action @click.stop>
-          <v-btn outlined icon>
-            <v-icon>keyboard_arrow_right</v-icon>
-          </v-btn>
+        <v-list-item-action>
+          <div class="row">
+            <v-btn icon>
+              <v-icon> mdi-cookie-outline </v-icon>
+              {{ item.likes }}
+            </v-btn>
+            <v-btn icon>
+              <v-icon> mdi-comment-outline </v-icon>
+              {{ item.comments }}
+            </v-btn>
+            <v-btn outlined icon>
+              <v-icon>keyboard_arrow_right</v-icon>
+            </v-btn>
+          </div>
         </v-list-item-action>
       </v-list-item>
     </template>

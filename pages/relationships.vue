@@ -182,6 +182,7 @@ export default {
         this.threads = resp.data
       } else {
         console.log('failed')
+        this.$store.dispatch('toastError', 'Failed to get threads')
       }
     },
     unlock () {
