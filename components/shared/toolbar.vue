@@ -198,14 +198,11 @@ export default {
   },
 
   methods: {
-    logout () {
+    async logout () {
       this.$store.commit('setAccessToken', '')
       this.$auth.setUserToken('')
       this.$auth.setUser(null)
-
-      this.$router.push({
-        path: '/auth'
-      })
+      await this.$auth.logout('local')
     },
     handlerClose: debounce(function (e) {
       if (this.$auth.user) {
