@@ -48,8 +48,7 @@
 
       <div
         v-if="
-          shownRelationship.RelationshipData.length < shownRelationship.count &&
-            !loading
+          shownRelationship.RelationshipData.length < shownRelationship.count && !loading
         "
         class="row"
         @click="loadMore"
@@ -122,7 +121,6 @@ export default {
         })
     },
     async submitPost () {
-      console.log('submit post')
       const resp = await this.$axios.post(
         `${endpoints.relationship}/create/${this.types[0]}/${this.types[1]}`,
         { text: this.text }

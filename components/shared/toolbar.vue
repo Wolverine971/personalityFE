@@ -202,6 +202,7 @@ export default {
       this.$store.commit('setAccessToken', '')
       this.$auth.setUserToken('')
       this.$auth.setUser(null)
+      await this.$auth.$storage.setState('local', '')
       await this.$auth.logout('local')
     },
     handlerClose: debounce(function (e) {
@@ -209,14 +210,12 @@ export default {
         e.preventDefault()
         const focus = document.hasFocus()
         if (focus) {
-          console.log('has focus')
           this.$axios.get(endpoints.userEnter).then((resp) => {
             if (resp) {
               console.log(resp)
             }
           })
         } else {
-          console.log('lost focus')
           this.$axios.get(endpoints.userLeave).then((resp) => {
             if (resp) {
               console.log(resp)

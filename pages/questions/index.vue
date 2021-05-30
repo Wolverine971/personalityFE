@@ -10,9 +10,7 @@
         <v-card v-for="q in allQuestions" :key="q.id" class="margin-bot">
           <v-card-text class="pad-bot clickable" @click="goToQuestion(q)">
             <div class="row space-between">
-              <div>
-                {{ q.question }}?
-              </div>
+              <div>{{ q.question }}?</div>
               <div>
                 <v-btn icon>
                   <v-icon> mdi-cookie-outline </v-icon>
@@ -50,7 +48,9 @@ export default {
   name: 'Index',
   // middleware: 'accessToken',
 
-  components: { AddQuestion: () => import('../../components/shared/addQuestion') },
+  components: {
+    AddQuestion: () => import('../../components/shared/addQuestion')
+  },
   data () {
     return {
       allQuestions: [],
@@ -96,14 +96,12 @@ export default {
       this.$router.go(1)
     },
     parseQuestions (questions) {
-      console.log(questions)
       this.allQuestions = Object.keys(questions).map((q) => {
         return questions[q]
       }).sort(function (a, b) {
         return new Date(b.dateCreated) - new Date(a.dateCreated)
       })
     }
-
   }
 }
 </script>
