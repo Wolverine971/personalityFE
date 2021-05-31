@@ -16,7 +16,6 @@ export const endpoints = {
   getComment: '/api/comment',
   likeComment: '/api/comment/like',
   updateComment: '/api/comment/update',
-
   getSortedComments: '/api/question/sort',
 
   postContent: '/api/content',
@@ -44,7 +43,8 @@ export const endpoints = {
   userLeave: '/api/user/leave',
   userEnter: '/api/user/enter',
   login: '/api/user/login',
-  logout: '/api/auth/logout',
+  change: '/api/user/change',
+  users: '/api/user/all',
 
   relationship: '/api/relationship',
   likeThread: '/api/relationship/like',

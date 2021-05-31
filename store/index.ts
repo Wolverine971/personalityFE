@@ -9,17 +9,21 @@ Vue.use(Vuex)
 export interface AppState {
   user: any
 
-  userALT: null
-
   accessToken: string
 
-  allQuestions: any
+  allQuestions: any,
+
+  allComments: any[]
 
   dashboard: any
 
   allQuestionsLastDate: string
 
+  allCommentsLastDate: string
+
   allQuestionsCount: number
+
+  allCommentsCount: number
 
   refreshDashboard: boolean
 
@@ -32,22 +36,30 @@ export interface AppState {
   askedQuestions: any
 
   notifications: any[]
+
+  users: any[]
+
+  usersCount: number
 }
 // STATE
 export const state: AppState = {
   user: null,
 
-  userALT: null,
-
   accessToken: '',
 
   allQuestions: null,
+
+  allComments: [],
 
   dashboard: null,
 
   allQuestionsLastDate: '',
 
+  allCommentsLastDate: '',
+
   allQuestionsCount: 0,
+
+  allCommentsCount: 0,
 
   refreshDashboard: false,
 
@@ -59,7 +71,11 @@ export const state: AppState = {
 
   askedQuestions: null,
 
-  notifications: []
+  notifications: [],
+
+  users: [],
+
+  usersCount: 0
 }
 
 export const getters = {
@@ -79,14 +95,26 @@ export const getters = {
     return state.allQuestions
   },
 
+  getAllComments (state: AppState) {
+    return state.allComments
+  },
+
   getDashboard (state: AppState) {
     return state.dashboard
   },
   getAllQuestionsLastDate (state: AppState) {
     return state.allQuestionsLastDate
   },
+
+  getAllCommentsLastDate (state: AppState) {
+    return state.allCommentsLastDate
+  },
   getAllQuestionsCount (state: AppState) {
     return state.allQuestionsCount
+  },
+
+  getAllCommentsCount (state: AppState) {
+    return state.allCommentsCount
   },
   getRefreshDashboard (state: AppState) {
     return state.refreshDashboard
@@ -113,6 +141,19 @@ export const getters = {
   },
   getNotifications (state: AppState) {
     return state.notifications
+  },
+  getRole (state: AppState) {
+    if (state.user) {
+      return state.user.role
+    } else {
+      return null
+    }
+  },
+  getAllUsers (state: AppState) {
+    return state.users
+  },
+  getAllUsersCount (state: AppState) {
+    return state.usersCount
   }
 }
 
@@ -137,14 +178,34 @@ export const mutations = {
     })
     state.allQuestions = Object.assign({}, state.allQuestions, moreQuestions)
   },
+  addAllComments (state: AppState, comments: any[]) {
+    if (!state.allComments) {
+      state.allComments = []
+    }
+    state.allComments = [...state.allComments, ...comments]
+  },
+  replaceAllComments (state: AppState, comments: any[]) {
+    if (!state.allComments) {
+      state.allComments = []
+    }
+    state.allComments = [...comments]
+  },
   setDashboard (state: AppState, subscriptions: any[]) {
     state.dashboard = subscriptions
   },
   setAllQuestionsLastDate (state: AppState, lastDate: string) {
     state.allQuestionsLastDate = lastDate
   },
+
+  setAllCommentsLastDate (state: AppState, lastDate: string) {
+    state.allCommentsLastDate = lastDate
+  },
   setAllQuestionsCount (state: AppState, count: number) {
     state.allQuestionsCount = count
+  },
+
+  setAllCommentsCount (state: AppState, count: number) {
+    state.allCommentsCount = count
   },
   setRefreshDashboard (state: AppState, tF: boolean) {
     state.refreshDashboard = tF
@@ -168,6 +229,12 @@ export const mutations = {
     console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     console.log(notifications)
     state.notifications = notifications
+  },
+  addAllUsers (state: AppState, users: any[]) {
+    state.users = users
+  },
+  setAllUsersCount (state: AppState, count: number) {
+    state.usersCount = count
   }
 }
 
@@ -270,6 +337,33 @@ export const actions: any = {
           commit('setAllQuestionsCount', resp.data.count)
         }
       })
+  },
+
+  getSortedPaginatedComments ({ commit }: any, sortParams: any) {
+    return this.$axios.post(
+      `${endpoints.getSortedComments}/`,
+      sortParams
+    ).then((resp:any) => {
+      console.log(resp)
+      if (sortParams.cursorId) {
+        commit('addAllComments', resp.data.comments)
+        commit('setAllCommentsCount', resp.data.count)
+      } else {
+        commit('replaceAllComments', resp.data.comments)
+        commit('setAllCommentsCount', resp.data.count)
+      }
+    })
+  },
+
+  getPaginatedUsers ({ commit }: any, cursorId: any) {
+    debugger
+    return this.$axios.get(
+      `${endpoints.users}/${cursorId || ''}`
+    ).then((resp:any) => {
+      console.log(resp)
+      commit('addAllUsers', resp.data.users)
+      commit('setAllUsersCount', resp.data.count)
+    })
   },
   async nuxtServerInit ({ dispatch }: any, { $auth }: any) {
     const refreshToken = $auth.getToken('local')

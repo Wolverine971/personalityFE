@@ -67,7 +67,7 @@ export default {
 
   data: () => ({
     question: null,
-    commentCursorId: null,
+    cursorId: null,
     commenterIds: {},
     showComments: false,
     commentTypes: []
