@@ -29,7 +29,7 @@
               icon
               small
               color="red"
-              @click="deleteuser(user)"
+              @click="deleteUser(user)"
             >
               <v-icon>delete</v-icon>
             </v-btn>
@@ -108,7 +108,7 @@ export default {
     getTime (time) {
       return msToTime(time)
     },
-    async deleteuser (user) {
+    async deleteUser (user) {
       const resp = await this.$axios.post(
           `${endpoints.change}`,
           { type: 'user', tag: user.id }
