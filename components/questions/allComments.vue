@@ -41,7 +41,7 @@
               icon
               small
               color="red"
-              @click="deleteComment(q)"
+              @click="deleteComment(comment)"
             >
               <v-icon>delete</v-icon>
             </v-btn>

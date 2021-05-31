@@ -2,7 +2,7 @@
   <div class="m-col">
     Total users: {{ totalUsers }}
     <v-card v-for="user in allUsers" :key="user.id" class="margin-bot">
-      <v-card-text class="pad-bot clickable" @click="admin ? '' : goTouser(q)">
+      <v-card-text class="pad-bot clickable">
         <div class="row space-between">
           <div class="margin-left">
             Name: {{ user.firstName }} {{ user.lastName }}
