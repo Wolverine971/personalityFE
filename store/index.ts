@@ -356,11 +356,9 @@ export const actions: any = {
   },
 
   getPaginatedUsers ({ commit }: any, cursorId: any) {
-    debugger
     return this.$axios.get(
       `${endpoints.users}/${cursorId || ''}`
     ).then((resp:any) => {
-      console.log(resp)
       commit('addAllUsers', resp.data.users)
       commit('setAllUsersCount', resp.data.count)
     })

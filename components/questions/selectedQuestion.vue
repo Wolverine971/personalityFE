@@ -148,7 +148,6 @@ export default {
             this.cursorId =
               resp.data.comments[resp.data.comments.length - 1].dateCreated
           }
-          // debugger
           this.question.comments = resp.data
           this.$store.commit('addAllQuestions', [this.question])
         }

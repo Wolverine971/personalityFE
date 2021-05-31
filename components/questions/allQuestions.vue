@@ -12,7 +12,7 @@
               Id: {{ q.id }}
             </v-btn>
             <v-btn v-if="admin" outlined small>
-              Author Enneagram: {{ q.author.enneagramId }}
+              Author Enneagram: {{ q.author ? q.author.enneagramId : '' }}
             </v-btn>
             <v-btn v-if="admin" outlined small>
               DateCreated: {{ getTime(q.dateCreated) }}
@@ -129,8 +129,6 @@ export default {
       return msToTime(time)
     },
     async deleteQuestion (question) {
-      // this.$axios(endpoints.change)
-      debugger
       const resp = await this.$axios.post(
           `${endpoints.change}`,
           { type: 'question', tag: question.id }

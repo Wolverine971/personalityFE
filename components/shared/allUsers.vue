@@ -103,11 +103,7 @@ export default {
       this.usersLoading = false
     },
     parseUsers (users) {
-      this.allUsers = Object.keys(users).map((q) => {
-        return users[q]
-      }).sort(function (a, b) {
-        return new Date(b.dateCreated) - new Date(a.dateCreated)
-      })
+      this.allUsers = [...users]
     },
     getTime (time) {
       return msToTime(time)
