@@ -104,6 +104,7 @@ export default {
     },
     parseUsers (users) {
       this.allUsers = [...users]
+      this.cursorId = users[users.length - 1].id
     },
     getTime (time) {
       return msToTime(time)
