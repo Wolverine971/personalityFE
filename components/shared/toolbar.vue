@@ -20,7 +20,7 @@
             v-for="(item, i) in items"
             :key="i"
             :to="{ path: item.to, query: {} }"
-            :disabled="(item.validation && !$auth.user) || item.inprogress"
+            :disabled="(item.validation && !user) || item.inprogress"
             router
             exact
           >
@@ -31,7 +31,7 @@
               <v-list-item-title v-text="item.title" />
               <span class="coming-soon">
                 {{ item.inprogress ? 'Coming Soon' : '' }}
-                {{ item.validation && !$auth.user ? 'Login' : '' }}
+                {{ item.validation && !user ? 'Login' : '' }}
               </span>
             </v-list-item-content>
           </v-list-item>
@@ -42,7 +42,7 @@
       </h1>
     </div>
     <v-spacer />
-    <div v-if="$auth.user">
+    <div v-if="user">
       <v-menu>
         <template v-slot:activator="{ on: menu, attrs }">
           <v-btn color="fpink" text v-bind="attrs" v-on="{ ...menu }">
@@ -66,18 +66,18 @@
           </v-btn>
         </template>
         <v-list>
-          <!-- :disabled="(item.validation && !$auth.user)" -->
-          <v-list-item v-if="!$auth.user" :to="'/auth'" router exact>
+          <!-- :disabled="(item.validation && !user)" -->
+          <v-list-item v-if="!user" :to="'/auth'" router exact>
             <v-list-item-content>
               <v-list-item-title v-text="'Login/ Register'" />
             </v-list-item-content>
           </v-list-item>
-          <v-list-item v-if="$auth.user" :to="'/profile'" router exact>
+          <v-list-item v-if="user" :to="'/profile'" router exact>
             <v-list-item-content>
               <v-list-item-title v-text="'Profile'" />
             </v-list-item-content>
           </v-list-item>
-          <v-list-item v-if="$auth.user" @click="logout">
+          <v-list-item v-if="user" @click="logout">
             <v-list-item-content>
               <v-list-item-title v-text="'Logout'" />
             </v-list-item-content>
@@ -160,22 +160,8 @@ export default {
     }
   },
   watch: {
-    user (user) {
-      if (this.$socket && user) {
-        this.$socket.client.emit('join', this.$auth.user.id)
-        if (this.$socket.$subscribe) {
-          this.$socket.$subscribe(
-            `push:notifications:${this.$auth.user.id}`,
-            async (data) => {
-              console.log(data)
-              const notification = await JSON.parse(data)
-              if (notification) {
-                this.notifications = [...notification]
-              }
-            }
-          )
-        }
-      }
+    user () {
+      this.subscrbeToNotifs()
     }
   },
 
@@ -199,19 +185,18 @@ export default {
   },
   sockets: {
     connect () {
-      if (this.$auth && this.$auth.user && this.$auth.user.id) {
-        this.$socket.client.emit('join', this.$auth.user.id)
-      }
+      this.subscrbeToNotifs()
     }
   },
 
   methods: {
     async logout () {
       this.$store.commit('setAccessToken', '')
+      this.$store.commit('setUser', null)
       this.$auth.setUserToken('')
       this.$auth.setUser(null)
       await this.$auth.$storage.setState('local', '')
-      await this.$auth.logout('local')
+      await this.$auth.logout()
     },
     handlerClose: debounce(function (e) {
       if (this.$auth.user) {
@@ -236,6 +221,22 @@ export default {
     goHome () {
       this.$router.push({ path: '/', query: {} })
       this.$router.go(1)
+    },
+    subscrbeToNotifs () {
+      if (this.$socket && this.$auth.user && this.$auth.user.id) {
+        this.$socket.client.emit('join', this.$auth.user.id)
+        if (this.$socket.$subscribe) {
+          this.$socket.$subscribe(
+            `push:notifications:${this.$auth.user.id}`,
+            async (data) => {
+              const notification = await JSON.parse(data)
+              if (notification) {
+                this.notifications = [...notification]
+              }
+            }
+          )
+        }
+      }
     }
   }
 }

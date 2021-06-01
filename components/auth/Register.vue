@@ -119,7 +119,6 @@ export default defineComponent({
             this.$store.dispatch('toastError', message)
           }
         } catch (error) {
-          console.log(error)
           this.registerSuccess = false
           this.$store.dispatch('toastError', error)
         }

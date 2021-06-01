@@ -126,7 +126,6 @@ export default {
         { text: this.text }
       )
       if (resp && resp.data) {
-        console.log(resp.data)
         this.shownRelationship.RelationshipData = [
           resp.data,
           ...this.shownRelationship.RelationshipData

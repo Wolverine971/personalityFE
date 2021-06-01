@@ -79,12 +79,6 @@ export const state: AppState = {
 }
 
 export const getters = {
-  isAuthenticated (state: AppState) {
-    return !!state.user
-  },
-  loggedUser (state: AppState) {
-    return state.user
-  },
   getAccessToken (state: AppState) {
     return state.accessToken
   },
@@ -159,9 +153,6 @@ export const getters = {
 
 // MUTATIONS
 export const mutations = {
-  user (state: AppState, user: null) {
-    state.user = user
-  },
   setUser (state: AppState, user: any) {
     state.user = user
   },
@@ -226,8 +217,6 @@ export const mutations = {
     state.askedQuestions = askedQuestions
   },
   SOCKET_notifications (state: AppState, notifications: any[]) {
-    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-    console.log(notifications)
     state.notifications = notifications
   },
   addAllUsers (state: AppState, users: any[]) {
@@ -344,7 +333,6 @@ export const actions: any = {
       `${endpoints.getSortedComments}/`,
       sortParams
     ).then((resp:any) => {
-      console.log(resp)
       if (sortParams.cursorId) {
         commit('addAllComments', resp.data.comments)
         commit('setAllCommentsCount', resp.data.count)

@@ -116,7 +116,8 @@ export default {
           logout: { url: '/api/user/logout', method: 'post' }
         },
         globalToken: true,
-        tokenType: ''
+        tokenRequired: false,
+        tokenType: false
         // autoLogout: false
       }
     }
@@ -197,7 +198,7 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   // https://medium.com/shard-labs/how-to-drastically-reduce-your-bundle-size-and-load-time-in-vue-js-54370d513fdf
   build: {
-    // analyze: true,
+    analyze: true,
     loaders: {
       cssModules: {
         modules: {

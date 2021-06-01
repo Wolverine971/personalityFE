@@ -178,7 +178,6 @@ export default {
         `${endpoints.relationship}/${this.type1}/${this.type2}/10`
       )
       if (resp && resp.data) {
-        console.log(resp.data)
         this.threads = resp.data
       } else {
         console.log('failed')
