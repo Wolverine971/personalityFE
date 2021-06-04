@@ -12,10 +12,10 @@
         outlined
         raised
         large
-        :class="`class${thread.author.enneagramId}`"
+        :class="thread.author ? 'class' + thread.author.enneagramId : ''"
         color="offWhite"
       >
-        {{ thread.author.enneagramId }}
+        {{ thread.author ? thread.author.enneagramId : 0 }}
       </v-avatar>
       <cookie-comment
         :text="thread.text"

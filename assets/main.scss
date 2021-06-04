@@ -127,7 +127,7 @@
     height: 40px !important;
   }
   .v-btn {
-    height: 30px !important;
+    // height: 30px !important;
   }
   .main-margin {
     margin: 44px 0 !important;
@@ -176,6 +176,10 @@
 
 .space-between {
   justify-content: space-between;
+}
+
+.space-around {
+  justify-content: space-around;
 }
 
 .coming-soon {

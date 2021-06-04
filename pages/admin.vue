@@ -6,6 +6,11 @@
         {{ item }}
       </v-tab>
     </v-tabs>
+    <v-select
+      v-else
+      v-model="select"
+      :items="tabs"
+    />
     <v-tabs-items v-model="tab">
       <v-tab-item>
         <all-questions :admin="true" />
@@ -36,6 +41,7 @@ export default {
   },
   data: () => ({
     tab: 'Questions',
+    select: 'Questions',
     tabs: [
       'Questions',
       'Comments',
@@ -43,8 +49,10 @@ export default {
       'Users'
     ]
   }),
-  methods: {
-
+  watch: {
+    select (val) {
+      this.tab = this.tabs.indexOf(val)
+    }
   }
 
 }

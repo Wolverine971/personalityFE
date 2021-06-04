@@ -3,7 +3,7 @@
     <h1>Relationships</h1>
     <h2>Share Experiences</h2>
     <div class="circle-container cont">
-      <div class="row">
+      <div v-if="!$vuetify.breakpoint.mobile" class="row">
         <div class="m-col col-width align-center justify-start">
           <div v-for="(type, i) in enneagramTypes" :key="i">
             <v-tooltip bottom>
@@ -89,6 +89,67 @@
           </div>
         </div>
       </div>
+      <div v-else class="m-col master-container">
+        <v-select
+          v-model="tOne"
+          :items="enneagramTypes"
+          label="Compare this"
+          item-text="name"
+          item-value="name"
+        >
+          <template v-slot:item="{ item }">
+            {{ item.name }}
+          </template>
+        </v-select>
+        <v-select
+          v-model="tTwo"
+          :items="enneagramTypes"
+          label="To that"
+          item-text="name"
+          item-value="name"
+        >
+          <template v-slot:item="{ item }">
+            {{ item.name }}
+          </template>
+        </v-select>
+        <v-btn
+          v-if="type1 && type2 && !threads"
+          @click="seeRelationship"
+        >
+          View {{ type1 }} Relationship with {{ type2 }}
+        </v-btn>
+        <div v-if="(type1 || type2) && !threads" class="circle-join-box">
+          <div class="row space-around">
+            <v-btn
+              class="types circle-join extra-big"
+              fab
+              :class="`class${type1}Background`"
+              style=""
+            >
+              {{ type1 }}
+            </v-btn>
+            <v-btn
+              class="types circle-join extra-big"
+              fab
+              :class="`class${type2}Background`"
+              style=""
+            >
+              {{ type2 }}
+            </v-btn>
+          </div>
+        </div>
+        <div v-else class="circle-join-box">
+          <div class="m-col">
+            <v-btn v-if="type1 && type2" @click="unlock">
+              View Another Relationship
+            </v-btn>
+            <relationship-threads
+              :relationship="threads"
+              :types="[type1, type2]"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -159,6 +220,8 @@ export default {
         tooltip2: 'mmmmmmmmh'
       }
     ],
+    tOne: '',
+    tTwo: '',
     type1: '',
     type2: '',
     threads: null,
@@ -168,6 +231,15 @@ export default {
   computed: {
     user () {
       return this.$store.getters.getUser
+    }
+  },
+
+  watch: {
+    tOne (val) {
+      this.type1 = val
+    },
+    tTwo (val) {
+      this.type2 = val
     }
   },
   methods: {
@@ -247,12 +319,7 @@ export default {
   cursor: pointer;
   width: 50%;
   opacity: 50%;
-  position: absolute;
 }
-
-// .circle-join2 {
-//   top: 20% !important;
-// }
 
 .circle-join-box {
   flex: 1;
