@@ -192,11 +192,18 @@ export default {
   methods: {
     async logout () {
       this.$store.commit('setAccessToken', '')
+      await this.$auth.logout()
       this.$store.commit('setUser', null)
       this.$auth.setUserToken('')
       this.$auth.setUser(null)
-      await this.$auth.$storage.setState('local', '')
-      await this.$auth.logout()
+
+      this.$auth.setToken(false)
+      this.$auth.setRefreshToken(false)
+      this.$axios.setHeader('Authorization', false)
+
+      // this.$auth.strategies.local.options.endpoints.user.headers.Authorization = null
+      // await this.$auth.$storage.setState('local', false)
+      // await this.$auth.logout()
     },
     handlerClose: debounce(function (e) {
       if (this.$auth.user) {

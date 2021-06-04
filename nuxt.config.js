@@ -89,7 +89,7 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/auth', '@nuxtjs/toast'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth', '@nuxtjs/toast'],
 
   auth: {
     redirect: {
@@ -151,24 +151,24 @@ export default {
     optionsPath: './vuetify.options.js'
   },
 
-  pwa: {
-    manifest: {
-      name: '9takes',
-      short_name: '9takes',
-      lang: 'en',
-      theme_color: '#191970',
-      useWebmanifestExtension: false
-    },
-    meta: {
-      /* meta options */
-      favicon: '/enneagramPng.png',
-      description: 'Community for questions and answers based on personality'
-    },
-    icon: {
-      source: '/iconz.png',
-      fileName: 'iconz.png'
-    }
-  },
+  // pwa: {
+  //   manifest: {
+  //     name: '9takes',
+  //     short_name: '9takes',
+  //     lang: 'en',
+  //     theme_color: '#191970',
+  //     useWebmanifestExtension: false
+  //   },
+  //   meta: {
+  //     /* meta options */
+  //     favicon: '/enneagramPng.png',
+  //     description: 'Community for questions and answers based on personality'
+  //   },
+  //   icon: {
+  //     source: '/iconz.png',
+  //     fileName: 'iconz.png'
+  //   }
+  // },
 
   // render: {
 
