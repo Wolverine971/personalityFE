@@ -4,7 +4,7 @@
       <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
-            :disabled="!$auth.user"
+            :disabled="!user"
             outlined
             small
             v-bind="attrs"
@@ -27,7 +27,7 @@
             outlined
             small
             class="margin-right"
-            :disabled="!$auth.user"
+            :disabled="!user"
             color="fpink"
             v-bind="attrs"
             @click="expandComment"
@@ -43,7 +43,7 @@
           <v-btn
             v-if="type === 'question'"
             v-bind="attrs"
-            :disabled="!$auth.user"
+            :disabled="!user"
             outlined
             small
             :class="{ 'btn-selected': isSubscribed }"
@@ -118,6 +118,11 @@ export default {
       commentIsExpanded: false
     }
   },
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    }
+  },
   watch: {
     post (post) {
       if (post) {
@@ -125,18 +130,18 @@ export default {
       }
     },
     likes (likes) {
-      if (this.$auth.user) {
+      if (this.user) {
         if (likes) {
-          this.isLiked = likes.includes(this.$auth.user.id)
+          this.isLiked = likes.includes(this.user.id)
         } else {
           this.isLiked = false
         }
       }
     },
     subscribers (subs) {
-      if (this.$auth.user) {
+      if (this.user) {
         if (subs) {
-          this.isSubscribed = subs.includes(this.$auth.user.id)
+          this.isSubscribed = subs.includes(this.user.id)
         } else {
           this.isSubscribed = false
         }
@@ -148,15 +153,15 @@ export default {
   },
   methods: {
     async like () {
-      if (this.$auth.user) {
+      if (this.user) {
         try {
           const isLiked = !this.isLiked
           let resp
           let newLikes
 
           isLiked
-            ? (newLikes = [...this.likes, this.$auth.user.id])
-            : (newLikes = this.likes.filter(l => l !== this.$auth.user.id))
+            ? (newLikes = [...this.likes, this.user.id])
+            : (newLikes = this.likes.filter(l => l !== this.user.id))
 
           this.likes = newLikes
           this.$emit('likeChange', this.likes)
@@ -174,19 +179,19 @@ export default {
             resp = await this.$axios.get(
               `${endpoints.likeComment}/${this.post.id}/${
                 isLiked ? 'add' : 'remove'
-              }/${this.$auth.user.enneagramId}`
+              }/${this.user.enneagramId}`
             )
           } else if (this.type === 'content') {
             resp = await this.$axios.get(
               `${endpoints.likeContent}/${this.post.id}/${
                 isLiked ? 'add' : 'remove'
-              }/${this.$auth.user.enneagramId}`
+              }/${this.user.enneagramId}`
             )
           } else {
             resp = await this.$axios.get(
               `${endpoints.likeThread}/${this.post.id}/${
                 isLiked ? 'add' : 'remove'
-              }/${this.$auth.user.enneagramId}`
+              }/${this.user.enneagramId}`
             )
           }
           if (isLiked) {
@@ -202,10 +207,10 @@ export default {
       }
     },
     async submitComment () {
-      if (this.$auth.user) {
+      if (this.user) {
         const resp = await this.$axios.post(
           `${endpoints.addComment}/${this.type}/${this.post.id}/${
-            this.type === 'content' ? this.$auth.user.enneagramId : ''
+            this.type === 'content' ? this.user.enneagramId : ''
           }`,
           {
             comment: this.comment
@@ -223,7 +228,7 @@ export default {
       }
     },
     async subscribe () {
-      if (this.$auth.user) {
+      if (this.user) {
         try {
           const isSubscribed = !this.isSubscribed
           let newSubscribers = []
@@ -235,11 +240,11 @@ export default {
           )
           if (resp && resp.data) {
             if (isSubscribed) {
-              newSubscribers = [...this.subscribers, this.$auth.user.id]
+              newSubscribers = [...this.subscribers, this.user.id]
               this.$store.dispatch('toastSuccess', 'Subscibed')
             } else {
               newSubscribers = this.subscribers.filter(
-                l => l !== this.$auth.user.id
+                l => l !== this.user.id
               )
               this.$store.dispatch('toastSuccess', 'Unsubscibed')
             }
@@ -258,7 +263,7 @@ export default {
       }
     },
     expandComment () {
-      if (this.$auth.user) {
+      if (this.user) {
         this.commentIsExpanded = true
         this.$refs.newComment.focus()
       } else {
@@ -267,8 +272,8 @@ export default {
     },
     parsePost (post) {
       this.likes = [...post.likes]
-      if (this.type === 'question' && this.$auth.user) {
-        this.commentIsExpanded = !post.commenterIds[this.$auth.user.id]
+      if (this.type === 'question' && this.user) {
+        this.commentIsExpanded = !post.commenterIds[this.user.id]
         this.subscribers = [...post.subscribers]
       }
     }

@@ -23,14 +23,14 @@
           outlined
           :class="{
             'btn-selected':
-              question.likes && question.likes.includes($auth.user.id),
+              question.likes && question.likes.includes(user.id),
           }"
           class="margin-right"
         >
           {{ question.likes ? question.likes.length : '' }}
           <v-icon>
             {{
-              question.likes && question.likes.includes($auth.user.id)
+              question.likes && question.likes.includes(user.id)
                 ? 'mdi-cookie'
                 : 'mdi-cookie-outline'
             }}
@@ -54,14 +54,14 @@
           outlined
           :class="{
             'btn-selected':
-              question.likes && $auth.user && question.likes.includes($auth.user.id),
+              question.likes && user && question.likes.includes(user.id),
           }"
           class="margin-right"
         >
           {{ question.likes ? question.likes.length : '' }}
           <v-icon>
             {{
-              question.likes && $auth.user && question.likes.includes($auth.user.id)
+              question.likes && user && question.likes.includes(user.id)
                 ? 'mdi-cookie'
                 : 'mdi-cookie-outline'
             }}
@@ -102,7 +102,11 @@ export default {
       default: true
     }
   },
-  mounted () {}
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    }
+  }
 }
 </script>
 <style>

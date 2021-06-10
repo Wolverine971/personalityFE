@@ -206,7 +206,7 @@ export default {
       // await this.$auth.logout()
     },
     handlerClose: debounce(function (e) {
-      if (this.$auth.user) {
+      if (this.user) {
         e.preventDefault()
         const focus = document.hasFocus()
         if (focus) {
@@ -230,11 +230,11 @@ export default {
       this.$router.go(1)
     },
     subscrbeToNotifs () {
-      if (this.$socket && this.$auth.user && this.$auth.user.id) {
-        this.$socket.client.emit('join', this.$auth.user.id)
+      if (this.$socket && this.user && this.user.id) {
+        this.$socket.client.emit('join', this.user.id)
         if (this.$socket.$subscribe) {
           this.$socket.$subscribe(
-            `push:notifications:${this.$auth.user.id}`,
+            `push:notifications:${this.user.id}`,
             async (data) => {
               const notification = await JSON.parse(data)
               if (notification) {

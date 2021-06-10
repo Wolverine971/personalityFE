@@ -15,13 +15,13 @@
       </v-btn>
     </div>
     <h1>Profile Page</h1>
-    <div v-if="$auth.user">
+    <div v-if="user">
       <v-form>
         <div class="row space-between">
           <div class="m-col text-min-width">
             <v-text-field
-              v-model="$auth.user.firstName"
-              v-model.trim="$auth.user.firstName"
+              v-model="user.firstName"
+              v-model.trim="user.firstName"
               label="First Name"
               @input="formDisabled = false"
             />
@@ -29,23 +29,23 @@
 
           <div class="m-col text-min-width">
             <v-text-field
-              v-model="$auth.user.lastName"
-              v-model.trim="$auth.user.lastName"
+              v-model="user.lastName"
+              v-model.trim="user.lastName"
               label="Last Name"
               @input="formDisabled = false"
             />
           </div>
           <div class="m-col text-min-width">
             <v-text-field
-              v-model="$auth.user.email"
-              v-model.trim="$auth.user.email"
+              v-model="user.email"
+              v-model.trim="user.email"
               label="Email"
               @input="formDisabled = false"
             />
           </div>
           <div class="m-col text-min-width">
             <v-select
-              v-model="$auth.user.enneagramId"
+              v-model="user.enneagramId"
               :items="enneagramTypes"
               label="Enneagram"
               @change="formDisabled = false"
@@ -75,7 +75,12 @@ export default {
     enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
     formDisabled: true
   }),
-  middleware: ['loggedIn', 'accessToken'], //, 'accessToken'
+  middleware: ['loggedIn', 'accessToken'],
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    }
+  }, //, 'accessToken'
 
   methods: {
     submit () {
@@ -83,18 +88,18 @@ export default {
       const data = {
         firstName: this.staticUser.firstName
           ? this.staticUser.firstName
-          : this.$auth.user.firstName,
+          : this.user.firstName,
         lastName: this.staticUser.lastName
           ? this.staticUser.lastName
-          : this.$auth.user.lastName,
+          : this.user.lastName,
 
         email: this.staticUser.email
           ? this.staticUser.email
-          : this.$auth.user.email,
+          : this.user.email,
 
         enneagramId: this.staticUser.enneagramId
           ? this.staticUser.enneagramId
-          : this.$auth.user.enneagramId
+          : this.user.enneagramId
 
       }
 

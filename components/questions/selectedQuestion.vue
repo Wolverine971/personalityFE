@@ -13,9 +13,9 @@
       >
         <template
           v-if="
-            $auth.user &&
+            user &&
               question.author &&
-              question.author.id === $auth.user.id
+              question.author.id === user.id
           "
           v-slot:append
         >
@@ -78,6 +78,9 @@ export default {
     },
     questionId () {
       return this.$route.params.id
+    },
+    user () {
+      return this.$store.getters.getUser
     }
   },
   watch: {
@@ -92,7 +95,7 @@ export default {
   },
   methods: {
     async getQuestion (questionId) {
-      if (this.$auth.user) {
+      if (this.user) {
         if (
           this.alreadyFetchedQuestions &&
           this.alreadyFetchedQuestions[questionId] &&
@@ -103,7 +106,7 @@ export default {
             this.alreadyFetchedQuestions[questionId]
           )
           this.commenterIds = this.question.commenterIds
-          this.showComments = this.commenterIds[this.$auth.user.id]
+          this.showComments = this.commenterIds[this.user.id]
           this.getTypes(this.question.comments.comments)
         } else {
           const resp = await this.$axios.get(
@@ -112,7 +115,7 @@ export default {
 
           if (resp && resp.data) {
             this.commenterIds = resp.data.commenterIds
-            this.showComments = this.commenterIds[this.$auth.user.id]
+            this.showComments = this.commenterIds[this.user.id]
             this.getTypes(resp.data.comments.comments)
             this.question = Object.assign({}, resp.data)
             this.$store.commit('addAllQuestions', [resp.data])
@@ -135,7 +138,7 @@ export default {
       }
     },
     async filterComments (event) {
-      if (this.$auth.user) {
+      if (this.user) {
         if (this.cursorId) {
           event.cursorId = this.cursorId
         }
@@ -156,7 +159,7 @@ export default {
     newComment (event) {
       this.showComments = true
       const newComments = [event, ...this.question.comments.comments]
-      this.question.commenterIds[this.$auth.user.id] = 1
+      this.question.commenterIds[this.user.id] = 1
       this.question = Object.assign({}, this.question, {
         comments: Object.assign(
           {},

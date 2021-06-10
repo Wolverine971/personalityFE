@@ -11,7 +11,7 @@ export interface AppState {
 
   accessToken: string
 
-  allQuestions: any,
+  allQuestions: any
 
   allComments: any[]
 
@@ -207,7 +207,7 @@ export const mutations = {
   setSubscriptions (state: AppState, subscriptions: any[]) {
     state.subscriptions = subscriptions
   },
-  setPosts (state: AppState, postContent: { type: ContentPost}) {
+  setPosts (state: AppState, postContent: { type: ContentPost }) {
     if (!state.posts) {
       state.posts = {}
     }
@@ -232,7 +232,7 @@ export const actions: any = {
   async login ({ commit, dispatch }: any, user: { email: any; password: any }) {
     try {
       const data: any = await this.$auth.loginWith('local', { data: user })
-      if (data.data) {
+      if (data.data && data.data.user) {
         this.$auth.setUserToken(data.data.refreshToken)
         this.$auth.setUser(data.data.user)
         commit('setUser', data.data.user)
@@ -245,6 +245,10 @@ export const actions: any = {
         } else {
           dispatch('toastError', 'Login Fail')
         }
+        this.$auth.setUserToken(null)
+        this.$auth.setUser(null)
+        commit('setUser', null)
+        commit('setAccessToken', null)
         return false
       }
     } catch (error) {
@@ -309,8 +313,10 @@ export const actions: any = {
 
   getUser ({ commit }: any) {
     return this.$axios.$get(endpoints.refreshTokenRoute).then((data: any) => {
-      if (data) {
+      if (data && data.user) {
         commit('setUser', data.user)
+      } else {
+        commit('setUser', null)
       }
     })
   },
@@ -320,7 +326,8 @@ export const actions: any = {
       .get(`${endpoints.getAllQuestions}/${pageSize}/${lastDate || ''}`)
       .then((resp: any) => {
         if (resp && resp.data) {
-          lastDate = resp.data.questions[resp.data.questions.length - 1].dateCreated
+          lastDate =
+            resp.data.questions[resp.data.questions.length - 1].dateCreated
           commit('setAllQuestionsLastDate', lastDate)
           commit('addAllQuestions', resp.data.questions)
           commit('setAllQuestionsCount', resp.data.count)
@@ -329,27 +336,26 @@ export const actions: any = {
   },
 
   getSortedPaginatedComments ({ commit }: any, sortParams: any) {
-    return this.$axios.post(
-      `${endpoints.getSortedComments}/`,
-      sortParams
-    ).then((resp:any) => {
-      if (sortParams.cursorId) {
-        commit('addAllComments', resp.data.comments)
-        commit('setAllCommentsCount', resp.data.count)
-      } else {
-        commit('replaceAllComments', resp.data.comments)
-        commit('setAllCommentsCount', resp.data.count)
-      }
-    })
+    return this.$axios
+      .post(`${endpoints.getSortedComments}/`, sortParams)
+      .then((resp: any) => {
+        if (sortParams.cursorId) {
+          commit('addAllComments', resp.data.comments)
+          commit('setAllCommentsCount', resp.data.count)
+        } else {
+          commit('replaceAllComments', resp.data.comments)
+          commit('setAllCommentsCount', resp.data.count)
+        }
+      })
   },
 
   getPaginatedUsers ({ commit }: any, cursorId: any) {
-    return this.$axios.get(
-      `${endpoints.users}/${cursorId || ''}`
-    ).then((resp:any) => {
-      commit('addAllUsers', resp.data.users)
-      commit('setAllUsersCount', resp.data.count)
-    })
+    return this.$axios
+      .get(`${endpoints.users}/${cursorId || ''}`)
+      .then((resp: any) => {
+        commit('addAllUsers', resp.data.users)
+        commit('setAllUsersCount', resp.data.count)
+      })
   },
   async nuxtServerInit ({ dispatch }: any, { $auth }: any) {
     const refreshToken = $auth.getToken('local')
