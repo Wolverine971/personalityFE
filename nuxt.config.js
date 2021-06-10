@@ -89,40 +89,7 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth', '@nuxtjs/toast'],
-
-  auth: {
-    redirect: {
-      login: '/auth',
-      logout: '/auth',
-      callback: '/auth',
-      home: '/auth'
-    },
-    localStorage: false,
-    strategies: {
-      local: {
-        token: {
-          property: 'refreshToken',
-          maxAge: 1800,
-          type: false
-        },
-        user: {
-          property: 'user',
-          autoFetch: false
-        },
-        endpoints: {
-          login: { url: '/api/user/login', method: 'post' },
-          user: false,
-          logout: { url: '/api/user/logout', method: 'post' }
-        },
-        globalToken: true,
-        tokenRequired: false,
-        tokenType: false
-        // autoLogout: false
-      }
-    }
-  },
-
+  modules: ['@nuxtjs/axios', '@nuxtjs/toast', ['cookie-universal-nuxt', { alias: '9tcookie' }]],
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL: process.env.BE_URL || 'http://localhost:3001/', // `${process.env.BASE_URL}:3001/`,

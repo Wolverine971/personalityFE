@@ -228,11 +228,6 @@ export default {
     lock: false,
     viewRelationship: false
   }),
-  computed: {
-    user () {
-      return this.$store.getters.getUser
-    }
-  },
 
   watch: {
     tOne (val) {

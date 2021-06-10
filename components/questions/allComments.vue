@@ -97,6 +97,9 @@ export default {
     },
     totalComments () {
       return this.$store.getters.getAllCommentsCount
+    },
+    user () {
+      return this.$store.getters.getUser
     }
   },
   watch: {
@@ -137,7 +140,7 @@ export default {
       }
     },
     filterComments (event) {
-      if (this.$auth.user) {
+      if (this.user) {
         this.params = event
         this.$store.dispatch('getSortedPaginatedComments', event)
       }

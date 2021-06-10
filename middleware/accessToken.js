@@ -1,8 +1,8 @@
-export default async function ({ store, redirect, $auth }) {
+export default async function ({ store, redirect, $9tcookie }) {
   // console.log('access-token check')
   const accessToken = store.getters.getAccessToken
   if (!accessToken) {
-    const refreshToken = $auth.getToken('local')
+    const refreshToken = $9tcookie.get('9tcookie')
     if (!refreshToken) {
       // console.log('access-token check fail redirecting!!!')
       // return redirect('/auth')

@@ -80,7 +80,7 @@ export default {
     user () {
       return this.$store.getters.getUser
     }
-  }, //, 'accessToken'
+  },
 
   methods: {
     submit () {

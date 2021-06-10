@@ -75,6 +75,11 @@ export default {
       key: -1
     }
   },
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    }
+  },
   watch: {
     selection (val, oldVal) {
       if (val && val !== oldVal) {
@@ -105,11 +110,11 @@ export default {
       }
     }, 1000),
     async addQuestion (question) {
-      if (this.$auth.user) {
+      if (this.user) {
         if (this.key === -1) {
           const questionToSend = question.replace('?', '')
           const resp = await this.$axios.get(
-            `${endpoints.questionAdd}/${questionToSend}/${this.$auth.user.enneagramId}`
+            `${endpoints.questionAdd}/${questionToSend}/${this.user.enneagramId}`
           )
           if (resp) {
             this.goToQuestion(resp.data)

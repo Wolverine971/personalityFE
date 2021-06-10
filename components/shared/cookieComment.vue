@@ -2,7 +2,7 @@
   <p class="ml-3 flex-together">
     {{ text }}
     <edit-content
-      v-if="$auth.user && author && author === $auth.user.id"
+      v-if="user && author && author === user.id"
       :content="text"
       :label="'Update Comment'"
       @updateContent="$emit('commentUpdated', $event)"
@@ -48,6 +48,11 @@ export default {
       canvas: null,
       ctx: null,
       color: 'pink'
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.getters.getUser
     }
   },
   watch: {

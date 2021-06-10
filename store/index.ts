@@ -231,12 +231,15 @@ export const mutations = {
 export const actions: any = {
   async login ({ commit, dispatch }: any, user: { email: any; password: any }) {
     try {
-      const data: any = await this.$auth.loginWith('local', { data: user })
-      if (data.data && data.data.user) {
-        this.$auth.setUserToken(data.data.refreshToken)
-        this.$auth.setUser(data.data.user)
+      const data: any = await this.$axios.post(endpoints.login, user)
+      if (data.data) {
         commit('setUser', data.data.user)
         commit('setAccessToken', data.data.accessToken)
+
+        this.$9tcookie.set('9tcookie', data.data.refreshToken, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 7
+        })
 
         return true
       } else {
@@ -245,8 +248,6 @@ export const actions: any = {
         } else {
           dispatch('toastError', 'Login Fail')
         }
-        this.$auth.setUserToken(null)
-        this.$auth.setUser(null)
         commit('setUser', null)
         commit('setAccessToken', null)
         return false
@@ -266,14 +267,14 @@ export const actions: any = {
         .$get(endpoints.refreshTokenRoute + refreshToken)
         .then((data: any) => {
           if (!data.accessToken) {
-            this.$auth.setUserToken(null)
-            this.$auth.setUser(null)
             commit('setUser', null)
             commit('setAccessToken', null)
             return false
           } else {
-            this.$auth.setUserToken(data.refreshToken)
-            this.$auth.setUser(data.user)
+            this.$9tcookie.set('9tcookie', data.refreshToken, {
+              path: '/',
+              maxAge: 60 * 60 * 24 * 7
+            })
             commit('setUser', data.user)
             commit('setAccessToken', data.accessToken)
 
@@ -283,8 +284,6 @@ export const actions: any = {
         .catch((error: Error) => {
           console.log(error)
           console.log('getAccessToken false 2')
-          this.$auth.setUserToken(null)
-          this.$auth.setUser(null)
           commit('setUser', null)
           commit('setAccessToken', null)
           return false
@@ -357,14 +356,9 @@ export const actions: any = {
         commit('setAllUsersCount', resp.data.count)
       })
   },
-  async nuxtServerInit ({ dispatch }: any, { $auth }: any) {
-    const refreshToken = $auth.getToken('local')
-    if (!refreshToken) {
-      // console.log('nuxt server init')
-      // return redirect('/auth')
-    } else {
-      await dispatch('getAccessToken', refreshToken)
-    }
+  async nuxtServerInit ({ dispatch }: any, { $9tcookie }: any) {
+    const refreshToken = $9tcookie.get('9tcookie')
+    await dispatch('getAccessToken', refreshToken)
   },
   getDashboard ({ commit }: any): any {
     return this.$axios.get(endpoints.getDashboard).then((resp: any) => {

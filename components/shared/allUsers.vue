@@ -24,7 +24,7 @@
               Role: {{ user.role }}
             </v-btn>
             <v-btn
-              v-if="admin && user.email !== $auth.user.email"
+              v-if="admin && user.email !== user.email"
               outlined
               icon
               small
@@ -78,6 +78,9 @@ export default {
     },
     totalUsers () {
       return this.$store.getters.getAllUsersCount
+    },
+    user () {
+      return this.$store.getters.getUser
     }
   },
   watch: {

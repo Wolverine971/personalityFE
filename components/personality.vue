@@ -97,6 +97,9 @@ export default {
   computed: {
     posts () {
       return this.$store.getters.getPosts
+    },
+    user () {
+      return this.$store.getters.getUser
     }
   },
   watch: {
@@ -212,9 +215,9 @@ export default {
     },
 
     canInteract () {
-      if (this.$auth.user) {
+      if (this.user) {
         this.interact = !!(
-          this.$auth.user && this.selectedType === this.$auth.user.enneagramId
+          this.user && this.selectedType === this.user.enneagramId
         )
       } else {
         this.interact = false
