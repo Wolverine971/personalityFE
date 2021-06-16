@@ -114,6 +114,11 @@ export default {
           to: '/'
         },
         {
+          icon: 'mdi-post',
+          title: 'Blog',
+          to: '/blog'
+        },
+        {
           icon: 'psychology',
           title: 'Personality Walls',
           to: '/personality'

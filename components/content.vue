@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { msToTime } from '../utils'
+import { msToDate } from '../utils'
 export default {
   name: 'Content',
   components: { AllComments: () => import('./questions/comments') },
@@ -92,7 +92,7 @@ export default {
       this.content.likes = event
     },
     getTime (time) {
-      return msToTime(time)
+      return msToDate(time)
     }
   }
 }

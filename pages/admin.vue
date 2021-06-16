@@ -26,6 +26,9 @@
       <v-tab-item>
         <all-users :admin="true" />
       </v-tab-item>
+      <v-tab-item>
+        <create-blog />
+      </v-tab-item>
     </v-tabs-items>
   </div>
 </template>
@@ -37,7 +40,8 @@ export default {
   components: {
     AllQuestions: () => import('../components/questions/allQuestions'),
     AllComments: () => import('../components/questions/allComments'),
-    AllUsers: () => import('../components/shared/allUsers')
+    AllUsers: () => import('../components/shared/allUsers'),
+    CreateBlog: () => import('../components/blog/createBlog.vue')
   },
   data: () => ({
     tab: 'Questions',
@@ -46,7 +50,8 @@ export default {
       'Questions',
       'Comments',
       'Content',
-      'Users'
+      'Users',
+      'Create Blog'
     ]
   }),
   watch: {

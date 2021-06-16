@@ -46,7 +46,15 @@ export const endpoints = {
   change: '/api/user/change',
   users: '/api/user/all',
 
+  // Relationships
   relationship: '/api/relationship',
   likeThread: '/api/relationship/like',
-  updateThread: '/api/relationship/update'
+  updateThread: '/api/relationship/update',
+
+  // Blog
+  createBlog: '/api/blog/create',
+  updateBlog: '/api/blog/update',
+  deleteBlog: '/api/blog/delete',
+  getBlogs: '/api/blog/get',
+  getBlog: '/api/blog/getOne'
 }

@@ -53,3 +53,8 @@ export const msToTime = (time: any) => {
     return mins + ' minutes ' + secs + ' seconds ago'
   }
 }
+
+export const msToDate = (time: any) => {
+  const date: any = new Date(time)
+  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+}

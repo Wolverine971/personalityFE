@@ -165,7 +165,7 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   // https://medium.com/shard-labs/how-to-drastically-reduce-your-bundle-size-and-load-time-in-vue-js-54370d513fdf
   build: {
-    analyze: true,
+    analyze: false,
     loaders: {
       cssModules: {
         modules: {
