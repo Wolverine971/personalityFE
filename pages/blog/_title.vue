@@ -27,7 +27,6 @@ export default {
     const title = this.$route.params.title
       ? this.$route.params.title.replaceAll('-', ' ')
       : this.$route.params.title
-    console.log(title)
     this.$axios
       .get(`${endpoints.getBlog}/${title}`)
       .then((resp) => {

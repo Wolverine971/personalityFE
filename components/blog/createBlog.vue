@@ -18,8 +18,27 @@
       required
       placeholder="Enter Description"
     />
+    <v-text-field v-model="size" label="Size" type="number" />
+    <feed-card
+      v-if="imgSrc"
+      :preview="true"
+      :value="{
+        img: imgSrc,
+        body: markedContent,
+        title,
+        description,
+        preview: markedContent.slice(0, 50),
+        dateCreated: new Date(),
+        size: parseInt(size)
+      }"
+    />
+    <image-upload
+      :parent-width="picWidth"
+      class="margin-bot"
+      @image="imgSrc = $event"
+    />
     <div class="row">
-      <div style="width: 45%">
+      <div id="c-box" style="width: 45%">
         <v-textarea
           v-model="blog"
           type="text"
@@ -61,6 +80,10 @@
 import { endpoints } from '~/models/endpoints'
 export default {
   name: 'CreateBlog',
+  components: {
+    ImageUpload: () => import('../shared/imageUpload.vue'),
+    FeedCard: () => import('./FeedCard.vue')
+  },
 
   middleware: ['accessToken', 'isAdmin'],
   data () {
@@ -69,7 +92,10 @@ export default {
       description: '',
       body: '',
       blog: '',
-      markedContent: ''
+      markedContent: '',
+      imgSrc: '',
+      picWidth: 0,
+      size: 2
     }
   },
   watch: {
@@ -78,15 +104,28 @@ export default {
       this.markedContent = marked(val)
     }
   },
+  mounted () {
+    const box = document.getElementById('c-box')
+    this.picWidth = box.clientWidth
+  },
 
   methods: {
     createPost () {
-      const postData = {
-        title: this.title,
-        description: this.description,
-        body: this.markedContent
+      const formData = new FormData()
+      formData.append('title', this.title)
+      formData.append('description', this.description)
+      formData.append('body', this.markedContent)
+      formData.append('size', parseInt(this.size))
+
+      if (this.imgSrc) {
+        const fileElem = document.getElementById('fileElem')
+        formData.append('img', fileElem.files[0])
       }
-      this._submitToServer(postData)
+      formData.append('enneagramType', this.selectedType)
+
+      this.$axios.post(endpoints.createBlog, formData).then((data) => {
+        alert('success' + data)
+      })
     },
     _submitToServer (data) {
       this.$axios.post(endpoints.createBlog, data).then((data) => {

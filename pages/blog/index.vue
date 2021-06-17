@@ -8,6 +8,11 @@ export default {
 
   components: {
     Feed: () => import('../../components/blog/Feed.vue')
+  },
+  head () {
+    return {
+      title: 'Bloggy Blog'
+    }
   }
 }
 </script>

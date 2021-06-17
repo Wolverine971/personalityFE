@@ -1,20 +1,10 @@
 <template>
   <div>
     <v-card v-if="interact">
-      <v-card-title v-if="showElem">
+      <v-card-title v-if="src">
         <img id="img" :src="src" alt="">
       </v-card-title>
       <v-card-text>
-        <heartbeat v-if="imgLoading" class="heart" />
-        <input
-          id="fileElem"
-          ref="fileElem"
-          type="file"
-          multiple
-          accept="image/*"
-          style="display: none"
-          @change="uploadImage($event)"
-        >
         <v-textarea
           v-model="newPost"
           type="text"
@@ -32,9 +22,7 @@
         <v-btn outlined :disabled="!newPost && !showElem" @click="submitPost">
           Post
         </v-btn>
-        <v-btn outlined @click="$refs.fileElem.click()">
-          {{ showElem ? 'Re-Upload File' : 'Upload File' }}
-        </v-btn>
+        <image-upload :parent-width="picWidth" @image="src=$event, showElem=true" />
       </v-card-actions>
     </v-card>
     <v-tabs v-model="tab">
@@ -68,7 +56,7 @@
 import { endpoints } from '../models/endpoints'
 export default {
   name: 'Personality',
-  components: { Heartbeat: () => import('./shared/heart'), Content: () => import('./content.vue') },
+  components: { Content: () => import('./content.vue'), ImageUpload: () => import('./shared/imageUpload.vue') },
   props: {
     type: {
       type: Number,
@@ -82,7 +70,6 @@ export default {
       selectedType: null,
       newPost: '',
       src: null,
-      imgLoading: false,
       tab: 'null',
       selectedPosts: [],
       showElem: false,
@@ -181,36 +168,6 @@ export default {
         this.$store.dispatch('toastSuccess', 'Post Submitted')
       } else {
         this.$store.dispatch('toastError', 'Post Submit Fail')
-      }
-    },
-
-    async uploadImage () {
-      this.imgLoading = true
-
-      const fileElem = document.getElementById('fileElem')
-      if (fileElem && fileElem.files && fileElem.files.length) {
-        /* eslint-disable */
-        await deepai.setApiKey(process.env.DEEPAI)
-        const result = await deepai.callStandardApi('content-moderation', {
-          image: fileElem
-        })
-        /* eslint-enable */
-        if (result && result.output && result.output.nsfw_score <= 0.1) {
-          const reader = new FileReader()
-          reader.readAsDataURL(fileElem.files[0])
-          this.showElem = true
-          reader.onload = (event) => {
-            this.src = event.target.result
-            this.imgLoading = false
-            const img = document.getElementById('img')
-            img.width = this.picWidth - 30
-          }
-          reader.onerror = error => console.log(error)
-        } else {
-          this.$store.dispatch('toastError', 'Image Upload Prevented')
-        }
-      } else {
-        this.imgLoading = false
       }
     },
 

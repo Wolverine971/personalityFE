@@ -1,9 +1,8 @@
 <template>
   <v-row>
     <feed-card
-      v-for="(article, i) in articles"
+      v-for="(article) in articles"
       :key="article.title"
-      :size="layout[i]"
       :value="article"
     />
   </v-row>

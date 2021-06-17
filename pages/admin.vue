@@ -58,6 +58,18 @@ export default {
     select (val) {
       this.tab = this.tabs.indexOf(val)
     }
+  },
+  head () {
+    return {
+      title: 'Admin Panel',
+      script: [
+        {
+          src: 'https://cdnjs.deepai.org/deepai.min.js',
+          async: true,
+          defer: true
+        }
+      ]
+    }
   }
 
 }

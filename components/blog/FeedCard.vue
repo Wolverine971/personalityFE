@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="12" :md="size === 2 ? 6 : size === 3 ? 4 : undefined">
+  <v-col cols="12" :md="value.size === 2 ? 6 : value.size === 3 ? 4 : 0">
     <v-card
       flat
       tile
@@ -9,6 +9,8 @@
       href="#!"
     >
       <v-img
+        id="img"
+        :src="!preview ? `https://personality-app.s3.amazonaws.com/${value.img}` : value.img"
         height="100%"
         router
         :to="{ path: `/blog/${value.title}` }"
@@ -55,9 +57,10 @@ export default {
   components: {},
 
   props: {
-    size: {
-      type: Number,
-      required: true
+    preview: {
+      type: Boolean,
+      default: false,
+      required: false
     },
     value: {
       type: Object,
