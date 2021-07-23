@@ -7,6 +7,8 @@
       >
         <v-text-field
           v-model="emailAddress"
+          autofocus
+          type="email"
           label="E-mail"
           :rules="emailRules"
           required
@@ -14,12 +16,23 @@
         <v-text-field
           v-model="password"
           label="Password"
-          type="password"
+          :type="passwordType"
           hint="At least 8 characters"
           min="8"
           required
           :rules="passwordRules"
-        />
+        >
+          <template
+            v-slot:append
+          >
+            <v-btn icon @click="passwordType === 'password' ? passwordType = 'text' : passwordType = 'password'">
+              <v-icon>
+                {{ passwordType === 'password' ? 'mdi-eye-outline' : 'mdi-eye-off-outline' }}
+              </v-icon>
+            </v-btn>
+            <template />
+          </template>
+        </v-text-field>
         <div class="wrap-on-small">
           <v-select
             v-model="enneagramType"
@@ -80,6 +93,7 @@ export default defineComponent({
     enneagramType: null,
     enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
     registerSuccess: false,
+    passwordType: 'password',
 
     emailRules: [
       v => !!v || 'E-mail is required',

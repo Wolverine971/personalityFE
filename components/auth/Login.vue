@@ -1,26 +1,37 @@
 <template>
   <div class="col-center">
-    <v-form
-      ref="loginForm"
-      class="form-width"
-    >
+    <v-form ref="loginForm" class="form-width">
       <v-text-field
         v-model="emailAddress"
+        type="email"
         label="E-mail"
         :rules="emailRules"
         required
       />
       <v-text-field
+        id="password"
+        ref="password"
         v-model="password"
         label="Enter your password"
         hint="At least 8 characters"
-        type="password"
+        :type="passwordType"
         min="8"
         required
         :rules="passwordRules"
-      />
+      >
+        <template
+          v-slot:append
+        >
+          <v-btn icon @click="passwordType === 'password' ? passwordType = 'text' : passwordType = 'password'">
+            <v-icon>
+              {{ passwordType === 'password' ? 'mdi-eye-outline' : 'mdi-eye-off-outline' }}
+            </v-icon>
+          </v-btn>
+          <template />
+        </template>
+      </v-text-field>
 
-      <v-btn outlined @click="goLogin">
+      <v-btn outlined autofocus @click="goLogin">
         login
       </v-btn>
       <v-btn outlined @click="clear">
@@ -30,7 +41,6 @@
   </div>
 </template>
 <script>
-
 export default {
   name: 'Login',
 
@@ -39,6 +49,7 @@ export default {
     password: '',
     login: true,
     selected: 0,
+    passwordType: 'password',
     emailRules: [
       v => !!v || 'E-mail is required',
       v => /.+@.+\..+/.test(v) || 'E-mail not valid'

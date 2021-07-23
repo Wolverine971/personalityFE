@@ -1,9 +1,9 @@
 # 9takes.com
 
 
-<img src="static/9takes.png" href="https://9takes.com"><figcaption>"whoa checkout this sweet site @ 9takes.com" -someone really cool</figcaption></figure>
+<!-- <img src="static/9takes.png" href="https://9takes.com"><figcaption>"whoa checkout this sweet site @ 9takes.com" -someone really cool</figcaption></figure> -->
 
-
+[![9takes.com](static/9takes.png)](https://9takes.com)
 
 Personaity question and answering based on the Enneagram
 - Ask questions to community
@@ -64,4 +64,36 @@ $ npm run generate
 
 
 
-Thanks for checking this out! :smiley:
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+
+`ORIGIN` 
+http://localhost:3000/
+
+`BE_URL`
+Separate Project needed for the Backend 
+
+Located @ https://github.com/Wolverine971/personalityBE
+http://localhost:3001/
+
+GraphQL API
+
+Separate Project needed for Backend
+Located @ https://github.com/Wolverine971/apollo-backend
+
+`GOOGLE`
+
+Needed for VueGtag- can be commented out
+
+`DEEPAI`
+
+Needed for Image content-moderation
+Uses: https://cdnjs.deepai.org/deepai.min.js'
+
+Can be commented out, search for "content-moderation"and remove applicable code
+
+
+
+## Thanks for checking this out! :smiley:

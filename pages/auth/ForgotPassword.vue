@@ -17,6 +17,8 @@
       >
         <v-text-field
           v-model="emailAddress"
+          autofocus
+          type="email"
           label="Enter your email"
           :rules="emailRules"
           required
@@ -51,9 +53,12 @@ export default defineComponent({
             email: this.emailAddress
           }
           const resp = await this.$axios.post(endpoints.forgotPasswordRoute, data)
+          console.log(resp)
           if (resp && resp.data) {
             this.$router.push({ path: '/auth' })
             this.$store.dispatch('toastSuccess', 'Reset Password Link Sent')
+          } else if (resp && resp.response) {
+            this.$store.dispatch('toastError', resp.response.data)
           } else {
             this.$store.dispatch('toastError', 'Cannot reset password')
           }
