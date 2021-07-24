@@ -73,7 +73,7 @@
           auto-grow
           hide-details
           class="pad-bot margin-left"
-          maxlength="500"
+          maxlength="1000"
           counter
         >
           <template v-if="!$vuetify.breakpoint.mobile" slot="append">
