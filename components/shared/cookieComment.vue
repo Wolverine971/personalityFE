@@ -1,5 +1,5 @@
 <template>
-  <p class="ml-3 flex-together">
+  <p class="ml-3 flex-together comment">
     {{ text }}
     <edit-content
       v-if="user && author && author === user.id"
@@ -175,5 +175,8 @@ export default {
   justify-content: space-between;
   display: flex;
   flex: 1;
+}
+.v-card__title {
+  font-size: 16px;
 }
 </style>
