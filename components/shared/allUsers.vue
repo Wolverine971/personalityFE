@@ -26,7 +26,6 @@
             <v-btn
               v-if="admin && user.email !== user.email"
               outlined
-              icon
               small
               color="red"
               @click="deleteUser(user)"

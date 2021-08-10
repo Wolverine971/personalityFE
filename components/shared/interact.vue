@@ -77,13 +77,13 @@
           counter
         >
           <template v-if="!$vuetify.breakpoint.mobile" slot="append">
-            <v-btn v-if="comment" outlined @click="submitComment">
+            <v-btn v-if="comment" small outlined @click="submitComment">
               Submit Comment
             </v-btn>
           </template>
         </v-textarea>
         <div v-if="$vuetify.breakpoint.mobile" class="margin-bot">
-          <v-btn v-if="comment" outlined @click="submitComment">
+          <v-btn v-if="comment" small outlined @click="submitComment">
             Submit Comment
           </v-btn>
         </div>

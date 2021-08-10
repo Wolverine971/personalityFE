@@ -27,18 +27,17 @@
             <v-btn v-if="admin" outlined small>
               Modified: {{ comment.modified }}
             </v-btn>
-            <v-btn icon small>
+            <v-btn small outlined>
               <v-icon> mdi-cookie-outline </v-icon>
               {{ comment.likes.length }}
             </v-btn>
-            <v-btn icon small>
+            <v-btn small outlined>
               <v-icon> mdi-comment-outline </v-icon>
               {{ comment.comments.count }}
             </v-btn>
             <v-btn
               v-if="admin"
               outlined
-              icon
               small
               color="red"
               @click="deleteComment(comment)"

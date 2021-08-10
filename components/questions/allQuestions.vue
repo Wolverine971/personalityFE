@@ -2,12 +2,15 @@
   <div class="m-col">
     Total Questions: {{ totalQuestions }}
     <v-card v-for="q in allQuestions" :key="q.id" class="margin-bot">
-      <v-card-text class="pad-bot clickable" @click="admin ? '' : goToQuestion(q)">
+      <v-card-text
+        class="pad-bot clickable"
+        @click="admin ? '' : goToQuestion(q)"
+      >
         <div class="row space-between">
           <div class="margin-left">
             {{ q.question }}?
           </div>
-          <div>
+          <div class="flex-end">
             <v-btn v-if="admin" outlined small>
               Id: {{ q.id }}
             </v-btn>
@@ -23,21 +26,20 @@
             <v-btn v-if="admin" outlined small>
               Subscribers: {{ q.subscribers.length }}
             </v-btn>
-            <v-btn icon small>
+            <v-btn outlined small>
               <v-icon> mdi-cookie-outline </v-icon>
               {{ q.likes.length }}
             </v-btn>
-            <v-btn icon small>
+            <v-btn outlined small>
               <v-icon> mdi-comment-outline </v-icon>
               {{ q.comments.count }}
             </v-btn>
-            <v-btn outlined icon small @click="admin ? goToQuestion(q): ''">
+            <v-btn outlined small @click="admin ? goToQuestion(q) : ''">
               <v-icon>keyboard_arrow_right</v-icon>
             </v-btn>
             <v-btn
               v-if="admin"
               outlined
-              icon
               small
               color="red"
               @click="deleteQuestion(q)"
@@ -119,29 +121,44 @@ export default {
       this.$router.go(1)
     },
     parseQuestions (questions) {
-      this.allQuestions = Object.keys(questions).map((q) => {
-        return questions[q]
-      }).sort(function (a, b) {
-        return new Date(b.dateCreated) - new Date(a.dateCreated)
-      })
+      this.allQuestions = Object.keys(questions)
+        .map((q) => {
+          return questions[q]
+        })
+        .sort(function (a, b) {
+          return new Date(b.dateCreated) - new Date(a.dateCreated)
+        })
     },
     getTime (time) {
       return msToTime(time)
     },
     async deleteQuestion (question) {
-      const resp = await this.$axios.post(
-          `${endpoints.change}`,
-          { type: 'question', tag: question.id }
-      )
+      const resp = await this.$axios.post(`${endpoints.change}`, {
+        type: 'question',
+        tag: question.id
+      })
       if (resp && resp.data) {
-        this.allQuestions = this.allQuestions.filter(q => q.id !== question.id)
+        this.allQuestions = this.allQuestions.filter(
+          q => q.id !== question.id
+        )
       }
     }
   }
-
 }
 </script>
 
 <style>
-
+.flex-end {
+  margin-left: auto;
+}
+@media only screen and (max-width: 400px) {
+  .flex-end {
+    display: flex;
+    justify-content: flex-end !important;
+    column-gap: 5%;
+  }
+}
+.space-between {
+  margin-right: 0px !important;
+}
 </style>

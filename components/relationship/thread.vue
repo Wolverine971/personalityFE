@@ -8,7 +8,6 @@
     <v-card-title>
       <v-avatar
         elevation="2"
-        icon
         outlined
         raised
         large

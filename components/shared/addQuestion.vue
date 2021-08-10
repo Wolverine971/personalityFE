@@ -36,16 +36,16 @@
         {{ item.question }}
         <v-spacer />
         <v-list-item-action>
-          <div class="row">
-            <v-btn icon>
+          <div class="">
+            <v-btn outlined small>
               <v-icon> mdi-cookie-outline </v-icon>
               {{ item.likes }}
             </v-btn>
-            <v-btn icon>
+            <v-btn outlined small>
               <v-icon> mdi-comment-outline </v-icon>
               {{ item.comments }}
             </v-btn>
-            <v-btn outlined icon>
+            <v-btn outlined small>
               <v-icon>keyboard_arrow_right</v-icon>
             </v-btn>
           </div>
