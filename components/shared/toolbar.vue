@@ -3,7 +3,7 @@
     <div class="row-center">
       <v-menu transition="fab-transition">
         <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn color="fpink" text v-bind="attrs" v-on="{ ...menu }">
+          <v-btn color="fpink" v-bind="attrs" v-on="{ ...menu }">
             <v-icon>menu</v-icon>
           </v-btn>
         </template>
@@ -45,7 +45,7 @@
     <div v-if="user">
       <v-menu>
         <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn color="fpink" text v-bind="attrs" v-on="{ ...menu }">
+          <v-btn color="fpink" v-bind="attrs" v-on="{ ...menu }">
             <v-icon color="fpink">
               {{
                 notifications && notifications.length
@@ -61,7 +61,7 @@
 
       <v-menu>
         <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn color="fpink" text v-bind="attrs" v-on="{ ...menu }">
+          <v-btn color="fpink" v-bind="attrs" v-on="{ ...menu }">
             <v-icon>account_circle</v-icon>
           </v-btn>
         </template>
