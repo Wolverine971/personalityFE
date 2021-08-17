@@ -150,7 +150,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: '9takes',
+      title: '9takes Beta',
       notifications: [],
       header: null,
       sticky: 0

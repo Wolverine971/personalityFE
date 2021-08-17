@@ -4,7 +4,7 @@
       <v-card>
         <!-- https://introjs.com/ -->
         <v-card-title class="headline">
-          <h1>Welcome to 9takes</h1>
+          <h1>Welcome to the 9takes Beta</h1>
         </v-card-title>
         <v-card-subtitle class="min-marg-top">
           <h3>This is community for questions</h3>
@@ -202,7 +202,7 @@ export default {
   // <!-- https://introjs.com/ -->
   head: {
     titleTemplate: '%s - Home for personality Q&A',
-    title: '9takes',
+    title: '9takes Beta',
     meta: [
       {
         name: 'description',
