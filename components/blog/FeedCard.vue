@@ -10,7 +10,7 @@
     >
       <v-img
         id="img"
-        :src="!preview ? `https://personality-app.s3.amazonaws.com/${value.img}` : value.img"
+        :src="(!preview && value.img) ? `https://personality-app.s3.amazonaws.com/${value.img}` : value.img"
         height="100%"
         router
         :to="{ path: `/blog/${value.title}` }"

@@ -11,6 +11,7 @@
           type="email"
           label="E-mail"
           :rules="emailRules"
+          autocomplete="email"
           required
         />
         <v-text-field
@@ -20,6 +21,7 @@
           hint="At least 8 characters"
           min="8"
           required
+          autocomplete="new-password"
           :rules="passwordRules"
         >
           <template

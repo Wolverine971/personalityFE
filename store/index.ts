@@ -260,7 +260,6 @@ export const actions: any = {
 
   getAccessToken ({ commit }: any, refreshToken: string): any {
     if (!refreshToken) {
-      console.log('failed to pass refreshToken in $store')
       commit('setUser', null)
       commit('setAccessToken', null)
       return false
