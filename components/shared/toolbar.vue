@@ -252,6 +252,11 @@ export default {
 .fun-color {
   background: $midnight !important;
 }
+@media only screen and (max-width: 420px) {
+  .glow {
+    font-size: 20px;
+  }
+}
 .glow {
   color: #fff;
   text-align: center;
