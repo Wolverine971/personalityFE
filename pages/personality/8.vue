@@ -23,6 +23,9 @@ export default {
           content:
             'The community for the enneagram type eight aka the challenger, the maverick, or the bear.'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/personality/8' }
       ]
     }
   }

@@ -1,18 +1,18 @@
 <template>
   <div>
     <div class="row space-between">
-      <v-btn outlined to="/questions">
+      <!-- <v-btn outlined to="/questions">
         <v-icon>
           keyboard_arrow_left
         </v-icon>
         Questions
-      </v-btn>
-      <v-btn outlined to="/personality">
+      </v-btn> -->
+      <!-- <v-btn outlined to="/personality">
         Walls
         <v-icon>
           keyboard_arrow_right
         </v-icon>
-      </v-btn>
+      </v-btn> -->
     </div>
     <h1>Profile Page</h1>
     <div v-if="user">

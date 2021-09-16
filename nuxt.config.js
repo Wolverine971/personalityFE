@@ -56,6 +56,10 @@ export default {
         type: 'image/x-icon',
         href: '/enneagramPng.png',
         author: 'https://www.flaticon.com/authors/freepik'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Rye&display=swap'
       }
     ]
   },

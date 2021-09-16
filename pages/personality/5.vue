@@ -23,6 +23,9 @@ export default {
           content:
             'The community for the enneagram type five aka the investigator, the iconoclast, or the problem solver.'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/personality/5' }
       ]
     }
   }

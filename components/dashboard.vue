@@ -12,47 +12,50 @@
         New Questions
       </v-tab>
     </v-tabs>
-    <h3 id="subs">
-      Questions Peeped
-    </h3>
-    <div v-if="subscriptions && subscriptions.length" class="m-col">
-      <div v-for="sub in subscriptions" :key="sub.id" @click="goTo(sub)">
-        <question-display :question="sub" :interact="true" @click="goTo(sub)" />
+    <div>
+      <h3 id="subs">
+        Questions Peeped
+      </h3>
+      <div v-if="subscriptions && subscriptions.length" class="m-col">
+        <div v-for="sub in subscriptions" :key="sub.id" @click="goTo(sub)">
+          <question-display :question="sub" :interact="true" @click="goTo(sub)" />
+        </div>
       </div>
-    </div>
-    <div v-else class="m-col">
-      <p>No Questions Following</p>
-    </div>
+      <div v-else class="m-col">
+        <p>No Questions Following</p>
+      </div>
 
-    <h3 id="askedQs">
-      Asked Questions
-    </h3>
-    <div v-if="askedQuestions && askedQuestions.length" class="m-col">
-      <div v-for="aqs in askedQuestions" :key="aqs.id" @click="goTo(aqs)">
-        <question-display :question="aqs" :interact="false" @click="goTo(aqs)" />
+      <h3 id="askedQs">
+        Asked Questions
+      </h3>
+      <div v-if="askedQuestions && askedQuestions.length" class="m-col">
+        <div v-for="aqs in askedQuestions" :key="aqs.id" @click="goTo(aqs)">
+          <question-display :question="aqs" :interact="false" @click="goTo(aqs)" />
+        </div>
       </div>
-    </div>
-    <div v-else class="m-col">
-      <p>You have asked no qestions</p>
-    </div>
+      <div v-else class="m-col">
+        <p>You have asked no qestions</p>
+      </div>
 
-    <h3 id="newQs">
-      New Questions
-    </h3>
-    <div v-if="newQuestions && newQuestions.length" class="m-col">
-      <div v-for="nqs in newQuestions" :key="nqs.id" @click="goTo(nqs)">
-        <question-display :question="nqs" :interact="false" @click="goTo(nqs)" />
+      <h3 id="newQs">
+        New Questions
+      </h3>
+      <div v-if="newQuestions && newQuestions.length" class="m-col">
+        <div v-for="nqs in newQuestions" :key="nqs.id" @click="goTo(nqs)">
+          <question-display :question="nqs" :interact="false" @click="goTo(nqs)" />
+        </div>
       </div>
     </div>
+    <!-- <theme-changer /> -->
   </div>
 </template>
 
 <script>
 export default {
   name: 'Dashboard',
-  components: { QuestionDisplay: () => import('../components/questions/questionDisplay') },
-  data () {
-    return {}
+  components: {
+    QuestionDisplay: () => import('../components/questions/questionDisplay')
+  // , ThemeChanger: () => import('./shared/themeChanger.vue')
   },
   middleware: ['accessToken', 'loggedIn'],
 

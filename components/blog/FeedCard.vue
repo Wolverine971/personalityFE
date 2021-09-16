@@ -1,13 +1,14 @@
 <template>
   <v-col cols="12" :md="value.size === 2 ? 6 : value.size === 3 ? 4 : 0">
     <v-card
+      :id="value.title"
       flat
       tile
       :height="value.prominent ? 450 : 350"
       color="grey lighten-1"
       dark
-      href="#!"
     >
+      <!-- :href="`#${value.title}`" -->
       <v-img
         id="img"
         :src="(!preview && value.img) ? `https://personality-app.s3.amazonaws.com/${value.img}` : value.img"

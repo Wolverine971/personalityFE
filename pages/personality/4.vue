@@ -23,6 +23,9 @@ export default {
           content:
             'The community for the enneagram type four aka the individualist, the aristocrat, or the bohemian.'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/personality/4' }
       ]
     }
   }

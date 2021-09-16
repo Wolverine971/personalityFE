@@ -265,6 +265,9 @@ export default {
           name: 'description',
           content: 'Relationships across enneagram types'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/relationships' }
       ]
     }
   }

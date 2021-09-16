@@ -17,6 +17,22 @@ export default {
   components: {
     AddQuestion: () => import('../../components/shared/addQuestion'),
     AllQuestions: () => import('../../components/questions/allQuestions')
+  },
+  head () {
+    return {
+      title: 'Questions',
+      meta: [
+        {
+          hid: 'questions description',
+          name: 'description',
+          content:
+          'Look through asked questions about personality'
+        }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/questions' }
+      ]
+    }
   }
 }
 </script>

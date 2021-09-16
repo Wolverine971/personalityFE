@@ -37,9 +37,9 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <h1 class="glow clickable-no-hov" @click="goHome">
+      <h3 class="glow clickable-no-hov" @click="goHome">
         {{ title }}
-      </h1>
+      </h3>
     </div>
     <v-spacer />
     <div v-if="user">
@@ -118,34 +118,34 @@ export default {
           title: 'Blog',
           to: '/blog'
         },
-        {
-          icon: 'psychology',
-          title: 'Personality Walls',
-          to: '/personality'
-        },
 
         {
           icon: 'question_answer',
           title: 'Question and Answer',
           to: '/questions'
-        },
-        {
-          icon: 'mdi-account-multiple',
-          title: 'Relationships',
-          to: '/relationships'
-        },
-        {
-          icon: 'emoji_people',
-          title: 'Meetup',
-          to: '/meetup',
-          inprogress: true
-        },
-        {
-          icon: 'mdi-comment-search-outline',
-          title: 'Deep Search',
-          to: '/questions/DeepSearch',
-          inprogress: true
         }
+        // {
+        //   icon: 'psychology',
+        //   title: 'Personality Walls',
+        //   to: '/personality'
+        // },
+        // {
+        //   icon: 'mdi-account-multiple',
+        //   title: 'Relationships',
+        //   to: '/relationships'
+        // },
+        // {
+        //   icon: 'emoji_people',
+        //   title: 'Meetup',
+        //   to: '/meetup',
+        //   inprogress: true
+        // },
+        // {
+        //   icon: 'mdi-comment-search-outline',
+        //   title: 'Deep Search',
+        //   to: '/questions/DeepSearch',
+        //   inprogress: true
+        // }
       ],
       miniVariant: false,
       right: true,
@@ -251,38 +251,6 @@ export default {
 
 .fun-color {
   background: $midnight !important;
-}
-@media only screen and (max-width: 420px) {
-  .glow {
-    font-size: 20px;
-  }
-}
-.glow {
-  color: #fff;
-  text-align: center;
-  -webkit-animation: glow 1s ease-in-out infinite alternate !important;
-  -moz-animation: glow 1s ease-in-out infinite alternate !important;
-  animation: glow 1s ease-in-out infinite alternate !important;
-}
-@-webkit-keyframes glow {
-  to {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
-      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-  }
-  from {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
-      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-  }
-}
-@keyframes glow {
-  to {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
-      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-  }
-  from {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
-      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-  }
 }
 
 .pad-title {

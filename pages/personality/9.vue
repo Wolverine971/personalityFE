@@ -23,6 +23,9 @@ export default {
           content:
             'The community for the enneagram type nine aka the peacemaker, the referee, or the dreamer.'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/personality/9' }
       ]
     }
   }

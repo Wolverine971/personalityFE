@@ -24,6 +24,9 @@ export default {
           content:
             'The community for the enneagram type two aka the helper, the servant, or the Host/Hostess can post here.'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/personality/2' }
       ]
     }
   }

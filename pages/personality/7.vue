@@ -23,6 +23,9 @@ export default {
           content:
             'The community for the enneagram type seven aka the enthusiast, the entertainer, or the realist.'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/personality/7' }
       ]
     }
   }

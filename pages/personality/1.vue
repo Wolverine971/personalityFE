@@ -23,6 +23,9 @@ export default {
           content:
             'The community for the enneagram type one aka the reformer, the idealist, or the advocate.'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/personality/1' }
       ]
     }
   }

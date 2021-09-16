@@ -23,6 +23,9 @@ export default {
           content:
             'The community for the enneagram type six aka the loyalist, the defender, or the buddy.'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/personality/6' }
       ]
     }
   }

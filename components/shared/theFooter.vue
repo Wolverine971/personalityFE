@@ -1,29 +1,45 @@
 <template>
   <footer class="master-container footer footer-shadow">
     <p class="no-margin">
-      <a href="https://www.instagram.com/9takesdotcom/" target="_blank" class="no-decor">
+      <v-btn
+        icon
+        href="https://www.instagram.com/9takesdotcom/"
+        target="_blank"
+        class="no-decor"
+        alt="instagram icon"
+      >
         <v-icon color="fpink">
           mdi-instagram
         </v-icon>
-      </a>
+      </v-btn>
       Socials
-      <a href="https://twitter.com/9takesdotcom" target="_blank" class="no-decor">
+      <v-btn
+        icon
+        href="https://twitter.com/9takesdotcom"
+        target="_blank"
+        class="no-decor"
+        alt="twitter icon"
+      >
         <v-icon color="fpink">
           mdi-twitter
         </v-icon>
-      </a>
+      </v-btn>
     </p>
     <p class="no-margin">
-      Please complete this <a href="https://c9dbh8z9igk.typeform.com/to/RHtEUlUt" target="_blank">survey</a> before leaving 9takes. It helps make the community better!
+      Please complete this
+      <a
+        href="https://c9dbh8z9igk.typeform.com/to/RHtEUlUt"
+        target="_blank"
+        alt="survey"
+      >survey</a>
+      before leaving 9takes. It helps make the community better!
       <!-- We welcome feedback and suggestions. Please send to <a href="mailto:usersup@9takes.com">usersup@9takes.com</a> -->
     </p>
   </footer>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
 <style>
@@ -45,10 +61,9 @@ export default {
   border-left: none;
 }
 .no-margin {
-    margin: 0 !important;
+  margin: 0 !important;
 }
-.no-decor{
+.no-decor {
   text-decoration: none;
 }
-
 </style>

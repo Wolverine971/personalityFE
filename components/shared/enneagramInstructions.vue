@@ -155,6 +155,7 @@
               <a
                 href="https://www.enneagraminstitute.com/type-2"
                 target="_blank"
+                alt="enneagram institute type 2"
               >
                 More Info
               </a>
@@ -185,6 +186,7 @@
               <a
                 href="https://www.enneagraminstitute.com/type-3"
                 target="_blank"
+                alt="enneagram institute type 3"
               >
                 More Info
               </a>
@@ -216,6 +218,7 @@
               <a
                 href="https://www.enneagraminstitute.com/type-4"
                 target="_blank"
+                alt="enneagram institute type 4"
               >
                 More Info
               </a>
@@ -247,6 +250,7 @@
               <a
                 href="https://www.enneagraminstitute.com/type-5"
                 target="_blank"
+                alt="enneagram institute type 5"
               >
                 More Info
               </a>
@@ -277,6 +281,7 @@
               <a
                 href="https://www.enneagraminstitute.com/type-6"
                 target="_blank"
+                alt="enneagram institute type 6"
               >
                 More Info
               </a>
@@ -307,6 +312,7 @@
               <a
                 href="https://www.enneagraminstitute.com/type-7"
                 target="_blank"
+                alt="enneagram institute type 7"
               >
                 More Info
               </a>
@@ -339,6 +345,7 @@
               <a
                 href="https://www.enneagraminstitute.com/type-8"
                 target="_blank"
+                alt="enneagram institute type 8"
               >
                 More Info
               </a>
@@ -369,6 +376,7 @@
               <a
                 href="https://www.enneagraminstitute.com/type-9"
                 target="_blank"
+                alt="enneagram institute type 9"
               >
                 More Info
               </a>
@@ -398,6 +406,7 @@
               <a
                 href="https://www.enneagraminstitute.com/type-1"
                 target="_blank"
+                alt="enneagram institute type 1"
               >
                 More Info
               </a>

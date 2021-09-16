@@ -23,6 +23,9 @@ export default {
           content:
             'The community for the enneagram type three aka the achiever, the charmer, or the professional.'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/personality/3' }
       ]
     }
   }

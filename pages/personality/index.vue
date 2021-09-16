@@ -23,6 +23,9 @@ export default {
           content:
           'Select which enneagram type wall/ page you want to go to'
         }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://9takes.com/personality' }
       ]
     }
   }

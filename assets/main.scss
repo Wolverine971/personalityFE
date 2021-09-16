@@ -115,6 +115,11 @@
 .v-card__title {
   word-break: normal !important;
 }
+@media only screen and (max-width: 420px) {
+  .glow {
+    font-size: 20px;
+  }
+}
 
 @media only screen and (max-width: 500px) {
   .form-width {
@@ -125,9 +130,6 @@
   }
   .toolbar {
     height: 40px !important;
-  }
-  .v-btn {
-    // height: 30px !important;
   }
   .main-margin {
     margin: 44px 0 !important;
@@ -237,9 +239,8 @@ h5 {
 }
 
 .toasted {
-  font-family: sans-serif;
+  font-family: 'sans-serif'; //'Rye', cursive; // sans-serif;
 }
-
 @media (min-width: 960px) {
   .master-container {
     max-width: 900px;
@@ -295,8 +296,36 @@ h5 {
   }
 }
 
-@media only screen and (max-width: 320px) {
-  body { 
-     font-size: 2em; 
+.glow {
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate !important;
+  -moz-animation: glow 1s ease-in-out infinite alternate !important;
+  animation: glow 1s ease-in-out infinite alternate !important;
+}
+@-webkit-keyframes glow {
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
+      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+  from {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
   }
 }
+@keyframes glow {
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
+      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+  from {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+
+// .v-application {
+//   font-family: "Rye", cursive !important;
+//   // text-shadow: 2px 2px aliceblue;
+//   text-shadow: 1px 1px #d0d7ff;
+// }
