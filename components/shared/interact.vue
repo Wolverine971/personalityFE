@@ -8,7 +8,7 @@
             outlined
             small
             v-bind="attrs"
-            :class="{ 'btn-selected': isLiked }"
+            :color="isLiked ? primary: null"
             class="margin-right"
             v-on="on"
             @click="like"
@@ -28,7 +28,7 @@
             small
             class="margin-right"
             :disabled="!user"
-            color="fpink"
+            color="secondary"
             v-bind="attrs"
             @click="expandComment"
             v-on="on"
@@ -46,7 +46,7 @@
             :disabled="!user"
             outlined
             small
-            :class="{ 'btn-selected': isSubscribed }"
+            :color="isSubscribed ? primary : null"
             v-on="on"
             @click="subscribe"
           >

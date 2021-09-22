@@ -1,7 +1,9 @@
 <template>
   <div v-if="!loading">
     <div v-if="!confirmationSuccess" class="col-center">
-      <h1>Not Confirmed</h1>
+      <h1 class="primary_v--text">
+        Not Confirmed
+      </h1>
       <p>
         Bad link, try to
         <NuxtLink :to="{path: '/auth', query: {}}">
@@ -10,7 +12,9 @@
       </p>
     </div>
     <div v-else class="col-center">
-      <h1>Confirmation Success</h1>
+      <h1 class="primary_v--text">
+        Confirmation Success
+      </h1>
       <p>
         You may now
         <NuxtLink :to="{path: '/auth', query: {}}">
@@ -20,7 +24,7 @@
     </div>
   </div>
   <div v-else>
-    <v-progress-circular indeterminate color="fpink" />
+    <v-progress-circular indeterminate color="secondary" />
   </div>
 </template>
 <script>

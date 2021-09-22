@@ -8,7 +8,7 @@
         class="no-decor"
         alt="instagram icon"
       >
-        <v-icon color="fpink">
+        <v-icon color="secondary">
           mdi-instagram
         </v-icon>
       </v-btn>
@@ -20,7 +20,7 @@
         class="no-decor"
         alt="twitter icon"
       >
-        <v-icon color="fpink">
+        <v-icon color="secondary">
           mdi-twitter
         </v-icon>
       </v-btn>

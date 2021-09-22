@@ -1,9 +1,9 @@
 <template>
-  <header id="toolbar" class="toolbar master-container fun-color shadow">
+  <header id="toolbar" class="toolbar master-container shadow primary fun-color">
     <div class="row-center">
       <v-menu transition="fab-transition">
         <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn color="fpink" text v-bind="attrs" v-on="{ ...menu }">
+          <v-btn color="secondary" text v-bind="attrs" :class="{'x-small': $vuetify.breakpoint.mobile}" v-on="{ ...menu }">
             <v-icon>menu</v-icon>
           </v-btn>
         </template>
@@ -29,7 +29,7 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title v-text="item.title" />
-              <span class="coming-soon">
+              <span class="secondary">
                 {{ item.inprogress ? 'Coming Soon' : '' }}
                 {{ item.validation && !user ? 'Login' : '' }}
               </span>
@@ -37,7 +37,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <h3 class="glow clickable-no-hov" @click="goHome">
+      <h3 class="glow clickable-no-hov primary_v--text" @click="goHome">
         {{ title }}
       </h3>
     </div>
@@ -45,8 +45,8 @@
     <div v-if="user">
       <v-menu>
         <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn color="fpink" text v-bind="attrs" v-on="{ ...menu }">
-            <v-icon color="fpink">
+          <v-btn color="secondary" text v-bind="attrs" v-on="{ ...menu }">
+            <v-icon color="secondary">
               {{
                 notifications && notifications.length
                   ? 'notifications_active'
@@ -61,7 +61,7 @@
 
       <v-menu>
         <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn color="fpink" text v-bind="attrs" v-on="{ ...menu }">
+          <v-btn color="secondary" text v-bind="attrs" v-on="{ ...menu }">
             <v-icon>account_circle</v-icon>
           </v-btn>
         </template>
@@ -88,7 +88,7 @@
     <v-btn
       v-else
       :to="{ path: '/auth', query: {} }"
-      color="fpink"
+      color="secondary"
       class="shadow btn-shrink-mobile"
     >
       Login/ Register
@@ -97,6 +97,7 @@
 </template>
 
 <script>
+import 'vuetify/dist/vuetify.min.css'
 import debounce from 'lodash.debounce'
 import { endpoints } from '../../models/endpoints'
 import notifications from '~/components/notifications'
@@ -249,11 +250,8 @@ export default {
 <style lang="scss">
 @import '../../assets/variables.scss';
 
-.fun-color {
-  background: $midnight !important;
-}
-
 .pad-title {
   padding: 0 50px;
 }
+
 </style>

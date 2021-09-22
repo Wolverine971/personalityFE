@@ -6,7 +6,7 @@
       <header v-else id="toolbar" class="toolbar master-container">
         <v-btn
           :to="{ path: '/auth', query: {} }"
-          color="fpink"
+          color="secondary"
           class="shadow btn-shrink-mobile center"
         >
           Login/ Register

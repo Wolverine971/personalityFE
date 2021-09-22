@@ -19,10 +19,10 @@
       >
         <v-row v-if="!value.prominent" class="fill-height text-right ma-0">
           <v-col cols="12">
-            <h3 class="title font-weight-bold mb-2">
+            <h3 class="title font-weight-bold mb-2 primary_v--text">
               {{ value.title }}
             </h3>
-            <h4 v-html="value.preview" />
+            <h4 class="secondary_v--text" v-html="value.preview" />
             <div class="caption">
               {{
                 value.author

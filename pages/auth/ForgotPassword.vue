@@ -10,7 +10,9 @@
       Login/ Register
     </v-btn>
     <div class="col-center">
-      <h1>Forgot Password</h1>
+      <h1 class="primary_v--text">
+        Forgot Password
+      </h1>
       <v-form
         ref="forgotForm"
         class="form-width"

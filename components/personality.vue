@@ -30,7 +30,7 @@
       <v-tab>Images</v-tab>
       <v-tab>Text</v-tab>
     </v-tabs>
-    <h3>
+    <h3 class="primary_v--text">
       {{ "Total Posts " + count }}
     </h3>
     <div class="m-col">

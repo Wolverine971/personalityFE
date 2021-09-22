@@ -1,7 +1,9 @@
 <template>
   <div v-if="question">
     <div class="margin-top">
-      <h5>Question</h5>
+      <h5 class="primary_v--text">
+        Question
+      </h5>
       <v-textarea
         :value="`${question.question}?`"
         type="text"
@@ -33,7 +35,9 @@
       />
     </div>
     <div v-if="showComments" class="margin-top">
-      <h5>Sorting</h5>
+      <h5 class="primary_v--text">
+        Sorting
+      </h5>
       <sort
         :type="'comments'"
         :selectable-types="commentTypes"

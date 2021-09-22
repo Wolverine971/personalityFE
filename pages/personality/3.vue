@@ -3,7 +3,9 @@
     <h1 class="brick-background">
       &nbsp;&nbsp;3 Wall
     </h1>
-    <h3>the "achiever", the "charmer", and the "professional"</h3>
+    <h3 class="primary_v--text">
+      the "achiever", the "charmer", and the "professional"
+    </h3>
     <personality :type="3" />
   </div>
 </template>

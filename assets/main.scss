@@ -1,12 +1,27 @@
 @import '../assets/variables.scss';
+@import 'vuetify/dist/vuetify.min.css';
+
+
+:root {
+  --primary: #191970;
+  --primary_v: #0e0e3d;
+  --accent: #121212;
+  --accent_v: #221717;
+  --secondary: #F72585;
+  --secondary_v: #91174e;
+  --success: #F72585;
+  --info: #F3F3F4;
+  --warning: #FB8C00;
+  --error: #FF5252;
+}
+header, footer, .v-card {
+  border-radius: 10px;
+}
 
 .heart {
   height: 30px !important;
   width: 30px !important;
   left: calc(100% - 55px) !important;
-}
-.btn-selected {
-  color: #4084ff !important;
 }
 
 .margin-right {
@@ -115,9 +130,12 @@
 .v-card__title {
   word-break: normal !important;
 }
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 320px) {
   .glow {
-    font-size: 20px;
+    font-size: 1em;
+  }
+  .v-btn {
+    min-width: 50px !important;
   }
 }
 
@@ -184,9 +202,6 @@
   justify-content: space-around;
 }
 
-.coming-soon {
-  color: $fPink;
-}
 
 .clickable {
   cursor: pointer;
@@ -196,38 +211,8 @@
   cursor: pointer;
 }
 
-h1 {
-  color: $midnight;
-}
-h2 {
-  color: $fPink;
-}
-h3 {
-  color: $midnight;
-}
-h4 {
-  color: $fPink;
-}
-h5 {
-  color: $midnight;
-}
-
-.color-btn {
-  color: $fPink !important;
-}
-
-.color-blue {
-  color: $midnight !important;
-}
-.color-pink {
-  color: $fPink !important; // $cPink !important;
-}
-.noti-blue {
-  color: rgb(3 255 243 / 60%) !important;
-}
-
 .shadow {
-  box-shadow: 1px 1px 10px 0 #fff, 0 3px 12px 0 #f0f, 0 5px 17px 0 #0ff !important;
+  box-shadow: 1px 1px 10px 0 #fff, 0 3px 12px 0 var(--accent), 0 5px 17px 0 var(--accent) !important;
 }
 .footer-shadow {
   box-shadow: 0px 0px 10px 0 black, 0px -3px 12px 0 #0f0f44,
@@ -305,22 +290,22 @@ h5 {
 }
 @-webkit-keyframes glow {
   to {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
-      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--accent),
+      0 0 40px var(--accent), 0 0 50px var(--accent), 0 0 60px var(--accent), 0 0 70px var(--accent);
   }
   from {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
-      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    text-shadow: 0 0 20px #fff, 0 0 30px var(--accent_v), 0 0 40px var(--accent_v),
+      0 0 50px var(--accent_v), 0 0 60px var(--accent_v), 0 0 70px var(--accent_v), 0 0 80px var(--accent_v);
   }
 }
 @keyframes glow {
   to {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
-      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--accent),
+      0 0 40px var(--accent), 0 0 50px var(--accent), 0 0 60px var(--accent), 0 0 70px var(--accent);
   }
   from {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
-      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    text-shadow: 0 0 20px #fff, 0 0 30px var(--accent_v), 0 0 40px var(--accent_v),
+      0 0 50px var(--accent_v), 0 0 60px var(--accent_v), 0 0 70px var(--accent_v), 0 0 80px var(--accent_v);
   }
 }
 

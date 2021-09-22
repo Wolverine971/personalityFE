@@ -1,6 +1,8 @@
 <template>
   <div class="smooth-scroll">
-    <h2>Following</h2>
+    <h2 class="secondary--text">
+      Following
+    </h2>
     <v-tabs v-if="!$vuetify.breakpoint.mobile">
       <v-tab @click="scrollTo('subs')">
         Peeps
@@ -13,7 +15,7 @@
       </v-tab>
     </v-tabs>
     <div>
-      <h3 id="subs">
+      <h3 id="subs" class="primary_v--text">
         Questions Peeped
       </h3>
       <div v-if="subscriptions && subscriptions.length" class="m-col">
@@ -25,7 +27,7 @@
         <p>No Questions Following</p>
       </div>
 
-      <h3 id="askedQs">
+      <h3 id="askedQs" class="primary_v--text">
         Asked Questions
       </h3>
       <div v-if="askedQuestions && askedQuestions.length" class="m-col">
@@ -37,7 +39,7 @@
         <p>You have asked no qestions</p>
       </div>
 
-      <h3 id="newQs">
+      <h3 id="newQs" class="primary_v--text">
         New Questions
       </h3>
       <div v-if="newQuestions && newQuestions.length" class="m-col">
@@ -46,7 +48,7 @@
         </div>
       </div>
     </div>
-    <!-- <theme-changer /> -->
+    <theme-changer />
   </div>
 </template>
 
@@ -54,8 +56,8 @@
 export default {
   name: 'Dashboard',
   components: {
-    QuestionDisplay: () => import('../components/questions/questionDisplay')
-  // , ThemeChanger: () => import('./shared/themeChanger.vue')
+    QuestionDisplay: () => import('../components/questions/questionDisplay'),
+    ThemeChanger: () => import('./shared/themeChanger.vue')
   },
   middleware: ['accessToken', 'loggedIn'],
 

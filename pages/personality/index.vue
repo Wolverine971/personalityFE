@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h3>Select a Wall</h3>
+    <h3 class="primary_v--text">
+      Select a Wall
+    </h3>
   </div>
 </template>
 

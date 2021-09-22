@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>Question</h1>
+    <h1 class="primary_v--text">
+      Question
+    </h1>
 
     <v-text-field
       v-model="question"

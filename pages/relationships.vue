@@ -1,7 +1,11 @@
 <template>
   <div>
-    <h1>Relationships</h1>
-    <h2>Share Experiences</h2>
+    <h1 class="primary_v--text">
+      Relationships
+    </h1>
+    <h2 class="secondary--text">
+      Share Experiences
+    </h2>
     <div class="circle-container cont">
       <div v-if="!$vuetify.breakpoint.mobile" class="row">
         <div class="m-col col-width align-center justify-start">

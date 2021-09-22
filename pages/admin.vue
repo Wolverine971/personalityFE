@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>Admin</h1>
+    <h1 class="primary_v--text">
+      Admin
+    </h1>
     <v-tabs v-if="!$vuetify.breakpoint.mobile" v-model="tab">
       <v-tab v-for="(item, i) in tabs" :key="i">
         {{ item }}

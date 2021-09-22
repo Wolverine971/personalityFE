@@ -1,6 +1,6 @@
 <template>
   <div v-if="displayedComments && displayedComments.comments && displayedComments.comments.length">
-    <h5 v-if="displayedComments && displayCount">
+    <h5 v-if="displayedComments && displayCount" class="primary_v--text">
       Total Comments: {{ displayedComments.count }}
     </h5>
     <div

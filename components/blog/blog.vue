@@ -1,6 +1,6 @@
 <template>
   <div v-if="blog" class="blogDiv">
-    <h3 class="title font-weight-bold mb-2">
+    <h3 class="title font-weight-bold mb-2 primary_v--text">
       {{ blog.title }}
     </h3>
     <div class="caption">

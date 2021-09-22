@@ -4,14 +4,18 @@
       <v-card>
         <!-- https://introjs.com/ -->
         <v-card-title class="headline">
-          <h1>Welcome to the 9takes Beta</h1>
+          <h1 class="primary_v--text">
+            Welcome to the 9takes Beta
+          </h1>
         </v-card-title>
         <v-card-subtitle class="min-marg-top">
-          <h3>This is community for questions</h3>
+          <h3 class="primary_v--text">
+            This is community for questions
+          </h3>
         </v-card-subtitle>
         <v-card-text>
-          <h2>
-            <v-icon color="fmidnight">
+          <h2 class="secondary--text">
+            <v-icon color="primary">
               flag
             </v-icon>
             The Goal
@@ -20,8 +24,8 @@
             To start conversations and provide a lense through which we can
             generate empathy and curiosity for one another.
           </p>
-          <h2>
-            <v-icon color="fmidnight">
+          <h2 class="secondary--text">
+            <v-icon color="primary">
               directions_walk
             </v-icon>
             How We Get There
@@ -37,15 +41,17 @@
           </p>
           <hr class="my-3">
           <div class="center-div">
-            <h3>Questions</h3>
+            <h3 class="primary_v--text">
+              Questions
+            </h3>
             <p>
               All answers to questions will be hidden until you respond, we
               welcome your voice to the conversation, go ahead, share your
               thoughts!
             </p>
-            <v-btn outlined to="/questions" color="fpink">
+            <v-btn outlined to="/questions" color="secondary">
               Go to Questions
-              <v-icon color="fpink">
+              <v-icon color="secondary">
                 keyboard_arrow_right
               </v-icon>
             </v-btn>
@@ -53,7 +59,9 @@
           <hr class="my-3">
           <!-- <v-card-actions> -->
           <div class="center-div">
-            <h3>One More Thing</h3>
+            <h3 class="primary_v--text">
+              One More Thing
+            </h3>
             <p>
               All Comments, Questions, and Wall posts are <b>anonymous</b>
               <br>

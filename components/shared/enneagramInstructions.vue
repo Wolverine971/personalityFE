@@ -6,7 +6,7 @@
         outlined
         dark
         v-bind="attrs"
-        color="fpink"
+        color="secondary"
         v-on="on"
       >
         {{ label }}
@@ -111,7 +111,7 @@
         </v-btn-toggle>
         <br>
         <div v-if="coreEmotion">
-          <h2>
+          <h2 class="secondary--text">
             {{
               coreEmotion === 'shame'
                 ? 'Heart'
@@ -125,7 +125,9 @@
             }}
             Triad
           </h2>
-          <h3>Which type sounds most like you?</h3>
+          <h3 class="primary_v--text">
+            Which type sounds most like you?
+          </h3>
           <p>
             Take a moment and think carefully, maybe ask a friend.
           </p>
@@ -137,16 +139,22 @@
               <v-card>
                 <v-card-title>Type 2</v-card-title>
                 <v-card-text>
-                  <h3>Description</h3>
+                  <h3 class="primary_v--text">
+                    Description
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-2">
                     The Caring, Interpersonal Type: Demonstrative, Generous,
                     People-Pleasing, and Possessive
                   </blockquote>
-                  <h3>Core Desire</h3>
+                  <h3 class="primary_v--text">
+                    Core Desire
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-2">
                     To feel loved
                   </blockquote>
-                  <h3>Core Fear</h3>
+                  <h3 class="primary_v--text">
+                    Core Fear
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-2">
                     Of being unwanted, unworthy of being loved
                   </blockquote>
@@ -168,16 +176,22 @@
               <v-card>
                 <v-card-title>Type 3</v-card-title>
                 <v-card-text>
-                  <h3>Description</h3>
+                  <h3 class="primary_v--text">
+                    Description
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-3">
                     The Success-Oriented, Pragmatic Type: Adaptive, Excelling,
                     Driven, and Image-Conscious
                   </blockquote>
-                  <h3>Core Desire</h3>
+                  <h3 class="primary_v--text">
+                    Core Desire
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-3">
                     To feel valuable and worthwhile
                   </blockquote>
-                  <h3>Core Fear</h3>
+                  <h3 class="primary_v--text">
+                    Core Fear
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-3">
                     Of being worthless
                   </blockquote>
@@ -199,17 +213,23 @@
               <v-card>
                 <v-card-title>Type 4</v-card-title>
                 <v-card-text>
-                  <h3>Description</h3>
+                  <h3 class="primary_v--text">
+                    Description
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-4">
                     The Sensitive, Withdrawn Type: Expressive, Dramatic,
                     Self-Absorbed, and Temperamental
                   </blockquote>
-                  <h3>Core Desire</h3>
+                  <h3 class="primary_v--text">
+                    Core Desire
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-4">
                     To find themselves and their significance (to create an
                     identity)
                   </blockquote>
-                  <h3>Core Fear</h3>
+                  <h3 class="primary_v--text">
+                    Core Fear
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-4">
                     That they have no identity or personal significance
                   </blockquote>
@@ -232,16 +252,22 @@
               <v-card>
                 <v-card-title>Type 5</v-card-title>
                 <v-card-text>
-                  <h3>Description</h3>
+                  <h3 class="primary_v--text">
+                    Description
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-5">
                     The Intense, Cerebral Type: Perceptive, Innovative,
                     Secretive, and Isolated
                   </blockquote>
-                  <h3>Core Desire</h3>
+                  <h3 class="primary_v--text">
+                    Core Desire
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-5">
                     To be capable and competent
                   </blockquote>
-                  <h3>Core Fear</h3>
+                  <h3 class="primary_v--text">
+                    Core Fear
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-5">
                     Being useless, helpless, or incapable
                   </blockquote>
@@ -263,16 +289,22 @@
               <v-card>
                 <v-card-title>Type 6</v-card-title>
                 <v-card-text>
-                  <h3>Description</h3>
+                  <h3 class="primary_v--text">
+                    Description
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-6">
                     The Committed, Security-Oriented Type: Engaging,
                     Responsible, Anxious, and Suspicious
                   </blockquote>
-                  <h3>Core Desire</h3>
+                  <h3 class="primary_v--text">
+                    Core Desire
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-6">
                     To have security and support
                   </blockquote>
-                  <h3>Core Fear</h3>
+                  <h3 class="primary_v--text">
+                    Core Fear
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-6">
                     Of being without support and guidance
                   </blockquote>
@@ -294,16 +326,22 @@
               <v-card>
                 <v-card-title>Type 7</v-card-title>
                 <v-card-text>
-                  <h3>Description</h3>
+                  <h3 class="primary_v--text">
+                    Description
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-7">
                     The Busy, Fun-Loving Type: Spontaneous, Versatile,
                     Distractible, and Scattered
                   </blockquote>
-                  <h3>Core Desire</h3>
+                  <h3 class="primary_v--text">
+                    Core Desire
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-7">
                     To be satisfied and content—to have their needs fulfilled
                   </blockquote>
-                  <h3>Core Fear</h3>
+                  <h3 class="primary_v--text">
+                    Core Fear
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-7">
                     Of being deprived and in pain
                   </blockquote>
@@ -326,17 +364,23 @@
               <v-card>
                 <v-card-title>Type 8</v-card-title>
                 <v-card-text>
-                  <h3>Description</h3>
+                  <h3 class="primary_v--text">
+                    Description
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-8">
                     The Powerful, Dominating Type: Self-Confident, Decisive,
                     Willful, and Confrontational
                   </blockquote>
-                  <h3>Core Desire</h3>
+                  <h3 class="primary_v--text">
+                    Core Desire
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-8">
                     To protect themselves (to be in control of their own life
                     and destiny)
                   </blockquote>
-                  <h3>Core Fear</h3>
+                  <h3 class="primary_v--text">
+                    Core Fear
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-8">
                     Of being harmed or controlled by others
                   </blockquote>
@@ -358,16 +402,22 @@
               <v-card>
                 <v-card-title>Type 9</v-card-title>
                 <v-card-text>
-                  <h3>Description</h3>
+                  <h3 class="primary_v--text">
+                    Description
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-9">
                     The Easygoing, Self-Effacing Type: Receptive, Reassuring,
                     Agreeable, and Complacent
                   </blockquote>
-                  <h3>Core Desire</h3>
+                  <h3 class="primary_v--text">
+                    Core Desire
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-9">
                     To have inner stability "peace of mind"
                   </blockquote>
-                  <h3>Core Fear</h3>
+                  <h3 class="primary_v--text">
+                    Core Fear
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-9">
                     Of loss and separation
                   </blockquote>
@@ -388,16 +438,22 @@
             >
               <v-card>
                 <v-card-title>Type 1</v-card-title><v-card-text>
-                  <h3>Description</h3>
+                  <h3 class="primary_v--text">
+                    Description
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-1">
                     The Rational, Idealistic Type: Principled, Purposeful,
                     Self-Controlled, and Perfectionistic
                   </blockquote>
-                  <h3>Core Desire</h3>
+                  <h3 class="primary_v--text">
+                    Core Desire
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-1">
                     To be good, to have integrity, to be balanced
                   </blockquote>
-                  <h3>Core Fear</h3>
+                  <h3 class="primary_v--text">
+                    Core Fear
+                  </h3>
                   <blockquote cite="https://www.enneagraminstitute.com/type-1">
                     Of being corrupt/evil, defective
                   </blockquote>

@@ -9,10 +9,7 @@
       <div class="btn-group">
         <v-btn
           outlined
-          :class="{
-            'btn-selected':
-              question.likes && user && question.likes.includes(user.id),
-          }"
+          :color="(question.likes && user && question.likes.includes(user.id)) ? primary : null"
           class="margin-right"
         >
           {{ question.likes ? question.likes.length : '' }}
@@ -24,13 +21,13 @@
             }}
           </v-icon>
         </v-btn>
-        <v-btn outlined class="margin-right" color="fpink">
+        <v-btn outlined class="margin-right" color="secondary">
           {{ question.comments && question.comments.count ? question.comments.count : '' }}
           <v-icon>
             mdi-comment-outline
           </v-icon>
         </v-btn>
-        <v-btn outlined class="btn-selected">
+        <v-btn outlined color="primary">
           {{ question.subscribers ? question.subscribers.length : '' }}
           <v-icon> face </v-icon>
         </v-btn>

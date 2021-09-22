@@ -32,19 +32,14 @@ export default {
         error: '#FF5252'
       },
       light: {
-        primary: '#223982',
+        primary: '#191970',
         accent: '#3F3FBC',
-        secondary: '#E0EF4D',
+        secondary: '#f72585',
         offWhite: '#f6f6f6',
         success: '#F2EDF0',
         info: '#3A3A3A',
         warning: '#FB8C00',
-        error: '#FF5252',
-        fmidnight: '#191970',
-        fpink: '#F72585',
-        // fjet: '#333533ff',
-        fcultured: '#F3F3F4',
-        florecentYellow: '#ccff00'
+        error: '#FF5252'
       }
     }
   }

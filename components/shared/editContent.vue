@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" width="500">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
-        class="color-btn"
+        color="secondary"
         v-bind="attrs"
         elevation="1"
         fab
@@ -15,7 +15,9 @@
     </template>
     <v-card>
       <v-card-title>
-        <h2>{{ label }}</h2>
+        <h2 class="secondary--text">
+          {{ label }}
+        </h2>
       </v-card-title>
       <v-card-text>
         <v-textarea
@@ -31,7 +33,7 @@
         />
       </v-card-text>
       <v-card-actions>
-        <v-btn class="color-btn" @click="updateContent">
+        <v-btn color="secondary" @click="updateContent">
           {{ label }}
           <v-icon> keyboard_arrow_right </v-icon>
         </v-btn>

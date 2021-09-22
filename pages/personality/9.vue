@@ -3,7 +3,9 @@
     <h1 class="brick-background">
       &nbsp;&nbsp;9 Wall
     </h1>
-    <h3>the "peacemaker", the "referee", and the "dreamer"</h3>
+    <h3 class="primary_v--text">
+      the "peacemaker", the "referee", and the "dreamer"
+    </h3>
     <personality :type="9" />
   </div>
 </template>

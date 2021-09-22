@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>Personality Walls</h1>
+    <h1 class="primary_v--text">
+      Personality Walls
+    </h1>
     <v-tabs v-if="!$vuetify.breakpoint.mobile">
       <template>
         <v-tab

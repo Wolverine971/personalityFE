@@ -1,10 +1,14 @@
 <template>
   <v-container>
-    <h1>Search For Or Add A Questions</h1>
+    <h1 class="primary_v--text">
+      Search For Or Add A Questions
+    </h1>
     <add-question />
     <v-spacer />
     <div>
-      <h2>All Asked Questions</h2>
+      <h2 class="secondary--text">
+        All Asked Questions
+      </h2>
       <all-questions />
     </div>
   </v-container>

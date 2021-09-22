@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
 <template>
   <div class="col-md-12 form-wrapper">
-    <h2>Create Blog Post</h2>
+    <h2 class="secondary--text">
+      Create Blog Post
+    </h2>
     <v-text-field
       v-model="title"
       label="Title"

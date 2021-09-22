@@ -1,7 +1,9 @@
 <template>
   <div>
     <div v-if="validLink" class="col-center">
-      <h1>Reset Password</h1>
+      <h1 class="primary_v--text">
+        Reset Password
+      </h1>
       <v-form ref="registerForm" class="form-width">
         <v-text-field
           v-model="password"
@@ -18,7 +20,9 @@
       </v-form>
     </div>
     <div v-else class="col-center">
-      <h1>Link is invalid</h1>
+      <h1 class="primary_v--text">
+        Link is invalid
+      </h1>
       <p>
         Forgot password links expire after 24 hours
       </p>

@@ -60,7 +60,9 @@
       </v-form>
     </div>
     <div v-else class="col-center">
-      <h1>Register Success</h1>
+      <h1 class="primary_v--text">
+        Register Success
+      </h1>
       <p>
         Confirm your email address {{ emailAddress }}
       </p>

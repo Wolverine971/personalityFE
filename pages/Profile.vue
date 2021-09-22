@@ -14,7 +14,9 @@
         </v-icon>
       </v-btn> -->
     </div>
-    <h1>Profile Page</h1>
+    <h1 class="primary_v--text">
+      Profile Page
+    </h1>
     <div v-if="user">
       <v-form>
         <div class="row space-between">
