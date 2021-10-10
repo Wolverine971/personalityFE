@@ -1,10 +1,13 @@
 <template>
-  <v-row>
+  <v-row v-if="articles.length">
     <feed-card
       v-for="(article, index) in articles"
       :key="article.title + index"
       :value="article"
     />
+  </v-row>
+  <v-row v-else>
+    <h1>No blogs at this time</h1>
   </v-row>
 </template>
 

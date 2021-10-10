@@ -78,7 +78,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
 import { endpoints } from '~/models/endpoints'
 export default {
   name: 'CreateBlog',
@@ -103,7 +102,8 @@ export default {
   watch: {
     blog (val) {
       // eslint-disable-next-line no-undef
-      this.markedContent = marked(val)
+      const firstPass = marked(val)
+      this.markedContent = this.addStyles(firstPass)
     }
   },
   mounted () {
@@ -125,15 +125,18 @@ export default {
       }
       formData.append('enneagramType', this.selectedType)
 
-      this.$axios.post(endpoints.createBlog, formData).then((data) => {
-        alert('success' + data)
+      this.$axios.post(endpoints.createBlog, formData).then(() => {
+        this.$store.dispatch('toastSuccess', 'Blog Created')
       })
     },
-    _submitToServer (data) {
-      this.$axios.post(endpoints.createBlog, data).then((data) => {
-        // router.push({ name: 'home' })
-        alert('success' + data)
-      })
+    addStyles (html) {
+      const h1Filter = html.replace('<h1', '<h1 class="primary_v--text"')
+      const h2Filter = h1Filter.replace('<h2', '<h2 class="secondary--text"')
+      const h3Filter = h2Filter.replace('<h3', '<h3 class="primary_v--text"')
+      const h4Filter = h3Filter.replace('<h4', '<h4 class="secondary--text"')
+      const h5Filter = h4Filter.replace('<h5', '<h5 class="primary_v--text"')
+
+      return h5Filter
     }
   },
   head () {
