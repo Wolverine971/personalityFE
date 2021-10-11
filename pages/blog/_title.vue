@@ -43,6 +43,15 @@ export default {
         this.$router.push({ path: '/blog' })
         this.$router.go(1)
       })
+  },
+  head () {
+    return {
+      script: [
+        {
+          src: 'https://cdn.jsdelivr.net/npm/marked/marked.min.js'
+        }
+      ]
+    }
   }
 }
 </script>

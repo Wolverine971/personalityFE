@@ -1,7 +1,17 @@
 <template>
-  <div v-if="blog" class="blogDiv">
+  <div v-if="blog && !editing" class="blogDiv">
     <h3 class="title font-weight-bold mb-2 primary_v--text">
       {{ blog.title }}
+      <v-btn
+        v-if="user && blog && blog.author.id === user.id"
+        color="secondary"
+        elevation="1"
+        fab
+        small
+        @click="editing = true"
+      >
+        <v-icon> edit </v-icon>
+      </v-btn>
     </h3>
     <div class="caption">
       Author:
@@ -11,7 +21,7 @@
       <br>
       Date: {{ getTime(blog.dateCreated) }}
     </div>
-    <div v-html="blog.body" />
+    <div v-html="blogContent" />
     <a
       id="b"
       :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;text=Checkout this article entitled '${blog.title}'&amp;url=${url}`"
@@ -24,12 +34,28 @@
       gradient="rgba(0, 0, 0, .42), rgba(0, 0, 0, .42)"
     />
   </div>
+  <div v-else-if="blog" class="blogDiv">
+    <div>
+      <v-btn
+        v-if="user && blog && blog.author.id === user.id"
+        color="secondary"
+        elevation="1"
+        @click="editing = false"
+      >
+        Cancel
+      </v-btn>
+    </div>
+    <create-blog :blog="blog" :label="'Edit Post'" @updated="editing = false" />
+  </div>
 </template>
 
 <script>
 import { msToDate } from '../../utils'
 export default {
   name: 'Blog',
+  components: {
+    CreateBlog: () => import('./createBlog.vue')
+  },
   props: {
     blog: {
       type: Object,
@@ -38,7 +64,17 @@ export default {
   },
   data () {
     return {
-      url: ''
+      url: '',
+      editing: false
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    },
+    blogContent () {
+      // eslint-disable-next-line no-undef
+      return marked(this.blog.body)
     }
   },
   mounted () {

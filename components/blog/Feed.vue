@@ -6,6 +6,9 @@
       :blog="article"
     />
   </v-row>
+  <v-row v-else-if="loading">
+    <h1>Loading...</h1>
+  </v-row>
   <v-row v-else>
     <h1>No blogs at this time</h1>
   </v-row>
@@ -24,7 +27,8 @@ export default {
   data: () => ({
     layout: [4, 3, 2, 4, 2, 3, 3, 4, 3, 2, 3, 4, 2, 3, 2, 4, 2, 3, 3, 2, 4, 2, 3, 3, 4, 3, 2],
     articles: [],
-    count: 0
+    count: 0,
+    loading: false
   }),
 
   computed: {
@@ -35,10 +39,12 @@ export default {
 
   created () {
     if (!this.blogs) {
+      this.loading = true
       this.$axios.get(`${endpoints.getBlogs}/`).then((data) => {
         if (data && data.data) {
           this.articles = data.data.blog
           this.count = data.data.count
+          this.loading = false
         }
       })
     }

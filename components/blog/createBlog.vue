@@ -2,10 +2,10 @@
 <template>
   <div class="col-md-12 form-wrapper">
     <h2 class="secondary--text">
-      Create Blog Post
+      {{ label }}
     </h2>
     <v-text-field
-      v-model="title"
+      v-model="createdBlog.title"
       label="Title"
       type="text"
       name="title"
@@ -13,36 +13,35 @@
       placeholder="Enter title"
     />
     <v-text-field
-      v-model="description"
+      v-model="createdBlog.description"
       label="Description"
       type="text"
       name="Description"
       required
       placeholder="Enter Description"
     />
-    <v-text-field v-model="size" label="Size" type="number" />
+    <v-text-field v-model="createdBlog.size" label="Size" type="number" />
     <feed-card
-      v-if="imgSrc"
+      v-if="createdBlog.imgSrc"
       :preview="true"
-      :value="{
-        img: imgSrc,
+      :blog="{
+        img: createdBlog.imgSrc,
         body: markedContent,
-        title,
-        description,
-        preview: markedContent.slice(0, 50),
+        title: createdBlog.title,
+        description: createdBlog.description,
         dateCreated: new Date(),
-        size: parseInt(size)
+        size: parseInt(createdBlog.size),
       }"
     />
     <image-upload
       :parent-width="picWidth"
       class="margin-bot"
-      @image="imgSrc = $event"
+      @image="createdBlog.imgSrc = $event"
     />
     <div class="row">
       <div id="c-box" style="width: 45%">
         <v-textarea
-          v-model="blog"
+          v-model="createdBlog.body"
           type="text"
           placeholder="Blog it"
           outlined
@@ -71,7 +70,7 @@
     </div>
     <div class="form-group col-md-4 pull-right">
       <v-btn class="btn btn-success" @click="createPost">
-        Create Post
+        Save
       </v-btn>
     </div>
   </div>
@@ -85,28 +84,37 @@ export default {
     ImageUpload: () => import('../shared/imageUpload.vue'),
     FeedCard: () => import('./FeedCard.vue')
   },
+  props: {
+    blog: {
+      type: Object,
+      default: () => ({})
+    },
+    label: {
+      type: String,
+      default: 'Create Blog'
+    }
+  },
 
   middleware: ['accessToken', 'isAdmin'],
   data () {
     return {
-      title: '',
-      description: '',
-      body: '',
-      blog: '',
+      createdBlog: '',
       markedContent: '',
-      imgSrc: '',
-      picWidth: 0,
-      size: 2
+      picWidth: 0
     }
   },
   watch: {
-    blog (val) {
+    'createdBlog.body' (val) {
       // eslint-disable-next-line no-undef
       const firstPass = marked(val)
       this.markedContent = this.addStyles(firstPass)
+    },
+    blog (val) {
+      this.createdBlog = val
     }
   },
   mounted () {
+    this.createdBlog = this.blog
     const box = document.getElementById('c-box')
     this.picWidth = box.clientWidth
   },
@@ -114,20 +122,28 @@ export default {
   methods: {
     createPost () {
       const formData = new FormData()
-      formData.append('title', this.title)
-      formData.append('description', this.description)
-      formData.append('body', this.markedContent)
-      formData.append('size', parseInt(this.size))
+      formData.append('title', this.createdBlog.title)
+      formData.append('description', this.createdBlog.description)
+      formData.append('body', this.createdBlog.body)
+      formData.append('size', parseInt(this.createdBlog.size))
 
-      if (this.imgSrc) {
+      if (this.createdBlog.imgSrc) {
         const fileElem = document.getElementById('fileElem')
         formData.append('img', fileElem.files[0])
       }
-      formData.append('enneagramType', this.selectedType)
-
-      this.$axios.post(endpoints.createBlog, formData).then(() => {
-        this.$store.dispatch('toastSuccess', 'Blog Created')
-      })
+      // formData.append('enneagramType', this.selectedType)
+      if (this.createdBlog.id) {
+        this.$axios
+          .post(`${endpoints.updateBlog}/${this.createdBlog.id}`, formData)
+          .then(() => {
+            this.$store.dispatch('toastSuccess', 'Blog Updated')
+            this.$emit('updated')
+          })
+      } else {
+        this.$axios.post(endpoints.createBlog, formData).then(() => {
+          this.$store.dispatch('toastSuccess', 'Blog Created')
+        })
+      }
     },
     addStyles (html) {
       const h1Filter = html.replace('<h1', '<h1 class="primary_v--text"')
@@ -137,16 +153,6 @@ export default {
       const h5Filter = h4Filter.replace('<h5', '<h5 class="primary_v--text"')
 
       return h5Filter
-    }
-  },
-  head () {
-    return {
-      title: 'Bloggy Blog',
-      script: [
-        {
-          src: 'https://cdn.jsdelivr.net/npm/marked/marked.min.js'
-        }
-      ]
     }
   }
 }

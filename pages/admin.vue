@@ -29,7 +29,7 @@
         <all-users :admin="true" />
       </v-tab-item>
       <v-tab-item>
-        <create-blog />
+        <create-blog :blog="blog" :label="'Create Post'" />
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -54,7 +54,15 @@ export default {
       'Content',
       'Users',
       'Create Blog'
-    ]
+    ],
+    blog: {
+      img: '',
+      body: '',
+      title: '',
+      description: '',
+      dateCreated: null,
+      size: 2
+    }
   }),
   watch: {
     select (val) {
@@ -65,15 +73,17 @@ export default {
     return {
       title: 'Admin Panel',
       script: [
+        // {
+        //   src: 'https://cdnjs.deepai.org/deepai.min.js',
+        //   async: true,
+        //   defer: true
+        // },
         {
-          src: 'https://cdnjs.deepai.org/deepai.min.js',
-          async: true,
-          defer: true
+          src: 'https://cdn.jsdelivr.net/npm/marked/marked.min.js'
         }
       ]
     }
   }
-
 }
 </script>
 
