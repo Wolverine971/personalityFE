@@ -57,7 +57,6 @@
             </v-btn>
           </div>
           <hr class="my-3">
-          <!-- <v-card-actions> -->
           <div class="center-div">
             <h3 class="primary_v--text">
               One More Thing
@@ -69,7 +68,6 @@
             </p>
           </div>
         </v-card-text>
-        <!-- </v-card-actions> -->
       </v-card>
     </div>
   </div>
@@ -77,43 +75,8 @@
 
 <script>
 export default {
-  layout: 'home',
+  layout: 'home'
   // <!-- https://introjs.com/ -->
-  head: {
-    titleTemplate: '%s - Home for personality Q&A',
-    title: '9takes Beta',
-    meta: [
-      {
-        name: 'description',
-        content:
-          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...'
-      },
-      { property: 'og:url', content: 'https://9takes.com' },
-      {
-        property: 'og:description',
-        content:
-          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...'
-      },
-      { property: 'og:title', content: '9takes' },
-      {
-        name: 'twitter:description',
-        content:
-          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...'
-      },
-      {
-        name: 'twitter:title',
-        content: '9takes | Home for personality Q&A'
-      },
-      {
-        name: 'keywords',
-        content:
-          'enneagram, personality, personality network, enneagram questions, enneagram answers, personality explaination, Q&A, ask a question, type 1, type 2, type 3, type 4, type 5, type 6, type 7, type 8, type 9'
-      }
-    ],
-    link: [
-      { rel: 'canonical', href: 'https://9takes.com' }
-    ]
-  }
 }
 </script>
 <style lang="scss">

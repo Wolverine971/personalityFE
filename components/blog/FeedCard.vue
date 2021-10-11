@@ -1,35 +1,35 @@
 <template>
-  <v-col cols="12" :md="value.size === 2 ? 6 : value.size === 3 ? 4 : 0">
+  <v-col cols="12" :md="blog.size === 2 ? 6 : blog.size === 3 ? 4 : 0">
     <v-card
-      :id="value.title"
+      :id="blog.title"
       flat
       tile
-      :height="value.prominent ? 450 : 350"
+      :height="blog.prominent ? 450 : 350"
       color="grey lighten-1"
       dark
     >
       <!-- :href="`#${value.title}`" -->
       <v-img
         id="img"
-        :src="(!preview && value.img) ? `https://personality-app.s3.amazonaws.com/${value.img}` : value.img"
+        :src="(!preview && blog.img) ? `https://personality-app.s3.amazonaws.com/${blog.img}` : blog.img"
         height="100%"
         router
-        :to="{ path: `/blog/${value.title}` }"
+        :to="{ path: `/blog/${blog.title}` }"
         gradient="rgba(0, 0, 0, .42), rgba(0, 0, 0, .42)"
       >
-        <v-row v-if="!value.prominent" class="fill-height text-right ma-0">
+        <v-row v-if="!blog.prominent" class="fill-height text-right ma-0">
           <v-col cols="12">
             <h3 class="title font-weight-bold mb-2 primary_v--text">
-              {{ value.title }}
+              {{ blog.title }}
             </h3>
-            <h4 class="secondary_v--text" v-html="value.preview" />
+            <h4 class="secondary_v--text" v-html="blog.description" />
             <div class="caption">
               {{
-                value.author
-                  ? value.author.firstName + ' ' + value.author.lastName
+                blog.author
+                  ? blog.author.firstName + ' ' + blog.author.lastName
                   : ''
               }}
-              <br>Date {{ getTime(value.dateCreated) }}
+              <br>Date {{ getTime(blog.dateCreated) }}
             </div>
           </v-col>
 
@@ -40,7 +40,7 @@
               label
               small
               router
-              :to="{ path: `/blog/${value.title.replaceAll(' ', '-')}` }"
+              :to="{ path: `/blog/${blog.title.replaceAll(' ', '-')}` }"
             >
               Read More
             </v-chip>
@@ -63,7 +63,7 @@ export default {
       default: false,
       required: false
     },
-    value: {
+    blog: {
       type: Object,
       default: () => ({})
     }

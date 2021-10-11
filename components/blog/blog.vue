@@ -14,7 +14,7 @@
     <div v-html="blog.body" />
     <a
       id="b"
-      :href="`https://twitter.com/intent/tweet?original_referer=${url}blog/${$route.params.title}&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;text=Checkout this article entitled '${blog.title}'&amp;url=${url}blog/${$route.params.title}`"
+      :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;text=Checkout this article entitled '${blog.title}'&amp;url=${url}`"
       class="twitter twitter-share-button"
     ><i /><span id="l" class="label">Tweet</span></a>
 
@@ -42,12 +42,42 @@ export default {
     }
   },
   mounted () {
-    this.url = this.$axios.defaults.headers['Access-Control-Allow-Origin'][0]
+    this.url = `${this.$axios.defaults.headers['Access-Control-Allow-Origin'][0]}blog/${this.$route.params.title}`
     // console.log(env)
   },
   methods: {
     getTime (time) {
       return msToDate(time)
+    }
+  },
+  head () {
+    const title = this.blog ? this.blog.title : 'Blog'
+    const description = this.blog ? this.blog.description : 'Personality Blog'
+    const href = this.url ? this.url : ''
+
+    return {
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        {
+          property: 'og:description',
+          content: description
+        },
+        { property: 'og:title', content: title },
+        {
+          name: 'twitter:description',
+          content: description
+        },
+        {
+          name: 'twitter:title',
+          content: title
+        }
+      ],
+      link: [{ rel: 'canonical', href }]
     }
   }
 }

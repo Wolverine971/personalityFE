@@ -3,7 +3,7 @@
     <feed-card
       v-for="(article, index) in articles"
       :key="article.title + index"
-      :value="article"
+      :blog="article"
     />
   </v-row>
   <v-row v-else>
