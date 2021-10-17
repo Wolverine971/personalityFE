@@ -67,10 +67,11 @@
 </template>
 <script>
 import { endpoints } from '../models/endpoints'
-import Dashboard from '../components/dashboard'
 export default {
   name: 'Profile',
-  components: { Dashboard },
+  components: {
+    Dashboard: () => import('../components/dashboard')
+  },
   data: () => ({
     index: null,
     staticUser: {},

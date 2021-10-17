@@ -34,11 +34,9 @@
 </template>
 
 <script>
-import { defineComponent } from '@nuxtjs/composition-api'
 import { endpoints } from '~/models/endpoints'
-export default defineComponent({
+export default {
   name: 'ForgotPassword',
-
   data: () => ({
     emailAddress: '',
     emailRules: [
@@ -71,7 +69,7 @@ export default defineComponent({
       }
     }
   }
-})
+}
 </script>
 
 <style></style>

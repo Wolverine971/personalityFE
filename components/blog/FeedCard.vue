@@ -55,7 +55,6 @@
 import { msToDate } from '../../utils'
 export default {
   name: 'FeedCard',
-  components: {},
 
   props: {
     preview: {

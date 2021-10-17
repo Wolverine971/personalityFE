@@ -76,15 +76,15 @@
   </div>
 </template>
 <script>
-import { defineComponent } from '@nuxtjs/composition-api'
 import { validationMixin } from 'vuelidate'
 import { email, required, minLength } from 'vuelidate/lib/validators'
-import EnneagramInstructions from '../shared/enneagramInstructions'
 import { endpoints } from '~/models/endpoints'
 
-export default defineComponent({
-
+export default {
   name: 'Register',
+  components: {
+    EnneagramInstructions: () => import('../shared/enneagramInstructions')
+  },
   mixins: [validationMixin],
   validations: {
     emailAddress: { required, email },
@@ -111,9 +111,6 @@ export default defineComponent({
       v => !!v || 'Enneagram Type is required'
     ]
   }),
-  components: {
-    EnneagramInstructions
-  },
 
   methods: {
     async register () {
@@ -148,7 +145,7 @@ export default defineComponent({
     }
   }
 
-})
+}
 </script>
 <style>
 .wrap-on-small {

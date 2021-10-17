@@ -36,10 +36,9 @@
   </div>
 </template>
 <script>
-import { defineComponent } from '@nuxtjs/composition-api'
 import { endpoints } from '~/models/endpoints'
 
-export default defineComponent({
+export default {
   name: 'Reset',
   data: () => ({
     validLink: true,
@@ -92,6 +91,6 @@ export default defineComponent({
     }
   }
 
-})
+}
 </script>
 <style></style>

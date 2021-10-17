@@ -25,12 +25,13 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
-import Register from '../../components/auth/Register'
-import Login from '../../components/auth/Login'
 
 export default {
   name: 'Index',
-  components: { Register, Login },
+  components: {
+    Register: () => import('~/components/auth/Register'),
+    Login: () => import('~/components/auth/Login')
+  },
   mixins: [validationMixin],
   validations: {
     email: { required, email },

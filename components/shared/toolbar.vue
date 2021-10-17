@@ -10,7 +10,7 @@
         <v-list>
           <v-list-item v-if="user && user.role === 'admin'" router :to="{ path: '/admin' }">
             <v-list-item-action>
-              <v-icon>admin_panel_settings</v-icon>
+              <v-icon>settings</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title> Admin Page</v-list-item-title>
@@ -97,7 +97,6 @@
 </template>
 
 <script>
-import 'vuetify/dist/vuetify.min.css'
 import debounce from 'lodash.debounce'
 import { endpoints } from '../../models/endpoints'
 import notifications from '~/components/notifications'

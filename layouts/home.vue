@@ -24,13 +24,13 @@
 </template>
 
 <script>
-
-import toolbar from '~/components/shared/toolbar'
-import theFooter from '~/components/shared/theFooter'
 export default {
   /* eslint-disable no-console */
   name: 'HomeLayout',
-  components: { toolbar, theFooter },
+  components: {
+    theFooter: () => import('~/components/shared/theFooter'),
+    toolbar: () => import('~/components/shared/toolbar')
+  },
   computed: {
     user () {
       return this.$store.getters.getUser

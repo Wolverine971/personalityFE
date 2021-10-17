@@ -14,19 +14,18 @@
 </template>
 
 <script>
-
-import toolbar from '~/components/shared/toolbar'
-import theFooter from '~/components/shared/theFooter'
 export default {
   /* eslint-disable no-console */
   name: 'DefaultLayout',
-  components: { toolbar, theFooter }
-
+  components: {
+    theFooter: () => import('~/components/shared/theFooter'),
+    toolbar: () => import('~/components/shared/toolbar')
+  }
 }
 </script>
 
 <style>
-.page-container{
+.page-container {
   position: relative;
   min-height: 100vh;
   display: flex;

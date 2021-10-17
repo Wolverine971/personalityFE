@@ -56,10 +56,6 @@ export default {
         type: 'image/x-icon',
         href: '/enneagramPng.png',
         author: 'https://www.flaticon.com/authors/freepik'
-      },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Rye&display=swap'
       }
     ]
   },
@@ -85,15 +81,13 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
-  buildModules: [
-    '@nuxt/typescript-build',
-    '@nuxtjs/composition-api',
-    // '@nuxtjs/vuetify',
-    ['@nuxtjs/vuetify']
-  ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ['@nuxtjs/axios', '@nuxtjs/toast', ['cookie-universal-nuxt', { alias: '9tcookie' }]],
+  modules: [
+    '@nuxt/typescript-build', '@nuxtjs/axios', '@nuxtjs/toast',
+    ['cookie-universal-nuxt', { alias: '9tcookie' }], '@nuxtjs/vuetify',
+    'nuxt-material-design-icons'
+  ],
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL: process.env.BE_URL || 'http://localhost:3001/', // `${process.env.BASE_URL}:3001/`,
@@ -169,8 +163,16 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   // https://medium.com/shard-labs/how-to-drastically-reduce-your-bundle-size-and-load-time-in-vue-js-54370d513fdf
   build: {
+    transpile: [/^vuetify/],
+    // plugins: webpackPlugins(),
     analyze: false,
+    extend (config, { isClient }) {
+      if (isClient) {
+        config.optimization.splitChunks.maxSize = 200000
+      }
+    },
     loaders: {
+
       cssModules: {
         modules: {
           localIdentName: '[hash:base64:4]'

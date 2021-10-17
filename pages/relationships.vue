@@ -30,7 +30,6 @@
             </v-tooltip>
           </div>
         </div>
-
         <div v-if="(type1 || type2) && !threads" class="circle-join-box">
           <div class="m-col align-center">
             <v-btn
