@@ -33,7 +33,7 @@
             {{ content.comments.count }} Comments
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <all-comments
+            <comments
               v-if="content.comments.comments"
               :comments="content.comments"
               :parent-id="content.id"
@@ -50,7 +50,7 @@
 import { msToDate } from '../utils'
 export default {
   name: 'Content',
-  components: { AllComments: () => import('./questions/comments') },
+  components: { comments: () => import('./questions/comments') },
   props: {
     content: {
       type: Object,

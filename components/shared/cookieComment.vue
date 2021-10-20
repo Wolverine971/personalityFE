@@ -13,6 +13,7 @@
 <script>
 export default {
   name: 'CookieComment',
+  components: { EditContent: () => import('./editContent.vue') },
   props: {
     text: {
       type: String,

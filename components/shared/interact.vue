@@ -8,7 +8,7 @@
             outlined
             small
             v-bind="attrs"
-            :color="isLiked ? primary: null"
+            :color="isLiked ? 'primary' : null"
             class="margin-right"
             v-on="on"
             @click="like"
@@ -46,7 +46,7 @@
             :disabled="!user"
             outlined
             small
-            :color="isSubscribed ? primary : null"
+            :color="isSubscribed ? 'primary' : null"
             v-on="on"
             @click="subscribe"
           >

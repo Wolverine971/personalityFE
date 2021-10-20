@@ -43,7 +43,7 @@
           {{ componentComment.comments.count }} Comments
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <all-comments
+          <comments
             v-if="componentComment.comments.comments"
             :comments="componentComment.comments"
             :parent-id="componentComment.id"
@@ -57,14 +57,12 @@
 
 <script>
 import { endpoints } from '../../models/endpoints'
-import Interact from '../shared/interact'
-import CookieComment from '../shared/cookieComment'
 export default {
   name: 'Comment',
   components: {
-    Interact,
-    CookieComment,
-    AllComments: () => import('./comments.vue')
+    Interact: () => import('../shared/interact'),
+    CookieComment: () => import('../shared/cookieComment'),
+    comments: () => import('./comments.vue')
   },
   props: {
     comment: {

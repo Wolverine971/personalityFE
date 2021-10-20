@@ -56,6 +56,7 @@
 // import colors from 'vuetify/es5/util/colors'
 // <h1 class="brick-background">
 // <h1 class="brick-background primary--text">
+// themes[ watermelon, midnight, carnival, clean]
 export default {
   name: 'ThemeChanger',
   data: () => ({

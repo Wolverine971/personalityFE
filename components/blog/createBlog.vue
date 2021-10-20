@@ -22,10 +22,9 @@
     />
     <v-text-field v-model="createdBlog.size" label="Size" type="number" />
     <feed-card
-      v-if="createdBlog.imgSrc"
-      :preview="true"
+      v-if="createdBlog.img"
       :blog="{
-        img: createdBlog.imgSrc,
+        img: createdBlog.img,
         body: markedContent,
         title: createdBlog.title,
         description: createdBlog.description,
@@ -36,8 +35,9 @@
     <image-upload
       :parent-width="picWidth"
       class="margin-bot"
-      @image="createdBlog.imgSrc = $event"
+      @image="createdBlog.img = $event"
     />
+    <!-- preview = true -->
     <div class="row">
       <div id="c-box" style="width: 45%">
         <v-textarea
@@ -92,6 +92,10 @@ export default {
     label: {
       type: String,
       default: 'Create Blog'
+    },
+    preview: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -110,6 +114,7 @@ export default {
       this.markedContent = this.addStyles(firstPass)
     },
     blog (val) {
+      // debugger
       this.createdBlog = val
     }
   },
@@ -127,17 +132,17 @@ export default {
       formData.append('body', this.createdBlog.body)
       formData.append('size', parseInt(this.createdBlog.size))
 
-      if (this.createdBlog.imgSrc) {
+      if (this.createdBlog.img) {
         const fileElem = document.getElementById('fileElem')
-        formData.append('img', fileElem.files[0])
+        formData.append('img', fileElem.files[0] ? fileElem.files[0] : this.createdBlog.img)
       }
-      // formData.append('enneagramType', this.selectedType)
       if (this.createdBlog.id) {
         this.$axios
           .post(`${endpoints.updateBlog}/${this.createdBlog.id}`, formData)
           .then(() => {
-            this.$store.dispatch('toastSuccess', 'Blog Updated')
-            this.$emit('updated')
+            this.$router.push({
+              path: `/blog/${this.createdBlog.title}`
+            })
           })
       } else {
         this.$axios.post(endpoints.createBlog, formData).then(() => {

@@ -1,9 +1,14 @@
 <template>
-  <div v-if="blog && !editing" class="blogDiv">
+  <div v-if="displayedBlog && !editing" class="blogDiv">
+    <v-img
+      :src="`https://personality-app.s3.amazonaws.com/${displayedBlog.img}`"
+      height="450"
+      gradient="rgba(0, 0, 0, .42), rgba(0, 0, 0, .42)"
+    />
     <h3 class="title font-weight-bold mb-2 primary_v--text">
-      {{ blog.title }}
+      {{ displayedBlog.title }}
       <v-btn
-        v-if="user && blog && blog.author.id === user.id"
+        v-if="user && displayedBlog && displayedBlog.author.id === user.id"
         color="secondary"
         elevation="1"
         fab
@@ -16,28 +21,54 @@
     <div class="caption">
       Author:
       {{
-        blog.author ? blog.author.firstName + ' ' + blog.author.lastName : ''
+        displayedBlog.author
+          ? displayedBlog.author.firstName + ' ' + displayedBlog.author.lastName
+          : ''
       }}
       <br>
-      Date: {{ getTime(blog.dateCreated) }}
+      Date: {{ getTime(displayedBlog.dateCreated) }}
     </div>
     <div v-html="blogContent" />
+    <interact
+      v-if="user ? true : false"
+      :post="displayedBlog"
+      :type="'blog'"
+      @emitComment="newComment($event)"
+      @likeChange="likeChange"
+    />
+
+    <div class="comment-div">
+      <v-expansion-panels
+        v-if="displayedBlog.comments && displayedBlog.comments.count"
+      >
+        <v-expansion-panel>
+          <v-expansion-panel-header>
+            {{ displayedBlog.comments.count }} Comments
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <comments
+              v-if="displayedBlog.comments.comments"
+              :comments="displayedBlog.comments"
+              :parent-id="displayedBlog.id"
+              :display-count="false"
+            />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </div>
+
     <a
       id="b"
-      :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;text=Checkout this article entitled '${blog.title}'&amp;url=${url}`"
+      :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;
+      ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;
+      text=Checkout this article entitled '${displayedBlog.title}'&amp;url=${url}`"
       class="twitter twitter-share-button"
     ><i /><span id="l" class="label">Tweet</span></a>
-
-    <v-img
-      :src="blog.img"
-      height="100%"
-      gradient="rgba(0, 0, 0, .42), rgba(0, 0, 0, .42)"
-    />
   </div>
-  <div v-else-if="blog" class="blogDiv">
+  <div v-else-if="displayedBlog" class="blogDiv">
     <div>
       <v-btn
-        v-if="user && blog && blog.author.id === user.id"
+        v-if="user && displayedBlog && displayedBlog.author.id === user.id"
         color="secondary"
         elevation="1"
         @click="editing = false"
@@ -45,7 +76,11 @@
         Cancel
       </v-btn>
     </div>
-    <create-blog :blog="blog" :label="'Edit Post'" @updated="editing = false" />
+    <create-blog
+      :blog="displayedBlog"
+      :label="'Edit Post'"
+      @updated=";(displayedBlog = $event), (editing = false)"
+    />
   </div>
 </template>
 
@@ -54,7 +89,8 @@ import { msToDate } from '../../utils'
 export default {
   name: 'Blog',
   components: {
-    CreateBlog: () => import('./createBlog.vue')
+    CreateBlog: () => import('./createBlog.vue'),
+    comments: () => import('../questions/comments.vue')
   },
   props: {
     blog: {
@@ -65,7 +101,8 @@ export default {
   data () {
     return {
       url: '',
-      editing: false
+      editing: false,
+      displayedBlog: null
     }
   },
   computed: {
@@ -74,18 +111,46 @@ export default {
     },
     blogContent () {
       // eslint-disable-next-line no-undef
-      return marked(this.blog.body)
+      return marked(this.displayedBlog.body)
+    }
+  },
+  watch: {
+    blog (val) {
+      if (val) {
+        this.displayedBlog = val
+      }
     }
   },
   mounted () {
     this.url = `${this.$axios.defaults.headers['Access-Control-Allow-Origin'][0]}blog/${this.$route.params.title}`
-    // console.log(env)
+    this.displayedBlog = this.blog
   },
   methods: {
     getTime (time) {
       return msToDate(time)
+    },
+    newComment (event) {
+      let newComments
+      if (this.displayedBlog.comments.comments) {
+        newComments = [event, ...this.displayedBlog.comments.comments]
+      } else {
+        newComments = [event]
+      }
+
+      this.displayedBlog.comments = Object.assign(
+        {},
+        this.displayedBlog.comments,
+        {
+          comments: newComments
+        }
+      )
+      this.displayedBlog.comments.count += 1
+    },
+    likeChange (event) {
+      this.displayedBlog.likes = event
     }
   },
+
   head () {
     const title = this.blog ? this.blog.title : 'Blog'
     const description = this.blog ? this.blog.description : 'Personality Blog'

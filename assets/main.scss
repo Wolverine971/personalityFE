@@ -224,6 +224,7 @@ header, footer, .v-card {
 }
 
 .toasted {
+  font-display: swap;
   font-family: 'sans-serif'; //'Rye', cursive; // sans-serif;
 }
 @media (min-width: 960px) {
@@ -354,6 +355,7 @@ p {
 }
 .twitter .label {
   font: normal normal normal 12px/18px 'Helvetica Neue',Arial,sans-serif;
+  font-display: swap;
   display: inline-block;
   vertical-align: top;
   zoom: 1;

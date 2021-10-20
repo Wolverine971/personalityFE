@@ -99,10 +99,9 @@
 <script>
 import debounce from 'lodash.debounce'
 import { endpoints } from '../../models/endpoints'
-import notifications from '~/components/notifications'
 export default {
   name: 'Toolbar',
-  components: { notifications },
+  components: { notifications: () => import('~/components/notifications') },
   data () {
     return {
       drawer: false,

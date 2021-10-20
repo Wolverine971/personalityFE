@@ -9,7 +9,7 @@
       <div class="btn-group">
         <v-btn
           outlined
-          :color="(question.likes && user && question.likes.includes(user.id)) ? primary : null"
+          :color="(question.likes && user && question.likes.includes(user.id)) ? 'primary' : null"
           class="margin-right"
         >
           {{ question.likes ? question.likes.length : '' }}
