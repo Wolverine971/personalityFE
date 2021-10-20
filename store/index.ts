@@ -301,12 +301,12 @@ export const actions: any = {
       })
     }
   },
-  toastError ({ commit }: any, text: string) {
+  toastError ({ commit }: any, text: string, duration: number = 3000) {
     if (commit) {
       this.$toast.error(text, {
         theme: 'toasted-primary',
         position: 'top-right',
-        duration: 3000
+        duration
       })
     }
   },

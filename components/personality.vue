@@ -128,8 +128,6 @@ export default {
         }
       } else {
         this.parseContent(this.posts[this.selectedType].content)
-        // this.selectedPosts = this.posts[this.selectedType].content
-        // this.lastDate = this.selectedPosts[this.selectedPosts.length - 1].dateCreated
         this.count = this.posts[this.selectedType].count
       }
       const box = document.getElementById('c-box')

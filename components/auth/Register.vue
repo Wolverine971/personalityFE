@@ -124,7 +124,7 @@ export default {
           const resp = await this.$axios.post(endpoints.registerRoute, data)
           if (resp && resp.data) {
             this.registerSuccess = true
-            // this.$emit('goToLogin', true)
+            this.$emit('goToLogin', true)
           } else {
             let message = 'Failed to register'
             if (resp && resp.response && resp.response.data) {

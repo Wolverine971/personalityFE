@@ -99,7 +99,11 @@ export default {
       const resp = await this.$axios.get(
         `${endpoints.getComment}/${this.comment.id}`
       )
-      this.componentComment = Object.assign({}, resp.data)
+      if (resp && resp.data) {
+        this.componentComment = Object.assign({}, resp.data)
+      } else {
+        this.$store.dispatch('toastError', 'Must Login to See Comments', 6000)
+      }
     } else {
       this.componentComment = this.comment
     }

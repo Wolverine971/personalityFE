@@ -143,9 +143,14 @@ export default {
             this.$router.push({
               path: `/blog/${this.createdBlog.title}`
             })
+            this.$store.dispatch('toastSuccess', 'Blog Updated')
+            this.$emit('updated', this.createdBlog)
           })
       } else {
         this.$axios.post(endpoints.createBlog, formData).then(() => {
+          this.$router.push({
+            path: '/blog/'
+          })
           this.$store.dispatch('toastSuccess', 'Blog Created')
         })
       }

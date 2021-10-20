@@ -36,6 +36,7 @@
       @emitComment="newComment($event)"
       @likeChange="likeChange"
     />
+    <hr class="margin-top margin-bot">
 
     <div class="comment-div">
       <v-expansion-panels
@@ -56,12 +57,11 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </div>
+    <hr class="margin-top margin-bot">
 
     <a
       id="b"
-      :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;
-      ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;
-      text=Checkout this article entitled '${displayedBlog.title}'&amp;url=${url}`"
+      :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;text=Checkout this article entitled '${displayedBlog.title}'&amp;url=${url}`"
       class="twitter twitter-share-button"
     ><i /><span id="l" class="label">Tweet</span></a>
   </div>
