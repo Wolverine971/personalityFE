@@ -183,7 +183,13 @@ export default {
             )
           } else if (this.type === 'content') {
             resp = await this.$axios.get(
-              `${endpoints.likeContent}/${this.post.id}/${
+              `${endpoints.likeBlog}/${this.post.id}/${
+                isLiked ? 'add' : 'remove'
+              }/${this.user.enneagramId}`
+            )
+          } else if (this.type === 'blog') {
+            resp = await this.$axios.get(
+              `${endpoints.likeBlog}/${this.post.id}/${
                 isLiked ? 'add' : 'remove'
               }/${this.user.enneagramId}`
             )
@@ -194,13 +200,17 @@ export default {
               }/${this.user.enneagramId}`
             )
           }
-          if (isLiked) {
-            this.$store.dispatch('toastSuccess', 'Liked Comment')
+          if (resp && resp.data) {
+            if (isLiked) {
+              this.$store.dispatch('toastSuccess', 'Liked Comment')
+            } else {
+              this.$store.dispatch('toastSuccess', 'Unliked Comment')
+            }
           } else {
-            this.$store.dispatch('toastSuccess', 'Unliked Comment')
+            this.$store.dispatch('toastError', 'Like Failed')
           }
         } catch (error) {
-          this.$store.dispatch('toastError', 'Question Like Failed')
+          this.$store.dispatch('toastError', 'Like Failed')
         }
       } else {
         this.$store.dispatch('toastError', 'Must Login')

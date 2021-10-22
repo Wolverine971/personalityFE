@@ -30,6 +30,7 @@ export function getCommentFromData (esComment: any) {
 }
 
 export const msToTime = (time: any) => {
+  // debugger
   const newDate: any = new Date().getTime()
   let date: any = new Date(time).getTime()
   // it just works ok, gosh :)
@@ -52,7 +53,8 @@ export const msToTime = (time: any) => {
     date = new Date(time)
     return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   } else {
-    return differenceInDays + ' days ago'
+    const days = Math.floor(differenceInDays)
+    return days + ((days === 1) ? ' day ago' : ' days ago')
   }
 
   // const ms = s % 1000

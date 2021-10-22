@@ -89,7 +89,7 @@ import { msToDate } from '../../utils'
 export default {
   name: 'Blog',
   components: {
-    CreateBlog: () => import('./createBlog.vue'),
+    CreateBlog: () => import('../admin/createBlog.vue'),
     comments: () => import('../questions/comments.vue')
   },
   props: {

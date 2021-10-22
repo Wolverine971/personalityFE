@@ -55,6 +55,7 @@ export const endpoints = {
   createBlog: '/api/blog/create',
   updateBlog: '/api/blog/update',
   deleteBlog: '/api/blog/delete',
+  likeBlog: '/api/blog/like',
   getBlogs: '/api/blog/get',
   getBlog: '/api/blog/getOne'
 }

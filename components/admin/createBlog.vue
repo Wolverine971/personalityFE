@@ -82,7 +82,7 @@ export default {
   name: 'CreateBlog',
   components: {
     ImageUpload: () => import('../shared/imageUpload.vue'),
-    FeedCard: () => import('./FeedCard.vue')
+    FeedCard: () => import('../blog/FeedCard.vue')
   },
   props: {
     blog: {

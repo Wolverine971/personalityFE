@@ -40,10 +40,10 @@ export default {
   name: 'Admin',
   middleware: ['accessToken', 'isAdmin'],
   components: {
-    AllQuestions: () => import('../components/questions/allQuestions'),
-    AllComments: () => import('../components/questions/allComments'),
-    AllUsers: () => import('../components/shared/allUsers'),
-    CreateBlog: () => import('../components/blog/createBlog.vue')
+    AllQuestions: () => import('../components/admin/allQuestions'),
+    AllComments: () => import('../components/admin/allComments'),
+    AllUsers: () => import('../components/admin/allUsers'),
+    CreateBlog: () => import('../components/admin/createBlog.vue')
   },
   data: () => ({
     tab: 'Questions',

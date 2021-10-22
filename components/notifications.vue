@@ -9,10 +9,10 @@
           <p class="overFlow">
             Comment: {{ notification.notification.text }}
           </p>
-          <p>
-            {{ getTime(notification.time) }}
-          </p>
         </v-list-item-title>
+        <v-list-item-subtitle v-if="notification.question">
+          {{ getTime(notification.time) }}
+        </v-list-item-subtitle>
         <v-list-item-title v-else>
           <p>{{ notifs }}</p>
         </v-list-item-title>

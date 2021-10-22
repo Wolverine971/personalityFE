@@ -19,7 +19,7 @@ export default {
   name: 'Index',
   components: {
     AddQuestion: () => import('../../components/shared/addQuestion'),
-    AllQuestions: () => import('../../components/questions/allQuestions')
+    AllQuestions: () => import('../../components/admin/allQuestions')
   },
   head () {
     return {
