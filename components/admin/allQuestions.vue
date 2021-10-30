@@ -1,6 +1,8 @@
 <template>
-  <div class="m-col">
-    Total Questions: {{ totalQuestions }}
+  <v-card class="m-col">
+    <v-card-title>
+      Total Questions: {{ totalQuestions }}
+    </v-card-title>
     <v-card v-for="q in allQuestions" :key="q.id" class="margin-bot">
       <v-card-text
         class="pad-bot clickable"
@@ -50,18 +52,18 @@
         </div>
       </v-card-text>
     </v-card>
-
-    <div
-      v-if="questionsCount < totalQuestions && !questionsLoading"
-      class="row"
-      @click="loadMoreQuestions"
-    >
-      <v-btn outlined>
+    <v-card-actions>
+      <v-btn
+        v-if="questionsCount < totalQuestions && !questionsLoading"
+        outlined
+        color="secondary"
+        @click="loadMoreQuestions"
+      >
         Load More
       </v-btn>
-    </div>
-    <v-progress-linear v-else-if="questionsLoading" indeterminate />
-  </div>
+      <v-progress-linear v-else-if="questionsLoading" indeterminate />
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>

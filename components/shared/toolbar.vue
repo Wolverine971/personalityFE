@@ -37,7 +37,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <h3 class="glow clickable-no-hov primary_v--text" @click="goHome">
+      <h3 class="glow clickable-no-hov secondary_v--text" @click="goHome">
         {{ title }}
       </h3>
     </div>
@@ -97,8 +97,8 @@
 </template>
 
 <script>
-import debounce from 'lodash.debounce'
-import { endpoints } from '../../models/endpoints'
+// import debounce from 'lodash.debounce'
+// import { endpoints } from '../../models/endpoints'
 export default {
   name: 'Toolbar',
   components: { notifications: () => import('~/components/notifications') },
@@ -201,25 +201,25 @@ export default {
       this.$router.push({ path: '/auth' })
       this.$router.go(1)
     },
-    handlerClose: debounce(function (e) {
-      if (this.user) {
-        e.preventDefault()
-        const focus = document.hasFocus()
-        if (focus) {
-          this.$axios.get(endpoints.userEnter).then((resp) => {
-            if (resp) {
-              console.log(resp)
-            }
-          })
-        } else {
-          this.$axios.get(endpoints.userLeave).then((resp) => {
-            if (resp) {
-              console.log(resp)
-            }
-          })
-        }
-      }
-    }, 1000),
+    // handlerClose: debounce(function (e) {
+    //   if (this.user) {
+    //     e.preventDefault()
+    //     const focus = document.hasFocus()
+    //     if (focus) {
+    //       this.$axios.get(endpoints.userEnter).then((resp) => {
+    //         if (resp) {
+    //           console.log(resp)
+    //         }
+    //       })
+    //     } else {
+    //       this.$axios.get(endpoints.userLeave).then((resp) => {
+    //         if (resp) {
+    //           console.log(resp)
+    //         }
+    //       })
+    //     }
+    //   }
+    // }, 1000),
 
     goHome () {
       this.$router.push({ path: '/', query: {} })

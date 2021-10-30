@@ -1,5 +1,5 @@
 <template>
-  <div
+  <v-card
     v-if="thread"
     :id="thread.id"
     :class="'shadow'"
@@ -46,7 +46,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-  </div>
+  </v-card>
 </template>
 <script>
 import { endpoints } from '../../models/endpoints'

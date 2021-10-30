@@ -1,5 +1,5 @@
 <template>
-  <v-card-text>
+  <div>
     <v-card
       v-for="(theme, index) in themes"
       :key="index"
@@ -48,7 +48,7 @@
         </v-chip>
       </div>
     </v-card>
-  </v-card-text>
+  </div>
   <!--      menu content end -->
 </template>
 
@@ -330,6 +330,39 @@ export default {
           info: '#6156d8',
           warning: '#1565C0',
           error: '#FF7043'
+        }
+      },
+      {
+        name: 'Watermellon',
+        dark: {
+          // green
+          primary: '#42ef4b',
+          primary_v: '#288f2d',
+          // pink
+          secondary: '#ff8aa3',
+          secondary_v: '#a55f6e',
+          // blueish
+          accent: '#55c8e1',
+          accent_v: '#2a6572',
+          success: '#F72585',
+          info: '#F3F3F4',
+          warning: '#FB8C00',
+          error: '#FF5252'
+        },
+        light: {
+          // green
+          primary: '#42ef4b',
+          primary_v: '#288f2d',
+          // pink
+          secondary: '#ff8aa3',
+          secondary_v: '#a55f6e',
+          // blueish
+          accent: '#55c8e1',
+          accent_v: '#2a6572',
+          success: '#F72585',
+          info: '#F3F3F4',
+          warning: '#FB8C00',
+          error: '#FF5252'
         }
       }
     ]

@@ -1,76 +1,64 @@
 <template>
-  <div>
-    <div class="row space-between">
-      <!-- <v-btn outlined to="/questions">
-        <v-icon>
-          keyboard_arrow_left
-        </v-icon>
-        Questions
-      </v-btn> -->
-      <!-- <v-btn outlined to="/personality">
-        Walls
-        <v-icon>
-          keyboard_arrow_right
-        </v-icon>
-      </v-btn> -->
-    </div>
-    <h1 class="primary_v--text">
-      Profile Page
-    </h1>
-    <div v-if="user">
-      <v-form>
-        <div class="row space-between">
-          <div class="m-col text-min-width">
+  <v-card>
+    <v-card-title>
+      <h1 class="primary_v--text">
+        Profile Page
+      </h1>
+    </v-card-title>
+    <v-form v-if="user">
+      <v-container>
+        <v-row>
+          <v-col cols="12" md="4">
             <v-text-field
               v-model="user.firstName"
               v-model.trim="user.firstName"
               label="First Name"
               @input="formDisabled = false"
             />
-          </div>
-
-          <div class="m-col text-min-width">
+          </v-col>
+          <v-col cols="12" md="4">
             <v-text-field
               v-model="user.lastName"
               v-model.trim="user.lastName"
               label="Last Name"
               @input="formDisabled = false"
             />
-          </div>
-          <div class="m-col text-min-width">
+          </v-col>
+          <v-col cols="12" md="4">
             <v-text-field
               v-model="user.email"
               v-model.trim="user.email"
               label="Email"
               @input="formDisabled = false"
             />
-          </div>
-          <div class="m-col text-min-width">
+          </v-col>
+          <v-col cols="12" md="4">
             <v-select
               v-model="user.enneagramId"
               :items="enneagramTypes"
               label="Enneagram"
               @change="formDisabled = false"
             />
-          </div>
-        </div>
+          </v-col>
+        </v-row>
         <v-btn outlined :disabled="formDisabled" @click="submit">
           Submit
         </v-btn>
-      </v-form>
-    </div>
-    <br>
-    <hr>
-    <br>
+      </v-container>
+    </v-form>
+
+    <v-spacer />
     <dashboard />
-  </div>
+    <theme-changer />
+  </v-card>
 </template>
 <script>
 import { endpoints } from '../models/endpoints'
 export default {
   name: 'Profile',
   components: {
-    Dashboard: () => import('../components/dashboard')
+    Dashboard: () => import('~/components/dashboard'),
+    ThemeChanger: () => import('~/components/shared/themeChanger.vue')
   },
   data: () => ({
     index: null,
@@ -96,14 +84,11 @@ export default {
           ? this.staticUser.lastName
           : this.user.lastName,
 
-        email: this.staticUser.email
-          ? this.staticUser.email
-          : this.user.email,
+        email: this.staticUser.email ? this.staticUser.email : this.user.email,
 
         enneagramId: this.staticUser.enneagramId
           ? this.staticUser.enneagramId
           : this.user.enneagramId
-
       }
 
       this.$axios.put(endpoints.updateUserRoute, data)
@@ -113,4 +98,4 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style></style>
