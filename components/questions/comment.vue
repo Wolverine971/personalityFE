@@ -1,5 +1,5 @@
 <template>
-  <div
+  <v-card
     v-if="componentComment"
     :id="componentComment.id"
     :class="'shadow'"
@@ -52,7 +52,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-  </div>
+  </v-card>
 </template>
 
 <script>

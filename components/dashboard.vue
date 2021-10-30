@@ -1,5 +1,5 @@
 <template>
-  <div class="smooth-scroll">
+  <v-card>
     <h2 class="secondary--text">
       Following
     </h2>
@@ -48,18 +48,15 @@
         </div>
       </div>
     </div>
-    <theme-changer />
-  </div>
+  </v-card>
 </template>
 
 <script>
 export default {
   name: 'Dashboard',
   components: {
-    QuestionDisplay: () => import('../components/questions/questionDisplay'),
-    ThemeChanger: () => import('./shared/themeChanger.vue')
+    QuestionDisplay: () => import('../components/questions/questionDisplay')
   },
-  middleware: ['accessToken', 'loggedIn'],
 
   computed: {
     subscriptions () {
@@ -93,8 +90,5 @@ export default {
 </script>
 
 <style>
-.smooth-scroll {
-  scroll-behavior: smooth;
-}
 
 </style>

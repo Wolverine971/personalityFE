@@ -1,60 +1,65 @@
 <template>
   <div v-if="question">
-    <div class="margin-top">
-      <h5 class="primary_v--text">
+    <v-card class="margin-top">
+      <v-card-title class="primary_v--text">
         Question
-      </h5>
-      <v-textarea
-        :value="`${question.question}?`"
-        type="text"
-        rows="1"
-        auto-grow
-        readonly
-        hide-details
-        class="pad-bot limit-height"
-      >
-        <template
-          v-if="
-            user &&
-              question.author &&
-              question.author.id === user.id
-          "
-          v-slot:append
+      </v-card-title>
+      <v-card-text>
+        <v-textarea
+          cols="12"
+          md="4"
+          :value="`${question.question}?`"
+          type="text"
+          rows="1"
+          auto-grow
+          readonly
+          hide-details
+          class="pad-bot limit-height"
         >
-          <edit-content
-            :content="question.question"
-            :label="'Update Question'"
-            @updateContent="updateQuestion"
-          />
-        </template>
-      </v-textarea>
-      <interact
-        :post="question"
-        :type="'question'"
-        @emitComment="newComment($event)"
-      />
-    </div>
-    <div v-if="showComments" class="margin-top">
-      <h5 class="primary_v--text">
+          <template
+            v-if="
+              user &&
+                question.author &&
+                question.author.id === user.id
+            "
+            v-slot:append
+          >
+            <edit-content
+              :content="question.question"
+              :label="'Update Question'"
+              @updateContent="updateQuestion"
+            />
+          </template>
+        </v-textarea>
+        <interact
+          :post="question"
+          :type="'question'"
+          @emitComment="newComment($event)"
+        />
+      </v-card-text>
+    </v-card>
+    <v-card v-if="showComments" class="margin-top">
+      <v-card-title class="primary_v--text">
         Sorting
-      </h5>
-      <sort
-        :type="'comments'"
-        :selectable-types="commentTypes"
-        @triggerNewSearch="filterComments($event)"
-      />
-    </div>
-    <div v-if="showComments" class="margin-top">
-      <comments
-        v-if="showComments"
-        :comments="question.comments"
-        :parent-id="question.id"
-        @commentUpdated="updateComment"
-      />
-    </div>
-    <div v-else class="m-col">
+      </v-card-title>
+      <v-card-text>
+        <sort
+          :type="'comments'"
+          :selectable-types="commentTypes"
+          @triggerNewSearch="filterComments($event)"
+        />
+      </v-card-text>
+    </v-card>
+    <comments
+      v-if="showComments"
+      class="margin-top"
+      :comments="question.comments"
+      :parent-id="question.id"
+      @commentUpdated="updateComment"
+    />
+    <v-card v-else class="m-col">
       Answer Question to see other answers
-    </div>
+    </v-card>
   </div>
 </template>
 

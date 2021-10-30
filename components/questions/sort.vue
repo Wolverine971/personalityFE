@@ -1,5 +1,5 @@
 <template>
-  <div v-if="type === 'comments'" no-gutters class="margin-top row">
+  <v-row>
     <v-select
       v-model="params.enneagramTypes"
       :disabled="!user"
@@ -42,7 +42,7 @@
         Newest
       </template>
     </v-select>
-  </div>
+  </v-row>
 </template>
 
 <script>

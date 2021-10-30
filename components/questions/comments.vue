@@ -3,25 +3,25 @@
     <h5 v-if="displayedComments && displayCount" class="primary_v--text">
       Total Comments: {{ displayedComments.count }}
     </h5>
-    <div
+    <comment
       v-for="(c, i) in displayedComments.comments"
       :key="i"
       class="comment-div margin-top"
-    >
-      <comment :comment="c" :interact="true" @commentUpdated="$emit('commentUpdated', {index: i, comment: $event})" />
-    </div>
-    <div
+      :comment="c"
+      :interact="true"
+      @commentUpdated="$emit('commentUpdated', {index: i, comment: $event})"
+    />
+    <v-btn
       v-if="
         displayedComments.comments.length < displayedComments.count &&
           !commentsLoading
       "
       class="margin-top row"
+      color="secondary"
       @click="loadMore"
     >
-      <v-btn outlined>
-        Load More
-      </v-btn>
-    </div>
+      Load More
+    </v-btn>
     <v-progress-linear v-else-if="commentsLoading" indeterminate />
   </div>
 </template>

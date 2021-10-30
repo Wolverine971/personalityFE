@@ -2,14 +2,13 @@
   <div class="row align-center">
     <div class="m-col align-center">
       <v-card>
-        <!-- https://introjs.com/ -->
         <v-card-title class="headline">
-          <h1 class="primary_v--text">
+          <h1 class="secondary--text">
             Welcome to the 9takes Beta
           </h1>
         </v-card-title>
         <v-card-subtitle class="min-marg-top">
-          <h3 class="primary_v--text">
+          <h3 class="secondary--text">
             This is community for questions
           </h3>
         </v-card-subtitle>
@@ -39,35 +38,51 @@
             questions which we hope will spawn follow up questions and a general
             curiosity for the other... maybe even some empathy.
           </p>
-          <hr class="my-3">
-          <div class="center-div">
-            <h3 class="primary_v--text">
-              Questions
-            </h3>
-            <p>
-              All answers to questions will be hidden until you respond, we
-              welcome your voice to the conversation, go ahead, share your
-              thoughts!
-            </p>
-            <v-btn outlined to="/questions" color="secondary">
-              Go to Questions
-              <v-icon color="secondary">
-                keyboard_arrow_right
-              </v-icon>
-            </v-btn>
-          </div>
-          <hr class="my-3">
-          <div class="center-div">
-            <h3 class="primary_v--text">
-              One More Thing
-            </h3>
-            <p>
-              All Comments, Questions, and Wall posts are <b>anonymous</b>
-              <br>
-              The only thing that ids you to the community is your type
-            </p>
-          </div>
         </v-card-text>
+      </v-card>
+      <div class="row-mid">
+        <v-card class="row-fif margin">
+          <h3 class="primary_v--text">
+            Blog
+          </h3>
+          <p style="margin: 23px">
+            Topics, implications, and predictions surrounding 9takes will
+            discussed.
+          </p>
+          <v-btn outlined to="/blog" color="secondary">
+            <v-icon color="secondary">
+              keyboard_arrow_left
+            </v-icon>
+            Go to the Blog
+          </v-btn>
+        </v-card>
+        <v-card class="row-fif">
+          <h3 class="primary_v--text">
+            Questions
+          </h3>
+          <p style="margin: 23px">
+            All answers to questions will be hidden until you respond, we
+            welcome your voice to the conversation, go ahead, share your
+            thoughts!
+          </p>
+          <v-btn outlined to="/questions" color="secondary">
+            Go to Questions
+            <v-icon color="secondary">
+              keyboard_arrow_right
+            </v-icon>
+          </v-btn>
+        </v-card>
+      </div>
+      <v-card class="center-div margin row-fif">
+        <h3 class="primary_v--text">
+          One More Thing
+        </h3>
+        <p style="margin: 23px">
+          All Comments, Questions, and Wall posts are <b>anonymous</b>
+          <br>
+          The only thing that identifies you to the community is your
+          personality type
+        </p>
       </v-card>
     </div>
   </div>
@@ -84,6 +99,7 @@ export default {
   margin-top: -10px !important;
 }
 .row-mid {
+  width: 100%;
   display: flex;
   justify-content: center;
 }
@@ -96,12 +112,12 @@ export default {
   justify-content: center;
 }
 @media (max-width: 1265px) {
-  // .row-fif {
-  //   width: 100%;
-  // }
-  // .row-mid {
-  //   flex-direction: column;
-  // }
+  .row-fif {
+    width: 100%;
+  }
+  .row-mid {
+    flex-direction: column;
+  }
   .margin {
     margin: 1em 0;
   }
@@ -112,5 +128,4 @@ export default {
   align-items: center;
   width: 100%;
 }
-
 </style>

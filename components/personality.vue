@@ -43,7 +43,7 @@
         </div>
       </v-card>
       <div v-if="currentCount < count && !contentLoading" class="row" @click="loadMore">
-        <v-btn outlined>
+        <v-btn outlined color="secondary">
           Load More
         </v-btn>
       </div>

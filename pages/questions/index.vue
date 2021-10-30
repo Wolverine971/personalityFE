@@ -1,16 +1,18 @@
 <template>
   <v-container>
-    <h1 class="primary_v--text">
-      Search For Or Add A Questions
-    </h1>
-    <add-question />
-    <v-spacer />
-    <div>
+    <v-card class="pad-left pad-right">
+      <v-card-title>
+        <h1 class="primary_v--text">
+          Search For Or Add A Questions
+        </h1>
+      </v-card-title>
+      <add-question />
+      <v-spacer />
       <h2 class="secondary--text">
         All Asked Questions
       </h2>
       <all-questions />
-    </div>
+    </v-card>
   </v-container>
 </template>
 

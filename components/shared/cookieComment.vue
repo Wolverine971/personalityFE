@@ -139,16 +139,12 @@ export default {
         }
         img.crossOrigin = 'anonymous'
         if (this.color === 'pink') {
-          // ffc0cb
-          // #ff0000
-          const pinkColor = 'ffd1d9'
-          img.src = `https://api.iconify.design/mdi-cookie-outline.svg?color=%23${pinkColor}&height=${cookieDiameter}`
+          img.src = '/cookieP.svg'
+          img.height = cookieDiameter
           this.color = 'blue'
         } else {
-          // 8acfef
-          // aedef4
-          const blueColor = 'aedef4'
-          img.src = `https://api.iconify.design/mdi-cookie-outline.svg?color=%23${blueColor}&rotate=270deg&height=${cookieDiameter}`
+          img.src = '/cookieB.svg'
+          img.height = cookieDiameter
           this.color = 'pink'
         }
       }
@@ -160,12 +156,8 @@ export default {
       this.height = this.canvasBox.clientHeight + 28
 
       this.canvas = document.createElement('canvas')
-
-      this.canvas.height = this.height
-      this.canvas.width = this.width
+      this.canvas.setAttribute('style', `height: ${this.height}; width: ${this.width}`)
       this.ctx = this.canvas.getContext('2d')
-      this.ctx.height = this.height
-      this.ctx.width = this.width
     }
   }
 }

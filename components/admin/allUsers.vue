@@ -41,7 +41,7 @@
       class="row"
       @click="loadMoreUsers"
     >
-      <v-btn outlined>
+      <v-btn outlined color="secondary">
         Load More
       </v-btn>
     </div>
