@@ -2,7 +2,7 @@
   <div>
     <v-btn
       class="ma-2"
-      outlined
+      color="primary"
       :to="{path: '/auth', query: {}}"
       router
     >

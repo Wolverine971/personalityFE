@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="btn-group">
+    <v-card-actions class="btn-group">
       <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -17,6 +17,7 @@
             <v-icon>
               {{ isLiked ? 'mdi-cookie' : 'mdi-cookie-outline' }}
             </v-icon>
+            Like
           </v-btn>
         </template>
         Likes {{ likes.length }}
@@ -34,6 +35,7 @@
             v-on="on"
           >
             <v-icon> mdi-comment-outline </v-icon>
+            Comment
           </v-btn>
         </template>
         Comment
@@ -58,8 +60,7 @@
         </template>
         Follow/ Subscribe
       </v-tooltip>
-    </div>
-
+    </v-card-actions>
     <v-expand-transition>
       <div v-show="commentIsExpanded" class="margin-top">
         <v-textarea
@@ -82,11 +83,15 @@
             </v-btn>
           </template>
         </v-textarea>
-        <div v-if="$vuetify.breakpoint.mobile" class="margin-bot">
-          <v-btn v-if="comment" small outlined @click="submitComment">
-            Submit Comment
-          </v-btn>
-        </div>
+        <v-btn
+          v-if="comment && $vuetify.breakpoint.mobile"
+          class="margin-bot"
+          small
+          outlined
+          @click="submitComment"
+        >
+          Submit Comment
+        </v-btn>
       </div>
     </v-expand-transition>
   </div>

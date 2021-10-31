@@ -104,7 +104,7 @@ export default {
   justify-content: center;
 }
 .row-fif {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   align-items: center;
   width: 50%;

@@ -2,10 +2,9 @@
   <div>
     <v-btn
       class="ma-2"
-
+      color="primary"
       :to="{path: '/questions', query: {}}"
       router
-      color="secondary"
     >
       <v-icon>
         keyboard_backspace

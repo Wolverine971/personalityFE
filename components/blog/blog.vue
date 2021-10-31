@@ -1,11 +1,11 @@
 <template>
-  <div v-if="displayedBlog && !editing" class="blogDiv">
+  <v-card v-if="displayedBlog && !editing" class="blogDiv">
     <v-img
       :src="`https://personality-app.s3.amazonaws.com/${displayedBlog.img}`"
       height="450"
       gradient="rgba(0, 0, 0, .42), rgba(0, 0, 0, .42)"
     />
-    <h3 class="title font-weight-bold mb-2 primary_v--text">
+    <v-card-title class="primary_v--text">
       {{ displayedBlog.title }}
       <v-btn
         v-if="user && displayedBlog && displayedBlog.author.id === user.id"
@@ -17,8 +17,8 @@
       >
         <v-icon> edit </v-icon>
       </v-btn>
-    </h3>
-    <div class="caption">
+    </v-card-title>
+    <v-card-subtitle class="caption">
       Author:
       {{
         displayedBlog.author
@@ -27,8 +27,8 @@
       }}
       <br>
       Date: {{ getTime(displayedBlog.dateCreated) }}
-    </div>
-    <div v-html="blogContent" />
+    </v-card-subtitle>
+    <v-card-text v-html="blogContent" />
     <interact
       v-if="user ? true : false"
       :post="displayedBlog"
@@ -36,37 +36,34 @@
       @emitComment="newComment($event)"
       @likeChange="likeChange"
     />
-    <hr class="margin-top margin-bot">
 
-    <div class="comment-div">
-      <v-expansion-panels
-        v-if="displayedBlog.comments && displayedBlog.comments.count"
-      >
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-            {{ displayedBlog.comments.count }} Comments
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <comments
-              v-if="displayedBlog.comments.comments"
-              :comments="displayedBlog.comments"
-              :parent-id="displayedBlog.id"
-              :display-count="false"
-            />
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </div>
-    <hr class="margin-top margin-bot">
-
-    <a
-      id="b"
-      :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;text=Checkout this article entitled '${displayedBlog.title}'&amp;url=${url}`"
-      class="twitter twitter-share-button"
-    ><i /><span id="l" class="label">Tweet</span></a>
-  </div>
+    <v-expansion-panels
+      v-if="displayedBlog.comments && displayedBlog.comments.count"
+    >
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          {{ displayedBlog.comments.count }} Comments
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <comments
+            v-if="displayedBlog.comments.comments"
+            :comments="displayedBlog.comments"
+            :parent-id="displayedBlog.id"
+            :display-count="false"
+          />
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+    <v-card-actions>
+      <a
+        id="b"
+        :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;text=Checkout this article entitled '${displayedBlog.title}'&amp;url=${url}`"
+        class="twitter twitter-share-button"
+      ><i /><span id="l" class="label">Tweet</span></a>
+    </v-card-actions>
+  </v-card>
   <div v-else-if="displayedBlog" class="blogDiv">
-    <div>
+    <v-card-actions>
       <v-btn
         v-if="user && displayedBlog && displayedBlog.author.id === user.id"
         color="secondary"
@@ -75,7 +72,7 @@
       >
         Cancel
       </v-btn>
-    </div>
+    </v-card-actions>
     <create-blog
       :blog="displayedBlog"
       :label="'Edit Post'"
