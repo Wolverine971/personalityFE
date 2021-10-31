@@ -32,7 +32,7 @@
         target="_blank"
         alt="survey"
       >survey</a>
-      before leaving 9takes. It helps make the community better!
+      before leaving 9takes. It helps makes everything better!
       <!-- We welcome feedback and suggestions. Please send to <a href="mailto:usersup@9takes.com">usersup@9takes.com</a> -->
     </p>
   </footer>

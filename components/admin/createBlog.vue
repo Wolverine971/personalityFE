@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 <template>
-  <div class="col-md-12 form-wrapper">
+  <v-card class="col-md-12 form-wrapper">
     <h2 class="secondary--text">
       {{ label }}
     </h2>
@@ -38,7 +38,7 @@
       @image="createdBlog.img = $event"
     />
     <!-- preview = true -->
-    <div class="row">
+    <v-card-text class="row">
       <div id="c-box" style="width: 45%">
         <v-textarea
           v-model="createdBlog.body"
@@ -67,13 +67,13 @@
           v-html="markedContent"
         />
       </div>
-    </div>
-    <div class="form-group col-md-4 pull-right">
+    </v-card-text>
+    <v-card-actions>
       <v-btn class="btn btn-success" @click="createPost">
         Save
       </v-btn>
-    </div>
-  </div>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>

@@ -8,10 +8,13 @@
       color="grey lighten-1"
       dark
     >
-      <!-- :href="`#${value.title}`" -->
       <v-img
         id="img"
-        :src="(blog.img && blog.img.length < 40) ? `https://personality-app.s3.amazonaws.com/${blog.img}` : blog.img"
+        :src="
+          blog.img && blog.img.length < 40
+            ? `https://personality-app.s3.amazonaws.com/${blog.img}`
+            : blog.img
+        "
         height="100%"
         router
         :to="{ path: `/blog/${blog.title}` }"

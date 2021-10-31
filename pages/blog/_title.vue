@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn class="ma-2" outlined :to="{ path: '/blog', query: {} }" router>
+    <v-btn class="ma-2" color="primary" :to="{ path: '/blog', query: {} }" router>
       <v-icon> keyboard_backspace</v-icon>
       All Blogs
     </v-btn>
