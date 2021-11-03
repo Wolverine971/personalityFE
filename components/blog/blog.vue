@@ -83,6 +83,8 @@
 
 <script>
 import { msToDate } from '../../utils'
+// const marked = require('marked')
+const marked = require('marked/lib/marked.cjs')
 export default {
   name: 'Blog',
   components: {
@@ -95,6 +97,20 @@ export default {
       default: () => ({})
     }
   },
+  // async asyncData ({ $content, params, error }) {
+  //   const url = params.slug ? `/blog/${params.slug}` : 'index'
+  //   const page = await $content(url)
+  //     .fetch()
+  //     .catch((err) => {
+  //       console.log(err)
+  //       error({ statusCode: 404, message: 'Page not found' })
+  //     })
+
+  //   return {
+  //     url,
+  //     page
+  //   }
+  // },
   data () {
     return {
       url: '',
@@ -108,7 +124,12 @@ export default {
     },
     blogContent () {
       // eslint-disable-next-line no-undef
-      return marked(this.displayedBlog.body)
+      if (marked) {
+        // eslint-disable-next-line no-undef
+        return marked.parse(this.displayedBlog.body)
+      } else {
+        return ''
+      }
     }
   },
   watch: {
@@ -154,12 +175,17 @@ export default {
     const href = this.url ? this.url : ''
 
     return {
+      titleTemplate: title,
       title,
       meta: [
         {
           hid: 'description',
           name: 'description',
           content: description
+        },
+        {
+          property: 'og:url',
+          content: href
         },
         {
           property: 'og:description',

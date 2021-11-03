@@ -77,9 +77,6 @@ export default {
           src: 'https://cdnjs.deepai.org/deepai.min.js',
           async: true,
           defer: true
-        },
-        {
-          src: 'https://cdn.jsdelivr.net/npm/marked/marked.min.js'
         }
       ]
     }

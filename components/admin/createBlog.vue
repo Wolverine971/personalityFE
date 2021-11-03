@@ -78,6 +78,7 @@
 
 <script>
 import { endpoints } from '~/models/endpoints'
+const marked = require('marked/lib/marked.cjs')
 export default {
   name: 'CreateBlog',
   components: {
@@ -110,7 +111,7 @@ export default {
   watch: {
     'createdBlog.body' (val) {
       // eslint-disable-next-line no-undef
-      const firstPass = marked(val)
+      const firstPass = marked.parse(val)
       this.markedContent = this.addStyles(firstPass)
     },
     blog (val) {
