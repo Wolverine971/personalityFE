@@ -1,78 +1,86 @@
 <template>
-  <div>
-    <div v-if="!registerSuccess" class="col-center">
-      <v-form
-        ref="registerForm"
-        class="form-width"
-      >
-        <v-text-field
-          v-model="emailAddress"
-          autofocus
-          type="email"
-          label="E-mail"
-          :rules="emailRules"
-          autocomplete="email"
-          required
-        />
-        <v-text-field
-          v-model="password"
-          label="Password"
-          :type="passwordType"
-          hint="At least 8 characters"
-          min="8"
-          required
-          autocomplete="new-password"
-          :rules="passwordRules"
-        >
-          <template
-            v-slot:append
-          >
-            <v-btn icon @click="passwordType === 'password' ? passwordType = 'text' : passwordType = 'password'">
-              <v-icon>
-                {{ passwordType === 'password' ? 'mdi-eye-outline' : 'mdi-eye-off-outline' }}
-              </v-icon>
-            </v-btn>
-            <template />
-          </template>
-        </v-text-field>
-        <div class="wrap-on-small">
-          <v-select
-            v-model="enneagramType"
-            :items="enneagramTypes"
-            label="What is your Enneagram Type?"
-            :rules="enneagramRules"
+  <div class="col-center">
+    <v-card class="margin-top">
+      <v-container v-if="!registerSuccess">
+        <v-form ref="registerForm" class="form-width">
+          <v-text-field
+            v-model="emailAddress"
+            autofocus
+            type="email"
+            label="E-mail"
+            :rules="emailRules"
+            autocomplete="email"
             required
           />
-          <div class="row align-center margin">
-            Or
+          <v-text-field
+            v-model="password"
+            label="Password"
+            :type="passwordType"
+            hint="At least 8 characters"
+            min="8"
+            required
+            autocomplete="new-password"
+            :rules="passwordRules"
+          >
+            <template v-slot:append>
+              <v-btn
+                icon
+                @click="
+                  passwordType === 'password'
+                    ? (passwordType = 'text')
+                    : (passwordType = 'password')
+                "
+              >
+                <v-icon color="secondary">
+                  {{
+                    passwordType === 'password'
+                      ? 'mdi-eye-outline'
+                      : 'mdi-eye-off-outline'
+                  }}
+                </v-icon>
+              </v-btn>
+              <template />
+            </template>
+          </v-text-field>
+          <div class="wrap-on-small">
+            <v-select
+              v-model="enneagramType"
+              :items="enneagramTypes"
+              label="What is your Enneagram Type?"
+              :rules="enneagramRules"
+              required
+            />
+            <v-spacer />
+            <div class="margin">
+              Or
+            </div>
+            <v-spacer />
+            <!-- </div> -->
+            <div class="margin">
+              <enneagram-instructions
+                class="btn-center"
+                @typeSelected="typeChosen"
+              />
+            </div>
           </div>
-          <div class="row align-center">
-            <enneagram-instructions class="btn-center" @typeSelected="typeChosen" />
-          </div>
-        </div>
-        <v-btn
-          class="margin-top"
-          outlined
-          @click="register"
-        >
-          Register
-        </v-btn>
-      </v-form>
-    </div>
-    <div v-else class="col-center">
-      <h1 class="primary_v--text">
-        Register Success
-      </h1>
-      <p>
-        Confirm your email address {{ emailAddress }}
-      </p>
-      <p>
-        Please confirm your email address then
-        <NuxtLink :to="{path: '/auth', query: {}}">
-          login
-        </NuxtLink>
-      </p>
-    </div>
+          <v-btn class="margin-top" color="secondary" @click="register">
+            Register
+          </v-btn>
+        </v-form>
+      </v-container>
+      <div v-else class="col-center">
+        <h1 class="primary_v--text">
+          Register Success
+        </h1>
+        <p>Confirm your email address {{ emailAddress }}</p>
+        <p>
+          Please confirm your email address then
+          <v-btn color="secondary" router :to="{ path: '/auth', query: {} }">
+            login
+          </v-btn>
+        </p>
+      </div>
+    </v-card>
   </div>
 </template>
 <script>
@@ -107,9 +115,7 @@ export default {
       v => !!v || 'Password is required',
       v => (v && v.length >= 8) || 'Password must be at least 8 characters'
     ],
-    enneagramRules: [
-      v => !!v || 'Enneagram Type is required'
-    ]
+    enneagramRules: [v => !!v || 'Enneagram Type is required']
   }),
 
   methods: {
@@ -144,13 +150,12 @@ export default {
       this.enneagramType = e
     }
   }
-
 }
 </script>
 <style>
 .wrap-on-small {
-    display: flex;
-  }
+  display: flex;
+}
 @media only screen and (max-width: 500px) {
   .wrap-on-small {
     display: block;
@@ -160,10 +165,7 @@ export default {
   margin-left: 30px;
   margin-top: 10px;
 }
-.align-center {
-  align-items: center;
-}
 .margin {
-  margin: 20px;
+  margin: 20px 0;
 }
 </style>

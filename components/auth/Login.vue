@@ -1,45 +1,58 @@
 <template>
   <div class="col-center">
-    <v-form ref="loginForm" class="form-width">
-      <v-text-field
-        v-model="emailAddress"
-        type="email"
-        label="E-mail"
-        :rules="emailRules"
-        autocomplete="email"
-        required
-      />
-      <v-text-field
-        id="password"
-        ref="password"
-        v-model="password"
-        label="Enter your password"
-        hint="At least 8 characters"
-        :type="passwordType"
-        autocomplete="current-password"
-        min="8"
-        required
-        :rules="passwordRules"
-      >
-        <template
-          v-slot:append
-        >
-          <v-btn icon @click="passwordType === 'password' ? passwordType = 'text' : passwordType = 'password'">
-            <v-icon>
-              {{ passwordType === 'password' ? 'mdi-eye-outline' : 'mdi-eye-off-outline' }}
-            </v-icon>
-          </v-btn>
-          <template />
-        </template>
-      </v-text-field>
+    <v-card class="margin-top">
+      <v-container>
+        <v-form ref="loginForm" class="form-width">
+          <v-text-field
+            v-model="emailAddress"
+            type="email"
+            label="E-mail"
+            :rules="emailRules"
+            autocomplete="email"
+            required
+          />
+          <v-text-field
+            id="password"
+            ref="password"
+            v-model="password"
+            label="Enter your password"
+            hint="At least 8 characters"
+            :type="passwordType"
+            autocomplete="current-password"
+            min="8"
+            required
+            :rules="passwordRules"
+          >
+            <template v-slot:append>
+              <v-btn
+                icon
+                @click="
+                  passwordType === 'password'
+                    ? (passwordType = 'text')
+                    : (passwordType = 'password')
+                "
+              >
+                <v-icon color="secondary">
+                  {{
+                    passwordType === 'password'
+                      ? 'mdi-eye-outline'
+                      : 'mdi-eye-off-outline'
+                  }}
+                </v-icon>
+              </v-btn>
+              <template />
+            </template>
+          </v-text-field>
 
-      <v-btn outlined autofocus @click="goLogin">
-        login
-      </v-btn>
-      <v-btn outlined @click="clear">
-        clear
-      </v-btn>
-    </v-form>
+          <v-btn autofocus color="secondary" @click="goLogin">
+            login
+          </v-btn>
+          <v-btn @click="clear">
+            clear
+          </v-btn>
+        </v-form>
+      </v-container>
+    </v-card>
   </div>
 </template>
 <script>

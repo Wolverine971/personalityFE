@@ -3,10 +3,9 @@
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         v-if="type === 'btn'"
-        outlined
         dark
         v-bind="attrs"
-        color="secondary"
+        color="primary"
         v-on="on"
       >
         {{ label }}

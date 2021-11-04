@@ -16,9 +16,9 @@
       <Login />
       <br>
       <br>
-      <NuxtLink to="/auth/forgotPassword">
+      <v-btn router to="/auth/forgotPassword">
         Forgot Password
-      </NuxtLink>
+      </v-btn>
     </div>
   </div>
 </template>
