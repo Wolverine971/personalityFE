@@ -41,7 +41,6 @@
       <v-card-text>
         <sort
           :type="'comments'"
-          :selectable-types="commentTypes"
           @triggerNewSearch="filterComments($event)"
         />
       </v-card-text>
@@ -87,7 +86,6 @@ export default {
     question: null,
     commenterIds: {},
     showComments: false,
-    commentTypes: [],
     commentsLoading: false,
     cursorId: null,
     params: null
@@ -127,7 +125,6 @@ export default {
           )
           this.commenterIds = this.question.commenterIds
           this.showComments = this.commenterIds[this.user.id]
-          this.getTypes(this.question.comments.comments)
         } else {
           const resp = await this.$axios.get(
             `${endpoints.getQuestion}/${questionId}`
@@ -136,7 +133,6 @@ export default {
           if (resp && resp.data) {
             this.commenterIds = resp.data.commenterIds
             this.showComments = this.commenterIds[this.user.id]
-            this.getTypes(resp.data.comments.comments)
             this.question = Object.assign({}, resp.data)
             this.$store.commit('addAllQuestions', [resp.data])
           } else {
@@ -248,17 +244,6 @@ export default {
       } else {
         this.$store.dispatch('toastError', 'Update Comment Failure')
       }
-    },
-    getTypes (comments) {
-      const commentsObj = {}
-      let commentTypes = []
-      comments.forEach((c) => {
-        if (c.author && !commentsObj[c.author.enneagramId]) {
-          commentTypes = [...commentTypes, c.author.enneagramId]
-          commentsObj[c.author.enneagramId] = 1
-        }
-      })
-      this.commentTypes = commentTypes
     }
   }
 }

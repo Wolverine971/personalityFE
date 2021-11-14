@@ -3,7 +3,7 @@
     <v-select
       v-model="params.enneagramTypes"
       :disabled="!user"
-      :items="selectableTypes"
+      :items="enneaTypes"
       dense
       multiple
       outlined
@@ -51,11 +51,6 @@ export default {
   props: {
     type: {
       type: String,
-      required: true,
-      default: null
-    },
-    selectableTypes: {
-      type: Array,
       required: true,
       default: null
     }

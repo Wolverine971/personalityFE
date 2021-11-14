@@ -3,7 +3,6 @@
     Total Comments: {{ totalComments }}
     <sort
       :type="'comments'"
-      :selectable-types="enneagramTypes"
       @triggerNewSearch="filterComments($event)"
     />
     <v-card v-for="comment in allComments" :key="comment.id" class="margin-bot">
@@ -81,7 +80,6 @@ export default {
       commentsCount: 0,
       commentsLoading: false,
       key: -1,
-      enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
       cursorId: null,
       params: {
         enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
