@@ -178,7 +178,7 @@ export default {
             )
             if (resp && resp.data) {
               this.post.likes = [...newLikes]
-              this.$store.commit('addAllQuestions', [this.post])
+              this.$store.commit('updateAllQuestions', this.post)
             }
           } else if (this.type === 'comment') {
             resp = await this.$axios.get(
@@ -265,7 +265,7 @@ export default {
             }
             this.post.subscribers = [...newSubscribers]
             this.subscribers = newSubscribers
-            this.$store.commit('addAllQuestions', [this.post])
+            this.$store.commit('updateAllQuestions', this.post)
             this.$store.commit('setRefreshDashboard', true)
           } else {
             this.$store.dispatch('toastError', 'Failed To Subscribe')

@@ -134,7 +134,7 @@ export default {
             this.commenterIds = resp.data.commenterIds
             this.showComments = this.commenterIds[this.user.id]
             this.question = Object.assign({}, resp.data)
-            this.$store.commit('addAllQuestions', [resp.data])
+            this.$store.commit('updateAllQuestions', resp.data)
           } else {
             this.$store.dispatch('toastError', 'Failed To Get Question')
             this.$router.replace({ path: '/questions' })
@@ -146,7 +146,7 @@ export default {
         )
         if (resp && resp.data) {
           this.question = Object.assign({}, resp.data)
-          this.$store.commit('addAllQuestions', [resp.data])
+          this.$store.commit('updateAllQuestions', resp.data)
         } else {
           this.$store.dispatch('toastError', 'Failed To Get Question')
           this.$router.replace({ path: '/questions' })
@@ -168,7 +168,7 @@ export default {
           }
 
           this.question.comments = resp.data
-          this.$store.commit('addAllQuestions', [this.question])
+          this.$store.commit('updateAllQuestions', this.question)
         }
         this.commentsLoading = false
       }
@@ -188,7 +188,7 @@ export default {
           ...resp.data.comments
         ]
         this.question.comments.comments = comments
-        this.$store.commit('addAllQuestions', [this.question])
+        this.$store.commit('updateAllQuestions', this.question)
       }
       this.commentsLoading = false
     },
@@ -208,7 +208,7 @@ export default {
           }
         )
       })
-      this.$store.commit('addAllQuestions', [this.question])
+      this.$store.commit('updateAllQuestions', this.question)
     },
     async updateQuestion (event) {
       const resp = await this.$axios.post(
@@ -222,7 +222,7 @@ export default {
         this.question = Object.assign({}, this.question, {
           question: event
         })
-        this.$store.commit('addAllQuestions', [this.question])
+        this.$store.commit('updateAllQuestions', this.question)
         this.$store.dispatch('toastSuccess', 'Updated Question')
       } else {
         this.$store.dispatch('toastError', 'Update Question Failure')
@@ -239,7 +239,7 @@ export default {
       if (resp && resp.data) {
         this.question.comments.comments[event.index].comment = event.comment
 
-        this.$store.commit('addAllQuestions', [this.question])
+        this.$store.commit('updateAllQuestions', this.question)
         this.$store.dispatch('toastSuccess', 'Updated Comment')
       } else {
         this.$store.dispatch('toastError', 'Update Comment Failure')

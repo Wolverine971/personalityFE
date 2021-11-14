@@ -167,9 +167,17 @@ export const mutations = {
     questions.forEach((q: any) => {
       moreQuestions[q.id] = Object.assign({}, q)
     })
-    const lastDate = questions[questions.length - 1].dateCreated
-    state.allQuestionsLastDate = lastDate
+    if (questions.length) {
+      const lastDate = questions[questions.length - 1].dateCreated
+      state.allQuestionsLastDate = lastDate
+    }
     state.allQuestions = Object.assign({}, state.allQuestions, moreQuestions)
+  },
+  updateAllQuestions (state: AppState, question: any) {
+    if (state.allQuestions && state.allQuestions[question.id]) {
+      const newQuestion = { [question.id]: question }
+      state.allQuestions = Object.assign({}, state.allQuestions, newQuestion)
+    }
   },
   addAllComments (state: AppState, comments: any[]) {
     if (!state.allComments) {
