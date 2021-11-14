@@ -109,14 +109,6 @@ export default {
       this.commentsCount = val.length
     }
   },
-  mounted () {
-    if (!this.totalComments) {
-      this.$store.dispatch('getSortedPaginatedComments', this.params)
-    } else {
-      const comments = this.$store.getters.getAllComments
-      this.parseComments(comments)
-    }
-  },
   methods: {
     async loadMoreComments () {
       this.commentsLoading = true

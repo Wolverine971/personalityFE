@@ -1,6 +1,6 @@
 <template>
   <v-card
-    v-if="componentComment"
+    v-if="componentComment && componentComment.comment"
     :id="componentComment.id"
     :class="'shadow'"
     @mouseover="showCookies = true"

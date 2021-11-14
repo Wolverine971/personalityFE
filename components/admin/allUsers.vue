@@ -68,7 +68,7 @@ export default {
       usersCount: 0,
       usersLoading: false,
       key: -1,
-      cursorId: null
+      lastDate: null
     }
   },
   computed: {
@@ -92,7 +92,7 @@ export default {
   },
   mounted () {
     if (!this.totalUsers) {
-      this.$store.dispatch('getPaginatedUsers', this.cursorId)
+      this.$store.dispatch('getPaginatedUsers', this.lastDate)
     } else {
       const users = this.$store.getters.getAllUsers
       this.parseUsers(users)
@@ -101,12 +101,12 @@ export default {
   methods: {
     async loadMoreUsers () {
       this.usersLoading = true
-      await this.$store.dispatch('getPaginatedUsers', this.cursorId)
+      await this.$store.dispatch('getPaginatedUsers', this.lastDate)
       this.usersLoading = false
     },
     parseUsers (users) {
       this.allUsers = [...users]
-      this.cursorId = users[users.length - 1].id
+      this.lastDate = users[users.length - 1].dateCreated
     },
     getTime (time) {
       return msToTime(time)

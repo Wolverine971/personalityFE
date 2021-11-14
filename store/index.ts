@@ -19,7 +19,7 @@ export interface AppState {
 
   allQuestionsLastDate: string
 
-  allCommentsLastDate: string
+  allCommentsSkipCount: number
 
   allQuestionsCount: number
 
@@ -55,7 +55,7 @@ export const state: AppState = {
 
   allQuestionsLastDate: '',
 
-  allCommentsLastDate: '',
+  allCommentsSkipCount: 0,
 
   allQuestionsCount: 0,
 
@@ -100,8 +100,8 @@ export const getters = {
     return state.allQuestionsLastDate
   },
 
-  getAllCommentsLastDate (state: AppState) {
-    return state.allCommentsLastDate
+  getAllCommentsSkipCount (state: AppState) {
+    return state.allCommentsSkipCount
   },
   getAllQuestionsCount (state: AppState) {
     return state.allQuestionsCount
@@ -167,12 +167,15 @@ export const mutations = {
     questions.forEach((q: any) => {
       moreQuestions[q.id] = Object.assign({}, q)
     })
+    const lastDate = questions[questions.length - 1].dateCreated
+    state.allQuestionsLastDate = lastDate
     state.allQuestions = Object.assign({}, state.allQuestions, moreQuestions)
   },
   addAllComments (state: AppState, comments: any[]) {
     if (!state.allComments) {
       state.allComments = []
     }
+    state.allCommentsSkipCount += 10
     state.allComments = [...state.allComments, ...comments]
   },
   replaceAllComments (state: AppState, comments: any[]) {
@@ -183,13 +186,6 @@ export const mutations = {
   },
   setDashboard (state: AppState, subscriptions: any[]) {
     state.dashboard = subscriptions
-  },
-  setAllQuestionsLastDate (state: AppState, lastDate: string) {
-    state.allQuestionsLastDate = lastDate
-  },
-
-  setAllCommentsLastDate (state: AppState, lastDate: string) {
-    state.allCommentsLastDate = lastDate
   },
   setAllQuestionsCount (state: AppState, count: number) {
     state.allQuestionsCount = count
@@ -220,7 +216,7 @@ export const mutations = {
     state.notifications = notifications
   },
   addAllUsers (state: AppState, users: any[]) {
-    state.users = users
+    state.users = [...state.users, ...users]
   },
   setAllUsersCount (state: AppState, count: number) {
     state.usersCount = count
@@ -321,37 +317,33 @@ export const actions: any = {
     })
   },
   getPaginatedQuestions ({ commit, getters }: any, pageSize: number) {
-    let lastDate = getters.getAllQuestionsLastDate
+    const lastDate = getters.getAllQuestionsLastDate
     return this.$axios
       .get(`${endpoints.getAllQuestions}/${pageSize}/${lastDate || ''}`)
       .then((resp: any) => {
         if (resp && resp.data) {
-          lastDate =
-            resp.data.questions[resp.data.questions.length - 1].dateCreated
-          commit('setAllQuestionsLastDate', lastDate)
           commit('addAllQuestions', resp.data.questions)
           commit('setAllQuestionsCount', resp.data.count)
         }
       })
   },
 
-  getSortedPaginatedComments ({ commit }: any, sortParams: any) {
+  getSortedPaginatedComments ({ commit, getters }: any, sortParams: any) {
+    const commentSkipCount = getters.getAllCommentsSkipCount
+    sortParams.skip = commentSkipCount || 0
     return this.$axios
       .post(`${endpoints.getSortedComments}/`, sortParams)
       .then((resp: any) => {
-        if (sortParams.cursorId) {
+        if (resp && resp.data) {
           commit('addAllComments', resp.data.comments)
-          commit('setAllCommentsCount', resp.data.count)
-        } else {
-          commit('replaceAllComments', resp.data.comments)
           commit('setAllCommentsCount', resp.data.count)
         }
       })
   },
 
-  getPaginatedUsers ({ commit }: any, cursorId: any) {
+  getPaginatedUsers ({ commit }: any, lastDate: any) {
     return this.$axios
-      .get(`${endpoints.users}/${cursorId || ''}`)
+      .get(`${endpoints.users}/${lastDate || ''}`)
       .then((resp: any) => {
         commit('addAllUsers', resp.data.users)
         commit('setAllUsersCount', resp.data.count)

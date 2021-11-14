@@ -14,7 +14,7 @@
     <v-btn
       v-if="
         displayedComments.comments.length < displayedComments.count &&
-          !commentsLoading
+          !commentsLoading && !hideLoader
       "
       class="margin-top row"
       color="secondary"
@@ -46,10 +46,14 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    hideLoader: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data: () => ({
-    commentCursorId: null,
     displayedComments: null,
     commentsLoading: false,
     lastDate: null

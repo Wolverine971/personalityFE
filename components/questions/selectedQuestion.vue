@@ -17,11 +17,7 @@
           class="pad-bot limit-height"
         >
           <template
-            v-if="
-              user &&
-                question.author &&
-                question.author.id === user.id
-            "
+            v-if="user && question.author && question.author.id === user.id"
             v-slot:append
           >
             <edit-content
@@ -55,9 +51,22 @@
       class="margin-top"
       :comments="question.comments"
       :parent-id="question.id"
+      :hide-loader="true"
       @commentUpdated="updateComment"
     />
-    <v-card v-else class="m-col">
+    <v-btn
+      v-if="
+        question.comments.comments.length < question.comments.count &&
+          !commentsLoading
+      "
+      class="margin-top row"
+      color="secondary"
+      @click="loadMore"
+    >
+      Load More
+    </v-btn>
+    <v-progress-linear v-else-if="commentsLoading" indeterminate />
+    <v-card v-else-if="!showComments" class="m-col">
       Answer Question to see other answers
     </v-card>
   </div>
@@ -76,10 +85,12 @@ export default {
 
   data: () => ({
     question: null,
-    cursorId: null,
     commenterIds: {},
     showComments: false,
-    commentTypes: []
+    commentTypes: [],
+    commentsLoading: false,
+    cursorId: null,
+    params: null
   }),
   computed: {
     alreadyFetchedQuestions () {
@@ -148,22 +159,42 @@ export default {
     },
     async filterComments (event) {
       if (this.user) {
-        if (this.cursorId) {
-          event.cursorId = this.cursorId
-        }
+        this.commentsLoading = true
+
         const resp = await this.$axios.post(
           `${endpoints.getSortedComments}/${this.questionId}`,
           event
         )
         if (resp && resp.data && resp.data.comments) {
           if (resp.data.comments.length) {
-            this.cursorId =
-              resp.data.comments[resp.data.comments.length - 1].dateCreated
+            this.params = { ...event }
+            this.params.skip = 10
           }
+
           this.question.comments = resp.data
           this.$store.commit('addAllQuestions', [this.question])
         }
+        this.commentsLoading = false
       }
+    },
+    async loadMore () {
+      this.commentsLoading = true
+      const resp = await this.$axios.post(
+        `${endpoints.getSortedComments}/${this.questionId}`,
+        this.params
+      )
+      if (resp && resp.data && resp.data.comments) {
+        if (resp.data.comments.length) {
+          this.params.skip += 10
+        }
+        const comments = [
+          ...this.question.comments.comments,
+          ...resp.data.comments
+        ]
+        this.question.comments.comments = comments
+        this.$store.commit('addAllQuestions', [this.question])
+      }
+      this.commentsLoading = false
     },
     newComment (event) {
       this.showComments = true
