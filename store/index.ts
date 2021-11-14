@@ -1,9 +1,9 @@
+import { ContentPost } from '~/models/interfaces'
+import { getQuestionsFromData } from '~/utils'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 import { endpoints } from '../models/endpoints'
-import { getQuestionsFromData } from '~/utils'
-import { ContentPost } from '~/models/interfaces'
 
 Vue.use(Vuex)
 export interface AppState {
@@ -244,7 +244,7 @@ export const actions: any = {
         return true
       } else {
         if (data.response && data.response.data) {
-          dispatch('toastError', data.response.data)
+          dispatch('toastError', 'Login Fail')
         } else {
           dispatch('toastError', 'Login Fail')
         }

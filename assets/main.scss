@@ -1,20 +1,21 @@
 @import '../assets/variables.scss';
 @import 'vuetify/dist/vuetify.min.css';
 
-
 :root {
   --primary: #191970;
   --primary_v: #0e0e3d;
   --accent: #121212;
   --accent_v: #221717;
-  --secondary: #F72585;
+  --secondary: #f72585;
   --secondary_v: #91174e;
-  --success: #F72585;
-  --info: #F3F3F4;
-  --warning: #FB8C00;
-  --error: #FF5252;
+  --success: #f72585;
+  --info: #f3f3f4;
+  --warning: #fb8c00;
+  --error: #ff5252;
 }
-header, footer, .v-card {
+header,
+footer,
+.v-card {
   border-radius: 10px;
 }
 
@@ -202,7 +203,6 @@ header, footer, .v-card {
   justify-content: space-around;
 }
 
-
 .clickable {
   cursor: pointer;
 }
@@ -212,7 +212,8 @@ header, footer, .v-card {
 }
 
 .shadow {
-  box-shadow: 1px 1px 10px 0 #fff, 0 3px 12px 0 var(--accent), 0 5px 17px 0 var(--accent) !important;
+  box-shadow: 1px 1px 10px 0 #fff, 0 3px 12px 0 var(--accent),
+    0 5px 17px 0 var(--accent) !important;
 }
 .footer-shadow {
   box-shadow: 0px 0px 10px 0 black, 0px -3px 12px 0 #0f0f44,
@@ -274,11 +275,10 @@ header, footer, .v-card {
   margin-left: auto;
 }
 
-
-@media only screen and (min-width: 300px) and (max-width: 750px){
+@media only screen and (min-width: 300px) and (max-width: 750px) {
   .comment {
-      font-size: 10pt;
-      line-height: 14pt;
+    font-size: 10pt;
+    line-height: 14pt;
   }
 }
 
@@ -292,21 +292,25 @@ header, footer, .v-card {
 @-webkit-keyframes glow {
   to {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--secondary),
-      0 0 40px var(--secondary), 0 0 50px var(--secondary), 0 0 60px var(--secondary), 0 0 70px var(--secondary);
+      0 0 40px var(--secondary), 0 0 50px var(--secondary),
+      0 0 60px var(--secondary), 0 0 70px var(--secondary);
   }
   from {
     text-shadow: 0 0 20px #fff, 0 0 30px var(--accent), 0 0 40px var(--accent),
-      0 0 50px var(--accent), 0 0 60px var(--accent), 0 0 70px var(--accent), 0 0 80px var(--accent);
+      0 0 50px var(--accent), 0 0 60px var(--accent), 0 0 70px var(--accent),
+      0 0 80px var(--accent);
   }
 }
 @keyframes glow {
   to {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--secondary),
-      0 0 40px var(--secondary), 0 0 50px var(--secondary), 0 0 60px var(--secondary), 0 0 70px var(--secondary);
+      0 0 40px var(--secondary), 0 0 50px var(--secondary),
+      0 0 60px var(--secondary), 0 0 70px var(--secondary);
   }
   from {
     text-shadow: 0 0 20px #fff, 0 0 30px var(--accent), 0 0 40px var(--accent),
-      0 0 50px var(--accent), 0 0 60px var(--accent), 0 0 70px var(--accent), 0 0 80px var(--accent);
+      0 0 50px var(--accent), 0 0 60px var(--accent), 0 0 70px var(--accent),
+      0 0 80px var(--accent);
   }
 }
 
@@ -328,23 +332,23 @@ p {
   margin-bottom: 0 !important;
 }
 
-.twitter{
+.twitter {
   position: relative;
-    height: 20px;
-    box-sizing: border-box;
-    padding: 1px 12px 1px 12px;
-    background-color: #1d9bf0;
-    color: #fff !important;
-    border-radius: 9999px;
-    font-weight: 500;
-    cursor: pointer !important;
-    outline: 0;
-    text-decoration: none;
-    display: inline-block;
-    vertical-align: top;
-    zoom: 1;
+  height: 20px;
+  box-sizing: border-box;
+  padding: 1px 12px 1px 12px;
+  background-color: #1d9bf0;
+  color: #fff !important;
+  border-radius: 9999px;
+  font-weight: 500;
+  cursor: pointer !important;
+  outline: 0;
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
 }
-.twitter i{
+.twitter i {
   position: relative;
   // top: 2px;
   display: inline-block;
@@ -354,7 +358,7 @@ p {
   background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2072%2072%22%3E%3Cpath%20fill%3D%22none%22%20d%3D%22M0%200h72v72H0z%22%2F%3E%3Cpath%20class%3D%22icon%22%20fill%3D%22%23fff%22%20d%3D%22M68.812%2015.14c-2.348%201.04-4.87%201.744-7.52%202.06%202.704-1.62%204.78-4.186%205.757-7.243-2.53%201.5-5.33%202.592-8.314%203.176C56.35%2010.59%2052.948%209%2049.182%209c-7.23%200-13.092%205.86-13.092%2013.093%200%201.026.118%202.02.338%202.98C25.543%2024.527%2015.9%2019.318%209.44%2011.396c-1.125%201.936-1.77%204.184-1.77%206.58%200%204.543%202.312%208.552%205.824%2010.9-2.146-.07-4.165-.658-5.93-1.64-.002.056-.002.11-.002.163%200%206.345%204.513%2011.638%2010.504%2012.84-1.1.298-2.256.457-3.45.457-.845%200-1.666-.078-2.464-.23%201.667%205.2%206.5%208.985%2012.23%209.09-4.482%203.51-10.13%205.605-16.26%205.605-1.055%200-2.096-.06-3.122-.184%205.794%203.717%2012.676%205.882%2020.067%205.882%2024.083%200%2037.25-19.95%2037.25-37.25%200-.565-.013-1.133-.038-1.693%202.558-1.847%204.778-4.15%206.532-6.774z%22%2F%3E%3C%2Fsvg%3E);
 }
 .twitter .label {
-  font: normal normal normal 12px/18px 'Helvetica Neue',Arial,sans-serif;
+  font: normal normal normal 12px/18px 'Helvetica Neue', Arial, sans-serif;
   font-display: swap;
   display: inline-block;
   vertical-align: top;
@@ -362,11 +366,11 @@ p {
   margin-left: 3px;
   white-space: nowrap;
 }
-.v-application{
+.v-application {
   background-image: url('/backgroundStreet.jpg') !important;
 
   /* Full height */
-  height: 100%; 
+  height: 100%;
   width: 100%;
 
   /* Create the parallax scrolling effect */

@@ -51,12 +51,12 @@
               required
             />
             <v-spacer />
-            <div class="margin">
+            <div class="margin-all">
               Or
             </div>
             <v-spacer />
             <!-- </div> -->
-            <div class="margin">
+            <div class="margin-all">
               <enneagram-instructions
                 class="btn-center"
                 @typeSelected="typeChosen"
@@ -165,7 +165,7 @@ export default {
   margin-left: 30px;
   margin-top: 10px;
 }
-.margin {
+.margin-all {
   margin: 20px 0;
 }
 </style>
