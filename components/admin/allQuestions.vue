@@ -76,6 +76,11 @@ export default {
       type: Boolean,
       default: false,
       required: false
+    },
+    numberOfQuestions: {
+      type: String,
+      default: '10',
+      required: false
     }
   },
   data () {
@@ -101,9 +106,15 @@ export default {
     },
     allQuestions (val) {
       this.questionsCount = val.length
+    },
+    numberOfQuestions (val) {
+      if (val) {
+        this.pageSize = val
+      }
     }
   },
   mounted () {
+    this.pageSize = this.numberOfQuestions
     if (!this.totalQuestions) {
       this.$store.dispatch('getPaginatedQuestions', this.pageSize)
     } else {

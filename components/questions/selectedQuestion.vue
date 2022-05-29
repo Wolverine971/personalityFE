@@ -106,7 +106,7 @@ export default {
       this.getQuestion(questionId)
     }
   },
-  mounted () {
+  created () {
     if (this.$route.params && this.$route.params.id) {
       this.getQuestion(this.$route.params.id)
     }

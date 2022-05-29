@@ -9,7 +9,7 @@
         </v-card-title>
         <v-card-subtitle class="min-marg-top">
           <h3 class="secondary--text">
-            This is community for questions
+            When you run out of questions, you not only run out of answers, you run out of hope
           </h3>
         </v-card-subtitle>
         <v-card-text>
@@ -20,9 +20,18 @@
             The Goal
           </h2>
           <p>
-            To start conversations and provide a lense through which we can
-            generate empathy and curiosity for one another.
+            People are different, but there are similarities. We don't know exactly how and in what ways we are different and the same, but we are aware.
+            The mission here at 9takes is to start conversations that explore our similarities and differences so that we can generate both empathy and curiosity.
           </p>
+          <div>
+            <h3> Two contrasting and unproductive trains of thought, that stifle conversation</h3>
+            <div>
+              "People are all different, and no one understands or can understand me"
+            </div>
+            <div>
+              "People are all the same, we all have the same problems "
+            </div>
+          </div>
           <h2 class="secondary--text">
             <v-icon color="primary">
               directions_walk

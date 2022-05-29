@@ -86,7 +86,7 @@
       </v-menu>
     </div>
     <v-btn
-      v-else
+      v-else-if="$route.name !== 'auth'"
       :to="{ path: '/auth', query: {} }"
       color="secondary"
       class="shadow btn-shrink-mobile"

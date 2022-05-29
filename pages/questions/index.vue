@@ -11,7 +11,7 @@
       <h2 class="secondary--text">
         All Asked Questions
       </h2>
-      <all-questions />
+      <all-questions number-of-questions="10" />
     </v-card>
   </v-container>
 </template>

@@ -15,7 +15,7 @@
     />
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <all-questions :admin="true" />
+        <all-questions :admin="true" number-of-questions="100" />
       </v-tab-item>
       <v-tab-item>
         <all-comments :admin="true" />

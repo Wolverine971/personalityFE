@@ -112,7 +112,6 @@ export default {
           if (cookieCount === 1) {
             cookiesCreated++
             this.ctx.drawImage(img, 0, 0)
-            // this.canvasBox.style.backgroundImage = 'url(' + this.canvas.toDataURL('image/png') + ')'
           } else {
             for (let i = 0; i < contHeight; i++) {
               for (let j = 0; j < contWidth; j++) {

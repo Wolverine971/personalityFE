@@ -68,11 +68,16 @@ export default {
   },
   methods: {
     parseContent (vals) {
-      this.displayedComments = vals
-      if (vals.comments && vals.comments.length) {
-        this.lastDate = vals.comments[vals.comments.length - 1].dateCreated
+      if (vals && vals.comments) {
+        this.displayedComments = vals
+        if (vals.comments && vals.comments.length) {
+          this.lastDate = vals.comments[vals.comments.length - 1].dateCreated
+        }
+        this.displayedComments.count = vals.count
+      } else {
+        console.error('no comments')
+        this.displayedComments = null
       }
-      this.displayedComments.count = vals.count
     },
     loadMore () {
       this.contentLoading = true
