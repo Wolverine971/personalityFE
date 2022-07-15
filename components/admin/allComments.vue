@@ -1,63 +1,79 @@
 <template>
   <div class="m-col">
-    Total Comments: {{ totalComments }}
-    <sort
-      :type="'comments'"
-      @triggerNewSearch="filterComments($event)"
-    />
-    <v-card v-for="comment in allComments" :key="comment.id" class="margin-bot">
-      <v-card-text
-        class="pad-bot clickable"
-      >
-        <div class="row space-between">
-          <div class="margin-left">
-            {{ comment.comment }}?
-          </div>
-          <div>
-            <v-btn v-if="admin" outlined small>
-              Id: {{ comment.id }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              Author Enneagram: {{ comment.author.enneagramId }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              DateCreated: {{ getTime(comment.dateCreated) }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              Modified: {{ comment.modified }}
-            </v-btn>
-            <v-btn small outlined>
-              <v-icon> mdi-cookie-outline </v-icon>
-              {{ comment.likes.length }}
-            </v-btn>
-            <v-btn small outlined>
-              <v-icon> mdi-comment-outline </v-icon>
-              {{ comment.comments.count }}
-            </v-btn>
-            <v-btn
-              v-if="admin"
-              outlined
-              small
-              color="red"
-              @click="deleteComment(comment)"
-            >
-              <v-icon>delete</v-icon>
-            </v-btn>
-          </div>
-        </div>
-      </v-card-text>
-    </v-card>
+    <!-- <h2>Total Comments: {{ totalComments }} </h2> -->
+    <div class="margin-bot" style="padding:10px;">
+      <!-- <sort
+        :type="'comments'"
+        @triggerNewSearch="filterComments($event)"
+      /> -->
 
-    <div
-      v-if="commentsCount < totalComments && !commentsLoading"
-      class="row"
-      @click="loadMoreComments"
-    >
-      <v-btn outlined color="secondary">
-        Load More
-      </v-btn>
+      <v-card class="margin-top">
+        <v-card-title class="primary_v--text">
+          Total Comments: {{ totalComments }}
+        </v-card-title>
+        <v-card-text>
+          <sort
+            :type="'comments'"
+            @triggerNewSearch="filterComments($event)"
+          />
+        </v-card-text>
+      </v-card>
+
+      <v-card
+        v-for="comment in allComments"
+        :key="comment.id"
+      >
+        <v-card-text
+          class="pad-bot clickable"
+        >
+          {{ comment.comment }}?
+          <v-card-actions class="">
+            <div>
+              <v-btn v-if="admin" outlined small>
+                Id: {{ comment.id }}
+              </v-btn>
+              <v-btn v-if="admin" outlined small>
+                Author Enneagram: {{ comment.author.enneagramId }}
+              </v-btn>
+              <v-btn v-if="admin" outlined small>
+                DateCreated: {{ getTime(comment.dateCreated) }}
+              </v-btn>
+              <v-btn v-if="admin" outlined small>
+                Modified: {{ comment.modified }}
+              </v-btn>
+              <v-btn small outlined>
+                <v-icon> mdi-cookie-outline </v-icon>
+                {{ comment.likes.length }}
+              </v-btn>
+              <v-btn small outlined>
+                <v-icon> mdi-comment-outline </v-icon>
+                {{ comment.comments.count }}
+              </v-btn>
+              <v-btn
+                v-if="admin"
+                outlined
+                small
+                color="red"
+                @click="deleteComment(comment)"
+              >
+                <v-icon>delete</v-icon>
+              </v-btn>
+            </div>
+          </v-card-actions>
+        </v-card-text>
+      </v-card>
+
+      <div
+        v-if="commentsCount < totalComments && !commentsLoading"
+        class="row"
+        @click="loadMoreComments"
+      >
+        <v-btn outlined color="secondary">
+          Load More
+        </v-btn>
+      </div>
+      <v-progress-linear v-else-if="commentsLoading" indeterminate />
     </div>
-    <v-progress-linear v-else-if="commentsLoading" indeterminate />
   </div>
 </template>
 
@@ -66,6 +82,9 @@ import { msToTime } from '../../utils'
 import { endpoints } from '../../models/endpoints'
 export default {
   name: 'AllComments',
+  components: {
+    Sort: () => import('~/components/questions/sort.vue')
+  },
   props: {
     admin: {
       type: Boolean,
@@ -82,7 +101,7 @@ export default {
       key: -1,
       cursorId: null,
       params: {
-        enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        enneagramTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
         dateRange: '',
         sortBy: ''
       }

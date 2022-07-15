@@ -12,7 +12,6 @@
           mdi-instagram
         </v-icon>
       </v-btn>
-      Socials
       <v-btn
         icon
         href="https://twitter.com/9takesdotcom"

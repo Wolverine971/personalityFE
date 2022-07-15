@@ -87,7 +87,7 @@
           unconsciously a lot?
         </p>
 
-        <label for="btn-toggle"> Choose One:</label>
+        <label for="btn-toggle" style="font-weight: bold;"> Choose One:</label>
         <v-btn-toggle id="btn-toggle" tile style="display: block">
           <v-btn @click="coreEmotion = 'shame'">
             Shame/ Grief
@@ -136,8 +136,10 @@
               @click="chosen('2')"
             >
               <v-card>
-                <v-card-title>Type 2</v-card-title>
                 <v-card-text>
+                  <h1 style="margin-bottom: 10px">
+                    Type 2
+                  </h1>
                   <h3 class="primary_v--text">
                     Description
                   </h3>
@@ -173,8 +175,10 @@
               @click="chosen('3')"
             >
               <v-card>
-                <v-card-title>Type 3</v-card-title>
                 <v-card-text>
+                  <h1 style="margin-bottom: 10px">
+                    Type 3
+                  </h1>
                   <h3 class="primary_v--text">
                     Description
                   </h3>
@@ -210,8 +214,10 @@
               @click="chosen('4')"
             >
               <v-card>
-                <v-card-title>Type 4</v-card-title>
                 <v-card-text>
+                  <h1 style="margin-bottom: 10px">
+                    Type 4
+                  </h1>
                   <h3 class="primary_v--text">
                     Description
                   </h3>
@@ -249,8 +255,10 @@
               @click="chosen('5')"
             >
               <v-card>
-                <v-card-title>Type 5</v-card-title>
                 <v-card-text>
+                  <h1 style="margin-bottom: 10px">
+                    Type 5
+                  </h1>
                   <h3 class="primary_v--text">
                     Description
                   </h3>
@@ -286,8 +294,10 @@
               @click="chosen('6')"
             >
               <v-card>
-                <v-card-title>Type 6</v-card-title>
                 <v-card-text>
+                  <h1 style="margin-bottom: 10px">
+                    Type 6
+                  </h1>
                   <h3 class="primary_v--text">
                     Description
                   </h3>
@@ -323,8 +333,10 @@
               @click="chosen('7')"
             >
               <v-card>
-                <v-card-title>Type 7</v-card-title>
                 <v-card-text>
+                  <h1 style="margin-bottom: 10px">
+                    Type 7
+                  </h1>
                   <h3 class="primary_v--text">
                     Description
                   </h3>
@@ -361,8 +373,10 @@
               @click="chosen('8')"
             >
               <v-card>
-                <v-card-title>Type 8</v-card-title>
                 <v-card-text>
+                  <h1 style="margin-bottom: 10px">
+                    Type 8
+                  </h1>
                   <h3 class="primary_v--text">
                     Description
                   </h3>
@@ -399,8 +413,10 @@
               @click="chosen('9')"
             >
               <v-card>
-                <v-card-title>Type 9</v-card-title>
                 <v-card-text>
+                  <h1 style="margin-bottom: 10px">
+                    Type 9
+                  </h1>
                   <h3 class="primary_v--text">
                     Description
                   </h3>
@@ -436,7 +452,10 @@
               @click="chosen('1')"
             >
               <v-card>
-                <v-card-title>Type 1</v-card-title><v-card-text>
+                <v-card-text>
+                  <h1 style="margin-bottom: 10px">
+                    Type 1
+                  </h1>
                   <h3 class="primary_v--text">
                     Description
                   </h3>
@@ -490,7 +509,7 @@ export default {
     label: {
       type: String,
       required: false,
-      default: 'Find Out Enneagram Here'
+      default: 'Find Your Enneagram'
     },
     type: {
       type: String,
@@ -502,7 +521,7 @@ export default {
     return {
       dialog: false,
       coreEmotion: null,
-      enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      enneagramTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
       chosenType: null
     }
   },

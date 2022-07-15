@@ -364,6 +364,39 @@ export default {
           warning: '#FB8C00',
           error: '#FF5252'
         }
+      },
+      {
+        name: 'Batman',
+        dark: {
+          // batman blue
+          primary: '#111111',
+          primary_v: '#111111',
+          // black
+          secondary: '#0088c0',
+          secondary_v: '#0088c0',
+          // grey
+          accent: '#d0c8bb',
+          accent_v: '#d0c8bb',
+          success: '#F72585',
+          info: '#F3F3F4',
+          warning: '#FB8C00',
+          error: '#FF5252'
+        },
+        light: {
+          // batman blue
+          primary: '#111111',
+          primary_v: '#111111',
+          // black
+          secondary: '#0088c0',
+          secondary_v: '#0088c0',
+          // grey
+          accent: '#d0c8bb',
+          accent_v: '#d0c8bb',
+          success: '#F72585',
+          info: '#F3F3F4',
+          warning: '#FB8C00',
+          error: '#FF5252'
+        }
       }
     ]
   }),

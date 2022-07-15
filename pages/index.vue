@@ -1,99 +1,147 @@
 <template>
-  <div class="row align-center">
-    <div class="m-col align-center">
+  <div class="align-center">
+    <v-card class="m-col align-center">
       <v-card>
-        <v-card-title class="headline">
-          <h1 class="secondary--text">
-            Welcome to the 9takes Beta
+        <v-card-title class="headline ">
+          <h1 class="secondary--text center">
+            9takes Beta
           </h1>
         </v-card-title>
-        <v-card-subtitle class="min-marg-top">
-          <h3 class="secondary--text">
-            When you run out of questions, you not only run out of answers, you run out of hope
+        <v-card-subtitle class="min-marg-top ">
+          <h3 class="secondary--text " style="text-align: center">
+            Ask questions get the familiar and the unexpected
           </h3>
         </v-card-subtitle>
-        <v-card-text>
+        <v-card-actions>
+          <v-tooltip bottom :close-delay="1000" :open-delay="100">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                outlined
+                to="/auth"
+                color="secondary"
+                class="center signup-button"
+                v-bind="attrs"
+                v-on="on"
+              >
+                Join
+                <!-- <v-icon color="secondary">
+              keyboard_arrow_up
+            </v-icon> -->
+              </v-btn>
+            </template>
+            It'll be sooo great
+          </v-tooltip>
+        </v-card-actions>
+      </v-card>
+
+      <v-card>
+        <v-card-text class="center-mid">
           <h2 class="secondary--text">
             <v-icon color="primary">
               flag
             </v-icon>
-            The Goal
+            Background
           </h2>
           <p>
-            People are different, but there are similarities. We don't know exactly how and in what ways we are different and the same, but we are aware.
-            The mission here at 9takes is to start conversations that explore our similarities and differences so that we can generate both empathy and curiosity.
+            People are different, but they are also similar. The dividing line between the similarities and differences is not well understood.
+            There are many ways to "classify" people or "label" them but how helpful or limiting are these labels?<b> It is no secret that the world is divided and division revolves around labeling others and a sense of certainty.</b>
+            I want to disrupt this by introducing uncertainty in the form of questions and removing labels introducing anonymity.
+            By doing so I hope to generate curiosity and maybe a little empathy.
           </p>
           <div>
-            <h3> Two contrasting and unproductive trains of thought, that stifle conversation</h3>
-            <div>
-              "People are all different, and no one understands or can understand me"
-            </div>
-            <div>
-              "People are all the same, we all have the same problems "
-            </div>
+            <h3> Two contrasting and unproductive trains of thought</h3>
+            <ul>
+              <li>People are all different, and no one understands or can understand me</li>
+              <li>People are all the same, we all have the same problems</li>
+            </ul>
           </div>
-          <h2 class="secondary--text">
-            <v-icon color="primary">
-              directions_walk
-            </v-icon>
-            How We Get There
-          </h2>
-          <p>
-            9takes is built on the idea that by asking raw and real questions
-            and giving honest answers we can gain a broad understanding of those
-            around us. 9takes gets its name from the enneagram and hints at
-            there being nine different ways of viewing any situation or
-            question. Therefore, to get at these different viewpoints we ask
-            questions which we hope will spawn follow up questions and a general
-            curiosity for the other... maybe even some empathy.
-          </p>
         </v-card-text>
       </v-card>
-      <div class="row-mid">
-        <v-card class="row-fif margin">
+
+      <!-- <v-card class="row-fif">
+        <v-card-title class="headline">
           <h3 class="primary_v--text">
-            Blog
+            Find people similar to you
           </h3>
+        </v-card-title>
+        <v-card-text class="center-mid">
           <p style="margin: 23px">
-            Topics, implications, and predictions surrounding 9takes will
-            discussed.
+            What are they doing? How are you similar?
+            Where Are they?
           </p>
+        </v-card-text>
+        <v-card-actions>
           <v-btn outlined to="/blog" color="secondary">
             <v-icon color="secondary">
               keyboard_arrow_left
             </v-icon>
             Go to the Blog
           </v-btn>
-        </v-card>
-        <v-card class="row-fif">
+        </v-card-actions>
+      </v-card> -->
+      <!-- <div class="row-mid"> -->
+      <v-card class="row-fif">
+        <v-card-title class="headline">
           <h3 class="primary_v--text">
             Questions
           </h3>
+        </v-card-title>
+        <v-card-text class="center-mid">
           <p style="margin: 23px">
             All answers to questions will be hidden until you respond, we
             welcome your voice to the conversation, go ahead, share your
             thoughts!
           </p>
+        </v-card-text>
+        <v-card-actions>
           <v-btn outlined to="/questions" color="secondary">
             Go to Questions
             <v-icon color="secondary">
               keyboard_arrow_right
             </v-icon>
           </v-btn>
-        </v-card>
-      </div>
-      <v-card class="center-div margin row-fif">
-        <h3 class="primary_v--text">
-          One More Thing
-        </h3>
-        <p style="margin: 23px">
-          All Comments, Questions, and Wall posts are <b>anonymous</b>
-          <br>
-          The only thing that identifies you to the community is your
-          personality type
-        </p>
+        </v-card-actions>
       </v-card>
-    </div>
+      <v-card class="row-fif">
+        <v-card-title class="headline">
+          <h3 class="primary_v--text">
+            Blog
+          </h3>
+        </v-card-title>
+        <v-card-text class="center-mid">
+          <p style="margin: 23px">
+            Topics, implications, and predictions surrounding 9takes will
+            discussed.
+          </p>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn outlined to="/blog" color="secondary">
+            <v-icon color="secondary">
+              keyboard_arrow_left
+            </v-icon>
+            Go to the Blog
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+
+      <!-- </div> -->
+      <v-card class="row-fif">
+        <v-card-title class="headline">
+          <h3 class="primary_v--text">
+            One More Thing
+          </h3>
+        </v-card-title>
+        <v-card-text class="center-mid">
+          <p style="margin: 23px">
+            All Comments, Questions, and Wall posts are <b>anonymous</b>
+            <br>
+            The only thing that identifies you to the community is your
+            personality type
+          </p>
+        </v-card-text>
+      </v-card>
+      <v-spacer />
+    </v-card>
   </div>
 </template>
 
@@ -104,6 +152,10 @@ export default {
 }
 </script>
 <style lang="scss">
+.signup-button{
+  height: 200px !important;
+  width: 90%;
+}
 .min-marg-top {
   margin-top: -10px !important;
 }
@@ -116,8 +168,8 @@ export default {
   display: flex !important;
   flex-direction: column;
   align-items: center;
-  width: 50%;
-  height: 190px;
+  // width: 50%;
+  // height: 190px;
   justify-content: center;
 }
 @media (max-width: 1265px) {
@@ -126,6 +178,7 @@ export default {
   }
   .row-mid {
     flex-direction: column;
+    max-width: 500px;
   }
   .margin {
     margin: 1em 0;
@@ -136,5 +189,9 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
+}
+.center-mid{
+  max-width: 500px;
+  margin: auto;
 }
 </style>

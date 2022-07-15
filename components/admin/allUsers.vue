@@ -3,38 +3,34 @@
     Total users: {{ totalUsers }}
     <v-card v-for="user in allUsers" :key="user.id" class="margin-bot">
       <v-card-text class="pad-bot clickable">
-        <div class="row space-between">
-          <div class="margin-left">
-            Name: {{ user.firstName }} {{ user.lastName }}
-          </div>
-          <div>
-            <v-btn v-if="admin" outlined small>
-              Id: {{ user.id }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              Email: {{ user.email }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              Author Enneagram: {{ user.enneagramId }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              DateCreated: {{ getTime(user.dateCreated) }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              Role: {{ user.role }}
-            </v-btn>
-            <v-btn
-              v-if="admin && user.email !== user.email"
-              outlined
-              small
-              color="red"
-              @click="deleteUser(user)"
-            >
-              <v-icon>delete</v-icon>
-            </v-btn>
-          </div>
-        </div>
+        Name: {{ user.firstName }} {{ user.lastName }}
       </v-card-text>
+      <v-card-actions>
+        <v-btn v-if="admin" outlined small>
+          Id: {{ user.id }}
+        </v-btn>
+        <v-btn v-if="admin" outlined small>
+          Email: {{ user.email }}
+        </v-btn>
+        <v-btn v-if="admin" outlined small>
+          Author Enneagram: {{ user.enneagramId }}
+        </v-btn>
+        <v-btn v-if="admin" outlined small>
+          DateCreated: {{ getTime(user.dateCreated) }}
+        </v-btn>
+        <v-btn v-if="admin" outlined small>
+          Role: {{ user.role }}
+        </v-btn>
+        <v-btn
+          v-if="admin && user.email !== user.email"
+          outlined
+          small
+          color="red"
+          @click="deleteUser(user)"
+        >
+          <v-icon>delete</v-icon>
+        </v-btn>
+      </v-card-actions>
     </v-card>
     <div
       v-if="usersCount < totalUsers && !usersLoading"

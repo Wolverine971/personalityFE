@@ -46,7 +46,7 @@
             <v-select
               v-model="enneagramType"
               :items="enneagramTypes"
-              label="What is your Enneagram Type?"
+              label="Enneagram Type"
               :rules="enneagramRules"
               required
             />
@@ -103,7 +103,7 @@ export default {
     emailAddress: '',
     password: '',
     enneagramType: null,
-    enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+    enneagramTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
     registerSuccess: false,
     passwordType: 'password',
 

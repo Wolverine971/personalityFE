@@ -86,7 +86,7 @@ export default {
   modules: [
     '@nuxt/typescript-build', '@nuxtjs/axios', '@nuxtjs/toast',
     ['cookie-universal-nuxt', { alias: '9tcookie' }], '@nuxtjs/vuetify',
-    'nuxt-material-design-icons'
+    'nuxt-material-design-icons', '@nuxtjs/sitemap'
   ],
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {

@@ -40,7 +40,7 @@ export default {
   data: () => ({
     email: '',
     password: '',
-    login: true,
+    login: false,
     selected: 0
   }),
 

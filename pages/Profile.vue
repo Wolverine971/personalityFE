@@ -63,7 +63,7 @@ export default {
   data: () => ({
     index: null,
     staticUser: {},
-    enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+    enneagramTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
     formDisabled: true
   }),
   middleware: ['loggedIn', 'accessToken'],

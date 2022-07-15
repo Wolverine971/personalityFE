@@ -94,6 +94,9 @@ footer,
 .class9 {
   color: #9e4c37 !important;
 }
+.classUnknown {
+  color: #000000 !important;
+}
 
 .class1Background {
   background-color: #f8ac18 !important;
@@ -122,6 +125,9 @@ footer,
 .class9Background {
   background-color: #9e4c37 !important;
 }
+.classUnknownBackground{
+  background-color: #ffffff !important;
+}
 
 .form-width {
   max-width: 1000px;
@@ -148,7 +154,7 @@ footer,
     padding: 0 !important;
   }
   .toolbar {
-    height: 40px !important;
+    // height: 40px !important;
   }
   .main-margin {
     margin: 44px 0 !important;
@@ -186,6 +192,7 @@ footer,
 
 .align-center {
   align-items: center;
+  width: 100%;
 }
 .justify-start {
   justify-content: start;
@@ -247,7 +254,6 @@ footer,
 }
 
 .main-margin {
-  margin: 64px 0;
   justify-content: center;
 }
 
@@ -257,11 +263,6 @@ footer,
 
 .toolbar {
   width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  position: fixed;
-  height: 64px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -367,7 +368,8 @@ p {
   white-space: nowrap;
 }
 .v-application {
-  background-image: url('/backgroundStreet.jpg') !important;
+  // background-image: url('/backgroundStreet.jpg') !important;
+  // background-color: var(--accent) !important;
 
   /* Full height */
   height: 100%;

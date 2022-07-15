@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container class="main-contain">
       <toolbar />
 
       <v-main class="main-margin">
@@ -31,5 +31,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.main-contain{
+  display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 0;
 }
 </style>

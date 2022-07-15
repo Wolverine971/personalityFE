@@ -59,11 +59,11 @@ export default {
     return {
       data: null,
       params: {
-        enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        enneagramTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
         dateRange: 'All Time',
         sortBy: 'newest'
       },
-      enneaTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      enneaTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
       dateChoices: ['Today', 'Week', 'Month', '3 Months', 'Year', 'All Time'],
       sortByChoices: [
         {

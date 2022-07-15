@@ -14,7 +14,7 @@
         :class="`class${componentComment.author.enneagramId}`"
         color="offWhite"
       >
-        {{ componentComment.author.enneagramId }}
+        {{ componentComment.author.enneagramId !== 'Unknown' ? componentComment.author.enneagramId : '?' }}
       </v-avatar>
       <cookie-comment
         :text="componentComment.comment"

@@ -15,10 +15,11 @@
             ? `https://personality-app.s3.amazonaws.com/${blog.img}`
             : blog.img
         "
-        height="100%"
         router
+        :style="{'background-size': auto}"
+        width="100%"
+        height="100%"
         :to="{ path: `/blog/${blog.title}` }"
-        gradient="rgba(0, 0, 0, .42), rgba(0, 0, 0, .42)"
       >
         <v-row v-if="!blog.prominent" class="fill-height text-right ma-0">
           <v-col cols="12">

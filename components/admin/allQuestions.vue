@@ -1,5 +1,5 @@
 <template>
-  <v-card class="m-col">
+  <v-card flat class="m-col">
     <v-card-title>
       Total Questions: {{ totalQuestions }}
     </v-card-title>
@@ -8,49 +8,45 @@
         class="pad-bot clickable"
         @click="admin ? '' : goToQuestion(q)"
       >
-        <div class="row space-between">
-          <div class="margin-left">
-            {{ q.question }}?
-          </div>
-          <div class="flex-end">
-            <v-btn v-if="admin" outlined small>
-              Id: {{ q.id }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              Author Enneagram: {{ q.author ? q.author.enneagramId : '' }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              DateCreated: {{ getTime(q.dateCreated) }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              Modified: {{ q.modified }}
-            </v-btn>
-            <v-btn v-if="admin" outlined small>
-              Subscribers: {{ q.subscribers.length }}
-            </v-btn>
-            <v-btn outlined small>
-              <v-icon> mdi-cookie-outline </v-icon>
-              {{ q.likes.length }}
-            </v-btn>
-            <v-btn outlined small>
-              <v-icon> mdi-comment-outline </v-icon>
-              {{ q.comments.count }}
-            </v-btn>
-            <v-btn outlined small @click="admin ? goToQuestion(q) : ''">
-              <v-icon>keyboard_arrow_right</v-icon>
-            </v-btn>
-            <v-btn
-              v-if="admin"
-              outlined
-              small
-              color="red"
-              @click="deleteQuestion(q)"
-            >
-              <v-icon>delete</v-icon>
-            </v-btn>
-          </div>
-        </div>
+        {{ q.question }}?
       </v-card-text>
+      <v-card-actions>
+        <v-btn v-if="admin" outlined small>
+          Id: {{ q.id }}
+        </v-btn>
+        <v-btn v-if="admin" outlined small>
+          Author Enneagram: {{ q.author ? q.author.enneagramId : '' }}
+        </v-btn>
+        <v-btn v-if="admin" outlined small>
+          DateCreated: {{ getTime(q.dateCreated) }}
+        </v-btn>
+        <v-btn v-if="admin" outlined small>
+          Modified: {{ q.modified }}
+        </v-btn>
+        <v-btn v-if="admin" outlined small>
+          Subscribers: {{ q.subscribers.length }}
+        </v-btn>
+        <v-btn outlined small>
+          <v-icon> mdi-cookie-outline </v-icon>
+          {{ q.likes.length }}
+        </v-btn>
+        <v-btn outlined small>
+          <v-icon> mdi-comment-outline </v-icon>
+          {{ q.comments.count }}
+        </v-btn>
+        <v-btn outlined small @click="goToQuestion(q)">
+          <v-icon>keyboard_arrow_right</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="admin"
+          outlined
+          small
+          color="red"
+          @click="deleteQuestion(q)"
+        >
+          <v-icon>delete</v-icon>
+        </v-btn>
+      </v-card-actions>
     </v-card>
     <v-card-actions>
       <v-btn
