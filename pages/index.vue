@@ -9,7 +9,7 @@
         </v-card-title>
         <v-card-subtitle class="min-marg-top ">
           <h3 class="secondary--text " style="text-align: center">
-            Ask questions get the familiar and the unexpected
+            Ask questions, get the familiar and the unexpected
           </h3>
         </v-card-subtitle>
         <v-card-actions>
