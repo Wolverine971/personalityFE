@@ -115,7 +115,6 @@ export default {
       this.markedContent = this.addStyles(firstPass)
     },
     blog (val) {
-      // debugger
       this.createdBlog = val
     }
   },
@@ -142,7 +141,7 @@ export default {
           .post(`${endpoints.updateBlog}/${this.createdBlog.id}`, formData)
           .then(() => {
             this.$router.push({
-              path: `/blog/${this.createdBlog.title}`
+              path: `/blog/${this.createdBlog.title.replaceAll(' ', '-')}`
             })
             this.$store.dispatch('toastSuccess', 'Blog Updated')
             this.$emit('updated', this.createdBlog)

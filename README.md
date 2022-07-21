@@ -17,9 +17,7 @@ Personaity question and answering based on the Enneagram
 
 
 
-## Tech
-
-### Frontend Tech Stack
+### Tech Stack
 > [Vue](https://vuejs.org/), [Typescript](https://www.typescriptlang.org/), [Nuxt](https://nuxtjs.org/), [Vuetify](https://vuetifyjs.com/en/), 
 
 ### Related Projects
@@ -34,7 +32,7 @@ Personaity question and answering based on the Enneagram
 $ npm install
 
 # serve with hot reload at localhost:3000
-$ npm run devt
+$ npm run dev
 
 $ npm run build
 $ npm run start
@@ -57,6 +55,7 @@ $ npm run generate
 - [x]  <del>Add static page for each personality type
 - [x]  <del>Comment Pagination
 - [x]  <del>Wall Pagination
+- [ ]  Easy share and create question
 - [ ]  Enneagram Relationships
 - [ ]  Realtime Active User Display
 - [ ]  Messaging
@@ -73,22 +72,15 @@ To run this project, you will need to add the following environment variables to
 http://localhost:3000/
 
 `BE_URL`
-Separate Project needed for the Backend 
+[Backend](https://github.com/Wolverine971/personalityBE)
 
-Located @ https://github.com/Wolverine971/personalityBE
-http://localhost:3001/
+[GraphQL API](https://github.com/Wolverine971/apollo-backend)
 
-GraphQL API
-
-Separate Project needed for Backend
-Located @ https://github.com/Wolverine971/apollo-backend
 
 `GOOGLE`
-
 Needed for VueGtag- can be commented out
 
 `DEEPAI`
-
 Needed for Image content-moderation
 Uses: https://cdnjs.deepai.org/deepai.min.js'
 
@@ -97,3 +89,7 @@ Can be commented out, search for "content-moderation"and remove applicable code
 
 
 ## Thanks for checking this out! :smiley:
+
+
+## Vibe
+https://www.youtube.com/watch?v=gY_z5uSMQRM

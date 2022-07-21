@@ -33,9 +33,8 @@ export default {
   align-items: center;
 }
 .main-contain{
-  display: flex;
-    flex-direction: column;
-    margin: auto;
-    padding: 0;
+  /* margin: 80px auto 0 auto; */
+  padding: 0;
+  margin-bottom: 30px;
 }
 </style>

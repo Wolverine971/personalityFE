@@ -125,7 +125,7 @@ footer,
 .class9Background {
   background-color: #9e4c37 !important;
 }
-.classUnknownBackground{
+.classUnknownBackground {
   background-color: #ffffff !important;
 }
 
@@ -244,7 +244,7 @@ footer,
   }
 }
 
-@media (min-width: 1800px) {
+@media (min-width: 1904px) {
   .master-container {
     max-width: 1785px;
   }
@@ -266,6 +266,8 @@ footer,
   align-items: center;
   margin: 0 auto;
   z-index: 2;
+  position: absolute;
+  top: 0;
 }
 .master-container {
   width: 100%;
@@ -385,4 +387,32 @@ p {
   background-color: rgb(255 255 255 / 95%) !important;
   // background-color: var(--accent) !important;
   opacity: 0.95 !important;
+}
+
+.question-background {
+  width: 100%;
+  text-align: center;
+  border: 5px solid #593c7e;
+  border-radius: 10px;
+  padding: 15px;
+  background: linear-gradient(0.25turn, #f72585, #191970);
+  color: white !important;
+  font-size: 2.7vw;
+  max-width: 1000px;
+
+  textarea {
+    color: white !important;
+    text-align: center;
+  }
+}
+
+.buttonHovDark :hover {
+  color: #191970;
+  border-radius: 5px;
+  margin: 1px;
+}
+.buttonHovLight :hover {
+  background-color: #f72585;
+  border-radius: 5px;
+  margin: 1px;
 }

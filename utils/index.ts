@@ -30,7 +30,6 @@ export function getCommentFromData (esComment: any) {
 }
 
 export const msToTime = (time: any) => {
-  // debugger
   const newDate: any = new Date().getTime()
   let date: any = new Date(time).getTime()
   // it just works ok, gosh :)

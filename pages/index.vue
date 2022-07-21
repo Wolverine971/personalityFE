@@ -12,7 +12,7 @@
             Ask questions, get the familiar and the unexpected
           </h3>
         </v-card-subtitle>
-        <v-card-actions>
+        <v-card-actions v-if="!user">
           <v-tooltip bottom :close-delay="1000" :open-delay="100">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -147,8 +147,13 @@
 
 <script>
 export default {
-  layout: 'home'
+  layout: 'home',
   // <!-- https://introjs.com/ -->
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    }
+  }
 }
 </script>
 <style lang="scss">

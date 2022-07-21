@@ -16,7 +16,7 @@
             : blog.img
         "
         router
-        :style="{'background-size': auto}"
+        :style="{'background-size': 'auto'}"
         width="100%"
         height="100%"
         :to="{ path: `/blog/${blog.title}` }"

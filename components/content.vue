@@ -50,7 +50,10 @@
 import { msToDate } from '../utils'
 export default {
   name: 'Content',
-  components: { comments: () => import('./questions/comments') },
+  components: {
+    comments: () => import('./questions/comments'),
+    Interact: () => import('./shared/interact')
+  },
   props: {
     content: {
       type: Object,

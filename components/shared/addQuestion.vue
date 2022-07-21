@@ -109,19 +109,11 @@ export default {
           })
       }
     }, 1000),
-    async addQuestion (question) {
+    addQuestion (question) {
       if (this.user) {
         if (this.key === -1) {
-          const questionToSend = question.replace('?', '')
-          const resp = await this.$axios.get(
-            `${endpoints.questionAdd}/${questionToSend}/${this.user.enneagramId}`
-          )
-          if (resp) {
-            this.goToQuestion(resp.data)
-            this.$store.dispatch('toastSuccess', 'Asked Question')
-          } else {
-            this.$store.dispatch('toastError', 'Failed to Ask Question')
-          }
+          this.$router.push({ path: '/questions/createQuestion', query: { question } })
+          this.$router.go(1)
         }
       } else {
         this.$store.dispatch('toastError', 'Must Login')

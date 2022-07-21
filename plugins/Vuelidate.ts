@@ -1,4 +1,3 @@
-import VuelidatePlugin from '@vuelidate/core'
 import Vue from 'vue'
-
-Vue.use(VuelidatePlugin)
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)

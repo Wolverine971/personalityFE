@@ -33,6 +33,10 @@ export default {
         content: '9takes | Home for personality Q&A'
       },
       {
+        name: 'twitter:site',
+        content: '@9takesdotcom'
+      },
+      {
         name: 'keywords',
         content:
           'enneagram, personality, personality network, enneagram questions, enneagram answers, personality explanation, Q&A, ask a question, type 1, type 2, type 3, type 4, type 5, type 6, type 7, type 8, type 9'
@@ -69,7 +73,10 @@ export default {
     { src: '~/plugins/Vuelidate', mode: 'client' },
     { src: '~/plugins/axiosIntercept', mode: 'client' },
     { src: '~/plugins/axios.ts', mode: 'client' },
-    { src: '~/plugins/gtag.js', mode: 'client' }
+    { src: '~/plugins/gtag.js', mode: 'client' },
+    { src: '~/plugins/jsonLd.ts', mode: 'client' },
+    { src: '~/plugins/socials.ts', mode: 'client' },
+    { src: '~/plugins/helpers', mode: 'client' }
   ],
 
   server: {

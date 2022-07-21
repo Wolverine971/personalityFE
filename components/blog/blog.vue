@@ -8,7 +8,7 @@
     <v-card-title class="primary_v--text">
       {{ displayedBlog.title }}
       <v-btn
-        v-if="user && displayedBlog && displayedBlog.author.id === user.id"
+        v-if="user && displayedBlog.author && displayedBlog.author.id === user.id"
         color="secondary"
         elevation="1"
         fab
@@ -57,7 +57,7 @@
     <v-card-actions>
       <a
         id="b"
-        :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;text=Checkout this article entitled '${displayedBlog.title}'&amp;url=${url}`"
+        :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;text=Checkout this article called '${displayedBlog.title}'&amp;url=${url}`"
         class="twitter twitter-share-button"
       ><i /><span id="l" class="label">Tweet</span></a>
     </v-card-actions>
@@ -65,7 +65,7 @@
   <div v-else-if="displayedBlog" class="blogDiv">
     <v-card-actions>
       <v-btn
-        v-if="user && displayedBlog && displayedBlog.author.id === user.id"
+        v-if="user && displayedBlog.author && displayedBlog.author.id === user.id"
         color="secondary"
         elevation="1"
         @click="editing = false"
@@ -89,7 +89,8 @@ export default {
   name: 'Blog',
   components: {
     CreateBlog: () => import('../admin/createBlog.vue'),
-    comments: () => import('../questions/comments.vue')
+    comments: () => import('../questions/comments.vue'),
+    Interact: () => import('../shared/interact')
   },
   props: {
     blog: {
@@ -167,43 +168,8 @@ export default {
     likeChange (event) {
       this.displayedBlog.likes = event
     }
-  },
-
-  head () {
-    const title = this.blog ? this.blog.title : 'Blog'
-    const description = this.blog ? this.blog.description : 'Personality Blog'
-    const href = this.url ? this.url : ''
-
-    return {
-      titleTemplate: title,
-      title,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: description
-        },
-        {
-          property: 'og:url',
-          content: href
-        },
-        {
-          property: 'og:description',
-          content: description
-        },
-        { property: 'og:title', content: title },
-        {
-          name: 'twitter:description',
-          content: description
-        },
-        {
-          name: 'twitter:title',
-          content: title
-        }
-      ],
-      link: [{ rel: 'canonical', href }]
-    }
   }
+
 }
 </script>
 
