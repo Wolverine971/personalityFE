@@ -150,7 +150,7 @@ export default {
     },
   },
   mounted() {
-    this.url = `${this.$axios.defaults.headers['Access-Control-Allow-Origin'][0]}blog/${this.$route.params.title}`
+    this.url = `${process.env.ORIGIN}blog/${this.$route.params.title}`
     this.displayedBlog = this.blog
   },
   methods: {

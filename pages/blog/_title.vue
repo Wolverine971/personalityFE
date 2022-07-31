@@ -20,12 +20,12 @@ export default {
   components: {
     Blog: () => import('@/components/blog/blog')
   },
-  async asyncData ({ params, $axios, store }) {
+  async asyncData ({ params, $axios, env }) {
     const title = params.title
       ? params.title.replace('/-/g', ' ')
       : params.title
 
-    const url = `${$axios.defaults.headers['Access-Control-Allow-Origin'][0]}blog/${params.title}`
+    const url = `${env.ORIGIN}blog/${params.title}`
     const blog = await $axios
       .get(`${endpoints.getBlog}/${title}`)
       .then((resp) => {
@@ -36,7 +36,7 @@ export default {
         }
       })
       .catch((error) => {
-        store.dispatch('toastError', error)
+        console.log(error)
       })
       const structuredData = {
       '@context': 'https://schema.org',

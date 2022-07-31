@@ -192,9 +192,7 @@ export default {
 
   computed: {
     url () {
-      return `${
-        this.$axios.defaults.headers['Access-Control-Allow-Origin'][0]
-      }${this.$route.path.substring(1)}`
+      return `${process.env.ORIGIN}${this.$route.path.substring(1)}`
     },
     twitterOptions () {
       return {

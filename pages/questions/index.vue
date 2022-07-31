@@ -34,7 +34,7 @@ export default {
         store.commit('setAllQuestionsCount', resp.data.count)
       }
     } else {
-      console.log('dont get')
+      console.log('did not get questions')
     }
   },
   head() {
