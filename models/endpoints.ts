@@ -13,6 +13,7 @@ export const endpoints = {
   updateQuestion: '/api/question/update',
   getUrl: '/api/question/getUrl',
   reIndex: '/api/question/reIndex',
+  updateGraphQL: '/api/question/updateGraphQL',
 
   addComment: '/api/comment/add',
   getComment: '/api/comment',

@@ -60,7 +60,7 @@ export default {
   methods: {
     async reindex() {
       try {
-        const resp = await this.$axios.post(`${endpoints.reIndex}`, {})
+        const resp = await this.$axios.post(`${endpoints.updateGraphQL}`, {})
         console.log(resp)
       } catch (error) {
         console.log(error)
