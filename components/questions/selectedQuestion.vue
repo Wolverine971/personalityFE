@@ -124,8 +124,6 @@ export default {
         this.commenterIds = question.commenterIds
         this.showComments = this.commenterIds[this.user.id]
 
-        this.commenterIds = question.commenterIds
-        this.showComments = this.commenterIds[this.user.id]
         this.displayedQuestion = Object.assign({}, question)
         this.$store.commit('updateAllQuestions', question)
       } else {

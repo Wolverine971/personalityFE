@@ -1,14 +1,27 @@
 <template>
-  <header id="toolbar" class="toolbar master-container shadow primary fun-color">
+  <header
+    id="toolbar"
+    class="toolbar master-container shadow primary fun-color"
+  >
     <div class="row-center">
       <v-menu transition="fab-transition">
         <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn color="secondary" text v-bind="attrs" :class="{'x-small': $vuetify.breakpoint.mobile}" v-on="{ ...menu }">
+          <v-btn
+            color="secondary"
+            text
+            v-bind="attrs"
+            :class="{ 'x-small': $vuetify.breakpoint.mobile }"
+            v-on="{ ...menu }"
+          >
             <v-icon>menu</v-icon>
           </v-btn>
         </template>
         <v-list>
-          <v-list-item v-if="user && user.role === 'admin'" router :to="{ path: '/admin' }">
+          <v-list-item
+            v-if="user && user.role === 'admin'"
+            router
+            :to="{ path: '/admin' }"
+          >
             <v-list-item-action>
               <v-icon>settings</v-icon>
             </v-list-item-action>
@@ -53,7 +66,9 @@
                   : 'notifications_none'
               }}
             </v-icon>
-            {{ notifications.length ? notifications.length : '' }}
+            {{
+              notifications && notifications.length ? notifications.length : ''
+            }}
           </v-btn>
         </template>
         <notifications :notifications="notifications" />
@@ -102,7 +117,7 @@
 export default {
   name: 'Toolbar',
   components: { notifications: () => import('~/components/notifications') },
-  data () {
+  data() {
     return {
       drawer: false,
       fixed: false,
@@ -110,19 +125,19 @@ export default {
         {
           icon: 'home',
           title: 'Home',
-          to: '/'
+          to: '/',
         },
         {
           icon: 'mdi-post',
           title: 'Blog',
-          to: '/blog'
+          to: '/blog',
         },
 
         {
           icon: 'question_answer',
           title: 'Question and Answer',
-          to: '/questions'
-        }
+          to: '/questions',
+        },
         // {
         //   icon: 'psychology',
         //   title: 'Personality Walls',
@@ -152,24 +167,24 @@ export default {
       title: '9takes Beta',
       notifications: [],
       header: null,
-      sticky: 0
+      sticky: 0,
     }
   },
   computed: {
-    routes () {
+    routes() {
       return this.$router.options.routes
     },
-    user () {
+    user() {
       return this.$store.getters.getUser
-    }
+    },
   },
   watch: {
-    user () {
-      this.subscrbeToNotifs()
-    }
+    user() {
+      this.subscribeToNotifs()
+    },
   },
 
-  mounted () {
+  mounted() {
     // let visibilityChange
     // if (typeof document.hidden !== 'undefined') {
     //   visibilityChange = 'visibilitychange'
@@ -188,13 +203,13 @@ export default {
     // window.onscroll = () => { this.stickyFunc() }
   },
   sockets: {
-    connect () {
-      this.subscrbeToNotifs()
-    }
+    connect() {
+      this.subscribeToNotifs()
+    },
   },
 
   methods: {
-    logout () {
+    logout() {
       this.$store.commit('setAccessToken', '')
       this.$store.commit('setUser', null)
       this.$9tcookie.set('9tcookie', null)
@@ -221,11 +236,11 @@ export default {
     //   }
     // }, 1000),
 
-    goHome () {
+    goHome() {
       this.$router.push({ path: '/', query: {} })
       this.$router.go(1)
     },
-    subscrbeToNotifs () {
+    subscribeToNotifs() {
       if (this.$socket && this.user && this.user.id) {
         this.$socket.client.emit('join', this.user.id)
         if (this.$socket.$subscribe) {
@@ -240,8 +255,8 @@ export default {
           )
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -251,5 +266,4 @@ export default {
 .pad-title {
   padding: 0 50px;
 }
-
 </style>

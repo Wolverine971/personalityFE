@@ -27,7 +27,13 @@
       <v-card-actions>
         <v-dialog v-model="dialog" width="600">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
+            <v-btn
+              color="red lighten-2"
+              dark
+              v-bind="attrs"
+              v-on="on"
+              @click="getUrl"
+            >
               Submit
             </v-btn>
           </template>
@@ -36,10 +42,11 @@
             <h1>You are the <b>moderator</b> of this question:</h1>
             <h2>{{ question }}</h2>
             <v-divider />
-
-            <v-card-text>
+            <v-card-subtitle>
               With great power comes great responsibility
-            </v-card-text>
+            </v-card-subtitle>
+
+            <v-card-text> Url: {{ url }} </v-card-text>
 
             <v-divider />
 
@@ -75,7 +82,7 @@ export default {
   name: 'Personality',
   props: {},
   middleware: ['accessToken'],
-  data () {
+  data() {
     return {
       question: '',
       context: '',
@@ -83,33 +90,35 @@ export default {
       valid: false,
       pngSrc: '',
       height: 0,
-      width: 0
+      width: 0,
+      url: '',
     }
   },
   computed: {
-    posts () {
-      return this.$store.getters.getPosts
-    },
-    user () {
+    user() {
       return this.$store.getters.getUser
-    }
+    },
   },
-  watch: {
-    type (val) {
-      this.selectedType = val
-      if (!this.posts[this.selectedType]) {
-        this.$store.dispatch('getPosts', this.selectedType)
-      }
-      this.canInteract()
-    }
-  },
-  mounted () {
+
+  mounted() {
     // this.init()
     console.log(this.$route.query.question)
     this.question = this.$route.query.question
   },
   methods: {
-    async addQuestion () {
+    async getUrl() {
+      try {
+        const resp = await this.$axios.post(`${endpoints.getUrl}`, {
+          question: this.question.replace('?', ''),
+        })
+        console.log(resp.data.url)
+        this.url = resp.data.url
+      } catch (e) {
+        console.log(e)
+        this.$store.dispatch('toastError', 'Failed to get url')
+      }
+    },
+    async addQuestion() {
       if (this.user) {
         const questionToSend = this.question.replace('?', '')
         const question = document.getElementById('question-pic')
@@ -121,12 +130,14 @@ export default {
           context: this.context,
           question: questionToSend,
           img: this.pngSrc,
-          type: this.user.enneagramId
+          type: this.user.enneagramId,
+          url: this.url
         }
 
         const resp = await this.$axios.post(`${endpoints.questionAdd}`, data)
         if (resp) {
           this.$store.dispatch('toastSuccess', 'Asked Question')
+          this.goToQuestion(data)
         } else {
           this.$store.dispatch('toastError', 'Failed to Ask Question')
         }
@@ -136,11 +147,11 @@ export default {
 
       this.dialog = false
     },
-    goToQuestion (item) {
-      this.$router.push({ path: `/questions/${item.id}` })
+    goToQuestion(item) {
+      this.$router.push({ path: `/questions/${item.url}` })
       this.$router.go(1)
-    }
-  }
+    },
+  },
 }
 </script>
 

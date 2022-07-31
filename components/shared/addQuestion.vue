@@ -121,7 +121,7 @@ export default {
     },
     goToQuestion (item) {
       this.typeAhead = []
-      this.$router.push({ path: `/questions/${item.id}` })
+      this.$router.push({ path: `/questions/${item.url}` })
       this.$router.go(1)
     },
 

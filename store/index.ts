@@ -114,8 +114,8 @@ export const getters = {
     return state.refreshDashboard
   },
   getNewQuestions (state: AppState) {
-    if (state.newQuestions && state.newQuestions.hits) {
-      return getQuestionsFromData(state.newQuestions.hits.hits)
+    if (state.newQuestions) {
+      return state.newQuestions
     } else {
       return []
     }
@@ -127,8 +127,8 @@ export const getters = {
     return state.posts
   },
   getAskedQuestions (state: AppState) {
-    if (state.askedQuestions && state.askedQuestions.hits) {
-      return getQuestionsFromData(state.askedQuestions.hits.hits)
+    if (state.askedQuestions) {
+      return state.askedQuestions
     } else {
       return []
     }
@@ -177,6 +177,9 @@ export const mutations = {
     if (state.allQuestions && state.allQuestions[question.id]) {
       const newQuestion = { [question.id]: question }
       state.allQuestions = Object.assign({}, state.allQuestions, newQuestion)
+    }else{
+      state.allQuestions = {}
+      state.allQuestions[question.id] = question
     }
   },
   addAllComments (state: AppState, comments: any[]) {

@@ -84,6 +84,15 @@ export default {
     host: '0.0.0.0' // default: localhost
   },
 
+  sitemap: {
+    hostname: 'https://9takes.com/',
+    filter({routes}){
+      console.log(routes)
+      const nogos = process.env.NoGo.split(", ");
+      return routes.filter((route) => !nogos.includes(route.url))
+    }
+  },
+
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
 
@@ -95,6 +104,7 @@ export default {
     ['cookie-universal-nuxt', { alias: '9tcookie' }], '@nuxtjs/vuetify',
     'nuxt-material-design-icons', '@nuxtjs/sitemap'
   ],
+  buildModules:['@/modules/sitemapGenerator'],
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL: process.env.BE_URL || 'http://localhost:3001/', // `${process.env.BASE_URL}:3001/`,
@@ -187,7 +197,7 @@ export default {
       }
     }
   },
-  // target: 'static', // 'universal',
+  target: 'static', // 'universal',
   env: {
     BE_URL: process.env.BE_URL || 'http://localhost:3001/',
     GOOGLE: process.env.GOOGLE,

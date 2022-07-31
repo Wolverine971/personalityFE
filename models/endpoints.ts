@@ -11,6 +11,8 @@ export const endpoints = {
   subQuestion: '/api/question/subscribe',
   clearNotifications: '/api/question/notifications',
   updateQuestion: '/api/question/update',
+  getUrl: '/api/question/getUrl',
+  reIndex: '/api/question/reIndex',
 
   addComment: '/api/comment/add',
   getComment: '/api/comment',
@@ -58,4 +60,5 @@ export const endpoints = {
   likeBlog: '/api/blog/like',
   getBlogs: '/api/blog/get',
   getBlog: '/api/blog/getOne'
+
 }

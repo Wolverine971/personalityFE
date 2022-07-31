@@ -1,31 +1,35 @@
 <template>
-  <v-list v-if="notifs && notifs.length">
-    <v-list-item v-for="(notification, i) in notifs" :key="i" class="clickable">
-      <v-list-item-content @click="goToNotification(notification, i)">
-        <v-list-item-title v-if="notification.question">
-          <p class="overFlow">
-            Question: {{ notification.question.text }}
-          </p>
-          <p class="overFlow">
-            Comment: {{ notification.notification.text }}
-          </p>
-        </v-list-item-title>
-        <v-list-item-subtitle v-if="notification.question">
-          {{ getTime(notification.time) }}
-        </v-list-item-subtitle>
-        <v-list-item-title v-else>
-          <p>{{ notifs }}</p>
-        </v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
-  </v-list>
-  <v-list v-else>
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title v-text="'No Notifications'" />
-      </v-list-item-content>
-    </v-list-item>
-  </v-list>
+  <div>
+    <v-list v-if="notifs && notifs.length">
+      <v-list-item
+        v-for="(notification, i) in notifs"
+        :key="i"
+        class="clickable"
+      >
+        <v-list-item-content @click="goToNotification(notification, i)">
+          <v-list-item-title v-if="notification.question">
+            <p class="overFlow">Question: {{ notification.question.text }}</p>
+            <p class="overFlow">
+              Comment: {{ notification.notification.text }}
+            </p>
+          </v-list-item-title>
+          <v-list-item-subtitle v-if="notification.question">
+            {{ getTime(notification.time) }}
+          </v-list-item-subtitle>
+          <v-list-item-title v-else>
+            <p>{{ notifs }}</p>
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+    <v-list v-else>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title v-text="'No Notifications'" />
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </div>
 </template>
 
 <script>
@@ -37,27 +41,27 @@ export default {
     notifications: {
       type: Array,
       required: true,
-      default: null
-    }
+      default: null,
+    },
   },
-  data () {
+  data() {
     return {
-      notifs: []
+      notifs: [],
     }
   },
   watch: {
-    notifications (vals) {
+    notifications(vals) {
       if (vals) {
         this.notifs = vals
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.notifs = this.notifications
   },
   methods: {
-    async goToNotification (notification, i) {
-      this.$router.push({ path: `/questions/${notification.question.id}` })
+    async goToNotification(notification, i) {
+      this.$router.push({ path: `/questions/${notification.question.url}` })
       this.$router.go(1)
       this.notifs.splice(i, 1)
       await this.$axios.put(endpoints.clearNotifications)
@@ -71,10 +75,10 @@ export default {
         }
       }, 1000)
     },
-    getTime (time) {
+    getTime(time) {
       return msToTime(time)
-    }
-  }
+    },
+  },
 }
 </script>
 

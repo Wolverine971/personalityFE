@@ -16,7 +16,7 @@
             : blog.img
         "
         router
-        :style="{'background-size': 'auto'}"
+        :style="{ 'background-size': 'auto' }"
         width="100%"
         height="100%"
         :to="{ path: `/blog/${blog.title}` }"
@@ -33,12 +33,29 @@
                   ? blog.author.firstName + ' ' + blog.author.lastName
                   : ''
               }}
-              <br>Date {{ getTime(blog.dateCreated) }}
+              <br />Date {{ getTime(blog.dateCreated) }}
             </div>
           </v-col>
 
           <v-col align-self="end">
-            <v-chip
+            <NuxtLink
+              :to="{
+                path: `/blog/${blog.title.replaceAll(' ', '-')}`,
+                query: {},
+              }"
+            >
+              <v-chip
+              style="cursor: pointer"
+              class="text-uppercase ma-0"
+              color="primary"
+              label
+              small
+
+            >
+              Read More
+            </v-chip>
+            </NuxtLink>
+            <!-- <v-chip
               class="text-uppercase ma-0"
               color="primary"
               label
@@ -47,7 +64,7 @@
               :to="{ path: `/blog/${blog.title.replaceAll(' ', '-')}` }"
             >
               Read More
-            </v-chip>
+            </v-chip> -->
           </v-col>
         </v-row>
       </v-img>
@@ -64,18 +81,18 @@ export default {
     preview: {
       type: Boolean,
       default: false,
-      required: false
+      required: false,
     },
     blog: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   methods: {
-    getTime (time) {
+    getTime(time) {
       return msToDate(time)
-    }
-  }
+    },
+  },
 }
 </script>
 

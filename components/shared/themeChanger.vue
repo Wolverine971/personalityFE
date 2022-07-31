@@ -4,7 +4,11 @@
       v-for="(theme, index) in themes"
       :key="index"
       class="my-2"
-      :disabled="$vuetify.theme.themes.name === theme.name"
+      :disabled="
+        $vuetify.theme &&
+        $vuetify.theme.themes &&
+        $vuetify.theme.themes.name === theme.name
+      "
       hover
       outlined
       @click="setTheme(theme)"
@@ -17,7 +21,11 @@
         </v-list-item-content>
         <v-list-item-action>
           <v-avatar
-            v-if="$vuetify.theme.themes.name === theme.name"
+            v-if="
+              $vuetify.theme &&
+              $vuetify.theme.themes &&
+              $vuetify.theme.themes.name === theme.name
+            "
             color="success"
             size="30"
           >
@@ -74,7 +82,7 @@ export default {
           success: '#F72585',
           info: '#F3F3F4',
           warning: '#FB8C00',
-          error: '#FF5252'
+          error: '#FF5252',
         },
         light: {
           primary: '#191970',
@@ -86,8 +94,8 @@ export default {
           success: '#F72585',
           info: '#F3F3F4',
           warning: '#FB8C00',
-          error: '#FF5252'
-        }
+          error: '#FF5252',
+        },
       },
       {
         name: 'Theme 2',
@@ -101,7 +109,7 @@ export default {
           success: '#4CAF50',
           info: '#6156d8',
           warning: '#1565C0',
-          error: '#FF7043'
+          error: '#FF7043',
         },
         light: {
           primary: '#191970',
@@ -113,8 +121,8 @@ export default {
           success: '#6dff74',
           info: '#7365ff',
           warning: '#2e8ac0',
-          error: '#ff5e3c'
-        }
+          error: '#ff5e3c',
+        },
       },
       {
         name: 'Theme 3',
@@ -128,7 +136,7 @@ export default {
           success: '#f2edf0',
           info: '#3a3a3a',
           warning: '#fb8c00',
-          error: '#ff5252'
+          error: '#ff5252',
         },
         light: {
           primary: '#223982',
@@ -140,8 +148,8 @@ export default {
           success: '#f2edf0',
           info: '#3a3a3a',
           warning: '#fb8c00',
-          error: '#ff5252'
-        }
+          error: '#ff5252',
+        },
       },
       {
         name: 'Theme 4',
@@ -155,7 +163,7 @@ export default {
           success: '#f2edf0',
           info: '#3a3a3a',
           warning: '#fb8c00',
-          error: '#ff5252'
+          error: '#ff5252',
         },
         light: {
           primary: '#4d4dad',
@@ -167,8 +175,8 @@ export default {
           success: '#f2edf0',
           info: '#3a3a3a',
           warning: '#fb8c00',
-          error: '#ff5252'
-        }
+          error: '#ff5252',
+        },
       },
       {
         name: 'Theme 5',
@@ -182,7 +190,7 @@ export default {
           success: '#f2edf0',
           info: '#3a3a3a',
           warning: '#fb8c00',
-          error: '#ff5252'
+          error: '#ff5252',
         },
         light: {
           primary: '#0c173a',
@@ -194,8 +202,8 @@ export default {
           success: '#f2edf0',
           info: '#3a3a3a',
           warning: '#fb8c00',
-          error: '#ff5252'
-        }
+          error: '#ff5252',
+        },
       },
       {
         name: 'Theme 6',
@@ -209,7 +217,7 @@ export default {
           success: '#4CAF50',
           info: '#6156d8',
           warning: '#1565C0',
-          error: '#FF7043'
+          error: '#FF7043',
         },
         light: {
           primary: '#8888d6',
@@ -221,8 +229,8 @@ export default {
           success: '#6dff74',
           info: '#7365ff',
           warning: '#2e8ac0',
-          error: '#ff5e3c'
-        }
+          error: '#ff5e3c',
+        },
       },
       {
         name: 'Theme 7',
@@ -236,7 +244,7 @@ export default {
           success: '#4CAF50',
           info: '#6156d8',
           warning: '#1565C0',
-          error: '#FF7043'
+          error: '#FF7043',
         },
         light: {
           primary: '#4084FF',
@@ -248,8 +256,8 @@ export default {
           success: '#4CAF50',
           info: '#6156d8',
           warning: '#1565C0',
-          error: '#FF7043'
-        }
+          error: '#FF7043',
+        },
       },
       {
         name: 'Theme 8',
@@ -263,7 +271,7 @@ export default {
           success: '#4CAF50',
           info: '#6156d8',
           warning: '#1565C0',
-          error: '#FF7043'
+          error: '#FF7043',
         },
         light: {
           primary: '#ae4def',
@@ -275,8 +283,8 @@ export default {
           success: '#4CAF50',
           info: '#6156d8',
           warning: '#1565C0',
-          error: '#FF7043'
-        }
+          error: '#FF7043',
+        },
       },
       {
         name: 'Theme 9',
@@ -290,7 +298,7 @@ export default {
           success: '#4CAF50',
           info: '#6156d8',
           warning: '#1565C0',
-          error: '#FF7043'
+          error: '#FF7043',
         },
         light: {
           primary: '#191970',
@@ -302,8 +310,8 @@ export default {
           success: '#4CAF50',
           info: '#6156d8',
           warning: '#1565C0',
-          error: '#FF7043'
-        }
+          error: '#FF7043',
+        },
       },
       {
         name: 'Theme 10',
@@ -317,7 +325,7 @@ export default {
           success: '#4CAF50',
           info: '#6156d8',
           warning: '#1565C0',
-          error: '#FF7043'
+          error: '#FF7043',
         },
         light: {
           primary: '#1e1e80',
@@ -329,11 +337,11 @@ export default {
           success: '#4CAF50',
           info: '#6156d8',
           warning: '#1565C0',
-          error: '#FF7043'
-        }
+          error: '#FF7043',
+        },
       },
       {
-        name: 'Watermellon',
+        name: 'Watermelon',
         dark: {
           // green
           primary: '#42ef4b',
@@ -347,7 +355,7 @@ export default {
           success: '#F72585',
           info: '#F3F3F4',
           warning: '#FB8C00',
-          error: '#FF5252'
+          error: '#FF5252',
         },
         light: {
           // green
@@ -362,8 +370,8 @@ export default {
           success: '#F72585',
           info: '#F3F3F4',
           warning: '#FB8C00',
-          error: '#FF5252'
-        }
+          error: '#FF5252',
+        },
       },
       {
         name: 'Batman',
@@ -380,7 +388,7 @@ export default {
           success: '#F72585',
           info: '#F3F3F4',
           warning: '#FB8C00',
-          error: '#FF5252'
+          error: '#FF5252',
         },
         light: {
           // batman blue
@@ -395,31 +403,35 @@ export default {
           success: '#F72585',
           info: '#F3F3F4',
           warning: '#FB8C00',
-          error: '#FF5252'
-        }
-      }
-    ]
+          error: '#FF5252',
+        },
+      },
+    ],
   }),
   methods: {
-    setTheme (theme) {
-      console.log('setting theme')
-      // close menu
-      this.menu = false
-      const name = theme.name
-      const dark = theme.dark
-      const light = theme.light
-      // set themes
-      const bodyStyles = document.body.style
-      Object.keys(dark).forEach((i) => {
-        this.$vuetify.theme.themes.dark[i] = dark[i]
-        bodyStyles.setProperty(`--${i}`, dark[i])
-      })
-      Object.keys(light).forEach((i) => {
-        this.$vuetify.theme.themes.light[i] = light[i]
-      })
-      // also save theme name to disable selection
-      this.$vuetify.theme.themes.name = name
-    }
-  }
+    setTheme(theme) {
+      try {
+        console.log('setting theme')
+        // close menu
+        this.menu = false
+        const name = theme.name
+        const dark = theme.dark
+        const light = theme.light
+        // set themes
+        const bodyStyles = document.body.style
+        Object.keys(dark).forEach((i) => {
+          this.$vuetify.theme.themes.dark[i] = dark[i]
+          bodyStyles.setProperty(`--${i}`, dark[i])
+        })
+        Object.keys(light).forEach((i) => {
+          this.$vuetify.theme.themes.light[i] = light[i]
+        })
+        // also save theme name to disable selection
+        this.$vuetify.theme.themes.name = name
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  },
 }
 </script>

@@ -1,63 +1,64 @@
 <template>
-  <div v-if="shownRelationship">
-    <div class="m-col">
-      <v-card>
-        <v-card-text>
-          <v-textarea
-            v-model="text"
-            type="text"
-            placeholder="Post something"
-            outlined
-            rows="1"
-            auto-grow
-            dense
-            hide-details
-            maxlength="500"
-            counter
+  <div>
+    <div v-if="shownRelationship">
+      <div class="m-col">
+        <v-card>
+          <v-card-text>
+            <v-textarea
+              v-model="text"
+              type="text"
+              placeholder="Post something"
+              outlined
+              rows="1"
+              auto-grow
+              dense
+              hide-details
+              maxlength="500"
+              counter
+            />
+          </v-card-text>
+          <v-card-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  v-bind="attrs"
+                  outlined
+                  :disabled="!text"
+                  v-on="on"
+                  @click="submitPost"
+                >
+                  Post
+                </v-btn>
+              </template>
+              <span>send it</span>
+            </v-tooltip>
+          </v-card-actions>
+        </v-card>
+
+        Total Threads: {{ shownRelationship.count }}
+        <v-card
+          v-for="(thread, i) in shownRelationship.RelationshipData"
+          :key="i"
+          class="margin-bot"
+        >
+          <thread
+            :thread="thread"
+            @threadUpdated="threadUpdated({ index: i, text: $event })"
           />
-        </v-card-text>
-        <v-card-actions>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                outlined
-                :disabled="!text"
-                v-on="on"
-                @click="submitPost"
-              >
-                Post
-              </v-btn>
-            </template>
-            <span>send it</span>
-          </v-tooltip>
-        </v-card-actions>
-      </v-card>
+        </v-card>
 
-      Total Threads: {{ shownRelationship.count }}
-      <v-card
-        v-for="(thread, i) in shownRelationship.RelationshipData"
-        :key="i"
-        class="margin-bot"
-      >
-        <thread
-          :thread="thread"
-          @threadUpdated="threadUpdated({ index: i, text: $event })"
-        />
-      </v-card>
-
-      <div
-        v-if="
-          shownRelationship.RelationshipData.length < shownRelationship.count && !loading
-        "
-        class="row"
-        @click="loadMore"
-      >
-        <v-btn outlined color="secondary">
-          Load More
-        </v-btn>
+        <div
+          v-if="
+            shownRelationship.RelationshipData.length <
+              shownRelationship.count && !loading
+          "
+          class="row"
+          @click="loadMore"
+        >
+          <v-btn outlined color="secondary"> Load More </v-btn>
+        </div>
+        <v-progress-linear v-else-if="loading" indeterminate />
       </div>
-      <v-progress-linear v-else-if="loading" indeterminate />
     </div>
   </div>
 </template>
@@ -70,36 +71,36 @@ export default {
   props: {
     relationship: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
-      required: false
+      required: false,
     },
     types: {
       type: Array,
-      default () {
+      default() {
         return []
       },
-      required: false
-    }
+      required: false,
+    },
   },
-  data () {
+  data() {
     return {
       text: '',
       loading: false,
-      shownRelationship: null
+      shownRelationship: null,
     }
   },
   watch: {
-    relationship (val) {
+    relationship(val) {
       this.shownRelationship = val
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.shownRelationship = this.relationship
   },
   methods: {
-    loadMore () {
+    loadMore() {
       this.loading = true
       this.contentLoading = true
       return this.$axios
@@ -114,13 +115,13 @@ export default {
             this.$store.commit('setPosts', {
               [this.selectedType]: {
                 content,
-                count: this.count
-              }
+                count: this.count,
+              },
             })
           }
         })
     },
-    async submitPost () {
+    async submitPost() {
       const resp = await this.$axios.post(
         `${endpoints.relationship}/create/${this.types[0]}/${this.types[1]}`,
         { text: this.text }
@@ -128,7 +129,7 @@ export default {
       if (resp && resp.data) {
         this.shownRelationship.RelationshipData = [
           resp.data,
-          ...this.shownRelationship.RelationshipData
+          ...this.shownRelationship.RelationshipData,
         ]
         this.shownRelationship.count += 1
         this.text = ''
@@ -136,14 +137,14 @@ export default {
         console.log('failed')
       }
     },
-    async threadUpdated (event) {
+    async threadUpdated(event) {
       const selectedComment = {
-        ...this.shownRelationship.RelationshipData[event.index]
+        ...this.shownRelationship.RelationshipData[event.index],
       }
       const resp = await this.$axios.post(
         `${endpoints.updateThread}/${selectedComment.id}`,
         {
-          text: event.text
+          text: event.text,
         }
       )
       if (resp && resp.data) {
@@ -152,8 +153,8 @@ export default {
       } else {
         this.$store.dispatch('toastError', 'Update Thread Failure')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
