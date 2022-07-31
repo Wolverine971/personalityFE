@@ -7,7 +7,7 @@ export default async () => {
     .fetch()
   return files.map((file: any) => {
     return {
-      url: file.path.replace(' ', '-'),
+      url: file.path.replace('/ /g', '-'),
       lastmod: Date.parse(file.updatedAt)
     }
   })

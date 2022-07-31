@@ -74,7 +74,7 @@ export default {
     { src: '~/plugins/axiosIntercept', mode: 'client' },
     { src: '~/plugins/axios.ts', mode: 'client' },
     { src: '~/plugins/gtag.js', mode: 'client' },
-    { src: '~/plugins/jsonLd.ts', mode: 'client' },
+    // { src: '~/plugins/jsonLd.ts', mode: 'client' },
     { src: '~/plugins/socials.ts', mode: 'client' },
     { src: '~/plugins/helpers', mode: 'client' }
   ],

@@ -22,7 +22,7 @@ export default {
   },
   async asyncData ({ params, $axios, store }) {
     const title = params.title
-      ? params.title.replaceAll('-', ' ')
+      ? params.title.replace('/-/g', ' ')
       : params.title
 
     const url = `${$axios.defaults.headers['Access-Control-Allow-Origin'][0]}blog/${params.title}`
@@ -38,26 +38,37 @@ export default {
       .catch((error) => {
         store.dispatch('toastError', error)
       })
-    return { url, blog }
+      const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      name: title,
+      url: `https://9takes.com${title}`,
+      description: blog.description,
+      publisher: {
+        '@type': 'Person',
+        name: blog && blog.author ? `${blog.author.firstName} ${blog.author.lastName}` : 'Unknown'
+      }
+    }
+    return { url, blog, structuredData }
   },
   data () {
     return {
       loading: false
     }
   },
-  jsonld () {
-    return {
-      '@context': 'https://schema.org',
-      '@type': 'Blog',
-      name: this.blog.title,
-      url: `https://9takes.com${this.$route.params.title}`,
-      description: this.blog.description,
-      publisher: {
-        '@type': 'Person',
-        name: this.blog && this.blog.author ? `${this.blog.author.firstName} ${this.blog.author.lastName}` : 'Unknown'
-      }
-    }
-  },
+  // jsonld () {
+  //   return {
+  //     '@context': 'https://schema.org',
+  //     '@type': 'Blog',
+  //     name: this.blog.title,
+  //     url: `https://9takes.com${this.$route.params.title}`,
+  //     description: this.blog.description,
+  //     publisher: {
+  //       '@type': 'Person',
+  //       name: this.blog && this.blog.author ? `${this.blog.author.firstName} ${this.blog.author.lastName}` : 'Unknown'
+  //     }
+  //   }
+  // },
 
   mounted () {
   },
@@ -103,7 +114,8 @@ export default {
           src: 'https://cdnjs.deepai.org/deepai.min.js',
           async: true,
           defer: true
-        }
+        },
+        {type: 'application/ld+json', json: this.structuredData}
       ],
       link: [{ rel: 'canonical', href }]
     }

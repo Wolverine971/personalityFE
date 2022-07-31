@@ -37,10 +37,10 @@
             </div>
           </v-col>
 
-          <v-col align-self="end">
+          <v-col align-self="end" v-if="blog && blog.title">
             <NuxtLink
               :to="{
-                path: `/blog/${blog.title.replaceAll(' ', '-')}`,
+                path: `/blog/${blog.title.replace(/ /g, '-')}`,
                 query: {},
               }"
             >

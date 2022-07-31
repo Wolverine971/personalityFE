@@ -25,7 +25,7 @@ export default {
   async asyncData ({ params, $axios, store }) {
     const id = params.id
     let question = null
-    if (store.getters.user) {
+    if (store.getters.getUser) {
       question = await $axios
         .get(`${endpoints.getQuestion}/${id}`)
         .then((resp) => {
@@ -52,23 +52,14 @@ export default {
           console.log(error)
         })
     }
-
-    return { question }
-  },
-  computed: {
-    user () {
-      return this.$store.getters.getUser
-    }
-  },
-  jsonld () {
-    return {
+    const structuredData = {
       '@context': 'https://schema.org',
-      url: `https://9takes.com/${this.$route.params.id}`,
+      url: `https://9takes.com/${id}`,
       '@type': 'FAQPage',
       mainEntity: [
         {
           '@type': 'Question',
-          name: this.question.question,
+          name: question ? question.question : '9takes question',
           acceptedAnswer: {
             '@type': 'Answer',
             text: 'See what others have to say'
@@ -76,12 +67,37 @@ export default {
         }
       ]
     }
+
+    return { question, structuredData }
   },
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    }
+  },
+  // jsonld () {
+  //   console.log(this.question)
+  //   return {
+  //     '@context': 'https://schema.org',
+  //     url: `https://9takes.com/${this.$route.params.id}`,
+  //     '@type': 'FAQPage',
+  //     mainEntity: [
+  //       {
+  //         '@type': 'Question',
+  //         name: this.question ? this.question.question : '9takes question',
+  //         acceptedAnswer: {
+  //           '@type': 'Answer',
+  //           text: 'See what others have to say'
+  //         }
+  //       }
+  //     ]
+  //   }
+  // },
 
   head () {
-    const title = `Question: "${this.question.question}"`
+    const title = `Question: "${this.question ? this.question.question : '9takes question'}"`
     // const description = this.blog ? this.blog.description : 'Personality Blog'
-    const href = this.url ? this.url : ''
+    const href = `https://9takes.com/question/${this.question.url}`
 
     return {
       titleTemplate: title,
@@ -131,7 +147,7 @@ export default {
           src: 'https://cdnjs.deepai.org/deepai.min.js',
           async: true,
           defer: true
-        }
+        }, {type: 'application/ld+json', json: this.structuredData}
       ],
       link: [{ rel: 'canonical', href }]
     }
