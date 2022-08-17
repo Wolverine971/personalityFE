@@ -38,7 +38,7 @@ export default function () {
     return pages
   }
 
-  this.nuxt.hook('generate:done', async (context) => {
+  this.nuxt.hook('generate:done', (context) => {
     const routesToExclude = [
       '/admin',
       '/auth',
