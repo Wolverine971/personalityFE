@@ -83,9 +83,9 @@ export default {
           } else {
             this.$store.dispatch('toastError', 'Password Reset Fail')
           }
-        } catch (error) {
-          console.log(error)
-          this.$store.dispatch('toastError', error)
+        } catch (e) {
+          console.log(e)
+          this.$store.dispatch('toastError', e)
         }
       }
     }

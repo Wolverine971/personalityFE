@@ -1,13 +1,23 @@
 <template>
   <v-card>
-    <h2 class="secondary--text">Following</h2>
+    <h2 class="secondary--text">
+      Following
+    </h2>
     <v-tabs v-if="!$vuetify.breakpoint.mobile">
-      <v-tab @click="scrollTo('subs')"> Peeps </v-tab>
-      <v-tab @click="scrollTo('askedQs')"> Your Asked Questions </v-tab>
-      <v-tab @click="scrollTo('newQs')"> New Questions </v-tab>
+      <v-tab @click="scrollTo('subs')">
+        Peeps
+      </v-tab>
+      <v-tab @click="scrollTo('askedQs')">
+        Your Asked Questions
+      </v-tab>
+      <v-tab @click="scrollTo('newQs')">
+        New Questions
+      </v-tab>
     </v-tabs>
     <div>
-      <h3 id="subs" class="primary_v--text">Questions Peeped</h3>
+      <h3 id="subs" class="primary_v--text">
+        Questions Peeped
+      </h3>
       <div v-if="subscriptions && subscriptions.length" class="m-col">
         <NuxtLink
           v-for="sub in subscriptions"
@@ -27,7 +37,9 @@
         <p>No Questions Following</p>
       </div>
 
-      <h3 id="askedQs" class="primary_v--text">Asked Questions</h3>
+      <h3 id="askedQs" class="primary_v--text">
+        Asked Questions
+      </h3>
       <div v-if="askedQuestions && askedQuestions.length" class="m-col">
         <NuxtLink
           v-for="aqs in askedQuestions"
@@ -47,7 +59,9 @@
         <p>You have asked no questions</p>
       </div>
 
-      <h3 id="newQs" class="primary_v--text">New Questions</h3>
+      <h3 id="newQs" class="primary_v--text">
+        New Questions
+      </h3>
       <div v-if="newQuestions && newQuestions.length" class="m-col">
         <NuxtLink
           v-for="nqs in newQuestions"
@@ -83,22 +97,22 @@
 export default {
   name: 'Dashboard',
   components: {
-    QuestionDisplay: () => import('../components/questions/questionDisplay'),
+    QuestionDisplay: () => import('../components/questions/questionDisplay')
   },
 
   computed: {
-    subscriptions() {
+    subscriptions () {
       return this.$store.getters.getSubscriptions
     },
-    newQuestions() {
+    newQuestions () {
       return this.$store.getters.getNewQuestions
     },
-    askedQuestions() {
+    askedQuestions () {
       return this.$store.getters.getAskedQuestions
-    },
+    }
   },
   watch: {},
-  mounted() {
+  mounted () {
     const dash = this.$store.getters.getNewQuestions
     if (dash.length === 0 || this.$store.getters.getRefreshDashboard) {
       this.$store.dispatch('getDashboard')
@@ -107,12 +121,12 @@ export default {
   },
   methods: {
 
-    scrollTo(id) {
+    scrollTo (id) {
       if (id) {
         document.getElementById(id).scrollIntoView()
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

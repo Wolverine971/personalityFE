@@ -1,7 +1,7 @@
 <template>
   <div class="m-col">
     <!-- <h2>Total Comments: {{ totalComments }} </h2> -->
-    <div class="margin-bot" style="padding:10px;">
+    <div class="margin-bot" style="padding: 10px">
       <!-- <sort
         :type="'comments'"
         @triggerNewSearch="filterComments($event)"
@@ -12,56 +12,48 @@
           Total Comments: {{ totalComments }}
         </v-card-title>
         <v-card-text>
-          <sort
-            :type="'comments'"
-            @triggerNewSearch="filterComments($event)"
-          />
+          <sort :type="'comments'" @triggerNewSearch="filterComments($event)" />
         </v-card-text>
       </v-card>
 
-      <v-card
-        v-for="comment in allComments"
-        :key="comment.id"
-      >
-        <v-card-text
-          class="pad-bot clickable"
-        >
-          {{ comment.comment }}?
-          <v-card-actions class="">
-            <div>
-              <v-btn v-if="admin" outlined small>
-                Id: {{ comment.id }}
-              </v-btn>
-              <v-btn v-if="admin" outlined small>
-                Author Enneagram: {{ comment.author.enneagramId }}
-              </v-btn>
-              <v-btn v-if="admin" outlined small>
-                DateCreated: {{ getTime(comment.dateCreated) }}
-              </v-btn>
-              <v-btn v-if="admin" outlined small>
-                Modified: {{ comment.modified }}
-              </v-btn>
-              <v-btn small outlined>
-                <v-icon> mdi-cookie-outline </v-icon>
-                {{ comment.likes.length }}
-              </v-btn>
-              <v-btn small outlined>
-                <v-icon> mdi-comment-outline </v-icon>
-                {{ comment.comments.count }}
-              </v-btn>
-              <v-btn
-                v-if="admin"
-                outlined
-                small
-                color="red"
-                @click="deleteComment(comment)"
-              >
-                <v-icon>delete</v-icon>
-              </v-btn>
-            </div>
-          </v-card-actions>
-        </v-card-text>
-      </v-card>
+      <v-expansion-panels>
+        <v-expansion-panel v-for="comment in allComments" :key="comment.id">
+          <v-expansion-panel-header>
+            {{ comment.comment }}?
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-btn v-if="admin" outlined small>
+              Id: {{ comment.id }}
+            </v-btn>
+            <v-btn v-if="admin" outlined small>
+              Author Enneagram: {{ comment.author.enneagramId }}
+            </v-btn>
+            <v-btn v-if="admin" outlined small>
+              DateCreated: {{ getTime(comment.dateCreated) }}
+            </v-btn>
+            <v-btn v-if="admin" outlined small>
+              Modified: {{ comment.modified }}
+            </v-btn>
+            <v-btn small outlined>
+              <v-icon> mdi-cookie-outline </v-icon>
+              {{ comment.likes.length }}
+            </v-btn>
+            <v-btn small outlined>
+              <v-icon> mdi-comment-outline </v-icon>
+              {{ comment.comments.count }}
+            </v-btn>
+            <v-btn
+              v-if="admin"
+              outlined
+              small
+              color="red"
+              @click="deleteComment(comment)"
+            >
+              <v-icon>delete</v-icon>
+            </v-btn>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
 
       <div
         v-if="commentsCount < totalComments && !commentsLoading"
@@ -101,7 +93,19 @@ export default {
       key: -1,
       cursorId: null,
       params: {
-        enneagramTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        enneagramTypes: [
+          '1',
+          '2',
+          '3',
+          '4',
+          '5',
+          '6',
+          '7',
+          '8',
+          '9',
+          'Unknown',
+          'Rando'
+        ],
         dateRange: '',
         sortBy: ''
       }
@@ -125,6 +129,9 @@ export default {
     allComments (val) {
       this.commentsCount = val.length
     }
+  },
+  mounted () {
+    this.$store.dispatch('getSortedPaginatedComments')
   },
   methods: {
     async loadMoreComments () {

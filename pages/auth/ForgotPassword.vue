@@ -53,7 +53,6 @@ export default {
             email: this.emailAddress
           }
           const resp = await this.$axios.post(endpoints.forgotPasswordRoute, data)
-          console.log(resp)
           if (resp && resp.data) {
             this.$router.push({ path: '/auth' })
             this.$store.dispatch('toastSuccess', 'Reset Password Link Sent')
@@ -62,8 +61,8 @@ export default {
           } else {
             this.$store.dispatch('toastError', 'Cannot reset password')
           }
-        } catch (error) {
-          console.log(error)
+        } catch (e) {
+          console.log(e)
           this.$store.dispatch('toastError', 'Cannot reset password')
         }
       }

@@ -103,7 +103,7 @@ export default {
     emailAddress: '',
     password: '',
     enneagramType: null,
-    enneagramTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+    enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'Unknown', 'Rando'],
     registerSuccess: false,
     passwordType: 'password',
 
@@ -139,9 +139,9 @@ export default {
             this.registerSuccess = false
             this.$store.dispatch('toastError', message)
           }
-        } catch (error) {
+        } catch (e) {
           this.registerSuccess = false
-          this.$store.dispatch('toastError', error)
+          this.$store.dispatch('toastError', e)
         }
       }
     },

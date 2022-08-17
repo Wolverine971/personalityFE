@@ -57,8 +57,11 @@
     />
     <v-btn
       v-if="
-        displayedQuestion.comments.comments.length <
-          displayedQuestion.comments.count && !commentsLoading
+        displayedQuestion.comments &&
+          displayedQuestion.comments.comments &&
+          displayedQuestion.comments.comments.length <
+          displayedQuestion.comments.count &&
+          !commentsLoading
       "
       class="margin-top row"
       color="secondary"
@@ -93,11 +96,10 @@ export default {
 
   data: () => ({
     displayedQuestion: null,
-    commenterIds: {},
-    showComments: false,
     commentsLoading: false,
     cursorId: null,
-    params: null
+    params: null,
+    showComments: false
   }),
   computed: {
     alreadyFetchedQuestions () {
@@ -108,21 +110,30 @@ export default {
     },
     user () {
       return this.$store.getters.getUser
+    },
+    randoPerms () {
+      return this.$store.getters.getRandoPermissions
     }
+
   },
   watch: {
     question (question) {
       this.parseQuestion(question)
+    },
+    showComments () {
+      this.parseQuestion(this.question)
     }
   },
   mounted () {
     this.parseQuestion(this.question)
   },
+
   methods: {
     parseQuestion (question) {
-      if (this.user) {
+      this.checkShowComments()
+      if (this.showComments) {
         this.commenterIds = question.commenterIds
-        this.showComments = this.commenterIds[this.user.id]
+        // this.showComments = this.commenterIds[this.user.id]
 
         this.displayedQuestion = Object.assign({}, question)
         this.$store.commit('updateAllQuestions', question)
@@ -131,7 +142,7 @@ export default {
       }
     },
     async getQuestion (questionId) {
-      if (this.user) {
+      if (this.showComments) {
         if (
           this.alreadyFetchedQuestions &&
           this.alreadyFetchedQuestions[questionId] &&
@@ -141,16 +152,12 @@ export default {
             {},
             this.alreadyFetchedQuestions[questionId]
           )
-          this.commenterIds = this.question.commenterIds
-          this.showComments = this.commenterIds[this.user.id]
         } else {
           const resp = await this.$axios.get(
             `${endpoints.getQuestion}/${questionId}`
           )
 
           if (resp && resp.data) {
-            this.commenterIds = resp.data.commenterIds
-            this.showComments = this.commenterIds[this.user.id]
             this.question = Object.assign({}, resp.data)
             this.$store.commit('updateAllQuestions', resp.data)
           } else {
@@ -172,7 +179,7 @@ export default {
       }
     },
     async filterComments (event) {
-      if (this.user) {
+      if (this.showComments) {
         this.commentsLoading = true
 
         const resp = await this.$axios.post(
@@ -211,9 +218,8 @@ export default {
       this.commentsLoading = false
     },
     newComment (event) {
-      this.showComments = true
       const newComments = [event, ...this.displayedQuestion.comments.comments]
-      this.displayedQuestion.commenterIds[this.user.id] = 1
+      this.displayedQuestion.commenterIds[event.author.id] = 1
       this.displayedQuestion = Object.assign({}, this.displayedQuestion, {
         comments: Object.assign(
           {},
@@ -226,7 +232,9 @@ export default {
           }
         )
       })
+
       this.$store.commit('updateAllQuestions', this.displayedQuestion)
+      this.checkShowComments()
     },
     async updateQuestion (event) {
       const resp = await this.$axios.post(
@@ -263,6 +271,29 @@ export default {
         this.$store.dispatch('toastSuccess', 'Updated Comment')
       } else {
         this.$store.dispatch('toastError', 'Update Comment Failure')
+      }
+    },
+    checkShowComments () {
+      const questionId = this.question ? this.question.id : null
+      if (
+        this.user &&
+        this.question &&
+        this.question.commenterIds &&
+        this.question.commenterIds[this.user.id]
+      ) {
+        if (
+          this.question.commenterIds[this.user.id] ||
+          this.alreadyFetchedQuestions[questionId].commenterIds[this.user.id]
+        ) {
+          this.showComments = true
+          return
+        }
+      }
+
+      if (this.randoPerms && questionId && this.randoPerms[questionId]) {
+        this.showComments = true
+      } else {
+        this.showComments = false
       }
     }
   }

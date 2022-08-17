@@ -23,6 +23,7 @@ export default {
       import('../../components/questions/selectedQuestion')
   },
   async asyncData ({ params, $axios, store }) {
+    store.commit('setAllCommentsCount', 0)
     const id = params.id
     let question = null
     if (store.getters.getUser) {
@@ -147,7 +148,7 @@ export default {
           src: 'https://cdnjs.deepai.org/deepai.min.js',
           async: true,
           defer: true
-        }, {type: 'application/ld+json', json: this.structuredData}
+        }, { type: 'application/ld+json', json: this.structuredData }
       ],
       link: [{ rel: 'canonical', href }]
     }

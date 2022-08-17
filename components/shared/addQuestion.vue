@@ -18,6 +18,7 @@
     maxlength="500"
     counter
     @update:list-index="change"
+    @keydown.self.enter="addQuestion(question)"
     @click:prepend-inner="addQuestion(question)"
   >
     <template v-slot:append>
@@ -27,6 +28,7 @@
         class="btn-height"
         text
         @click="addQuestion(question)"
+        @keydown.enter="addQuestion(question)"
       >
         Add Question
       </v-btn>
@@ -61,6 +63,7 @@ import { getQuestionsFromData } from '../../utils'
 import { endpoints } from '~/models/endpoints'
 export default {
   name: 'AddQuestion',
+  // alhost:3001/api/comment/add/question/j-0gpII
 
   components: { Heartbeat: () => import('../../components/shared/heart') },
   data () {
@@ -110,7 +113,9 @@ export default {
       }
     }, 1000),
     addQuestion (question) {
-      if (this.user) {
+      if (question.url) {
+        this.goToQuestion(question)
+      } else if (this.user) {
         if (this.key === -1) {
           this.$router.push({ path: '/questions/createQuestion', query: { question } })
           this.$router.go(1)

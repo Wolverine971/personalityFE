@@ -521,7 +521,7 @@ export default {
     return {
       dialog: false,
       coreEmotion: null,
-      enneagramTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'Unknown', 'Rando'],
       chosenType: null
     }
   },

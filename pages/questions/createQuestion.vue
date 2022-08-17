@@ -54,7 +54,7 @@
               <v-btn outlined small color="red" @click="dialog = false">
                 Not Ready
               </v-btn>
-              <v-btn outlined small color="secondary" @click="addQuestion">
+              <v-btn outlined small color="secondary" :disabled="!url" @click="addQuestion">
                 I accept
               </v-btn>
             </v-card-actions>
@@ -82,7 +82,7 @@ export default {
   name: 'Personality',
   props: {},
   middleware: ['accessToken'],
-  data() {
+  data () {
     return {
       question: '',
       context: '',
@@ -91,34 +91,31 @@ export default {
       pngSrc: '',
       height: 0,
       width: 0,
-      url: '',
+      url: ''
     }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.getters.getUser
-    },
+    }
   },
 
-  mounted() {
-    // this.init()
-    console.log(this.$route.query.question)
+  mounted () {
     this.question = this.$route.query.question
   },
   methods: {
-    async getUrl() {
+    async getUrl () {
       try {
         const resp = await this.$axios.post(`${endpoints.getUrl}`, {
-          question: this.question.replace('?', ''),
+          question: this.question.replace('?', '')
         })
-        console.log(resp.data.url)
         this.url = resp.data.url
       } catch (e) {
         console.log(e)
         this.$store.dispatch('toastError', 'Failed to get url')
       }
     },
-    async addQuestion() {
+    async addQuestion () {
       if (this.user) {
         const questionToSend = this.question.replace('?', '')
         const question = document.getElementById('question-pic')
@@ -135,7 +132,8 @@ export default {
         }
 
         const resp = await this.$axios.post(`${endpoints.questionAdd}`, data)
-        if (resp) {
+        if (resp && resp.data) {
+          this.$store.commit('addAllQuestions', [resp.data])
           this.$store.dispatch('toastSuccess', 'Asked Question')
           this.goToQuestion(data)
         } else {
@@ -147,11 +145,11 @@ export default {
 
       this.dialog = false
     },
-    goToQuestion(item) {
+    goToQuestion (item) {
       this.$router.push({ path: `/questions/${item.url}` })
       this.$router.go(1)
-    },
-  },
+    }
+  }
 }
 </script>
 

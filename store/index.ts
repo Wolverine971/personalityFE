@@ -1,7 +1,8 @@
 import { ContentPost } from '~/models/interfaces'
-import { getQuestionsFromData } from '~/utils'
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import { uuid } from 'vue-uuid'
+import { uuid } from 'vue-uuid'
 
 import { endpoints } from '../models/endpoints'
 
@@ -9,7 +10,7 @@ Vue.use(Vuex)
 export interface AppState {
   user: any
 
-  accessToken: string
+  accessToken: string | null
 
   allQuestions: any
 
@@ -40,6 +41,8 @@ export interface AppState {
   users: any[]
 
   usersCount: number
+
+  randoPermissions: Object | null
 }
 // STATE
 export const state: AppState = {
@@ -75,7 +78,9 @@ export const state: AppState = {
 
   users: [],
 
-  usersCount: 0
+  usersCount: 0,
+
+  randoPermissions: null
 }
 
 export const getters = {
@@ -148,6 +153,9 @@ export const getters = {
   },
   getAllUsersCount (state: AppState) {
     return state.usersCount
+  },
+  getRandoPermissions (state: AppState) {
+    return state.randoPermissions
   }
 }
 
@@ -156,7 +164,7 @@ export const mutations = {
   setUser (state: AppState, user: any) {
     state.user = user
   },
-  setAccessToken (state: AppState, token: string) {
+  setAccessToken (state: AppState, token: string | null) {
     state.accessToken = token
   },
   addAllQuestions (state: AppState, questions: any[]) {
@@ -177,7 +185,7 @@ export const mutations = {
     if (state.allQuestions && state.allQuestions[question.id]) {
       const newQuestion = { [question.id]: question }
       state.allQuestions = Object.assign({}, state.allQuestions, newQuestion)
-    }else{
+    } else {
       state.allQuestions = {}
       state.allQuestions[question.id] = question
     }
@@ -231,11 +239,47 @@ export const mutations = {
   },
   setAllUsersCount (state: AppState, count: number) {
     state.usersCount = count
+  },
+  setRandoPermissions (state: AppState, permissions: Object = {}) {
+    state.randoPermissions = Object.assign({}, permissions)
+  },
+
+  updatePermissions (state: AppState, newPermission: string) {
+    state.randoPermissions = Object.assign(
+      {},
+      { [newPermission]: 1 },
+      state.randoPermissions
+    )
   }
 }
 
 // ACTIONS
 export const actions: any = {
+  async setAnonymous ({ commit, dispatch }: any) {
+    let cookie = this.$9tcookie.get('9tAnonymous')
+    if (!cookie) {
+      cookie = `${process.env.RANDO_PREFIX}${uuid.v1()}`
+      this.$axios.defaults.headers.Authorization = cookie
+      this.$axios.setToken(cookie)
+
+      this.$9tcookie.set('9tAnonymous', cookie, {
+        path: '/',
+        maxAge: 100 * 60 * 60 * 24 * 7
+      })
+    }
+    await commit('setAccessToken', cookie)
+    dispatch('getRandoPermissions', cookie)
+    commit('setUser', null)
+  },
+
+  async getRandoPermissions ({ commit }: any, cookie: string) {
+    const resp = await this.$axios.get(`${endpoints.getRando}`, {
+      headers: { Authorization: cookie }
+    })
+    if (resp && resp.data) {
+      commit('setRandoPermissions', resp.data.questions)
+    }
+  },
   async login ({ commit, dispatch }: any, user: { email: any; password: any }) {
     try {
       const data: any = await this.$axios.post(endpoints.login, user)
@@ -255,28 +299,25 @@ export const actions: any = {
         } else {
           dispatch('toastError', 'Login Fail')
         }
-        commit('setUser', null)
-        commit('setAccessToken', null)
+        dispatch('setAnonymous', null)
         return false
       }
-    } catch (error) {
-      console.log(error)
+    } catch (e) {
+      console.log(e)
       return false
     }
   },
 
-  getAccessToken ({ commit }: any, refreshToken: string): any {
+  getAccessToken ({ commit, dispatch }: any, refreshToken: string): any {
     if (!refreshToken) {
-      commit('setUser', null)
-      commit('setAccessToken', null)
+      dispatch('setAnonymous', null)
       return false
     } else {
       return this.$axios
         .$get(endpoints.refreshTokenRoute + refreshToken)
         .then((data: any) => {
           if (!data.accessToken) {
-            commit('setUser', null)
-            commit('setAccessToken', null)
+            dispatch('setAnonymous', null)
             return false
           } else {
             this.$9tcookie.set('9tcookie', data.refreshToken, {
@@ -292,8 +333,7 @@ export const actions: any = {
         .catch((error: Error) => {
           console.log(error)
           console.log('getAccessToken false 2')
-          commit('setUser', null)
-          commit('setAccessToken', null)
+          dispatch('setAnonymous', null)
           return false
         })
     }
@@ -318,12 +358,12 @@ export const actions: any = {
     }
   },
 
-  getUser ({ commit }: any) {
+  getUser ({ commit, dispatch }: any) {
     return this.$axios.$get(endpoints.refreshTokenRoute).then((data: any) => {
       if (data && data.user) {
         commit('setUser', data.user)
       } else {
-        commit('setUser', null)
+        dispatch('setAnonymous', null)
       }
     })
   },
@@ -341,13 +381,21 @@ export const actions: any = {
 
   getSortedPaginatedComments ({ commit, getters }: any, sortParams: any) {
     const commentSkipCount = getters.getAllCommentsSkipCount
+    if (!sortParams) {
+      sortParams = {}
+    }
     sortParams.skip = commentSkipCount || 0
     return this.$axios
       .post(`${endpoints.getSortedComments}/`, sortParams)
       .then((resp: any) => {
         if (resp && resp.data) {
-          commit('addAllComments', resp.data.comments)
-          commit('setAllCommentsCount', resp.data.count)
+          if (sortParams.skip) {
+            commit('replaceAllComments', resp.data.comments)
+            commit('setAllCommentsCount', resp.data.count)
+          } else {
+            commit('addAllComments', resp.data.comments)
+            commit('setAllCommentsCount', resp.data.count)
+          }
         }
       })
   },

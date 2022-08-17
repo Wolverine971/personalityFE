@@ -1,37 +1,41 @@
 <template>
   <div class="m-col">
     Total users: {{ totalUsers }}
-    <v-card v-for="user in allUsers" :key="user.id" class="margin-bot">
-      <v-card-text class="pad-bot clickable">
-        Name: {{ user.firstName }} {{ user.lastName }}
-      </v-card-text>
-      <v-card-actions>
-        <v-btn v-if="admin" outlined small>
-          Id: {{ user.id }}
-        </v-btn>
-        <v-btn v-if="admin" outlined small>
-          Email: {{ user.email }}
-        </v-btn>
-        <v-btn v-if="admin" outlined small>
-          Author Enneagram: {{ user.enneagramId }}
-        </v-btn>
-        <v-btn v-if="admin" outlined small>
-          DateCreated: {{ getTime(user.dateCreated) }}
-        </v-btn>
-        <v-btn v-if="admin" outlined small>
-          Role: {{ user.role }}
-        </v-btn>
-        <v-btn
-          v-if="admin && user.email !== user.email"
-          outlined
-          small
-          color="red"
-          @click="deleteUser(user)"
-        >
-          <v-icon>delete</v-icon>
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+
+    <v-expansion-panels>
+      <v-expansion-panel v-for="u in allUsers" :key="u.id">
+        <v-expansion-panel-header>
+          Name: {{ u.firstName }} {{ u.lastName }}, {{ u.email }}
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-btn v-if="admin" outlined small>
+            Id: {{ u.id }}
+          </v-btn>
+          <v-btn v-if="admin" outlined small>
+            Email: {{ u.email }}
+          </v-btn>
+          <v-btn v-if="admin" outlined small>
+            Author Enneagram: {{ u.enneagramId }}
+          </v-btn>
+          <v-btn v-if="admin" outlined small>
+            DateCreated: {{ getTime(u.dateCreated) }}
+          </v-btn>
+          <v-btn v-if="admin" outlined small>
+            Role: {{ u.role }}
+          </v-btn>
+          <v-btn
+            v-if="admin && u.email !== u.email"
+            outlined
+            small
+            color="red"
+            @click="deleteUser(u)"
+          >
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+
     <div
       v-if="usersCount < totalUsers && !usersLoading"
       class="row"
@@ -108,19 +112,17 @@ export default {
       return msToTime(time)
     },
     async deleteUser (user) {
-      const resp = await this.$axios.post(
-          `${endpoints.change}`,
-          { type: 'user', tag: user.id }
-      )
+      const resp = await this.$axios.post(`${endpoints.change}`, {
+        type: 'user',
+        tag: user.id
+      })
       if (resp && resp.data) {
         this.allUsers = this.allUsers.filter(q => q.id !== user.id)
       }
     }
   }
-
 }
 </script>
 
 <style>
-
 </style>

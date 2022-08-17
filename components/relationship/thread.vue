@@ -22,7 +22,7 @@
           :likes="thread.likes.length"
           :parent-id="thread.id"
           :show-cookies="showCookies"
-          :author="thread.author.id"
+          :author-id="thread.author.id"
           @commentUpdated="$emit('threadUpdated', $event)"
         />
       </v-card-title>
@@ -57,28 +57,26 @@ export default {
   components: {
     Interact: () => import('../shared/interact'),
     Comments: () => import('../questions/comments'),
-    CookieComment: () => import('../shared/cookieComment.vue'),
+    CookieComment: () => import('../shared/cookieComment.vue')
   },
   props: {
     thread: {
       type: Object,
-      default() {
-        return {}
-      },
-      required: false,
+      default: () => ({}),
+      required: false
     },
     index: {
       type: Number,
       default: 0,
-      required: false,
-    },
+      required: false
+    }
   },
   data: () => ({
     panels: [],
-    showCookies: false,
+    showCookies: false
   }),
   methods: {
-    newComment(event) {
+    newComment (event) {
       let newComments
       if (this.thread.comments.comments) {
         newComments = [event, ...this.thread.comments.comments]
@@ -87,16 +85,16 @@ export default {
       }
 
       this.thread.comments = Object.assign({}, this.thread.comments, {
-        comments: newComments,
+        comments: newComments
       })
       this.thread.comments.count += 1
     },
-    async updateComment(event) {
+    async updateComment (event) {
       const selectedComment = this.thread.comments.comments[event.index]
       const resp = await this.$axios.post(
         `${endpoints.updateComment}/${selectedComment.id}`,
         {
-          comment: event.comment,
+          comment: event.comment
         }
       )
       if (resp && resp.data) {
@@ -106,10 +104,10 @@ export default {
         this.$store.dispatch('toastError', 'Update Comment Failure')
       }
     },
-    likeChange(event) {
+    likeChange (event) {
       this.thread.likes = event
-    },
-  },
+    }
+  }
 }
 </script>
 

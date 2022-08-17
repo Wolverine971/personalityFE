@@ -11,17 +11,17 @@
         outlined
         raised
         large
-        :class="`class${componentComment.author.enneagramId}`"
+        :class="author"
         color="offWhite"
       >
-        {{ componentComment.author.enneagramId !== 'Unknown' ? componentComment.author.enneagramId : '?' }}
+        {{ author }}
       </v-avatar>
       <cookie-comment
         :text="componentComment.comment"
         :likes="componentComment.likes.length"
         :parent-id="componentComment.id"
         :show-cookies="showCookies"
-        :author="componentComment.author.id"
+        :author-id="componentComment.author.id"
         @commentUpdated="$emit('commentUpdated', $event)"
       />
     </v-card-title>
@@ -81,12 +81,16 @@ export default {
     panels: [],
     showCookies: false
   }),
+  computed: {
+    author () {
+      return this.componentComment.author.enneagramId ? this.componentComment.author.enneagramId : 'Rando'
+    }
+  },
   watch: {
     async comment (comment) {
       this.componentComment = comment
       this.panels = []
-      if (comment.comment) {
-      } else {
+      if (!comment.comment) {
         const resp = await this.$axios.get(
           `${endpoints.getComment}/${this.componentComment.id}`
         )

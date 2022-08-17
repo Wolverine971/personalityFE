@@ -1,73 +1,60 @@
 <template>
   <v-card flat class="m-col">
     <v-card-title> Total Questions: {{ totalQuestions }} </v-card-title>
-
-    <v-card v-for="q in questions" :key="q.id" class="margin-bot">
-      <NuxtLink
-        :to="{
-          path: `/questions/${q.url}`,
-          query: {},
-        }"
-        router
-        style="text-decoration: none"
-      >
-        <v-card-text
-          class="pad-bot"
-          router
-          @click="admin ? '' : goToQuestion(q)"
-        >
-          {{ q.question }}?
-        </v-card-text>
-      </NuxtLink>
-      <v-card-actions v-if="q">
-        <v-btn v-if="admin" outlined small>
-          Id: {{ q.id }}
-        </v-btn>
-        <v-btn v-if="admin" outlined small>
-          Author Enneagram: {{ q.author ? q.author.enneagramId : '' }}
-        </v-btn>
-        <v-btn v-if="admin" outlined small>
-          DateCreated: {{ getTime(q.dateCreated) }}
-        </v-btn>
-        <v-btn v-if="admin" outlined small>
-          Modified: {{ q.modified }}
-        </v-btn>
-        <v-btn v-if="admin" outlined small>
-          Subscribers: {{ q.subscribers.length }}
-        </v-btn>
-        <v-btn v-if="q.likes" outlined small>
-          <v-icon> mdi-cookie-outline </v-icon>
-          {{ q.likes.length }}
-        </v-btn>
-        <v-btn v-if="q.comments" outlined small>
-          <v-icon> mdi-comment-outline </v-icon>
-          {{ q.comments.count }}
-        </v-btn>
-        <NuxtLink
-
-          :to="{
-            path: `/questions/${q.url}`,
-            query: {},
-          }"
-
-          style="text-decoration: none; margin-left: 8px;"
-        >
-          <v-btn outlined small>
-            <v-icon>keyboard_arrow_right</v-icon>
+    <v-expansion-panels>
+      <v-expansion-panel v-for="q in questions" :key="q.id" class="margin-bot">
+        <v-expansion-panel-header> {{ q.question }}? </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-btn v-if="admin" outlined small>
+            Id: {{ q.id }}
           </v-btn>
-        </NuxtLink>
+          <v-btn v-if="admin" outlined small>
+            Url: {{ q.url }}
+          </v-btn>
+          <v-btn v-if="admin" outlined small>
+            Author Enneagram: {{ q.author ? q.author.enneagramId : '' }}
+          </v-btn>
+          <v-btn v-if="admin" outlined small>
+            DateCreated: {{ getTime(q.dateCreated) }}
+          </v-btn>
+          <v-btn v-if="admin" outlined small>
+            Modified: {{ q.modified }}
+          </v-btn>
+          <v-btn v-if="admin" outlined small>
+            Subscribers: {{ q.subscribers.length }}
+          </v-btn>
+          <v-btn v-if="q.likes" outlined small>
+            <v-icon> mdi-cookie-outline </v-icon>
+            {{ q.likes.length }}
+          </v-btn>
+          <v-btn v-if="q.comments" outlined small>
+            <v-icon> mdi-comment-outline </v-icon>
+            {{ q.comments.count }}
+          </v-btn>
+          <NuxtLink
+            :to="{
+              path: `/questions/${q.url}`,
+              query: {},
+            }"
+            style="text-decoration: none; margin-left: 8px"
+          >
+            <v-btn outlined small>
+              <v-icon>keyboard_arrow_right</v-icon>
+            </v-btn>
+          </NuxtLink>
 
-        <v-btn
-          v-if="admin"
-          outlined
-          small
-          color="red"
-          @click="deleteQuestion(q)"
-        >
-          <v-icon>delete</v-icon>
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+          <v-btn
+            v-if="admin"
+            outlined
+            small
+            color="red"
+            @click="deleteQuestion(q)"
+          >
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
 
     <v-card-actions>
       <v-btn
@@ -87,7 +74,7 @@
 import { msToTime } from '../../utils'
 import { endpoints } from '../../models/endpoints'
 export default {
-  name: 'AllQuestions',
+  name: 'AdminQuestions',
   props: {
     admin: {
       type: Boolean,

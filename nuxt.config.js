@@ -76,7 +76,8 @@ export default {
     { src: '~/plugins/gtag.js', mode: 'client' },
     // { src: '~/plugins/jsonLd.ts', mode: 'client' },
     { src: '~/plugins/socials.ts', mode: 'client' },
-    { src: '~/plugins/helpers', mode: 'client' }
+    { src: '~/plugins/helpers', mode: 'client' },
+    { src: '~/plugins/Uid', mode: 'client' }
   ],
 
   server: {
@@ -86,10 +87,10 @@ export default {
 
   sitemap: {
     hostname: 'https://9takes.com/',
-    filter({routes}){
+    filter ({ routes }) {
       console.log(routes)
-      const nogos = process.env.NoGo.split(", ");
-      return routes.filter((route) => !nogos.includes(route.url))
+      const nogos = process.env.NoGo.split(', ')
+      return routes.filter(route => !nogos.includes(route.url))
     }
   },
 
@@ -104,7 +105,7 @@ export default {
     ['cookie-universal-nuxt', { alias: '9tcookie' }], '@nuxtjs/vuetify',
     'nuxt-material-design-icons', '@nuxtjs/sitemap'
   ],
-  buildModules:['@/modules/sitemapGenerator'],
+  buildModules: ['@/modules/sitemapGenerator'],
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL: process.env.BE_URL || 'http://localhost:3001/', // `${process.env.BASE_URL}:3001/`,
@@ -199,6 +200,7 @@ export default {
   },
   target: 'static', // 'universal',
   env: {
+    RANDO_PREFIX: process.env.RANDO_PREFIX,
     ORIGIN: process.env.ORIGIN,
     BE_URL: process.env.BE_URL || 'http://localhost:3001/',
     GOOGLE: process.env.GOOGLE,

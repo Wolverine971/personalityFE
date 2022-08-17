@@ -1,14 +1,14 @@
 <template>
   <div class="align-center">
-    <v-card class="m-col align-center">
-      <v-card>
-        <v-card-title class="headline ">
+    <v-card class="m-col align-center" flat>
+      <v-card flat>
+        <v-card-title class="headline">
           <h1 class="secondary--text center">
             9takes Beta
           </h1>
         </v-card-title>
-        <v-card-subtitle class="min-marg-top ">
-          <h3 class="secondary--text " style="text-align: center">
+        <v-card-subtitle class="min-marg-top">
+          <h3 class="secondary--text" style="text-align: center">
             Ask questions, get the familiar and the unexpected
           </h3>
         </v-card-subtitle>
@@ -33,8 +33,9 @@
           </v-tooltip>
         </v-card-actions>
       </v-card>
+      <v-divider />
 
-      <v-card>
+      <v-card flat>
         <v-card-text class="center-mid">
           <h2 class="secondary--text">
             <v-icon color="primary">
@@ -43,20 +44,29 @@
             Background
           </h2>
           <p>
-            People are different, but they are also similar. The dividing line between the similarities and differences is not well understood.
-            There are many ways to "classify" people or "label" them but how helpful or limiting are these labels?<b> It is no secret that the world is divided and division revolves around labeling others and a sense of certainty.</b>
-            I want to disrupt this by introducing uncertainty in the form of questions and removing labels introducing anonymity.
-            By doing so I hope to generate curiosity and maybe a little empathy.
+            People are different, but they are also similar. The dividing line
+            between the similarities and differences is not well understood.
+            There are many ways to "classify" people or "label" them but how
+            helpful or limiting are these labels?<b>
+              It is no secret that the world is divided and division revolves
+              around labeling others and a sense of certainty.</b>
+            I want to disrupt this by introducing uncertainty in the form of
+            questions and removing labels introducing anonymity. By doing so I
+            hope to generate curiosity and maybe a little empathy.
           </p>
           <div>
-            <h3> Two contrasting and unproductive trains of thought</h3>
+            <h3>Two contrasting and unproductive trains of thought</h3>
             <ul>
-              <li>People are all different, and no one understands or can understand me</li>
+              <li>
+                People are all different, and no one understands or can
+                understand me
+              </li>
               <li>People are all the same, we all have the same problems</li>
             </ul>
           </div>
         </v-card-text>
       </v-card>
+      <v-divider />
 
       <!-- <v-card class="row-fif">
         <v-card-title class="headline">
@@ -80,19 +90,19 @@
         </v-card-actions>
       </v-card> -->
       <!-- <div class="row-mid"> -->
-      <v-card class="row-fif">
-        <v-card-title class="headline">
-          <h3 class="primary_v--text">
-            Questions
-          </h3>
-        </v-card-title>
-        <v-card-text class="center-mid">
+      <v-card class="row-fif" flat>
+        <!-- <v-card-title class="headline"> -->
+        <h3 class="primary_v--text">
+          Questions
+        </h3>
+        <!-- </v-card-title> -->
+        <div class="center-mid">
           <p style="margin: 23px">
             All answers to questions will be hidden until you respond, we
             welcome your voice to the conversation, go ahead, share your
             thoughts!
           </p>
-        </v-card-text>
+        </div>
         <v-card-actions>
           <v-btn outlined to="/questions" color="secondary">
             Go to Questions
@@ -102,18 +112,19 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-      <v-card class="row-fif">
-        <v-card-title class="headline">
-          <h3 class="primary_v--text">
-            Blog
-          </h3>
-        </v-card-title>
-        <v-card-text class="center-mid">
+      <!-- <v-divider /> -->
+      <v-card class="row-fif" flat>
+        <!-- <v-card-title class="headline"> -->
+        <h3 class="primary_v--text">
+          Blog
+        </h3>
+        <!-- </v-card-title> -->
+        <div class="center-mid">
           <p style="margin: 23px">
             Topics, implications, and predictions surrounding 9takes will
             discussed.
           </p>
-        </v-card-text>
+        </div>
         <v-card-actions>
           <v-btn outlined to="/blog" color="secondary">
             <v-icon color="secondary">
@@ -123,9 +134,9 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-
+      <v-divider />
       <!-- </div> -->
-      <v-card class="row-fif">
+      <v-card class="row-fif" flat>
         <v-card-title class="headline">
           <h3 class="primary_v--text">
             One More Thing
@@ -157,7 +168,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.signup-button{
+.signup-button {
   height: 200px !important;
   width: 90%;
 }
@@ -195,7 +206,7 @@ export default {
   align-items: center;
   width: 100%;
 }
-.center-mid{
+.center-mid {
   max-width: 500px;
   margin: auto;
 }

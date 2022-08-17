@@ -6,7 +6,7 @@ export const endpoints = {
   questionAdd: '/api/question/add',
   getAllQuestions: '/api/question/all',
   likeQuestion: '/api/question/like',
-  getQuestion: '/api/question',
+  getQuestion: '/api/question/one',
   getJustQuestion: 'api/question/single',
   subQuestion: '/api/question/subscribe',
   clearNotifications: '/api/question/notifications',
@@ -60,6 +60,8 @@ export const endpoints = {
   deleteBlog: '/api/blog/delete',
   likeBlog: '/api/blog/like',
   getBlogs: '/api/blog/get',
-  getBlog: '/api/blog/getOne'
+  getBlog: '/api/blog/getOne',
+
+  getRando: '/api/rando'
 
 }

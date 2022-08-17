@@ -13,7 +13,7 @@
         :text="content.text"
         :likes="content.likes.length"
         :parent-id="content.id"
-        :author="content.authorId"
+        :author-id="content.authorId"
         :show-cookies="showCookies"
       />
     </v-card-title>

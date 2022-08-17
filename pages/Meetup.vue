@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: 'Meetup',
-  middleware: ['disabled']
+  name: 'Meetup'
+  // middleware: ['disabled']
 }
 </script>
 

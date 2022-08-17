@@ -6,7 +6,8 @@ export function getQuestionsFromData (esQuestions: any[]) {
         question: q._source.question,
         comments: q._source.comments,
         createdDate: q._source.createdDate,
-        likes: q._source.likes
+        likes: q._source.likes,
+        url: q._source.url
       }
     })
   } else {
@@ -38,10 +39,8 @@ export const msToTime = (time: any) => {
   const differenceInDays = differenceInTime / (1000 * 3600 * 24)
   if (differenceInDays < 1) {
     const hours = differenceInDays * 24
-    console.log(hours)
     const newHours = Math.floor(hours)
     if (newHours < 1) {
-      console.log(new Date(time))
       const minutes = Math.floor(hours * 60)
       return minutes + ((minutes === 1) ? ' minute ago' : ' minutes ago')
     } else {

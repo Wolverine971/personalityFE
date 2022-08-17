@@ -2,7 +2,6 @@
   <v-row>
     <v-select
       v-model="params.enneagramTypes"
-      :disabled="!user"
       :items="enneaTypes"
       dense
       multiple
@@ -16,7 +15,6 @@
     </v-select>
     <v-select
       v-model="params.dateRange"
-      :disabled="!user"
       :items="dateChoices"
       dense
       outlined
@@ -29,7 +27,6 @@
     </v-select>
     <v-select
       v-model="params.sortBy"
-      :disabled="!user"
       :items="sortByChoices"
       dense
       outlined
@@ -59,11 +56,11 @@ export default {
     return {
       data: null,
       params: {
-        enneagramTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'Unknown', 'Rando'],
         dateRange: 'All Time',
         sortBy: 'newest'
       },
-      enneaTypes: ['Unknown', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      enneaTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'Unknown', 'Rando'],
       dateChoices: ['Today', 'Week', 'Month', '3 Months', 'Year', 'All Time'],
       sortByChoices: [
         {
@@ -81,11 +78,7 @@ export default {
       ]
     }
   },
-  computed: {
-    user () {
-      return this.$store.getters.getUser
-    }
-  },
+
   mounted () {
     this.$emit('triggerNewSearch', this.params)
   },

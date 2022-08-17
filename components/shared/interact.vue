@@ -28,7 +28,6 @@
             outlined
             small
             class="margin-right"
-            :disabled="!user"
             color="secondary"
             v-bind="attrs"
             @click="expandComment"
@@ -214,7 +213,7 @@ export default {
           } else {
             this.$store.dispatch('toastError', 'Like Failed')
           }
-        } catch (error) {
+        } catch (e) {
           this.$store.dispatch('toastError', 'Like Failed')
         }
       } else {
@@ -222,7 +221,7 @@ export default {
       }
     },
     async submitComment () {
-      if (this.user) {
+      try {
         const resp = await this.$axios.post(
           `${endpoints.addComment}/${this.type}/${this.post.id}/${
             this.type === 'content' ? this.user.enneagramId : ''
@@ -232,14 +231,33 @@ export default {
           }
         )
         if (resp && resp.data) {
+          if (!this.user) {
+            this.$store.commit('updatePermissions', this.post.id)
+          }
           this.comment = ''
           this.$emit('emitComment', resp.data)
           this.$store.dispatch('toastSuccess', 'Comment Submitted')
         } else {
+          if (!this.user) {
+            if (this.type === 'question') {
+              this.$store.dispatch(
+                'toastError',
+                'Sign Up to comment more than once'
+              )
+              return
+            } else if (this.type === 'comment') {
+              this.$store.dispatch(
+                'toastError',
+                'Sign Up to comment on comments'
+              )
+              return
+            }
+          }
           this.$store.dispatch('toastError', 'Failed To Submit Comment')
         }
-      } else {
-        this.$store.dispatch('toastError', 'Must Login')
+      } catch (e) {
+        console.log(e)
+        this.$store.dispatch('toastError', 'Failed To Submit Comment')
       }
     },
     async subscribe () {
@@ -270,7 +288,8 @@ export default {
           } else {
             this.$store.dispatch('toastError', 'Failed To Subscribe')
           }
-        } catch (error) {
+        } catch (e) {
+          console.log(e)
           this.$store.dispatch('toastError', 'Question Like Failed')
         }
       } else {
@@ -278,12 +297,8 @@ export default {
       }
     },
     expandComment () {
-      if (this.user) {
-        this.commentIsExpanded = true
-        this.$refs.newComment.focus()
-      } else {
-        this.$store.dispatch('toastError', 'Must Login')
-      }
+      this.commentIsExpanded = true
+      this.$refs.newComment.focus()
     },
     parsePost (post) {
       this.likes = [...post.likes]

@@ -38,7 +38,7 @@ export default {
       .catch((error) => {
         console.log(error)
       })
-      const structuredData = {
+    const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'Blog',
       name: title,
@@ -115,7 +115,7 @@ export default {
           async: true,
           defer: true
         },
-        {type: 'application/ld+json', json: this.structuredData}
+        { type: 'application/ld+json', json: this.structuredData }
       ],
       link: [{ rel: 'canonical', href }]
     }

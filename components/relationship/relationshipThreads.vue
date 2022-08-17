@@ -55,7 +55,9 @@
           class="row"
           @click="loadMore"
         >
-          <v-btn outlined color="secondary"> Load More </v-btn>
+          <v-btn outlined color="secondary">
+            Load More
+          </v-btn>
         </div>
         <v-progress-linear v-else-if="loading" indeterminate />
       </div>
@@ -71,36 +73,36 @@ export default {
   props: {
     relationship: {
       type: Object,
-      default() {
+      default () {
         return {}
       },
-      required: false,
+      required: false
     },
     types: {
       type: Array,
-      default() {
+      default () {
         return []
       },
-      required: false,
-    },
+      required: false
+    }
   },
-  data() {
+  data () {
     return {
       text: '',
       loading: false,
-      shownRelationship: null,
+      shownRelationship: null
     }
   },
   watch: {
-    relationship(val) {
+    relationship (val) {
       this.shownRelationship = val
-    },
+    }
   },
-  mounted() {
+  mounted () {
     this.shownRelationship = this.relationship
   },
   methods: {
-    loadMore() {
+    loadMore () {
       this.loading = true
       this.contentLoading = true
       return this.$axios
@@ -115,13 +117,13 @@ export default {
             this.$store.commit('setPosts', {
               [this.selectedType]: {
                 content,
-                count: this.count,
-              },
+                count: this.count
+              }
             })
           }
         })
     },
-    async submitPost() {
+    async submitPost () {
       const resp = await this.$axios.post(
         `${endpoints.relationship}/create/${this.types[0]}/${this.types[1]}`,
         { text: this.text }
@@ -129,7 +131,7 @@ export default {
       if (resp && resp.data) {
         this.shownRelationship.RelationshipData = [
           resp.data,
-          ...this.shownRelationship.RelationshipData,
+          ...this.shownRelationship.RelationshipData
         ]
         this.shownRelationship.count += 1
         this.text = ''
@@ -137,14 +139,14 @@ export default {
         console.log('failed')
       }
     },
-    async threadUpdated(event) {
+    async threadUpdated (event) {
       const selectedComment = {
-        ...this.shownRelationship.RelationshipData[event.index],
+        ...this.shownRelationship.RelationshipData[event.index]
       }
       const resp = await this.$axios.post(
         `${endpoints.updateThread}/${selectedComment.id}`,
         {
-          text: event.text,
+          text: event.text
         }
       )
       if (resp && resp.data) {
@@ -153,8 +155,8 @@ export default {
       } else {
         this.$store.dispatch('toastError', 'Update Thread Failure')
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

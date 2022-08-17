@@ -1,7 +1,11 @@
 <template>
   <div>
-    <h1 class="primary_v--text">Admin</h1>
-    <v-btn @click="reindex"> ReIndex Questions </v-btn>
+    <h1 class="primary_v--text">
+      Admin
+    </h1>
+    <v-btn @click="reindex">
+      ReIndex Questions
+    </v-btn>
     <v-tabs v-if="!$vuetify.breakpoint.mobile" v-model="tab">
       <v-tab v-for="(item, i) in tabs" :key="i">
         {{ item }}
@@ -10,7 +14,7 @@
     <v-select v-else v-model="select" :items="tabs" />
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <all-questions :admin="true" number-of-questions="100" />
+        <admin-questions :admin="true" number-of-questions="100" />
       </v-tab-item>
       <v-tab-item>
         <all-comments :admin="true" />
@@ -34,10 +38,10 @@ export default {
   name: 'Admin',
   middleware: ['accessToken', 'isAdmin'],
   components: {
-    AllQuestions: () => import('../components/admin/allQuestions'),
+    AdminQuestions: () => import('../components/admin/adminQuestions'),
     AllComments: () => import('../components/admin/allComments'),
     AllUsers: () => import('../components/admin/allUsers'),
-    CreateBlog: () => import('../components/admin/createBlog.vue'),
+    CreateBlog: () => import('../components/admin/createBlog.vue')
   },
   data: () => ({
     tab: 'Questions',
@@ -49,36 +53,35 @@ export default {
       title: '',
       description: '',
       dateCreated: null,
-      size: 2,
-    },
+      size: 2
+    }
   }),
   watch: {
-    select(val) {
+    select (val) {
       this.tab = this.tabs.indexOf(val)
-    },
+    }
   },
   methods: {
-    async reindex() {
+    async reindex () {
       try {
-        const resp = await this.$axios.post(`${endpoints.updateGraphQL}`, {})
-        console.log(resp)
-      } catch (error) {
-        console.log(error)
+        await this.$axios.post(`${endpoints.updateGraphQL}`, {})
+      } catch (e) {
+        console.log(e)
       }
-    },
+    }
   },
-  head() {
+  head () {
     return {
       title: 'Admin Panel',
       script: [
         {
           src: 'https://cdnjs.deepai.org/deepai.min.js',
           async: true,
-          defer: true,
-        },
-      ],
+          defer: true
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 

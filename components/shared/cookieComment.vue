@@ -2,7 +2,7 @@
   <p class="ml-3 flex-together comment">
     {{ text }}
     <edit-content
-      v-if="user && author && author === user.id"
+      v-if="canEdit"
       :content="text"
       :label="'Update Comment'"
       @updateContent="$emit('commentUpdated', $event)"
@@ -35,7 +35,7 @@ export default {
       required: true,
       default: null
     },
-    author: {
+    authorId: {
       type: String,
       required: true,
       default: ''
@@ -54,6 +54,18 @@ export default {
   computed: {
     user () {
       return this.$store.getters.getUser
+    },
+    canEdit () {
+      if (
+        this.user &&
+        this.user.id === this.authorId
+      ) {
+        return true
+      } else if (this.authorId === this.$store.getters.getAccessToken) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   watch: {

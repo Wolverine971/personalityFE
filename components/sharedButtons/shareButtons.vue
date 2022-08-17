@@ -198,8 +198,8 @@ export default {
       return {
         url: this.url,
         text: `${this.question}?`,
-        hashtags: ['ama', '9takes']
-        // via: 'twitterdev',
+        hashtags: ['ama', '9takes'],
+        via: '9takesdotcom'
       }
     },
     facebookOptions () {

@@ -33,11 +33,11 @@
                   ? blog.author.firstName + ' ' + blog.author.lastName
                   : ''
               }}
-              <br />Date {{ getTime(blog.dateCreated) }}
+              <br>Date {{ getTime(blog.dateCreated) }}
             </div>
           </v-col>
 
-          <v-col align-self="end" v-if="blog && blog.title">
+          <v-col v-if="blog && blog.title" align-self="end">
             <NuxtLink
               :to="{
                 path: `/blog/${blog.title.replace(/ /g, '-')}`,
@@ -45,15 +45,14 @@
               }"
             >
               <v-chip
-              style="cursor: pointer"
-              class="text-uppercase ma-0"
-              color="primary"
-              label
-              small
-
-            >
-              Read More
-            </v-chip>
+                style="cursor: pointer"
+                class="text-uppercase ma-0"
+                color="primary"
+                label
+                small
+              >
+                Read More
+              </v-chip>
             </NuxtLink>
             <!-- <v-chip
               class="text-uppercase ma-0"
@@ -81,18 +80,18 @@ export default {
     preview: {
       type: Boolean,
       default: false,
-      required: false,
+      required: false
     },
     blog: {
       type: Object,
-      default: () => ({}),
-    },
+      default: () => ({})
+    }
   },
   methods: {
-    getTime(time) {
+    getTime (time) {
       return msToDate(time)
-    },
-  },
+    }
+  }
 }
 </script>
 

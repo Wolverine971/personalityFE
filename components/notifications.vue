@@ -8,7 +8,9 @@
       >
         <v-list-item-content @click="goToNotification(notification, i)">
           <v-list-item-title v-if="notification.question">
-            <p class="overFlow">Question: {{ notification.question.text }}</p>
+            <p class="overFlow">
+              Question: {{ notification.question.text }}
+            </p>
             <p class="overFlow">
               Comment: {{ notification.notification.text }}
             </p>
@@ -41,26 +43,26 @@ export default {
     notifications: {
       type: Array,
       required: true,
-      default: null,
-    },
+      default: null
+    }
   },
-  data() {
+  data () {
     return {
-      notifs: [],
+      notifs: []
     }
   },
   watch: {
-    notifications(vals) {
+    notifications (vals) {
       if (vals) {
         this.notifs = vals
       }
-    },
+    }
   },
-  mounted() {
+  mounted () {
     this.notifs = this.notifications
   },
   methods: {
-    async goToNotification(notification, i) {
+    async goToNotification (notification, i) {
       this.$router.push({ path: `/questions/${notification.question.url}` })
       this.$router.go(1)
       this.notifs.splice(i, 1)
@@ -75,10 +77,10 @@ export default {
         }
       }, 1000)
     },
-    getTime(time) {
+    getTime (time) {
       return msToTime(time)
-    },
-  },
+    }
+  }
 }
 </script>
 

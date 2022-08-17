@@ -17,34 +17,30 @@
 </template>
 
 <script>
-import { endpoints } from '../../models/endpoints'
 
 export default {
   name: 'Feed',
+
+  components: {
+    FeedCard: () => import('@/components/blog/FeedCard')
+  },
   props: {
     blogs: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     count: {
       type: Number,
-      default: 0,
-    },
-  },
-
-  components: {
-    FeedCard: () => import('@/components/blog/FeedCard'),
-  },
-  mounted() {
-    console.log(this.blogs)
+      default: 0
+    }
   },
 
   data: () => ({
     layout: [
       4, 3, 2, 4, 2, 3, 3, 4, 3, 2, 3, 4, 2, 3, 2, 4, 2, 3, 3, 2, 4, 2, 3, 3, 4,
-      3, 2,
+      3, 2
     ],
-    loading: false,
-  }),
+    loading: false
+  })
 }
 </script>
