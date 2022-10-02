@@ -9,8 +9,9 @@
       <v-icon> keyboard_backspace </v-icon>
       All questions
     </v-btn>
-
-    <selected-question :question="question" />
+    <client-only>
+      <selected-question :question="question" />
+    </client-only>
   </div>
 </template>
 
@@ -40,18 +41,17 @@ export default {
           console.log(error)
         })
     } else {
-      question = await $axios
-        .get(`${endpoints.getJustQuestion}/${id}`)
-        .then((resp) => {
-          if (resp && resp.data) {
-            return resp.data
-          } else {
-            throw new Error('No Question')
-          }
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      const resp = await $axios.get(`${endpoints.getJustQuestion}/${id}`)
+      // .then((resp) => {
+      if (resp && resp.data) {
+        question = resp.data
+      } else {
+        throw new Error('No Question')
+      }
+      // })
+      // .catch((error) => {
+      //   console.log(error)
+      // })
     }
     const structuredData = {
       '@context': 'https://schema.org',
@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     }
   },
   // jsonld () {
@@ -95,10 +95,12 @@ export default {
   //   }
   // },
 
+  // https://dinojoaocosta.medium.com/how-to-make-twitter-preview-your-website-links-5b20db98ac4f
   head () {
-    const title = `Question: "${this.question ? this.question.question : '9takes question'}"`
+    const question = this.question ? this.question.question : {}
+    const title = `Question: "${question.question || '9takes question'}"`
     // const description = this.blog ? this.blog.description : 'Personality Blog'
-    const href = `https://9takes.com/question/${this.question.url}`
+    const href = `https://9takes.com/question/${question.url}`
 
     return {
       titleTemplate: title,
@@ -107,7 +109,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: `Question titled "${this.question.question}"`
+          content: `Question titled "${question.question}"`
         },
         {
           property: 'og:url',
@@ -115,28 +117,32 @@ export default {
         },
         {
           property: 'og:image',
-          content: `https://personality-app.s3.amazonaws.com/${this.question.img}`
+          content: `https://personality-app.s3.amazonaws.com/${question.img}`
+        },
+        {
+          property: 'og:image:secure_url',
+          content: `https://personality-app.s3.amazonaws.com/${question.img}`
         },
         {
           property: 'og:description',
-          content: `Question titled "${this.question.question}"`
+          content: `Question titled "${question.question}"`
         },
-        { property: 'og:title', content: this.question.question },
+        { property: 'og:title', content: question.question },
         {
           name: 'twitter:card',
-          content: 'summary'
+          content: 'summary_large_image'
         },
         {
           name: 'twitter:description',
-          content: `Question titled "${this.question.question}"`
+          content: `Question titled "${question.question}"`
         },
         {
           name: 'twitter:title',
-          content: this.question.question
+          content: question.question
         },
         {
           name: 'twitter:image',
-          content: `https://personality-app.s3.amazonaws.com/${this.question.img}`
+          content: `https://personality-app.s3.amazonaws.com/${question.img}`
         },
         {
           name: 'twitter:site',
@@ -148,7 +154,8 @@ export default {
           src: 'https://cdnjs.deepai.org/deepai.min.js',
           async: true,
           defer: true
-        }, { type: 'application/ld+json', json: this.structuredData }
+        },
+        { type: 'application/ld+json', json: this.structuredData }
       ],
       link: [{ rel: 'canonical', href }]
     }
@@ -156,5 +163,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

@@ -101,9 +101,15 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    '@nuxt/typescript-build', '@nuxtjs/axios', '@nuxtjs/toast',
-    ['cookie-universal-nuxt', { alias: '9tcookie' }], '@nuxtjs/vuetify',
-    'nuxt-material-design-icons', '@nuxtjs/sitemap'
+    '@nuxt/typescript-build',
+    '@nuxtjs/axios',
+    '@nuxtjs/toast',
+    ['cookie-universal-nuxt', { alias: '9tcookie' }],
+    '@nuxtjs/vuetify',
+    'nuxt-material-design-icons',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
+    '@nuxtjs/sitemap'
   ],
   buildModules: ['@/modules/sitemapGenerator'],
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -133,6 +139,42 @@ export default {
   vuetify: {
     optionsPath: './vuetify.options.js'
   },
+  router: {
+    middleware: ['loggedIn', 'auth']
+  },
+  auth: {
+    redirect: false,
+    strategies: {
+      refresh: {
+        scheme: 'refresh',
+        token: {
+          property: 'accessToken',
+          maxAge: 1800,
+          global: true
+          // type: 'Bearer'
+        },
+        refreshToken: {
+          property: 'refreshToken',
+          data: 'refreshToken',
+          maxAge: 60 * 60 * 24 * 30
+        },
+        user: {
+          property: 'user'
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/api/user/login', method: 'post' },
+          refresh: { url: '/api/user/refresh_token_auth', method: 'post' },
+          user: { url: '/api/user/user', method: 'get' },
+          logout: { url: '/api/user/user', method: 'get' }
+        },
+        autoLogout: false,
+
+        tokenRequired: false
+      }
+    }
+  },
+  // mode: 'spa',
 
   // pwa: {
   //   manifest: {
@@ -190,7 +232,6 @@ export default {
       }
     },
     loaders: {
-
       cssModules: {
         modules: {
           localIdentName: '[hash:base64:4]'

@@ -53,15 +53,13 @@ export default {
   },
   computed: {
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     },
     canEdit () {
       if (
         this.user &&
         this.user.id === this.authorId
       ) {
-        return true
-      } else if (this.authorId === this.$store.getters.getAccessToken) {
         return true
       } else {
         return false

@@ -1,5 +1,7 @@
 <template>
-  <feed :blogs="articles" :count="count" />
+  <client-only>
+    <feed :blogs="articles" :count="count" />
+  </client-only>
 </template>
 
 <script>

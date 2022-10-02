@@ -69,7 +69,7 @@ export default {
   middleware: ['loggedIn', 'accessToken'],
   computed: {
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     }
   },
 

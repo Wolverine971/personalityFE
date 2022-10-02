@@ -22,7 +22,10 @@
         <v-btn outlined :disabled="!newPost && !showElem" @click="submitPost">
           Post
         </v-btn>
-        <image-upload :parent-width="picWidth" @image="src=$event, showElem=true" />
+        <image-upload
+          :parent-width="picWidth"
+          @image=";(src = $event), (showElem = true)"
+        />
       </v-card-actions>
     </v-card>
     <v-tabs v-model="tab">
@@ -31,18 +34,19 @@
       <v-tab>Text</v-tab>
     </v-tabs>
     <h3 class="primary_v--text">
-      {{ "Total Posts " + count }}
+      {{ 'Total Posts ' + count }}
     </h3>
     <div class="m-col">
       <v-card id="c-box">
         <div v-for="(item, i) in selectedPosts" :key="i">
-          <Content
-            :content="item"
-            :interact="interact"
-          />
+          <Content :content="item" :interact="interact" />
         </div>
       </v-card>
-      <div v-if="currentCount < count && !contentLoading" class="row" @click="loadMore">
+      <div
+        v-if="currentCount < count && !contentLoading"
+        class="row"
+        @click="loadMore"
+      >
         <v-btn outlined color="secondary">
           Load More
         </v-btn>
@@ -56,7 +60,10 @@
 import { endpoints } from '../models/endpoints'
 export default {
   name: 'Personality',
-  components: { Content: () => import('./content.vue'), ImageUpload: () => import('./shared/imageUpload.vue') },
+  components: {
+    Content: () => import('./content.vue'),
+    ImageUpload: () => import('./shared/imageUpload.vue')
+  },
   props: {
     type: {
       type: Number,
@@ -86,7 +93,7 @@ export default {
       return this.$store.getters.getPosts
     },
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     }
   },
   watch: {
@@ -97,9 +104,7 @@ export default {
       }
       this.canInteract()
     },
-    tab (val) {
-      console.log(val)
-    },
+
     posts (vals) {
       if (vals) {
         if (vals[this.type]) {
@@ -122,7 +127,10 @@ export default {
       this.contentLoading = true
       this.selectedType = this.type.toString()
       if (!this.posts || !this.posts[this.selectedType]) {
-        const success = await this.$store.dispatch('getPosts', this.selectedType)
+        const success = await this.$store.dispatch(
+          'getPosts',
+          this.selectedType
+        )
         if (!success) {
           this.contentLoading = false
         }
@@ -181,7 +189,9 @@ export default {
     loadMore () {
       this.contentLoading = true
       return this.$axios
-        .get(`${endpoints.getPosts}/${this.selectedType}/${this.lastDate || ''}`)
+        .get(
+          `${endpoints.getPosts}/${this.selectedType}/${this.lastDate || ''}`
+        )
         .then((resp) => {
           if (resp && resp.data) {
             const content = [...this.selectedPosts, ...resp.data.content]
@@ -209,5 +219,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

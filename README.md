@@ -55,11 +55,14 @@ $ npm run generate
 - [x]  <del>Add static page for each personality type
 - [x]  <del>Comment Pagination
 - [x]  <del>Wall Pagination
-- [ ]  Easy share and create question
+- [x]  <del>Easy share and create question
 - [ ]  Enneagram Relationships
 - [ ]  Realtime Active User Display
 - [ ]  Messaging
 - [ ]  User Reveal Request Response
+- [ ]  Hide comments if random, need to give comments if rando user comments, should be handled server side
+- [ ]  Make Migrator Middleware
+- [ ]  Migrate create commenterIds on blogs
 
 
 

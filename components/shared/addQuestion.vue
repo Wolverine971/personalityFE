@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     }
   },
   watch: {

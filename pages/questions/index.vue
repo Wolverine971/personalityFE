@@ -11,7 +11,9 @@
       <h2 class="secondary--text">
         All Asked Questions
       </h2>
-      <all-questions />
+      <client-only>
+        <all-questions />
+      </client-only>
     </v-card>
   </v-container>
 </template>
@@ -23,6 +25,7 @@ export default {
     AddQuestion: () => import('../../components/shared/addQuestion'),
     AllQuestions: () => import('../../components/admin/allQuestions')
   },
+  auth: 'guest',
 
   async asyncData ({ $axios, store }) {
     const lastDate = store.getters.getAllQuestionsLastDate

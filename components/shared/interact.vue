@@ -61,37 +61,39 @@
       </v-tooltip>
     </v-card-actions>
     <v-expand-transition>
-      <div v-show="commentIsExpanded" class="margin-top">
-        <v-textarea
-          ref="newComment"
-          v-model="comment"
-          type="text"
-          filled
-          placeholder="Make a comment"
-          outlined
-          rows="1"
-          auto-grow
-          hide-details
-          class="pad-bot margin-left"
-          maxlength="1000"
-          counter
-        >
-          <template v-if="!$vuetify.breakpoint.mobile" slot="append">
-            <v-btn v-if="comment" small outlined @click="submitComment">
-              Submit Comment
-            </v-btn>
-          </template>
-        </v-textarea>
-        <v-btn
-          v-if="comment && $vuetify.breakpoint.mobile"
-          class="margin-bot"
-          small
-          outlined
-          @click="submitComment"
-        >
-          Submit Comment
-        </v-btn>
-      </div>
+      <client-only>
+        <div v-show="commentIsExpanded" class="margin-top">
+          <v-textarea
+            ref="newComment"
+            v-model="comment"
+            type="text"
+            filled
+            placeholder="Make a comment"
+            outlined
+            rows="1"
+            auto-grow
+            hide-details
+            class="pad-bot margin-left"
+            maxlength="1000"
+            counter
+          >
+            <template v-if="!$vuetify.breakpoint.mobile" slot="append">
+              <v-btn v-if="comment" small outlined @click="submitComment">
+                Submit Comment
+              </v-btn>
+            </template>
+          </v-textarea>
+          <v-btn
+            v-if="comment && $vuetify.breakpoint.mobile"
+            class="margin-bot"
+            small
+            outlined
+            @click="submitComment"
+          >
+            Submit Comment
+          </v-btn>
+        </div>
+      </client-only>
     </v-expand-transition>
   </div>
 </template>
@@ -124,7 +126,7 @@ export default {
   },
   computed: {
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     }
   },
   watch: {

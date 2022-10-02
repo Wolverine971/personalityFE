@@ -79,7 +79,7 @@ export default {
       return this.$store.getters.getAllUsersCount
     },
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     }
   },
   watch: {

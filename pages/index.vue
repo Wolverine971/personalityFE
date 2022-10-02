@@ -17,7 +17,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 outlined
-                to="/auth"
+                to="/auth/register"
                 color="secondary"
                 class="center signup-button"
                 v-bind="attrs"
@@ -162,7 +162,7 @@ export default {
   // <!-- https://introjs.com/ -->
   computed: {
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     }
   }
 }

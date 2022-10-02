@@ -4,9 +4,9 @@ export default function ({ store, redirect }) {
     if (role === 'admin') {
       return true
     } else {
-      return redirect('/auth')
+      return redirect('/auth/login')
     }
   } else {
-    return redirect('/auth')
+    return redirect('/auth/login')
   }
 }

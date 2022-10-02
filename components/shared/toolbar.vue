@@ -1,115 +1,121 @@
 <template>
-  <header
-    id="toolbar"
-    class="toolbar master-container shadow primary fun-color"
-    :class="{'mobile-toolbar': $vuetify.breakpoint.mobile}"
-  >
-    <div class="row-center">
-      <v-menu transition="fab-transition">
-        <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn
-            color="secondary"
-            text
-            v-bind="attrs"
-            :class="{ 'x-small': $vuetify.breakpoint.mobile }"
-            v-on="{ ...menu }"
-          >
-            <v-icon>menu</v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            v-if="user && user.role === 'admin'"
-            router
-            :to="{ path: '/admin' }"
-          >
-            <v-list-item-action>
-              <v-icon>settings</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title> Admin Page</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item
-            v-for="(item, i) in items"
-            :key="i"
-            :to="{ path: item.to, query: {} }"
-            :disabled="(item.validation && !user) || item.inprogress"
-            router
-            exact
-          >
-            <v-list-item-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.title" />
-              <span class="secondary">
-                {{ item.inprogress ? 'Coming Soon' : '' }}
-                {{ item.validation && !user ? 'Login' : '' }}
-              </span>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <h3 class="glow clickable-no-hov secondary_v--text" @click="goHome">
-        {{ title }}
-      </h3>
-    </div>
-    <v-spacer />
-    <div v-if="user">
-      <v-menu>
-        <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn color="secondary" text v-bind="attrs" v-on="{ ...menu }">
-            <v-icon color="secondary">
+  <client-only>
+    <header
+      id="toolbar"
+      class="toolbar master-container shadow primary fun-color"
+      :class="{ 'mobile-toolbar': $vuetify.breakpoint.mobile }"
+    >
+      <div class="row-center">
+        <v-menu transition="fab-transition">
+          <template v-slot:activator="{ on: menu, attrs }">
+            <v-btn
+              color="secondary"
+              text
+              v-bind="attrs"
+              :class="{ 'x-small': $vuetify.breakpoint.mobile }"
+              v-on="{ ...menu }"
+            >
+              <v-icon>menu</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-if="user && user.role === 'admin'"
+              router
+              :to="{ path: '/admin' }"
+            >
+              <v-list-item-action>
+                <v-icon>settings</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title> Admin Page</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+              v-for="(item, i) in items"
+              :key="i"
+              :to="{ path: item.to, query: {} }"
+              :disabled="(item.validation && !user) || item.inprogress"
+              router
+              exact
+            >
+              <v-list-item-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title" />
+                <span class="secondary">
+                  {{ item.inprogress ? 'Coming Soon' : '' }}
+                  {{ item.validation && !user ? 'Login' : '' }}
+                </span>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <h3 class="glow clickable-no-hov secondary_v--text" @click="goHome">
+          {{ title }}
+        </h3>
+      </div>
+      <v-spacer />
+      <!-- <div v-if="user || accessToken"> -->
+      <div v-if="user">
+        <v-menu>
+          <template v-slot:activator="{ on: menu, attrs }">
+            <v-btn color="secondary" text v-bind="attrs" v-on="{ ...menu }">
+              <v-icon color="secondary">
+                {{
+                  notifications && notifications.length
+                    ? 'notifications_active'
+                    : 'notifications_none'
+                }}
+              </v-icon>
               {{
                 notifications && notifications.length
-                  ? 'notifications_active'
-                  : 'notifications_none'
+                  ? notifications.length
+                  : ''
               }}
-            </v-icon>
-            {{
-              notifications && notifications.length ? notifications.length : ''
-            }}
-          </v-btn>
-        </template>
-        <notifications :notifications="notifications" />
-      </v-menu>
+            </v-btn>
+          </template>
+          <notifications :notifications="notifications" />
+        </v-menu>
 
-      <v-menu>
-        <template v-slot:activator="{ on: menu, attrs }">
-          <v-btn color="secondary" text v-bind="attrs" v-on="{ ...menu }">
-            <v-icon>account_circle</v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <!-- :disabled="(item.validation && !user)" -->
-          <v-list-item v-if="!user" :to="'/auth'" router exact>
-            <v-list-item-content>
-              <v-list-item-title v-text="'Login/ Register'" />
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item v-if="user" :to="'/profile'" router exact>
-            <v-list-item-content>
-              <v-list-item-title v-text="'Profile'" />
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item v-if="user" @click="logout">
-            <v-list-item-content>
-              <v-list-item-title v-text="'Logout'" />
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </div>
-    <v-btn
-      v-else-if="$route.name !== 'auth'"
-      :to="{ path: '/auth', query: {} }"
-      color="secondary"
-      class="shadow btn-shrink-mobile"
-    >
-      Login/ Register
-    </v-btn>
-  </header>
+        <v-menu>
+          <template v-slot:activator="{ on: menu, attrs }">
+            <v-btn color="secondary" text v-bind="attrs" v-on="{ ...menu }">
+              <v-icon>account_circle</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <!-- :disabled="(item.validation && !user)" -->
+            <v-list-item v-if="!user" :to="'/auth/login'" router exact>
+              <v-list-item-content>
+                <v-list-item-title v-text="'Login/ Register'" />
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item v-if="user" :to="'/profile'" router exact>
+              <v-list-item-content>
+                <v-list-item-title v-text="'Profile'" />
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item v-if="user" @click="logout">
+              <v-list-item-content>
+                <v-list-item-title v-text="'Logout'" />
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
+      <v-btn
+        v-else-if="$route.name !== 'auth'"
+        :to="{ path: '/auth/login', query: {} }"
+        color="secondary"
+        class="shadow btn-shrink-mobile"
+      >
+        Login/ Register
+      </v-btn>
+      <!-- </div> -->
+    </header>
+  </client-only>
 </template>
 
 <script>
@@ -176,7 +182,7 @@ export default {
       return this.$router.options.routes
     },
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     }
   },
   watch: {
@@ -211,11 +217,9 @@ export default {
 
   methods: {
     logout () {
-      this.$store.commit('setAccessToken', '')
-      this.$store.commit('setUser', null)
-      this.$9tcookie.set('9tcookie', null)
-      this.$store.dispatch('setAnonymous')
-      this.$router.push({ path: '/auth' })
+      this.$store.dispatch('logout')
+      // this.$store.dispatch('setAnonymous')
+      this.$router.push({ path: '/auth/login' })
       this.$router.go(1)
     },
     // handlerClose: debounce(function (e) {

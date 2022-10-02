@@ -9,7 +9,9 @@
       <v-icon> keyboard_backspace</v-icon>
       All Blogs
     </v-btn>
-    <blog :blog="blog" />
+    <client-only>
+      <blog :blog="blog" />
+    </client-only>
   </div>
 </template>
 
@@ -46,7 +48,10 @@ export default {
       description: blog.description,
       publisher: {
         '@type': 'Person',
-        name: blog && blog.author ? `${blog.author.firstName} ${blog.author.lastName}` : 'Unknown'
+        name:
+          blog && blog.author
+            ? `${blog.author.firstName} ${blog.author.lastName}`
+            : 'Unknown'
       }
     }
     return { url, blog, structuredData }
@@ -70,8 +75,7 @@ export default {
   //   }
   // },
 
-  mounted () {
-  },
+  mounted () {},
 
   head () {
     const title = this.blog ? this.blog.title : 'Blog'
@@ -123,5 +127,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

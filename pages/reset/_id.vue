@@ -23,12 +23,10 @@
       <h1 class="primary_v--text">
         Link is invalid
       </h1>
+      <p>Forgot password links expire after 24 hours</p>
       <p>
-        Forgot password links expire after 24 hours
-      </p>
-      <p>
-        If your link isn’t working for any reason,
-        you can <NuxtLink :to="{path: '/auth/forgotPassword', query: {}}">
+        If your link isn’t working for any reason, you can
+        <NuxtLink :to="{ path: '/auth/forgotPassword', query: {} }">
           request a new one
         </NuxtLink>
       </p>
@@ -76,9 +74,12 @@ export default {
           password: this.password
         }
         try {
-          const resp = await this.$axios.post(`${endpoints.resetPassword}/${this.id}`, data)
+          const resp = await this.$axios.post(
+            `${endpoints.resetPassword}/${this.id}`,
+            data
+          )
           if (resp && resp.data) {
-            this.$router.push({ path: '/auth' })
+            this.$router.push({ path: '/auth/login' })
             this.$store.dispatch('toastSuccess', 'Password Reset Success')
           } else {
             this.$store.dispatch('toastError', 'Password Reset Fail')
@@ -90,7 +91,6 @@ export default {
       }
     }
   }
-
 }
 </script>
 <style></style>

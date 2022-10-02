@@ -109,7 +109,7 @@ export default {
       return this.$route.params.id
     },
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     },
     randoPerms () {
       return this.$store.getters.getRandoPermissions

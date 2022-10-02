@@ -5,7 +5,7 @@
 
       <header v-else id="toolbar" class="toolbar master-container">
         <v-btn
-          :to="{ path: '/auth', query: {} }"
+          :to="{ path: '/auth/register', query: {} }"
           color="secondary"
           class="shadow btn-shrink-mobile center"
         >
@@ -33,14 +33,14 @@ export default {
   },
   computed: {
     user () {
-      return this.$store.getters.getUser
+      return this.$auth.user
     }
   }
 }
 </script>
 
 <style>
-.center{
-    margin: auto;
+.center {
+  margin: auto;
 }
 </style>

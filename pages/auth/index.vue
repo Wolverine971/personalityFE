@@ -9,7 +9,7 @@
       </v-btn>
     </v-btn-toggle>
     <br>
-    <div v-if="!login">
+    <!-- <div v-if="!login">
       <Register @goToLogin="change(true)" />
     </div>
     <div v-if="login">
@@ -19,7 +19,7 @@
       <v-btn router to="/auth/forgotPassword">
         Forgot Password
       </v-btn>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -29,8 +29,8 @@ import { required, email, minLength } from 'vuelidate/lib/validators'
 export default {
   name: 'Index',
   components: {
-    Register: () => import('~/components/auth/Register'),
-    Login: () => import('~/components/auth/Login')
+    // Register: () => import('~/components/auth/Register'),
+    // Login: () => import('~/components/auth/Login')
   },
   mixins: [validationMixin],
   validations: {

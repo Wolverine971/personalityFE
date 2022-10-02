@@ -7,7 +7,7 @@
         </h1>
         <p>
           Bad link, try to
-          <NuxtLink :to="{ path: '/auth', query: {} }">
+          <NuxtLink :to="{ path: '/auth/login', query: {} }">
             re-register
           </NuxtLink>
         </p>
@@ -18,7 +18,7 @@
         </h1>
         <p>
           You may now
-          <NuxtLink :to="{ path: '/auth', query: {} }">
+          <NuxtLink :to="{ path: '/auth/login', query: {} }">
             login
           </NuxtLink>
         </p>
@@ -57,5 +57,4 @@ export default {
   }
 }
 </script>
-<style>
-</style>
+<style></style>

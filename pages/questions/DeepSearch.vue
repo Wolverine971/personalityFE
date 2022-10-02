@@ -9,20 +9,22 @@
       label="Search for Question"
       @keydown.enter="searchQuestion(question)"
     /> -->
-    <ul>
-      <li
-        v-for="(link, i) in allQuestions"
-        :key="i"
-      >
-        <NuxtLink
-          :to="{
-            path: `/questions/${link.url}`,
-          }"
+    <client-only>
+      <ul>
+        <li
+          v-for="(link, i) in allQuestions"
+          :key="i"
         >
-          {{ link.url }}
-        </NuxtLink>
-      </li>
-    </ul>
+          <NuxtLink
+            :to="{
+              path: `/questions/${link.url}`,
+            }"
+          >
+            {{ link.url }}
+          </NuxtLink>
+        </li>
+      </ul>
+    </client-only>
   </div>
 </template>
 

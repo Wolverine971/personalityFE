@@ -3,17 +3,19 @@
     <h2 class="secondary--text">
       Following
     </h2>
-    <v-tabs v-if="!$vuetify.breakpoint.mobile">
-      <v-tab @click="scrollTo('subs')">
-        Peeps
-      </v-tab>
-      <v-tab @click="scrollTo('askedQs')">
-        Your Asked Questions
-      </v-tab>
-      <v-tab @click="scrollTo('newQs')">
-        New Questions
-      </v-tab>
-    </v-tabs>
+    <client-only>
+      <v-tabs v-if="!$vuetify.breakpoint.mobile">
+        <v-tab @click="scrollTo('subs')">
+          Peeps
+        </v-tab>
+        <v-tab @click="scrollTo('askedQs')">
+          Your Asked Questions
+        </v-tab>
+        <v-tab @click="scrollTo('newQs')">
+          New Questions
+        </v-tab>
+      </v-tabs>
+    </client-only>
     <div>
       <h3 id="subs" class="primary_v--text">
         Questions Peeped

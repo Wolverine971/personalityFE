@@ -7,152 +7,155 @@
       Share Experiences
     </h2>
     <div class="circle-container cont">
-      <div v-if="!$vuetify.breakpoint.mobile" class="row">
-        <div class="m-col col-width align-center justify-start">
-          <div v-for="(type, i) in enneagramTypes" :key="i">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  class="circle"
-                  fab
-                  v-bind="attrs"
-                  :disabled="lock"
-                  :class="`class${type.name}Background ${
-                    type.name === type1 ? 'big' : ''
-                  }`"
-                  v-on="on"
-                  @click="type1 = type.name"
-                >
-                  {{ type.name }}
-                </v-btn>
-              </template>
-              <span>pick me, {{ type.tooltip1 }}</span>
-            </v-tooltip>
+      <client-only>
+        <div v-if="!$vuetify.breakpoint.mobile" class="row">
+          <div class="m-col col-width align-center justify-start">
+            <div v-for="(type, i) in enneagramTypes" :key="i">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    class="circle"
+                    fab
+                    v-bind="attrs"
+                    :disabled="lock"
+                    :class="`class${type.name}Background ${
+                      type.name === type1 ? 'big' : ''
+                    }`"
+                    v-on="on"
+                    @click="type1 = type.name"
+                  >
+                    {{ type.name }}
+                  </v-btn>
+                </template>
+                <span>pick me, {{ type.tooltip1 }}</span>
+              </v-tooltip>
+            </div>
           </div>
-        </div>
-        <div v-if="(type1 || type2) && !threads" class="circle-join-box">
-          <div class="m-col align-center">
-            <v-btn
-              v-if="type1 && type2"
-              class="view-btn"
-              @click="seeRelationship"
-            >
-              View {{ type1 }} Relationship with {{ type2 }}
-            </v-btn>
+          <div v-if="(type1 || type2) && !threads" class="circle-join-box">
+            <div class="m-col align-center">
+              <v-btn
+                v-if="type1 && type2"
+                class="view-btn"
+                @click="seeRelationship"
+              >
+                View {{ type1 }} Relationship with {{ type2 }}
+              </v-btn>
 
-            <v-btn
-              class="types circle-join extra-big"
-              fab
-              :class="`class${type1}Background`"
-              style="position: absolute; top: calc(30% - 7.5vw)"
-            >
-              {{ type1 }}
-            </v-btn>
-            <v-btn
-              class="types circle-join extra-big"
-              fab
-              :class="`class${type2}Background`"
-              style="position: absolute; top: calc(70% - 7.5vw)"
-            >
-              {{ type2 }}
-            </v-btn>
+              <v-btn
+                class="types circle-join extra-big"
+                fab
+                :class="`class${type1}Background`"
+                style="position: absolute; top: calc(30% - 7.5vw)"
+              >
+                {{ type1 }}
+              </v-btn>
+              <v-btn
+                class="types circle-join extra-big"
+                fab
+                :class="`class${type2}Background`"
+                style="position: absolute; top: calc(70% - 7.5vw)"
+              >
+                {{ type2 }}
+              </v-btn>
+            </div>
+          </div>
+          <div v-else class="circle-join-box">
+            <div class="m-col">
+              <v-btn v-if="type1 && type2" @click="unlock">
+                View Another Relationship
+              </v-btn>
+              <relationship-threads
+                :relationship="threads"
+                :types="[type1, type2]"
+              />
+            </div>
+          </div>
+          <div class="m-col col-width align-center justify-start">
+            <div v-for="(type, i) in enneagramTypes" :key="i">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-bind="attrs"
+                    class="circle"
+                    fab
+                    :disabled="lock"
+                    :class="`class${type.name}Background ${
+                      type.name === type2 ? 'big' : ''
+                    }`"
+                    v-on="on"
+                    @click="type2 = type.name"
+                  >
+                    {{ type.name }}
+                  </v-btn>
+                </template>
+                <span>relationships? {{ type.tooltip2 }}</span>
+              </v-tooltip>
+            </div>
           </div>
         </div>
-        <div v-else class="circle-join-box">
-          <div class="m-col">
-            <v-btn v-if="type1 && type2" @click="unlock">
-              View Another Relationship
-            </v-btn>
-            <relationship-threads
-              :relationship="threads"
-              :types="[type1, type2]"
-            />
+
+        <div v-else class="m-col master-container">
+          <v-select
+            v-model="tOne"
+            :items="enneagramTypes"
+            label="Compare this"
+            item-text="name"
+            item-value="name"
+          >
+            <template v-slot:item="{ item }">
+              {{ item.name }}
+            </template>
+          </v-select>
+          <v-select
+            v-model="tTwo"
+            :items="enneagramTypes"
+            label="To that"
+            item-text="name"
+            item-value="name"
+          >
+            <template v-slot:item="{ item }">
+              {{ item.name }}
+            </template>
+          </v-select>
+          <v-btn
+            v-if="type1 && type2 && !threads"
+            @click="seeRelationship"
+          >
+            View {{ type1 }} Relationship with {{ type2 }}
+          </v-btn>
+          <div v-if="(type1 || type2) && !threads" class="circle-join-box">
+            <div class="row space-around">
+              <v-btn
+                class="types circle-join extra-big"
+                fab
+                :class="`class${type1}Background`"
+                style=""
+              >
+                {{ type1 }}
+              </v-btn>
+              <v-btn
+                class="types circle-join extra-big"
+                fab
+                :class="`class${type2}Background`"
+                style=""
+              >
+                {{ type2 }}
+              </v-btn>
+            </div>
+          </div>
+          <div v-else class="circle-join-box">
+            <div class="m-col">
+              <v-btn v-if="type1 && type2" @click="unlock">
+                View Another Relationship
+              </v-btn>
+              <relationship-threads
+                :relationship="threads"
+                :types="[type1, type2]"
+              />
+            </div>
           </div>
         </div>
-        <div class="m-col col-width align-center justify-start">
-          <div v-for="(type, i) in enneagramTypes" :key="i">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-bind="attrs"
-                  class="circle"
-                  fab
-                  :disabled="lock"
-                  :class="`class${type.name}Background ${
-                    type.name === type2 ? 'big' : ''
-                  }`"
-                  v-on="on"
-                  @click="type2 = type.name"
-                >
-                  {{ type.name }}
-                </v-btn>
-              </template>
-              <span>relationships? {{ type.tooltip2 }}</span>
-            </v-tooltip>
-          </div>
-        </div>
-      </div>
-      <div v-else class="m-col master-container">
-        <v-select
-          v-model="tOne"
-          :items="enneagramTypes"
-          label="Compare this"
-          item-text="name"
-          item-value="name"
-        >
-          <template v-slot:item="{ item }">
-            {{ item.name }}
-          </template>
-        </v-select>
-        <v-select
-          v-model="tTwo"
-          :items="enneagramTypes"
-          label="To that"
-          item-text="name"
-          item-value="name"
-        >
-          <template v-slot:item="{ item }">
-            {{ item.name }}
-          </template>
-        </v-select>
-        <v-btn
-          v-if="type1 && type2 && !threads"
-          @click="seeRelationship"
-        >
-          View {{ type1 }} Relationship with {{ type2 }}
-        </v-btn>
-        <div v-if="(type1 || type2) && !threads" class="circle-join-box">
-          <div class="row space-around">
-            <v-btn
-              class="types circle-join extra-big"
-              fab
-              :class="`class${type1}Background`"
-              style=""
-            >
-              {{ type1 }}
-            </v-btn>
-            <v-btn
-              class="types circle-join extra-big"
-              fab
-              :class="`class${type2}Background`"
-              style=""
-            >
-              {{ type2 }}
-            </v-btn>
-          </div>
-        </div>
-        <div v-else class="circle-join-box">
-          <div class="m-col">
-            <v-btn v-if="type1 && type2" @click="unlock">
-              View Another Relationship
-            </v-btn>
-            <relationship-threads
-              :relationship="threads"
-              :types="[type1, type2]"
-            />
-          </div>
-        </div>
-      </div>
+      </client-only>
     </div>
   </div>
 </template>

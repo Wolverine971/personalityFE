@@ -6,29 +6,32 @@
     <v-btn @click="reindex">
       ReIndex Questions
     </v-btn>
-    <v-tabs v-if="!$vuetify.breakpoint.mobile" v-model="tab">
-      <v-tab v-for="(item, i) in tabs" :key="i">
-        {{ item }}
-      </v-tab>
-    </v-tabs>
-    <v-select v-else v-model="select" :items="tabs" />
-    <v-tabs-items v-model="tab">
-      <v-tab-item>
-        <admin-questions :admin="true" number-of-questions="100" />
-      </v-tab-item>
-      <v-tab-item>
-        <all-comments :admin="true" />
-      </v-tab-item>
-      <v-tab-item>
-        <div>Content</div>
-      </v-tab-item>
-      <v-tab-item>
-        <all-users :admin="true" />
-      </v-tab-item>
-      <v-tab-item>
-        <create-blog :blog="blog" :label="'Create Post'" />
-      </v-tab-item>
-    </v-tabs-items>
+    <client-only>
+      <v-tabs v-if="!$vuetify.breakpoint.mobile" v-model="tab">
+        <v-tab v-for="(item, i) in tabs" :key="i">
+          {{ item }}
+        </v-tab>
+      </v-tabs>
+
+      <v-select v-else v-model="select" :items="tabs" />
+      <v-tabs-items v-model="tab">
+        <v-tab-item>
+          <admin-questions :admin="true" number-of-questions="100" />
+        </v-tab-item>
+        <v-tab-item>
+          <all-comments :admin="true" />
+        </v-tab-item>
+        <v-tab-item>
+          <div>Content</div>
+        </v-tab-item>
+        <v-tab-item>
+          <all-users :admin="true" />
+        </v-tab-item>
+        <v-tab-item>
+          <create-blog :blog="blog" :label="'Create Post'" />
+        </v-tab-item>
+      </v-tabs-items>
+    </client-only>
   </div>
 </template>
 

@@ -223,28 +223,27 @@ export default {
         //         </body>
         //         </html>
         // `,
-        body: `The question:\n${this.question}?\n \n
-          See what everyone else said here ${this.url}`
+        body: `The question:\n${this.question}?\nSee what everyone else said here ${this.url}`
       }
     },
     redditOptions () {
       return {
         url: this.url,
         title: `${this.question}?`,
-        text: `Answer this question:\n${this.question}?\n \n ${this.url}`,
+        text: `Answer this question:\n${this.question}?\n${this.url}`,
         selftext: true
       }
     },
     whatsAppOptions () {
       return {
         number: '',
-        text: `Answer this question:\n${this.question}?\n \n ${this.url}`
+        text: `Answer this question:\n${this.question}?\n${this.url}`
       }
     },
     smsOptions () {
       return {
         number: '',
-        body: `Answer this question:\n${this.question}?\n \n ${this.url}`
+        body: `Answer this question:\n${this.question}?\n${this.url}`
       }
     }
   },

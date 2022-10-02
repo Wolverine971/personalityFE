@@ -1,3 +1,4 @@
+import axios from 'axios'
 export default function () {
   const assignPriority = (routes) => {
     // return routes
@@ -38,7 +39,11 @@ export default function () {
     return pages
   }
 
-  this.nuxt.hook('generate:done', (context) => {
+  this.nuxt.hook('generate:done', async (context) => {
+    const allQuestions = await axios.get(`${process.env.BE_URL}/api/question/all`)
+    const routes = allQuestions.data.map((e) => {
+      return `/questions/${e.url}`
+    })
     const routesToExclude = [
       '/admin',
       '/auth',
@@ -59,8 +64,8 @@ export default function () {
       '/questions/DeepSearch'
     ] // Add any route you don't want in your sitemap. Potentially get this from an .env file.
     const allRoutes = Array.from(context.generatedRoutes)
-    const routes = allRoutes.filter(route => !routesToExclude.includes(route))
-    const prioritizedRoutes = assignPriority(routes)
+    const filteredRoutes = allRoutes.filter(route => !routesToExclude.includes(route))
+    const prioritizedRoutes = assignPriority(routes.concat(filteredRoutes))
     console.log('generate routes')
 
     this.nuxt.options.sitemap.routes = [...prioritizedRoutes]

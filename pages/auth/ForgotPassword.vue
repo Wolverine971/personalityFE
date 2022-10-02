@@ -3,7 +3,7 @@
     <v-btn
       class="ma-2"
       color="primary"
-      :to="{path: '/auth', query: {}}"
+      :to="{ path: '/auth/login', query: {} }"
       router
     >
       <v-icon> keyboard_backspace</v-icon>
@@ -13,10 +13,7 @@
       <h1 class="primary_v--text">
         Forgot Password
       </h1>
-      <v-form
-        ref="forgotForm"
-        class="form-width"
-      >
+      <v-form ref="forgotForm" class="form-width">
         <v-text-field
           v-model="emailAddress"
           autofocus
@@ -52,9 +49,12 @@ export default {
           const data = {
             email: this.emailAddress
           }
-          const resp = await this.$axios.post(endpoints.forgotPasswordRoute, data)
+          const resp = await this.$axios.post(
+            endpoints.forgotPasswordRoute,
+            data
+          )
           if (resp && resp.data) {
-            this.$router.push({ path: '/auth' })
+            this.$router.push({ path: '/auth/login' })
             this.$store.dispatch('toastSuccess', 'Reset Password Link Sent')
           } else if (resp && resp.response) {
             this.$store.dispatch('toastError', resp.response.data)
