@@ -30,14 +30,14 @@ export default {
   name: 'HomeLayout',
   components: {
     theFooter: () => import('~/components/shared/theFooter'),
-    toolbar: () => import('~/components/shared/toolbar')
+    toolbar: () => import('~/components/shared/toolbar'),
     // SvgBackground: () => import('../components/shared/svgBackground')
   },
   computed: {
-    user () {
+    user() {
       return this.$store.getters.getUser
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -47,6 +47,6 @@ export default {
   padding: 5px;
 }
 .mainBackground {
-  background-image: url('/group0.png') !important;
+  background-image: url('/group0.PNG') !important;
 }
 </style>
