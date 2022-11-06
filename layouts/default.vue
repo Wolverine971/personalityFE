@@ -20,9 +20,9 @@ export default {
   name: 'DefaultLayout',
   components: {
     theFooter: () => import('~/components/shared/theFooter'),
-    toolbar: () => import('~/components/shared/toolbar'),
+    toolbar: () => import('~/components/shared/toolbar')
     // SvgBackground: () => import('../components/shared/svgBackground'),
-  },
+  }
 }
 </script>
 

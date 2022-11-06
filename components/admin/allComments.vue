@@ -22,7 +22,9 @@
             {{ comment.comment }}?
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <v-btn v-if="admin" outlined small> Id: {{ comment.id }} </v-btn>
+            <v-btn v-if="admin" outlined small>
+              Id: {{ comment.id }}
+            </v-btn>
             <v-btn v-if="admin" outlined small>
               Author Enneagram: {{ comment.author.enneagramId }}
             </v-btn>
@@ -58,7 +60,9 @@
         class="row"
         @click="loadMoreComments"
       >
-        <v-btn outlined color="secondary"> Load More </v-btn>
+        <v-btn outlined color="secondary">
+          Load More
+        </v-btn>
       </div>
       <v-progress-linear v-else-if="commentsLoading" indeterminate />
     </div>
@@ -71,16 +75,16 @@ import { endpoints } from '../../models/endpoints'
 export default {
   name: 'AllComments',
   components: {
-    Sort: () => import('~/components/questions/sort.vue'),
+    Sort: () => import('~/components/questions/sort.vue')
   },
   props: {
     admin: {
       type: Boolean,
       default: false,
-      required: false,
-    },
+      required: false
+    }
   },
-  data() {
+  data () {
     return {
       allComments: [],
       pageSize: 10,
@@ -100,63 +104,63 @@ export default {
           '8',
           '9',
           'Unknown',
-          'Rando',
+          'Rando'
         ],
         dateRange: '',
-        sortBy: '',
-      },
+        sortBy: ''
+      }
     }
   },
   computed: {
-    comments() {
+    comments () {
       return this.$store.getters.getAllComments
     },
-    totalComments() {
+    totalComments () {
       return this.$store.getters.getAllCommentsCount
     },
-    user() {
+    user () {
       return this.$store.getters.getUser
-    },
+    }
   },
   watch: {
-    comments(comments) {
+    comments (comments) {
       this.parseComments(comments)
     },
-    allComments(val) {
+    allComments (val) {
       this.commentsCount = val.length
-    },
+    }
   },
-  mounted() {
+  mounted () {
     this.$store.dispatch('getSortedPaginatedComments')
   },
   methods: {
-    async loadMoreComments() {
+    async loadMoreComments () {
       this.commentsLoading = true
       await this.$store.dispatch('getSortedPaginatedComments', this.params)
       this.commentsLoading = false
     },
-    parseComments(comments) {
+    parseComments (comments) {
       this.allComments = [...comments]
     },
-    getTime(time) {
+    getTime (time) {
       return msToTime(time)
     },
-    async deleteComment(comment) {
+    async deleteComment (comment) {
       const resp = await this.$axios.post(`${endpoints.change}`, {
         type: 'comment',
-        tag: comment.id,
+        tag: comment.id
       })
       if (resp && resp.data) {
-        this.allComments = this.allComments.filter((c) => c.id !== comment.id)
+        this.allComments = this.allComments.filter(c => c.id !== comment.id)
       }
     },
-    filterComments(event) {
+    filterComments (event) {
       if (this.user) {
         this.params = event
         this.$store.dispatch('getSortedPaginatedComments', event)
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

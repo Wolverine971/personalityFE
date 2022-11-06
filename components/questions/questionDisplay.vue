@@ -53,24 +53,24 @@ export default {
     question: {
       type: Object,
       required: true,
-      default: null,
+      default: null
     },
     type: {
       type: String,
       required: false,
-      default: null,
+      default: null
     },
     interact: {
       type: Boolean,
       required: false,
-      default: true,
-    },
+      default: true
+    }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.getters.getUser
-    },
-  },
+    }
+  }
 }
 </script>
 <style></style>

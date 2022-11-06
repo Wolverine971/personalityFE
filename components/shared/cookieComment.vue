@@ -18,53 +18,53 @@ export default {
     text: {
       type: String,
       required: false,
-      default: null,
+      default: null
     },
     likes: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     parentId: {
       type: String,
       required: true,
-      default: null,
+      default: null
     },
     showCookies: {
       type: Boolean,
       required: true,
-      default: null,
+      default: null
     },
     authorId: {
       type: String,
       required: true,
-      default: '',
-    },
+      default: ''
+    }
   },
-  data() {
+  data () {
     return {
       height: 0,
       width: 0,
       cookies: 20,
       canvas: null,
       ctx: null,
-      color: 'pink',
+      color: 'pink'
     }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.getters.getUser
     },
-    canEdit() {
+    canEdit () {
       if (this.user && this.user.id === this.authorId) {
         return true
       } else {
         return false
       }
-    },
+    }
   },
   watch: {
-    likes(newLikes) {
+    likes (newLikes) {
       if (this.showCookies) {
         if (newLikes) {
           this.getBox()
@@ -79,16 +79,16 @@ export default {
         }
       }
     },
-    showCookies(val) {
+    showCookies (val) {
       if (val && this.likes) {
         this.getBox()
         this.drawCookies(this.likes)
       }
-    },
+    }
   },
-  mounted() {},
+  mounted () {},
   methods: {
-    drawCookies(cookies, recurse) {
+    drawCookies (cookies, recurse) {
       if (cookies <= 0 && recurse) {
         this.canvasBox.style.backgroundImage =
           'url(' + this.canvas.toDataURL('image/png') + ')'
@@ -155,7 +155,7 @@ export default {
         }
       }
     },
-    getBox() {
+    getBox () {
       this.canvasBox = document.getElementById(this.parentId)
 
       this.width = this.canvasBox.clientWidth
@@ -167,8 +167,8 @@ export default {
         `height: ${this.height}; width: ${this.width}`
       )
       this.ctx = this.canvas.getContext('2d')
-    },
-  },
+    }
+  }
 }
 </script>
 

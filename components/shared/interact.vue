@@ -106,36 +106,36 @@ export default {
     post: {
       type: Object,
       required: true,
-      default: null,
+      default: null
     },
     type: {
       type: String,
       required: true,
-      default: null,
-    },
+      default: null
+    }
   },
-  data() {
+  data () {
     return {
       comment: '',
       isLiked: false,
       likes: [],
       subscribers: [],
       isSubscribed: false,
-      commentIsExpanded: false,
+      commentIsExpanded: false
     }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.getters.getUser
-    },
+    }
   },
   watch: {
-    post(post) {
+    post (post) {
       if (post) {
         this.parsePost(post)
       }
     },
-    likes(likes) {
+    likes (likes) {
       if (this.user) {
         if (likes) {
           this.isLiked = likes.includes(this.user.id)
@@ -144,7 +144,7 @@ export default {
         }
       }
     },
-    subscribers(subs) {
+    subscribers (subs) {
       if (this.user) {
         if (subs) {
           this.isSubscribed = subs.includes(this.user.id)
@@ -152,13 +152,13 @@ export default {
           this.isSubscribed = false
         }
       }
-    },
+    }
   },
-  mounted() {
+  mounted () {
     this.parsePost(this.post)
   },
   methods: {
-    async like() {
+    async like () {
       if (this.user) {
         try {
           const isLiked = !this.isLiked
@@ -167,7 +167,7 @@ export default {
 
           isLiked
             ? (newLikes = [...this.likes, this.user.id])
-            : (newLikes = this.likes.filter((l) => l !== this.user.id))
+            : (newLikes = this.likes.filter(l => l !== this.user.id))
 
           this.likes = newLikes
           this.$emit('likeChange', this.likes)
@@ -222,14 +222,14 @@ export default {
         this.$store.dispatch('toastError', 'Must Login')
       }
     },
-    async submitComment() {
+    async submitComment () {
       try {
         const resp = await this.$axios.post(
           `${endpoints.addComment}/${this.type}/${this.post.id}/${
             this.type === 'content' ? this.user.enneagramId : ''
           }`,
           {
-            comment: this.comment,
+            comment: this.comment
           }
         )
         if (resp && resp.data) {
@@ -262,7 +262,7 @@ export default {
         this.$store.dispatch('toastError', 'Failed To Submit Comment')
       }
     },
-    async subscribe() {
+    async subscribe () {
       if (this.user) {
         try {
           const isSubscribed = !this.isSubscribed
@@ -279,7 +279,7 @@ export default {
               this.$store.dispatch('toastSuccess', 'Subscibed')
             } else {
               newSubscribers = this.subscribers.filter(
-                (l) => l !== this.user.id
+                l => l !== this.user.id
               )
               this.$store.dispatch('toastSuccess', 'Unsubscibed')
             }
@@ -298,18 +298,18 @@ export default {
         this.$store.dispatch('toastError', 'Must Login')
       }
     },
-    expandComment() {
+    expandComment () {
       this.commentIsExpanded = true
       this.$refs.newComment.focus()
     },
-    parsePost(post) {
+    parsePost (post) {
       this.likes = [...post.likes]
       if (this.type === 'question' && this.user) {
         this.commentIsExpanded = !post.commenterIds[this.user.id]
         this.subscribers = [...post.subscribers]
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

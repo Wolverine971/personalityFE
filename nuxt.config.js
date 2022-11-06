@@ -4,7 +4,7 @@ export default {
     titleTemplate: '%s - for all personalities',
     title: '9takes Beta',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
@@ -13,55 +13,55 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...',
+          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...'
       },
       { 'http-equiv': 'content-language', content: 'en' },
       { property: 'og:url', content: 'https://9takes.com' },
       {
         property: 'og:description',
         content:
-          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...',
+          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...'
       },
       { property: 'og:title', content: '9takes' },
       {
         name: 'twitter:description',
         content:
-          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...',
+          'Community for questions and answers exploring 9 takes (enneagram) on any topic. Celebrate our differences and similarities in our personalities...'
       },
       {
         name: 'twitter:title',
-        content: '9takes | Home for personality Q&A',
+        content: '9takes | Home for personality Q&A'
       },
       {
         name: 'twitter:site',
-        content: '@9takesdotcom',
+        content: '@9takesdotcom'
       },
       {
         name: 'keywords',
         content:
-          'enneagram, personality, personality network, enneagram questions, enneagram answers, personality explanation, Q&A, ask a question, type 1, type 2, type 3, type 4, type 5, type 6, type 7, type 8, type 9',
-      },
+          'enneagram, personality, personality network, enneagram questions, enneagram answers, personality explanation, Q&A, ask a question, type 1, type 2, type 3, type 4, type 5, type 6, type 7, type 8, type 9'
+      }
     ],
 
     link: [
       {
         rel: 'shortcut icon',
         href: '/lamp.png',
-        author: 'https://www.flaticon.com/authors/freepik',
+        author: 'https://www.flaticon.com/authors/freepik'
       },
       {
         rel: 'icon',
         type: 'svg',
         href: '/lamp.png',
-        author: 'https://www.flaticon.com/authors/freepik',
+        author: 'https://www.flaticon.com/authors/freepik'
       },
       {
         rel: 'icon',
         type: 'image/x-icon',
         href: '/lamp.png',
-        author: 'https://www.flaticon.com/authors/freepik',
-      },
-    ],
+        author: 'https://www.flaticon.com/authors/freepik'
+      }
+    ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -77,21 +77,21 @@ export default {
     // { src: '~/plugins/jsonLd.ts', mode: 'client' },
     { src: '~/plugins/socials.ts', mode: 'client' },
     { src: '~/plugins/helpers', mode: 'client' },
-    { src: '~/plugins/Uid', mode: 'client' },
+    { src: '~/plugins/Uid', mode: 'client' }
   ],
 
   server: {
     // port: 3000, // default: 3000
-    host: '0.0.0.0', // default: localhost
+    host: '0.0.0.0' // default: localhost
   },
 
   sitemap: {
     hostname: 'https://9takes.com/',
-    filter({ routes }) {
+    filter ({ routes }) {
       console.log(routes)
       const nogos = process.env.NoGo.split(', ')
-      return routes.filter((route) => !nogos.includes(route.url))
-    },
+      return routes.filter(route => !nogos.includes(route.url))
+    }
   },
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -109,7 +109,7 @@ export default {
     'nuxt-material-design-icons',
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    '@nuxtjs/sitemap',
+    '@nuxtjs/sitemap'
   ],
   buildModules: ['@/modules/sitemapGenerator'],
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -129,18 +129,18 @@ export default {
         'https://9takes.com:3001',
         'https://9takes.com:3001/',
         'http://9takes.com:3001',
-        'http://9takes.com:3001/',
-      ],
+        'http://9takes.com:3001/'
+      ]
     },
-    withCredentials: true,
+    withCredentials: true
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
-    optionsPath: './vuetify.options.js',
+    optionsPath: './vuetify.options.js'
   },
   router: {
-    middleware: ['loggedIn'],
+    middleware: ['loggedIn']
   },
   // auth: {
   //   redirect: false,
@@ -226,7 +226,7 @@ export default {
     transpile: [/^vuetify/],
     // plugins: webpackPlugins(),
     analyze: false,
-    extend(config, { isClient }) {
+    extend (config, { isClient }) {
       if (isClient) {
         config.optimization.splitChunks.maxSize = 200000
       }
@@ -234,10 +234,10 @@ export default {
     loaders: {
       cssModules: {
         modules: {
-          localIdentName: '[hash:base64:4]',
-        },
-      },
-    },
+          localIdentName: '[hash:base64:4]'
+        }
+      }
+    }
   },
   target: 'static', // 'universal',
   env: {
@@ -245,6 +245,6 @@ export default {
     ORIGIN: process.env.ORIGIN,
     BE_URL: process.env.BE_URL || 'http://localhost:3001/',
     GOOGLE: process.env.GOOGLE,
-    DEEPAI: process.env.DEEPAI,
-  },
+    DEEPAI: process.env.DEEPAI
+  }
 }

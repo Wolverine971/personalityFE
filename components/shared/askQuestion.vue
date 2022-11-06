@@ -62,7 +62,7 @@ import debounce from 'lodash.debounce'
 import { getQuestionsFromData } from '../../utils'
 import { endpoints } from '~/models/endpoints'
 export default {
-  name: 'AddQuestion',
+  name: 'AskQuestion',
   // alhost:3001/api/comment/add/question/j-0gpII
 
   components: { Heartbeat: () => import('../../components/shared/heart') },

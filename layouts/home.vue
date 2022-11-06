@@ -30,14 +30,14 @@ export default {
   name: 'HomeLayout',
   components: {
     theFooter: () => import('~/components/shared/theFooter'),
-    toolbar: () => import('~/components/shared/toolbar'),
-    SvgBackground: () => import('../components/shared/svgBackground'),
+    toolbar: () => import('~/components/shared/toolbar')
+    // SvgBackground: () => import('../components/shared/svgBackground')
   },
   computed: {
-    user() {
+    user () {
       return this.$store.getters.getUser
-    },
-  },
+    }
+  }
 }
 </script>
 

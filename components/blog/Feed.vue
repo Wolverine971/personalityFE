@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row style="justify-content: center" v-if="blogs.length">
+    <v-row v-if="blogs.length" style="justify-content: center">
       <feed-card
         v-for="(blog, index) in blogs"
         :key="blog.title + index"
@@ -21,17 +21,17 @@ export default {
   name: 'Feed',
 
   components: {
-    FeedCard: () => import('@/components/blog/FeedCard'),
+    FeedCard: () => import('@/components/blog/FeedCard')
   },
   props: {
     blogs: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     count: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
 
   data: () => ({
@@ -62,9 +62,9 @@ export default {
       3,
       4,
       3,
-      2,
+      2
     ],
-    loading: false,
-  }),
+    loading: false
+  })
 }
 </script>

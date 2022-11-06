@@ -9,7 +9,9 @@
         router
         style="text-decoration: none"
       >
-        <v-btn depressed> Login </v-btn>
+        <v-btn depressed>
+          Login
+        </v-btn>
       </NuxtLink>
       <NuxtLink
         :to="{
@@ -68,8 +70,12 @@
               </template>
             </v-text-field>
 
-            <v-btn autofocus color="secondary" @click="goLogin"> login </v-btn>
-            <v-btn @click="clear"> clear </v-btn>
+            <v-btn autofocus color="secondary" @click="goLogin">
+              login
+            </v-btn>
+            <v-btn @click="clear">
+              clear
+            </v-btn>
           </v-form>
         </v-container>
       </v-card>
@@ -87,27 +93,27 @@ export default {
     selected: 0,
     passwordType: 'password',
     emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+\..+/.test(v) || 'E-mail not valid',
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail not valid'
     ],
     passwordRules: [
-      (v) => !!v || 'Password is required',
-      (v) => (v && v.length >= 8) || 'Password not Valid',
-    ],
+      v => !!v || 'Password is required',
+      v => (v && v.length >= 8) || 'Password not Valid'
+    ]
   }),
 
   methods: {
-    async goLogin() {
+    goLogin () {
       if (this.$refs.loginForm.validate()) {
         const data = {
           email: this.emailAddress,
-          password: this.password,
+          password: this.password
         }
 
         this.$store.dispatch('login', data).then((resp) => {
           if (resp) {
             this.$router.push({
-              path: '/questions',
+              path: '/questions'
             })
           }
         })
@@ -129,9 +135,9 @@ export default {
         // })
       }
     },
-    clear() {
+    clear () {
       this.$refs.loginForm.reset()
-    },
-  },
+    }
+  }
 }
 </script>

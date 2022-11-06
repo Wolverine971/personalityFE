@@ -22,14 +22,18 @@
         </v-card-text>
       </NuxtLink>
       <v-card-actions v-if="q">
-        <v-btn v-if="admin" outlined small> Id: {{ q.id }} </v-btn>
+        <v-btn v-if="admin" outlined small>
+          Id: {{ q.id }}
+        </v-btn>
         <v-btn v-if="admin" outlined small>
           Author Enneagram: {{ q.author ? q.author.enneagramId : '' }}
         </v-btn>
         <v-btn v-if="admin" outlined small>
           DateCreated: {{ getTime(q.dateCreated) }}
         </v-btn>
-        <v-btn v-if="admin" outlined small> Modified: {{ q.modified }} </v-btn>
+        <v-btn v-if="admin" outlined small>
+          Modified: {{ q.modified }}
+        </v-btn>
         <v-btn v-if="admin" outlined small>
           Subscribers: {{ q.subscribers.length }}
         </v-btn>
@@ -88,25 +92,25 @@ export default {
     admin: {
       type: Boolean,
       default: false,
-      required: false,
+      required: false
     },
     numberOfQuestions: {
       type: String,
       default: '10',
-      required: false,
-    },
+      required: false
+    }
   },
-  data() {
+  data () {
     return {
       allQuestions: [],
       pageSize: 10,
       questionsCount: 0,
       questionsLoading: false,
-      key: -1,
+      key: -1
     }
   },
   computed: {
-    questions() {
+    questions () {
       const questions = this.$store.getters.getAllQuestions
       if (questions) {
         return Object.keys(questions)
@@ -121,21 +125,21 @@ export default {
       }
       // return this.$store.getters.getAllQuestions
     },
-    totalQuestions() {
+    totalQuestions () {
       return this.$store.getters.getAllQuestionsCount
-    },
+    }
   },
   watch: {
-    allQuestions(val) {
+    allQuestions (val) {
       this.questionsCount = val.length
     },
-    numberOfQuestions(val) {
+    numberOfQuestions (val) {
       if (val) {
         this.pageSize = val
       }
-    },
+    }
   },
-  mounted() {
+  mounted () {
     //   this.pageSize = this.numberOfQuestions
     if (!this.totalQuestions) {
       this.$store.dispatch('getPaginatedQuestions', this.pageSize)
@@ -146,12 +150,12 @@ export default {
     // }
   },
   methods: {
-    async loadMoreQuestions() {
+    async loadMoreQuestions () {
       this.questionsLoading = true
       await this.$store.dispatch('getPaginatedQuestions', this.pageSize)
       this.questionsLoading = false
     },
-    goToQuestion(item) {
+    goToQuestion (item) {
       this.typeAhead = []
       this.$router.push({ path: `/questions/${item.url}` })
       this.$router.go(1)
@@ -165,22 +169,22 @@ export default {
     //       return new Date(b.dateCreated) - new Date(a.dateCreated)
     //     })
     // },
-    getTime(time) {
+    getTime (time) {
       return msToTime(time)
     },
-    async deleteQuestion(question) {
+    async deleteQuestion (question) {
       const resp = await this.$axios.post(`${endpoints.change}`, {
         type: 'question',
-        tag: question.id,
+        tag: question.id
       })
       if (resp && resp.data) {
         // pop from store
         this.allQuestions = this.allQuestions.filter(
-          (q) => q.id !== question.id
+          q => q.id !== question.id
         )
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
