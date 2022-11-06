@@ -131,7 +131,7 @@ footer,
 
 .form-width {
   max-width: 1000px;
-  min-width: 500px;
+  min-width: 400px;
 }
 
 .v-card__title {
@@ -146,9 +146,10 @@ footer,
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   .form-width {
     min-width: 200px;
+    // min-width: 400px;
   }
   .pad-title {
     padding: 0 !important;
@@ -161,7 +162,7 @@ footer,
     right: 0;
   }
   .footer {
-    position: relative !important;
+    // position: relative !important;
   }
 }
 @media only screen and (max-width: 645px) {
@@ -457,9 +458,10 @@ a {
 .v-tab {
   pointer-events: all;
 }
-
-.main-container {
-  pointer-events: none;
-  display: flex;
-  justify-content: center;
+@media only screen and (min-width: 600px) {
+  .main-container {
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+  }
 }
