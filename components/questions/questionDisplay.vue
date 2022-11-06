@@ -1,7 +1,11 @@
 <template>
   <div class="clickable">
     <v-card class="margin-bot">
-      <v-card-text class="margin-bot pad-bot clickable" :to="{ path: '/questions', query: { id: question.id } }" router>
+      <v-card-text
+        class="margin-bot pad-bot clickable"
+        :to="{ path: '/questions', query: { id: question.id } }"
+        router
+      >
         {{ question.question }}
       </v-card-text>
     </v-card>
@@ -9,7 +13,11 @@
       <div class="btn-group">
         <v-btn
           outlined
-          :color="(question.likes && user && question.likes.includes(user.id)) ? 'primary' : null"
+          :color="
+            question.likes && user && question.likes.includes(user.id)
+              ? 'primary'
+              : null
+          "
           class="margin-right"
         >
           {{ question.likes ? question.likes.length : '' }}
@@ -22,10 +30,12 @@
           </v-icon>
         </v-btn>
         <v-btn outlined class="margin-right" color="secondary">
-          {{ question.comments && question.comments.count ? question.comments.count : '' }}
-          <v-icon>
-            mdi-comment-outline
-          </v-icon>
+          {{
+            question.comments && question.comments.count
+              ? question.comments.count
+              : ''
+          }}
+          <v-icon> mdi-comment-outline </v-icon>
         </v-btn>
         <v-btn outlined color="primary">
           {{ question.subscribers ? question.subscribers.length : '' }}
@@ -43,25 +53,24 @@ export default {
     question: {
       type: Object,
       required: true,
-      default: null
+      default: null,
     },
     type: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
     interact: {
       type: Boolean,
       required: false,
-      default: true
-    }
+      default: true,
+    },
   },
   computed: {
-    user () {
-      return this.$auth.user
-    }
-  }
+    user() {
+      return this.$store.getters.getUser
+    },
+  },
 }
 </script>
-<style>
-</style>
+<style></style>

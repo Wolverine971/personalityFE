@@ -30,7 +30,7 @@
         @click="addQuestion(question)"
         @keydown.enter="addQuestion(question)"
       >
-        Add Question
+        Ask Question
       </v-btn>
     </template>
     <template v-slot:item="{ item }">
@@ -66,7 +66,7 @@ export default {
   // alhost:3001/api/comment/add/question/j-0gpII
 
   components: { Heartbeat: () => import('../../components/shared/heart') },
-  data () {
+  data() {
     return {
       question: '',
       typeAhead: [],
@@ -75,16 +75,16 @@ export default {
       questionsCount: 0,
       typeAheadLoading: false,
       questionsLoading: false,
-      key: -1
+      key: -1,
     }
   },
   computed: {
-    user () {
-      return this.$auth.user
-    }
+    user() {
+      return this.$store.getters.getUser
+    },
   },
   watch: {
-    selection (val, oldVal) {
+    selection(val, oldVal) {
       if (val && val !== oldVal) {
         if (typeof val === 'object') {
           this.goToQuestion(val)
@@ -92,12 +92,12 @@ export default {
         }
       }
     },
-    question (val, oldVal) {
+    question(val, oldVal) {
       if (val && val !== oldVal) {
         this.typeAheadLoading = true
         this.questionTypeAhead(val)
       }
-    }
+    },
   },
   methods: {
     questionTypeAhead: debounce(function (val) {
@@ -112,28 +112,31 @@ export default {
           })
       }
     }, 1000),
-    addQuestion (question) {
+    addQuestion(question) {
       if (question.url) {
         this.goToQuestion(question)
       } else if (this.user) {
         if (this.key === -1) {
-          this.$router.push({ path: '/questions/createQuestion', query: { question } })
+          this.$router.push({
+            path: '/questions/createQuestion',
+            query: { question },
+          })
           this.$router.go(1)
         }
       } else {
         this.$store.dispatch('toastError', 'Must Login')
       }
     },
-    goToQuestion (item) {
+    goToQuestion(item) {
       this.typeAhead = []
       this.$router.push({ path: `/questions/${item.url}` })
       this.$router.go(1)
     },
 
-    change (event) {
+    change(event) {
       this.key = event
-    }
-  }
+    },
+  },
 }
 </script>
 

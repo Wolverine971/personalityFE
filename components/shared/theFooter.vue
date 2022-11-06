@@ -8,9 +8,7 @@
         class="no-decor"
         alt="instagram icon"
       >
-        <v-icon color="secondary">
-          mdi-instagram
-        </v-icon>
+        <v-icon color="secondary"> mdi-instagram </v-icon>
       </v-btn>
       <v-btn
         icon
@@ -19,19 +17,18 @@
         class="no-decor"
         alt="twitter icon"
       >
-        <v-icon color="secondary">
-          mdi-twitter
-        </v-icon>
+        <v-icon color="secondary"> mdi-twitter </v-icon>
       </v-btn>
     </p>
     <p class="no-margin">
-      Please complete this
+      Complete this
       <a
         href="https://c9dbh8z9igk.typeform.com/to/RHtEUlUt"
         target="_blank"
         alt="survey"
-      >survey</a>
-      before leaving 9takes. It helps makes everything better!
+        >survey</a
+      >
+      so we know what to improve
       <!-- We welcome feedback and suggestions. Please send to <a href="mailto:usersup@9takes.com">usersup@9takes.com</a> -->
     </p>
   </footer>

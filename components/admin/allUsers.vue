@@ -8,21 +8,15 @@
           Name: {{ u.firstName }} {{ u.lastName }}, {{ u.email }}
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-btn v-if="admin" outlined small>
-            Id: {{ u.id }}
-          </v-btn>
-          <v-btn v-if="admin" outlined small>
-            Email: {{ u.email }}
-          </v-btn>
+          <v-btn v-if="admin" outlined small> Id: {{ u.id }} </v-btn>
+          <v-btn v-if="admin" outlined small> Email: {{ u.email }} </v-btn>
           <v-btn v-if="admin" outlined small>
             Author Enneagram: {{ u.enneagramId }}
           </v-btn>
           <v-btn v-if="admin" outlined small>
             DateCreated: {{ getTime(u.dateCreated) }}
           </v-btn>
-          <v-btn v-if="admin" outlined small>
-            Role: {{ u.role }}
-          </v-btn>
+          <v-btn v-if="admin" outlined small> Role: {{ u.role }} </v-btn>
           <v-btn
             v-if="admin && u.email !== u.email"
             outlined
@@ -41,9 +35,7 @@
       class="row"
       @click="loadMoreUsers"
     >
-      <v-btn outlined color="secondary">
-        Load More
-      </v-btn>
+      <v-btn outlined color="secondary"> Load More </v-btn>
     </div>
     <v-progress-linear v-else-if="usersLoading" indeterminate />
   </div>
@@ -58,39 +50,39 @@ export default {
     admin: {
       type: Boolean,
       default: false,
-      required: false
-    }
+      required: false,
+    },
   },
-  data () {
+  data() {
     return {
       allUsers: [],
       pageSize: 10,
       usersCount: 0,
       usersLoading: false,
       key: -1,
-      lastDate: null
+      lastDate: null,
     }
   },
   computed: {
-    users () {
+    users() {
       return this.$store.getters.getAllUsers
     },
-    totalUsers () {
+    totalUsers() {
       return this.$store.getters.getAllUsersCount
     },
-    user () {
-      return this.$auth.user
-    }
+    user() {
+      return this.$store.getters.getUser
+    },
   },
   watch: {
-    users (users) {
+    users(users) {
       this.parseUsers(users)
     },
-    allUsers (val) {
+    allUsers(val) {
       this.usersCount = val.length
-    }
+    },
   },
-  mounted () {
+  mounted() {
     if (!this.totalUsers) {
       this.$store.dispatch('getPaginatedUsers', this.lastDate)
     } else {
@@ -99,30 +91,29 @@ export default {
     }
   },
   methods: {
-    async loadMoreUsers () {
+    async loadMoreUsers() {
       this.usersLoading = true
       await this.$store.dispatch('getPaginatedUsers', this.lastDate)
       this.usersLoading = false
     },
-    parseUsers (users) {
+    parseUsers(users) {
       this.allUsers = [...users]
       this.lastDate = users[users.length - 1].dateCreated
     },
-    getTime (time) {
+    getTime(time) {
       return msToTime(time)
     },
-    async deleteUser (user) {
+    async deleteUser(user) {
       const resp = await this.$axios.post(`${endpoints.change}`, {
         type: 'user',
-        tag: user.id
+        tag: user.id,
       })
       if (resp && resp.data) {
-        this.allUsers = this.allUsers.filter(q => q.id !== user.id)
+        this.allUsers = this.allUsers.filter((q) => q.id !== user.id)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style>
-</style>
+<style></style>

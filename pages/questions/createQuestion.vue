@@ -54,7 +54,13 @@
               <v-btn outlined small color="red" @click="dialog = false">
                 Not Ready
               </v-btn>
-              <v-btn outlined small color="secondary" :disabled="!url" @click="addQuestion">
+              <v-btn
+                outlined
+                small
+                color="secondary"
+                :disabled="!url"
+                @click="addQuestion"
+              >
                 I accept
               </v-btn>
             </v-card-actions>
@@ -82,7 +88,7 @@ export default {
   name: 'Personality',
   props: {},
   middleware: ['accessToken'],
-  data () {
+  data() {
     return {
       question: '',
       context: '',
@@ -91,23 +97,23 @@ export default {
       pngSrc: '',
       height: 0,
       width: 0,
-      url: ''
+      url: '',
     }
   },
   computed: {
-    user () {
-      return this.$auth.user
-    }
+    user() {
+      return this.$store.getters.getUser
+    },
   },
 
-  mounted () {
+  mounted() {
     this.question = this.$route.query.question
   },
   methods: {
-    async getUrl () {
+    async getUrl() {
       try {
         const resp = await this.$axios.post(`${endpoints.getUrl}`, {
-          question: this.question.replace('?', '')
+          question: this.question.replace('?', ''),
         })
         this.url = resp.data.url
       } catch (e) {
@@ -115,7 +121,7 @@ export default {
         this.$store.dispatch('toastError', 'Failed to get url')
       }
     },
-    async addQuestion () {
+    async addQuestion() {
       if (this.user) {
         const questionToSend = this.question.replace('?', '')
         const question = document.getElementById('question-pic')
@@ -128,7 +134,7 @@ export default {
           question: questionToSend,
           img: this.pngSrc,
           type: this.user.enneagramId,
-          url: this.url
+          url: this.url,
         }
 
         const resp = await this.$axios.post(`${endpoints.questionAdd}`, data)
@@ -145,13 +151,12 @@ export default {
 
       this.dialog = false
     },
-    goToQuestion (item) {
+    goToQuestion(item) {
       this.$router.push({ path: `/questions/${item.url}` })
       this.$router.go(1)
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

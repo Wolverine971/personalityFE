@@ -259,20 +259,22 @@ export const actions: any = {
     let cookie = this.$9tcookie.get('9tAnonymous')
     if (!cookie) {
       cookie = `${process.env.RANDO_PREFIX}${uuid.v1()}`
-      this.$axios.defaults.headers.Authorization = cookie
 
       this.$axios.setToken(cookie)
-
       this.$9tcookie.set('9tAnonymous', cookie, {
         path: '/',
         maxAge: 100 * 60 * 60 * 24 * 7,
       })
     }
-    this.$9tcookie.set('9tcookie', null)
+    await commit('setAccessToken', cookie)
     dispatch('getRandoPermissions', cookie)
+    this.$9tcookie.set('9tcookie', null)
 
     this.$axios.defaults.headers.Authorization = cookie
     this.$axios.setHeader('Authorization', cookie)
+
+    // commit('setUser', data.data.user)
+    // commit('setAccessToken', data.data.accessToken)
     commit('setUser', null)
   },
 
@@ -283,9 +285,9 @@ export const actions: any = {
     })
     if (resp && resp.data) {
       console.log(resp)
-      this.$auth.setUser(resp.data.user)
-      this.$auth.setUserToken(resp.data.accessToken, resp.data.refreshToken)
-      await this.$auth.refreshTokens()
+      // this.$auth.setUser(resp.data.user)
+      // this.$auth.setUserToken(resp.data.accessToken, resp.data.refreshToken)
+      // await this.$auth.refreshTokens()
       return resp.data.accessToken
     }
   },
@@ -294,9 +296,6 @@ export const actions: any = {
       headers: { Authorization: cookie },
     })
     if (resp && resp.data) {
-      // this.$auth.setUser(resp.data.id)
-
-      // commit('setUser', resp.data.id)
       commit('setRandoPermissions', resp.data.questions)
     }
   },
@@ -319,12 +318,43 @@ export const actions: any = {
         } else {
           dispatch('toastError', 'Login Fail')
         }
-        // dispatch('setAnonymous', null)
+        dispatch('setAnonymous', null)
         return false
       }
     } catch (e) {
       console.log(e)
       return false
+    }
+  },
+
+  getAccessToken({ commit, dispatch }: any, refreshToken: string): any {
+    if (!refreshToken) {
+      dispatch('setAnonymous', null)
+      return false
+    } else {
+      return this.$axios
+        .$get(endpoints.refreshTokenRoute + refreshToken)
+        .then((data: any) => {
+          if (!data.accessToken) {
+            dispatch('setAnonymous', null)
+            return false
+          } else {
+            this.$9tcookie.set('9tcookie', data.refreshToken, {
+              path: '/',
+              maxAge: 60 * 60 * 24 * 7,
+            })
+            commit('setUser', data.user)
+            commit('setAccessToken', data.accessToken)
+
+            return data.accessToken
+          }
+        })
+        .catch((error: Error) => {
+          console.log(error)
+          console.log('getAccessToken false 2')
+          dispatch('setAnonymous', null)
+          return false
+        })
     }
   },
 
@@ -352,14 +382,14 @@ export const actions: any = {
       if (data && data.user) {
         commit('setUser', data.user)
       } else {
-        // dispatch('setAnonymous', null)
+        dispatch('setAnonymous', null)
       }
     })
   },
 
   async logout({ commit, dispatch }: any) {
     await dispatch('setAnonymous')
-    await this.$auth.logout()
+    // await this.$auth.logout()
   },
 
   getPaginatedQuestions({ commit, getters }: any, pageSize: number) {
@@ -402,6 +432,10 @@ export const actions: any = {
         commit('addAllUsers', resp.data.users)
         commit('setAllUsersCount', resp.data.count)
       })
+  },
+  async nuxtServerInit({ dispatch }: any, { $9tcookie }: any) {
+    const refreshToken = $9tcookie.get('9tcookie')
+    await dispatch('getAccessToken', refreshToken)
   },
   getDashboard({ commit }: any): any {
     return this.$axios.get(endpoints.getDashboard).then((resp: any) => {

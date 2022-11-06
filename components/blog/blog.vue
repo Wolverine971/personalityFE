@@ -30,7 +30,7 @@
               displayedBlog.author.lastName
             : ''
         }}
-        <br>
+        <br />
         Date: {{ getTime(displayedBlog.dateCreated) }}
       </v-card-subtitle>
       <v-card-text v-html="blogContent" />
@@ -63,7 +63,8 @@
           id="b"
           :href="`https://twitter.com/intent/tweet?original_referer=${url}&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&amp;text=Checkout this article called '${displayedBlog.title}'&amp;url=${url} @9takesdotcom`"
           class="twitter twitter-share-button"
-        ><i /><span id="l" class="label">Tweet</span></a>
+          ><i /><span id="l" class="label">Tweet</span></a
+        >
       </v-card-actions>
     </v-card>
     <div v-else-if="displayedBlog" class="blogDiv">
@@ -97,13 +98,13 @@ export default {
   components: {
     CreateBlog: () => import('../admin/createBlog.vue'),
     comments: () => import('../questions/comments.vue'),
-    Interact: () => import('../shared/interact')
+    Interact: () => import('../shared/interact'),
   },
   props: {
     blog: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   // async asyncData ({ $content, params, error }) {
   //   const url = params.slug ? `/blog/${params.slug}` : 'index'
@@ -119,18 +120,18 @@ export default {
   //     page
   //   }
   // },
-  data () {
+  data() {
     return {
       url: '',
       editing: false,
-      displayedBlog: null
+      displayedBlog: null,
     }
   },
   computed: {
-    user () {
-      return this.$auth.user
+    user() {
+      return this.$store.getters.getUser
     },
-    blogContent () {
+    blogContent() {
       // eslint-disable-next-line no-undef
       if (marked) {
         // eslint-disable-next-line no-undef
@@ -138,24 +139,24 @@ export default {
       } else {
         return ''
       }
-    }
+    },
   },
   watch: {
-    blog (val) {
+    blog(val) {
       if (val) {
         this.displayedBlog = val
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.url = `${process.env.ORIGIN}blog/${this.$route.params.title}`
     this.displayedBlog = this.blog
   },
   methods: {
-    getTime (time) {
+    getTime(time) {
       return msToDate(time)
     },
-    newComment (event) {
+    newComment(event) {
       let newComments
       if (this.displayedBlog.comments.comments) {
         newComments = [event, ...this.displayedBlog.comments.comments]
@@ -167,15 +168,15 @@ export default {
         {},
         this.displayedBlog.comments,
         {
-          comments: newComments
+          comments: newComments,
         }
       )
       this.displayedBlog.comments.count += 1
     },
-    likeChange (event) {
+    likeChange(event) {
       this.displayedBlog.likes = event
-    }
-  }
+    },
+  },
 }
 </script>
 

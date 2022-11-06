@@ -1,9 +1,7 @@
 <template>
   <div v-if="displayedQuestion">
     <v-card class="margin-top">
-      <v-card-title class="primary_v--text">
-        Question
-      </v-card-title>
+      <v-card-title class="primary_v--text"> Question </v-card-title>
       <v-card-text>
         <v-textarea
           cols="12"
@@ -19,8 +17,8 @@
           <template
             v-if="
               user &&
-                displayedQuestion.author &&
-                displayedQuestion.author.id === user.id
+              displayedQuestion.author &&
+              displayedQuestion.author.id === user.id
             "
             v-slot:append
           >
@@ -40,35 +38,31 @@
       </v-card-text>
     </v-card>
     <v-card v-if="showComments" class="margin-top">
-      <v-card-title class="primary_v--text">
-        Sorting
-      </v-card-title>
+      <v-card-title class="primary_v--text"> Sorting </v-card-title>
       <v-card-text>
         <sort :type="'comments'" @triggerNewSearch="filterComments($event)" />
       </v-card-text>
     </v-card>
-    <comments
-      v-if="showComments"
-      class="margin-top"
-      :comments="displayedQuestion.comments"
-      :parent-id="displayedQuestion.id"
-      :hide-loader="true"
-      @commentUpdated="updateComment"
-    />
-    <v-btn
-      v-if="
-        displayedQuestion.comments &&
+    <template v-if="showComments">
+      <comments
+        class="margin-top"
+        :comments="displayedQuestion.comments"
+        :parent-id="displayedQuestion.id"
+        :hide-loader="true"
+        @commentUpdated="updateComment"
+      />
+      <v-card-actions
+        v-if="
+          displayedQuestion.comments &&
           displayedQuestion.comments.comments &&
           displayedQuestion.comments.comments.length <
-          displayedQuestion.comments.count &&
+            displayedQuestion.comments.count &&
           !commentsLoading
-      "
-      class="margin-top row"
-      color="secondary"
-      @click="loadMore"
-    >
-      Load More
-    </v-btn>
+        "
+      >
+        <v-btn color="secondary" @click="loadMore"> Load More </v-btn>
+      </v-card-actions>
+    </template>
     <v-progress-linear v-else-if="commentsLoading" indeterminate />
     <v-card v-else-if="!showComments" class="m-col">
       Answer the question to see other answers
@@ -85,13 +79,13 @@ export default {
     Interact: () => import('../shared/interact'),
     Comments: () => import('./comments'),
     EditContent: () => import('../shared/editContent.vue'),
-    Sharebox: () => import('../shared/sharebox.vue')
+    Sharebox: () => import('../shared/sharebox.vue'),
   },
   props: {
     question: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
 
   data: () => ({
@@ -99,37 +93,36 @@ export default {
     commentsLoading: false,
     cursorId: null,
     params: null,
-    showComments: false
+    showComments: false,
   }),
   computed: {
-    alreadyFetchedQuestions () {
+    alreadyFetchedQuestions() {
       return this.$store.getters.getAllQuestions
     },
-    questionId () {
+    questionId() {
       return this.$route.params.id
     },
-    user () {
-      return this.$auth.user
+    user() {
+      return this.$store.getters.getUser
     },
-    randoPerms () {
+    randoPerms() {
       return this.$store.getters.getRandoPermissions
-    }
-
+    },
   },
   watch: {
-    question (question) {
+    question(question) {
       this.parseQuestion(question)
     },
-    showComments () {
+    showComments() {
       this.parseQuestion(this.question)
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.parseQuestion(this.question)
   },
 
   methods: {
-    parseQuestion (question) {
+    parseQuestion(question) {
       this.checkShowComments()
       if (this.showComments) {
         this.commenterIds = question.commenterIds
@@ -141,7 +134,7 @@ export default {
         this.displayedQuestion = question
       }
     },
-    async getQuestion (questionId) {
+    async getQuestion(questionId) {
       if (this.showComments) {
         if (
           this.alreadyFetchedQuestions &&
@@ -178,7 +171,7 @@ export default {
         }
       }
     },
-    async filterComments (event) {
+    async filterComments(event) {
       if (this.showComments) {
         this.commentsLoading = true
 
@@ -198,7 +191,7 @@ export default {
         this.commentsLoading = false
       }
     },
-    async loadMore () {
+    async loadMore() {
       this.commentsLoading = true
       const resp = await this.$axios.post(
         `${endpoints.getSortedComments}/${this.questionId}`,
@@ -210,14 +203,14 @@ export default {
         }
         const comments = [
           ...this.displayedQuestion.comments.comments,
-          ...resp.data.comments
+          ...resp.data.comments,
         ]
         this.displayedQuestion.comments.comments = comments
         this.$store.commit('updateAllQuestions', this.displayedQuestion)
       }
       this.commentsLoading = false
     },
-    newComment (event) {
+    newComment(event) {
       const newComments = [event, ...this.displayedQuestion.comments.comments]
       this.displayedQuestion.commenterIds[event.author.id] = 1
       this.displayedQuestion = Object.assign({}, this.displayedQuestion, {
@@ -225,28 +218,28 @@ export default {
           {},
           this.displayedQuestion.comments,
           {
-            comments: newComments
+            comments: newComments,
           },
           {
-            count: (this.displayedQuestion.comments.count += 1)
+            count: (this.displayedQuestion.comments.count += 1),
           }
-        )
+        ),
       })
 
       this.$store.commit('updateAllQuestions', this.displayedQuestion)
       this.checkShowComments()
     },
-    async updateQuestion (event) {
+    async updateQuestion(event) {
       const resp = await this.$axios.post(
         `${endpoints.updateQuestion}/${this.questionId}`,
         {
-          question: event
+          question: event,
         }
       )
       if (resp && resp.data) {
         this.displayedQuestion.question = event
         this.displayedQuestion = Object.assign({}, this.displayedQuestion, {
-          question: event
+          question: event,
         })
         this.$store.commit('updateAllQuestions', this.displayedQuestion)
         this.$store.dispatch('toastSuccess', 'Updated Question')
@@ -254,13 +247,14 @@ export default {
         this.$store.dispatch('toastError', 'Update Question Failure')
       }
     },
-    async updateComment (event) {
-      const selectedComment =
-        this.displayedQuestion.comments.comments[event.index]
+    async updateComment(event) {
+      const selectedComment = this.displayedQuestion.comments.comments[
+        event.index
+      ]
       const resp = await this.$axios.post(
         `${endpoints.updateComment}/${selectedComment.id}`,
         {
-          comment: event.comment
+          comment: event.comment,
         }
       )
       if (resp && resp.data) {
@@ -273,7 +267,7 @@ export default {
         this.$store.dispatch('toastError', 'Update Comment Failure')
       }
     },
-    checkShowComments () {
+    checkShowComments() {
       const questionId = this.question ? this.question.id : null
       if (
         this.user &&
@@ -295,8 +289,8 @@ export default {
       } else {
         this.showComments = false
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

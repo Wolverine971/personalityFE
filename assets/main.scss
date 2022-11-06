@@ -159,7 +159,6 @@ footer,
     border-radius: 0 !important;
     left: 0;
     right: 0;
-
   }
   .footer {
     position: relative !important;
@@ -374,7 +373,7 @@ p {
 }
 .v-application {
   // background-image: url('/backgroundStreet.jpg') !important;
-  // background-color: var(--accent) !important;
+  background-color: var(--accent) !important;
 
   /* Full height */
   height: 100%;
@@ -389,9 +388,17 @@ p {
 }
 
 .v-card {
-  background-color: rgb(255 255 255 / 95%) !important;
+  // background-color: rgb(255 255 255 / 95%) !important;
+  // background-color: #4d4d80 !important;
+  // background-image: linear-gradient(to bottom, white, #f72585, #191970);
+  // color: white !important;
   // background-color: var(--accent) !important;
-  opacity: 0.95 !important;
+
+  // background: linear-gradient(to right, black, white, black);
+  opacity: 0.85 !important;
+}
+.v-card__text {
+  // color: white !important;
 }
 
 .question-background {
@@ -420,4 +427,39 @@ p {
   background-color: #f72585;
   border-radius: 5px;
   margin: 1px;
+}
+
+.v-card--hover {
+  pointer-events: all;
+}
+
+button,
+textarea,
+input,
+i,
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  pointer-events: all;
+}
+a {
+  pointer-events: all;
+}
+
+.v-btn__content,
+.v-textarea,
+.v-card__text,
+.v-chip__content,
+.v-tabs,
+.v-tab {
+  pointer-events: all;
+}
+
+.main-container {
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
 }

@@ -1,9 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <h1 class="primary_v--text">
-        Profile Page
-      </h1>
+      <h1 class="primary_v--text">Profile Page</h1>
     </v-card-title>
     <v-form v-if="user">
       <v-container>
@@ -58,23 +56,35 @@ export default {
   name: 'Profile',
   components: {
     Dashboard: () => import('~/components/dashboard'),
-    ThemeChanger: () => import('~/components/shared/themeChanger.vue')
+    ThemeChanger: () => import('~/components/shared/themeChanger.vue'),
   },
   data: () => ({
     index: null,
     staticUser: {},
-    enneagramTypes: ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'Unknown', 'Rando'],
-    formDisabled: true
+    enneagramTypes: [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      'Unknown',
+      'Rando',
+    ],
+    formDisabled: true,
   }),
   middleware: ['loggedIn', 'accessToken'],
   computed: {
-    user () {
-      return this.$auth.user
-    }
+    user() {
+      return this.$store.getters.getUser
+    },
   },
 
   methods: {
-    submit () {
+    submit() {
       this.formDisabled = false
       const data = {
         firstName: this.staticUser.firstName
@@ -88,13 +98,13 @@ export default {
 
         enneagramId: this.staticUser.enneagramId
           ? this.staticUser.enneagramId
-          : this.user.enneagramId
+          : this.user.enneagramId,
       }
 
       this.$axios.put(endpoints.updateUserRoute, data)
       this.$store.dispatch('toastSuccess', 'Updated Profile')
-    }
-  }
+    },
+  },
 }
 </script>
 

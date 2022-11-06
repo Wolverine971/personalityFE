@@ -1,6 +1,7 @@
 <template>
   <v-app>
-    <v-container class="main-contain">
+    <!-- <svg-background /> -->
+    <v-container class="main-container">
       <toolbar />
 
       <v-main class="main-margin">
@@ -19,8 +20,9 @@ export default {
   name: 'DefaultLayout',
   components: {
     theFooter: () => import('~/components/shared/theFooter'),
-    toolbar: () => import('~/components/shared/toolbar')
-  }
+    toolbar: () => import('~/components/shared/toolbar'),
+    // SvgBackground: () => import('../components/shared/svgBackground'),
+  },
 }
 </script>
 
@@ -32,7 +34,7 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.main-contain{
+.main-contain {
   /* margin: 80px auto 0 auto; */
   padding: 0;
   margin-bottom: 30px;

@@ -9,9 +9,7 @@
         router
         style="text-decoration: none"
       >
-        <v-btn depressed>
-          Login
-        </v-btn>
+        <v-btn depressed> Login </v-btn>
       </NuxtLink>
       <NuxtLink
         :to="{
@@ -70,12 +68,8 @@
               </template>
             </v-text-field>
 
-            <v-btn autofocus color="secondary" @click="goLogin">
-              login
-            </v-btn>
-            <v-btn @click="clear">
-              clear
-            </v-btn>
+            <v-btn autofocus color="secondary" @click="goLogin"> login </v-btn>
+            <v-btn @click="clear"> clear </v-btn>
           </v-form>
         </v-container>
       </v-card>
@@ -93,43 +87,51 @@ export default {
     selected: 0,
     passwordType: 'password',
     emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail not valid'
+      (v) => !!v || 'E-mail is required',
+      (v) => /.+@.+\..+/.test(v) || 'E-mail not valid',
     ],
     passwordRules: [
-      v => !!v || 'Password is required',
-      v => (v && v.length >= 8) || 'Password not Valid'
-    ]
+      (v) => !!v || 'Password is required',
+      (v) => (v && v.length >= 8) || 'Password not Valid',
+    ],
   }),
 
   methods: {
-    async goLogin () {
+    async goLogin() {
       if (this.$refs.loginForm.validate()) {
         const data = {
           email: this.emailAddress,
-          password: this.password
+          password: this.password,
         }
 
-        const response = await this.$auth.loginWith('refresh', { data })
-        console.log(response)
-        this.$store.commit('setUser', response.data.user)
+        this.$store.dispatch('login', data).then((resp) => {
+          if (resp) {
+            this.$router.push({
+              path: '/questions',
+            })
+          }
+        })
 
-        // this.$store.dispatch('login', data).then((resp) => {
-        if (response) {
-          this.$9tcookie.set('9tcookie', response.data.refreshToken, {
-            path: '/',
-            maxAge: 100 * 60 * 60 * 24 * 7
-          })
-          this.$router.push({
-            path: '/questions'
-          })
-        }
+        // const response = await this.$auth.loginWith('refresh', { data })
+        // console.log(response)
+        // this.$store.commit('setUser', response.data.user)
+
+        // // this.$store.dispatch('login', data).then((resp) => {
+        // if (response) {
+        //   this.$9tcookie.set('9tcookie', response.data.refreshToken, {
+        //     path: '/',
+        //     maxAge: 100 * 60 * 60 * 24 * 7
+        //   })
+        //   this.$router.push({
+        //     path: '/questions'
+        //   })
+        // }
         // })
       }
     },
-    clear () {
+    clear() {
       this.$refs.loginForm.reset()
-    }
-  }
+    },
+  },
 }
 </script>

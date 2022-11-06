@@ -1,7 +1,7 @@
 // import { uuid } from 'vue-uuid'
 export default async function ({ store, $9tcookie, $axios }) {
   // console.log('must be logged in')
-  const user = store.state.auth.user
+  const user = store.getters.getUser
   if (!user) {
     const refreshToken = $9tcookie.get('9tcookie')
     if (refreshToken) {
