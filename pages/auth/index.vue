@@ -1,14 +1,10 @@
 <template>
-  <div>
+  <div class="col-center">
     <v-btn-toggle v-model="selected">
-      <v-btn @click="change(true)">
-        Login
-      </v-btn>
-      <v-btn @click="change(false)">
-        Register
-      </v-btn>
+      <v-btn @click="change(true)"> Login </v-btn>
+      <v-btn @click="change(false)"> Register </v-btn>
     </v-btn-toggle>
-    <br>
+    <br />
     <!-- <div v-if="!login">
       <Register @goToLogin="change(true)" />
     </div>
@@ -35,17 +31,17 @@ export default {
   mixins: [validationMixin],
   validations: {
     email: { required, email },
-    password: { required, minLength }
+    password: { required, minLength },
   },
   data: () => ({
     email: '',
     password: '',
     login: false,
-    selected: 0
+    selected: 0,
   }),
 
   computed: {
-    passwordErrors () {
+    passwordErrors() {
       const errors = []
       if (!this.$v.password.$dirty) {
         return errors
@@ -53,7 +49,7 @@ export default {
       !this.$v.password.required && errors.push('password is required.')
       return errors
     },
-    emailErrors () {
+    emailErrors() {
       const errors = []
       if (!this.$v.email.$dirty) {
         return errors
@@ -61,20 +57,20 @@ export default {
       !this.$v.email.email && errors.push('Must be valid e-mail')
       !this.$v.email.required && errors.push('E-mail is required')
       return errors
-    }
+    },
   },
   methods: {
-    goLogin () {
+    goLogin() {
       this.$v.$touch()
       const data = {
         email: this.email,
-        password: this.password
+        password: this.password,
       }
       try {
         this.$store.dispatch('login', data).then((resp) => {
           if (resp) {
             this.$router.push({
-              path: '/profile'
+              path: '/profile',
             })
           }
         })
@@ -82,15 +78,15 @@ export default {
         console.log(e)
       }
     },
-    clear () {
+    clear() {
       this.$v.$reset()
       this.password = ''
       this.email = ''
     },
 
-    change (val) {
+    change(val) {
       this.login = val
-    }
-  }
+    },
+  },
 }
 </script>

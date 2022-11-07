@@ -278,13 +278,20 @@ export const actions: any = {
     commit('setUser', null)
   },
 
-  async refreshToken() {
+  async refreshToken({ commit, dispatch }: any) {
     const token = this.$9tcookie.get('9tcookie')
     const resp = await this.$axios.post('/api/user/refresh_token_auth', {
       token,
     })
     if (resp && resp.data) {
       console.log(resp)
+      commit('setUser', resp.data.user)
+      commit('setAccessToken', resp.data.accessToken)
+
+      this.$9tcookie.set('9tcookie', resp.data.refreshToken, {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7,
+      })
       // this.$auth.setUser(resp.data.user)
       // this.$auth.setUserToken(resp.data.accessToken, resp.data.refreshToken)
       // await this.$auth.refreshTokens()

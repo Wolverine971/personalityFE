@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-center">
     <v-btn-toggle>
       <NuxtLink
         :to="{
