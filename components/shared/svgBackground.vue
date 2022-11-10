@@ -33,11 +33,11 @@ export default {
     return {
       svgs: [],
       height: '100%',
-      width: '100%'
+      width: '100%',
     }
   },
 
-  mounted () {
+  mounted() {
     setTimeout(() => {
       this.renderBackground()
     }, '1000')
@@ -47,22 +47,22 @@ export default {
     // })
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     window.removeEventListener('resize', this.onResize)
   },
 
   methods: {
-    onResize () {
+    onResize() {
       this.height = window.innerHeight
       this.renderBackground()
     },
-    renderDynamicBackground (svg) {
+    renderDynamicBackground(svg) {
       const parentContainer = document.querySelector('#__layout')
       const encodedData = window.btoa(svg.outerHTML)
       const url = 'data:image/svg+xml;base64,' + encodedData
       parentContainer.style.backgroundImage = 'url(' + url + ')'
     },
-    renderBackground () {
+    renderBackground() {
       const body = document.documentElement.getElementsByTagName('body')[0]
       this.height = body.offsetHeight
       this.width = body.offsetWidth
@@ -88,11 +88,11 @@ export default {
             Math.random() * (this.height - 1) + 1
           )}) rotate(${Math.floor(
             Math.random() * (360 - 1) + 1
-          )}), scale(${scaleValue})`
+          )}), scale(${scaleValue})`,
         })
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">
@@ -103,7 +103,7 @@ export default {
   height: 100%;
   width: 100vw;
   // background-image: linear-gradient(to bottom, #3d3d99, #000000);
-  background-image: linear-gradient(to bottom, white, black 100%);
+  // background-image: linear-gradient(to bottom, white, black 100%);
   // background-image: linear-gradient(
   //   to bottom,
   //   white,

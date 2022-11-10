@@ -1,55 +1,33 @@
 <template>
   <div class="align-center index-page">
-    <v-card-title class="headline" style="height: 5vh">
-      <h1 class="secondary--text center">
-        9takes Beta
-      </h1>
-    </v-card-title>
-    <div class="center-mid-long" style="height: 90vh">
-      <p>Don't you love it when the group chat is popping</p>
-      <p>That deep conversation around the campfire</p>
-      <p>
-        That late night at a diner with friends where you aren't leaving till
-        they kick you out
-      </p>
-      <p>
-        When you just met someone and if feels like you have known them your
-        whole life
-      </p>
-      <h3 class="secondary--text">
-        Yeah, we need more of that ^
-      </h3>
-    </div>
     <v-card class="m-col align-center" flat>
       <v-card flat>
-        <v-card-title
-          class="headline"
-        >
+        <v-card-title class="headline">
           <h2 class="secondary--text" style="margin: auto; padding: 10px">
             We are both different and similar
           </h2>
         </v-card-title>
         <v-card-text class="center-mid">
-          <br>
+          <br />
           <p>It feels like these moments are happening less and less</p>
-          <br>
+          <br />
           <p>
             We need to find our people and our connection but also be curious
             and accepting of those that are different
           </p>
-          <br>
+          <br />
           <!-- <p>
             We need to find those that are similar to us and be accepting of
             those that are different
           </p> -->
-          <br>
+          <br />
           <p>That's why <span class="boldify">9takes</span> is here</p>
         </v-card-text>
-        <br>
+        <br />
       </v-card>
-      <br>
+      <br />
       <v-divider />
-      <br>
+      <br />
 
       <!-- <v-card class="row-fif">
         <v-card-title class="headline">
@@ -75,9 +53,7 @@
       <!-- <div class="row-mid"> -->
       <v-card class="row-fif" flat>
         <!-- <v-card-title class="headline"> -->
-        <h3 class="primary_v--text">
-          Questions
-        </h3>
+        <h3 class="primary_v--text">Questions</h3>
         <!-- </v-card-title> -->
         <div class="center-mid">
           <p style="margin: 23px">
@@ -90,20 +66,16 @@
         <v-card-actions>
           <v-btn outlined to="/questions" color="secondary">
             Ask Questions
-            <v-icon color="secondary">
-              keyboard_arrow_right
-            </v-icon>
+            <v-icon color="secondary"> keyboard_arrow_right </v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>
-      <br>
+      <br />
       <v-divider />
-      <br>
+      <br />
       <v-card class="row-fif" flat>
         <!-- <v-card-title class="headline"> -->
-        <h3 class="primary_v--text">
-          Blog
-        </h3>
+        <h3 class="primary_v--text">Blog</h3>
         <!-- </v-card-title> -->
         <div class="center-mid">
           <p style="margin: 23px">
@@ -113,16 +85,14 @@
         </div>
         <v-card-actions>
           <v-btn outlined to="/blog" color="secondary">
-            <v-icon color="secondary">
-              keyboard_arrow_left
-            </v-icon>
+            <v-icon color="secondary"> keyboard_arrow_left </v-icon>
             Read Blog
           </v-btn>
         </v-card-actions>
       </v-card>
-      <br>
+      <br />
       <!-- <v-divider /> -->
-      <br>
+      <br />
       <!-- </div> -->
       <!-- <v-card class="row-fif" flat>
         <v-card-title class="headline">
@@ -150,20 +120,13 @@ export default {
   //   SvgBackground: () => import('../components/shared/svgBackground'),
   // },
   computed: {
-    user () {
+    user() {
       return this.$store.getters.getUser
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">
-.signup-button {
-  height: 200px !important;
-  width: 90%;
-}
-.min-marg-top {
-  margin-top: -10px !important;
-}
 .row-mid {
   width: 100%;
   display: flex;
@@ -189,35 +152,9 @@ export default {
     margin: 1em 0;
   }
 }
-.center-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
 .center-mid {
   max-width: 500px;
   margin: auto;
-}
-.center-mid-long {
-  max-width: 1000px;
-  margin: auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-content: space-between;
-  font-size: x-large;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
-
-  p {
-    color: white !important;
-    background-image: linear-gradient(to right, #f72585, white);
-    -webkit-background-clip: text;
-    // -webkit-text-fill-color: #360ddb00;
-    // mix-blend-mode: difference;
-  }
 }
 
 .index-page p {

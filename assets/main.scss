@@ -221,8 +221,9 @@ footer,
 }
 
 .shadow {
-  box-shadow: 1px 1px 10px 0 #fff, 0 3px 12px 0 var(--accent),
-    0 5px 17px 0 var(--accent) !important;
+  // box-shadow: 1px 1px 10px 0 #fff, 0 3px 12px 0 var(--accent),
+  //   0 5px 17px 0 var(--accent) !important;
+  box-shadow: 1px 1px 10px 0 black, 0 3px 12px 0 #0f0f44, 0 5px 17px 0 #191970 !important;
 }
 .footer-shadow {
   box-shadow: 0px 0px 10px 0 black, 0px -3px 12px 0 #0f0f44,
@@ -374,7 +375,8 @@ p {
 }
 .v-application {
   // background-image: url('/backgroundStreet.jpg') !important;
-  background-color: var(--accent) !important;
+  // background-color: var(--accent) !important;
+  background-color: #f4f7f6;
 
   /* Full height */
   height: 100%;
@@ -464,4 +466,14 @@ a {
     display: flex;
     justify-content: center;
   }
+}
+
+.authBtn {
+  border: 2px solid var(--secondary) !important;
+  color: var(--secondary) !important;
+}
+
+.center {
+  margin: auto;
+  padding: 5px;
 }

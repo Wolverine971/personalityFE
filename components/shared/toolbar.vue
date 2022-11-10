@@ -2,7 +2,7 @@
   <client-only>
     <header
       id="toolbar"
-      class="toolbar master-container shadow primary fun-color"
+      class="toolbar master-container shadow fun-color"
       :class="{ 'mobile-toolbar': $vuetify.breakpoint.mobile }"
     >
       <div class="row-center">
@@ -19,6 +19,18 @@
             </v-btn>
           </template>
           <v-list>
+            <v-list-item
+              v-if="!user && $vuetify.breakpoint.mobile"
+              router
+              :to="{ path: '/auth/login' }"
+            >
+              <v-list-item-action>
+                <v-icon>mdi-login</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title> Login/ Register</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
             <v-list-item
               v-if="user && user.role === 'admin'"
               router
@@ -106,12 +118,12 @@
         </v-menu>
       </div>
       <v-btn
-        v-else-if="$route.name !== 'auth'"
+        v-else-if="!$route.name.includes('auth') && !$vuetify.breakpoint.mobile"
         :to="{ path: '/auth/login', query: {} }"
-        color="secondary"
-        class="shadow btn-shrink-mobile"
+        class="shadow btn-shrink-mobile authBtn"
       >
         Login/ Register
+        <v-icon right dark> mdi-login </v-icon>
       </v-btn>
       <!-- </div> -->
     </header>
@@ -124,7 +136,7 @@
 export default {
   name: 'Toolbar',
   components: { notifications: () => import('~/components/notifications') },
-  data () {
+  data() {
     return {
       drawer: false,
       fixed: false,
@@ -132,19 +144,19 @@ export default {
         {
           icon: 'home',
           title: 'Home',
-          to: '/'
+          to: '/',
         },
         {
           icon: 'mdi-post',
           title: 'Blog',
-          to: '/blog'
+          to: '/blog',
         },
 
         {
           icon: 'question_answer',
           title: 'Question and Answer',
-          to: '/questions'
-        }
+          to: '/questions',
+        },
         // {
         //   icon: 'psychology',
         //   title: 'Personality Walls',
@@ -174,24 +186,24 @@ export default {
       title: '9takes Beta',
       notifications: [],
       header: null,
-      sticky: 0
+      sticky: 0,
     }
   },
   computed: {
-    routes () {
+    routes() {
       return this.$router.options.routes
     },
-    user () {
+    user() {
       return this.$store.getters.getUser
-    }
+    },
   },
   watch: {
-    user () {
+    user() {
       this.subscribeToNotifs()
-    }
+    },
   },
 
-  mounted () {
+  mounted() {
     // let visibilityChange
     // if (typeof document.hidden !== 'undefined') {
     //   visibilityChange = 'visibilitychange'
@@ -210,13 +222,13 @@ export default {
     // window.onscroll = () => { this.stickyFunc() }
   },
   sockets: {
-    connect () {
+    connect() {
       this.subscribeToNotifs()
-    }
+    },
   },
 
   methods: {
-    logout () {
+    logout() {
       this.$store.dispatch('logout')
       // this.$store.dispatch('setAnonymous')
       this.$router.push({ path: '/auth/login' })
@@ -242,11 +254,11 @@ export default {
     //   }
     // }, 1000),
 
-    goHome () {
+    goHome() {
       this.$router.push({ path: '/', query: {} })
       this.$router.go(1)
     },
-    subscribeToNotifs () {
+    subscribeToNotifs() {
       if (this.$socket && this.user && this.user.id) {
         this.$socket.client.emit('join', this.user.id)
         if (this.$socket.$subscribe) {
@@ -261,8 +273,8 @@ export default {
           )
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -271,5 +283,11 @@ export default {
 
 .pad-title {
   padding: 0 50px;
+}
+
+.fun-color {
+  border: 2px solid var(--primary) !important;
+  border-color: var(--primary) !important;
+  background-color: #ffffff;
 }
 </style>

@@ -192,6 +192,7 @@ export default {
 <style>
 .wrap-on-small {
   display: flex;
+  align-items: center;
 }
 @media only screen and (max-width: 600px) {
   .wrap-on-small {

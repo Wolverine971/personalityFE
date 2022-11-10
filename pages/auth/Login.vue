@@ -135,9 +135,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.center {
-  margin: auto;
-  padding: 5px;
-}
-</style>
