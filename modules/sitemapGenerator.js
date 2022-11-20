@@ -11,7 +11,7 @@ export default function () {
           changefreq: 'weekly',
           lastmod: date,
           priority: 1.0,
-          url: page
+          url: page,
         })
         return
       }
@@ -20,7 +20,7 @@ export default function () {
           changefreq: 'weekly',
           lastmod: date,
           priority: 1.0,
-          url: page
+          url: page,
         })
         return
       }
@@ -29,7 +29,7 @@ export default function () {
           changefreq: 'weekly',
           lastmod: date,
           priority: 0.51,
-          url: page
+          url: page,
         })
       } else {
         pages.push(page)
@@ -40,7 +40,8 @@ export default function () {
   }
 
   this.nuxt.hook('generate:done', async (context) => {
-    const allQuestions = await axios.get(`${process.env.BE_URL}/api/question/all`)
+    const allQUrl = `${process.env.BE_URL}api/question/all`
+    const allQuestions = await axios.get(allQUrl)
     const routes = allQuestions.data.map((e) => {
       return `/questions/${e.url}`
     })
@@ -61,13 +62,16 @@ export default function () {
       '/personality/9',
       '/Profile',
       '/relationships',
-      '/questions/DeepSearch'
+      '/questions/DeepSearch',
     ] // Add any route you don't want in your sitemap. Potentially get this from an .env file.
     const allRoutes = Array.from(context.generatedRoutes)
-    const filteredRoutes = allRoutes.filter(route => !routesToExclude.includes(route))
+    const filteredRoutes = allRoutes.filter(
+      (route) => !routesToExclude.includes(route)
+    )
     const prioritizedRoutes = assignPriority(routes.concat(filteredRoutes))
     console.log('generate routes')
 
     this.nuxt.options.sitemap.routes = [...prioritizedRoutes]
+    return
   })
 }

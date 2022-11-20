@@ -118,7 +118,11 @@
         </v-menu>
       </div>
       <v-btn
-        v-else-if="!$route.name.includes('auth') && !$vuetify.breakpoint.mobile"
+        v-else-if="
+          $route.name &&
+          !$route.name.includes('auth') &&
+          !$vuetify.breakpoint.mobile
+        "
         :to="{ path: '/auth/login', query: {} }"
         class="shadow btn-shrink-mobile authBtn"
       >
