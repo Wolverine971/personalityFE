@@ -133,5 +133,45 @@ export default {
       this.$refs.loginForm.reset()
     },
   },
+  head() {
+    const title = 'Login'
+    const description = 'Login to the community for Enneagram people'
+    const href = 'https://9takes.com/auth/login'
+
+    return {
+      titleTemplate: title,
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+        {
+          property: 'og:url',
+          content: href,
+        },
+        {
+          property: 'og:description',
+          content: description,
+        },
+        { property: 'og:title', content: title },
+        {
+          name: 'twitter:description',
+          content: description,
+        },
+        {
+          name: 'twitter:title',
+          content: title,
+        },
+        {
+          name: 'twitter:site',
+          content: '@9takesdotcom',
+        },
+      ],
+
+      link: [{ rel: 'canonical', href }],
+    }
+  },
 }
 </script>

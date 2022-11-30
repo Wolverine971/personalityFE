@@ -1,8 +1,26 @@
 <template>
   <div class="col-center">
-    <v-btn-toggle v-model="selected">
-      <v-btn @click="change(true)"> Login </v-btn>
-      <v-btn @click="change(false)"> Register </v-btn>
+    <v-btn-toggle>
+      <NuxtLink
+        :to="{
+          path: `/auth/login`,
+          query: {},
+        }"
+        router
+        style="text-decoration: none"
+      >
+        <v-btn> Login </v-btn>
+      </NuxtLink>
+      <NuxtLink
+        :to="{
+          path: `/auth/register`,
+          query: {},
+        }"
+        router
+        style="text-decoration: none"
+      >
+        <v-btn> Register </v-btn>
+      </NuxtLink>
     </v-btn-toggle>
     <br />
     <!-- <div v-if="!login">
@@ -87,6 +105,52 @@ export default {
     change(val) {
       this.login = val
     },
+  },
+  head() {
+    const title = '9takes Authenticion Page'
+    const description = 'Authenticion for Enneagram people'
+    const href = 'https://9takes.com/auth'
+
+    return {
+      titleTemplate: title,
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+        {
+          property: 'og:url',
+          content: href,
+        },
+        {
+          property: 'og:description',
+          content: description,
+        },
+        { property: 'og:title', content: title },
+        {
+          name: 'twitter:description',
+          content: description,
+        },
+        {
+          name: 'twitter:title',
+          content: title,
+        },
+        {
+          name: 'twitter:site',
+          content: '@9takesdotcom',
+        },
+      ],
+      script: [
+        {
+          src: 'https://cdnjs.deepai.org/deepai.min.js',
+          async: true,
+          defer: true,
+        },
+      ],
+      link: [{ rel: 'canonical', href }],
+    }
   },
 }
 </script>

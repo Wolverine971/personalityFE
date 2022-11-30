@@ -80,7 +80,7 @@
         <div class="center-mid">
           <p style="margin: 23px">
             Topics, implications, predictions, and musings surrounding 9takes
-            will discussed.
+            will be discussed.
           </p>
         </div>
         <v-card-actions>
@@ -123,6 +123,47 @@ export default {
     user() {
       return this.$store.getters.getUser
     },
+  },
+
+  head() {
+    const title = 'Home'
+    const description = 'Community for Enneagram people'
+    const href = 'https://9takes.com/'
+
+    return {
+      titleTemplate: title,
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+        {
+          property: 'og:url',
+          content: href,
+        },
+        {
+          property: 'og:description',
+          content: description,
+        },
+        { property: 'og:title', content: title },
+        {
+          name: 'twitter:description',
+          content: description,
+        },
+        {
+          name: 'twitter:title',
+          content: title,
+        },
+        {
+          name: 'twitter:site',
+          content: '@9takesdotcom',
+        },
+      ],
+
+      link: [{ rel: 'canonical', href }],
+    }
   },
 }
 </script>
