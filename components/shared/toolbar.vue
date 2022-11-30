@@ -120,14 +120,16 @@
       <v-btn
         v-else-if="
           $route.name &&
-          !$route.name.includes('auth') &&
-          !$vuetify.breakpoint.mobile
+            !$route.name.includes('auth') &&
+            !$vuetify.breakpoint.mobile
         "
         :to="{ path: '/auth/login', query: {} }"
         class="shadow btn-shrink-mobile authBtn"
       >
         Login/ Register
-        <v-icon right dark> mdi-login </v-icon>
+        <v-icon right dark>
+          mdi-login
+        </v-icon>
       </v-btn>
       <!-- </div> -->
     </header>
@@ -140,7 +142,7 @@
 export default {
   name: 'Toolbar',
   components: { notifications: () => import('~/components/notifications') },
-  data() {
+  data () {
     return {
       drawer: false,
       fixed: false,
@@ -148,19 +150,19 @@ export default {
         {
           icon: 'home',
           title: 'Home',
-          to: '/',
+          to: '/'
         },
         {
           icon: 'mdi-post',
           title: 'Blog',
-          to: '/blog',
+          to: '/blog'
         },
 
         {
           icon: 'question_answer',
           title: 'Question and Answer',
-          to: '/questions',
-        },
+          to: '/questions'
+        }
         // {
         //   icon: 'psychology',
         //   title: 'Personality Walls',
@@ -190,24 +192,24 @@ export default {
       title: '9takes Beta',
       notifications: [],
       header: null,
-      sticky: 0,
+      sticky: 0
     }
   },
   computed: {
-    routes() {
+    routes () {
       return this.$router.options.routes
     },
-    user() {
+    user () {
       return this.$store.getters.getUser
-    },
+    }
   },
   watch: {
-    user() {
+    user () {
       this.subscribeToNotifs()
-    },
+    }
   },
 
-  mounted() {
+  mounted () {
     // let visibilityChange
     // if (typeof document.hidden !== 'undefined') {
     //   visibilityChange = 'visibilitychange'
@@ -226,13 +228,13 @@ export default {
     // window.onscroll = () => { this.stickyFunc() }
   },
   sockets: {
-    connect() {
+    connect () {
       this.subscribeToNotifs()
-    },
+    }
   },
 
   methods: {
-    logout() {
+    logout () {
       this.$store.dispatch('logout')
       // this.$store.dispatch('setAnonymous')
       this.$router.push({ path: '/auth/login' })
@@ -258,11 +260,11 @@ export default {
     //   }
     // }, 1000),
 
-    goHome() {
+    goHome () {
       this.$router.push({ path: '/', query: {} })
       this.$router.go(1)
     },
-    subscribeToNotifs() {
+    subscribeToNotifs () {
       if (this.$socket && this.user && this.user.id) {
         this.$socket.client.emit('join', this.user.id)
         if (this.$socket.$subscribe) {
@@ -277,8 +279,8 @@ export default {
           )
         }
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

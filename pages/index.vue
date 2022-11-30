@@ -8,26 +8,26 @@
           </h2>
         </v-card-title>
         <v-card-text class="center-mid">
-          <br />
+          <br>
           <p>It feels like these moments are happening less and less</p>
-          <br />
+          <br>
           <p>
             We need to find our people and our connection but also be curious
             and accepting of those that are different
           </p>
-          <br />
+          <br>
           <!-- <p>
             We need to find those that are similar to us and be accepting of
             those that are different
           </p> -->
-          <br />
+          <br>
           <p>That's why <span class="boldify">9takes</span> is here</p>
         </v-card-text>
-        <br />
+        <br>
       </v-card>
-      <br />
+      <br>
       <v-divider />
-      <br />
+      <br>
 
       <!-- <v-card class="row-fif">
         <v-card-title class="headline">
@@ -53,7 +53,9 @@
       <!-- <div class="row-mid"> -->
       <v-card class="row-fif" flat>
         <!-- <v-card-title class="headline"> -->
-        <h3 class="primary_v--text">Questions</h3>
+        <h3 class="primary_v--text">
+          Questions
+        </h3>
         <!-- </v-card-title> -->
         <div class="center-mid">
           <p style="margin: 23px">
@@ -66,16 +68,20 @@
         <v-card-actions>
           <v-btn outlined to="/questions" color="secondary">
             Ask Questions
-            <v-icon color="secondary"> keyboard_arrow_right </v-icon>
+            <v-icon color="secondary">
+              keyboard_arrow_right
+            </v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>
-      <br />
+      <br>
       <v-divider />
-      <br />
+      <br>
       <v-card class="row-fif" flat>
         <!-- <v-card-title class="headline"> -->
-        <h3 class="primary_v--text">Blog</h3>
+        <h3 class="primary_v--text">
+          Blog
+        </h3>
         <!-- </v-card-title> -->
         <div class="center-mid">
           <p style="margin: 23px">
@@ -85,14 +91,16 @@
         </div>
         <v-card-actions>
           <v-btn outlined to="/blog" color="secondary">
-            <v-icon color="secondary"> keyboard_arrow_left </v-icon>
+            <v-icon color="secondary">
+              keyboard_arrow_left
+            </v-icon>
             Read Blog
           </v-btn>
         </v-card-actions>
       </v-card>
-      <br />
+      <br>
       <!-- <v-divider /> -->
-      <br />
+      <br>
       <!-- </div> -->
       <!-- <v-card class="row-fif" flat>
         <v-card-title class="headline">
@@ -120,12 +128,12 @@ export default {
   //   SvgBackground: () => import('../components/shared/svgBackground'),
   // },
   computed: {
-    user() {
+    user () {
       return this.$store.getters.getUser
-    },
+    }
   },
 
-  head() {
+  head () {
     const title = 'Home'
     const description = 'Community for Enneagram people'
     const href = 'https://9takes.com/'
@@ -137,34 +145,34 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: description,
+          content: description
         },
         {
           property: 'og:url',
-          content: href,
+          content: href
         },
         {
           property: 'og:description',
-          content: description,
+          content: description
         },
         { property: 'og:title', content: title },
         {
           name: 'twitter:description',
-          content: description,
+          content: description
         },
         {
           name: 'twitter:title',
-          content: title,
+          content: title
         },
         {
           name: 'twitter:site',
-          content: '@9takesdotcom',
-        },
+          content: '@9takesdotcom'
+        }
       ],
 
-      link: [{ rel: 'canonical', href }],
+      link: [{ rel: 'canonical', href }]
     }
-  },
+  }
 }
 </script>
 <style lang="scss">

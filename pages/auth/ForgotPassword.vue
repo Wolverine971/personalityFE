@@ -3,10 +3,14 @@
     <v-btn class="ma-2 authBtn" :to="{ path: '/auth/login', query: {} }" router>
       <v-icon> keyboard_backspace</v-icon>
       Login/ Register
-      <v-icon right dark> mdi-login </v-icon>
+      <v-icon right dark>
+        mdi-login
+      </v-icon>
     </v-btn>
     <div class="col-center">
-      <h1 class="primary_v--text">Forgot Password</h1>
+      <h1 class="primary_v--text">
+        Forgot Password
+      </h1>
       <v-form ref="forgotForm" class="form-width">
         <v-text-field
           v-model="emailAddress"
@@ -16,7 +20,9 @@
           :rules="emailRules"
           required
         />
-        <v-btn outlined @click="sendLink"> Send Link </v-btn>
+        <v-btn outlined @click="sendLink">
+          Send Link
+        </v-btn>
       </v-form>
     </div>
   </div>
@@ -29,17 +35,17 @@ export default {
   data: () => ({
     emailAddress: '',
     emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-    ],
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+    ]
   }),
 
   methods: {
-    async sendLink() {
+    async sendLink () {
       if (this.$refs.forgotForm.validate()) {
         try {
           const data = {
-            email: this.emailAddress,
+            email: this.emailAddress
           }
           const resp = await this.$axios.post(
             endpoints.forgotPasswordRoute,
@@ -58,8 +64,8 @@ export default {
           this.$store.dispatch('toastError', 'Cannot reset password')
         }
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

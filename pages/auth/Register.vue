@@ -19,7 +19,9 @@
         router
         style="text-decoration: none"
       >
-        <v-btn depressed> Register </v-btn>
+        <v-btn depressed>
+          Register
+        </v-btn>
       </NuxtLink>
     </v-btn-toggle>
     <div class="col-center">
@@ -90,7 +92,9 @@
           </v-form>
         </v-container>
         <div v-else class="col-center">
-          <h1 class="primary_v--text">Register Success</h1>
+          <h1 class="primary_v--text">
+            Register Success
+          </h1>
           <p>Confirm your email address {{ emailAddress }}</p>
           <p>
             Please confirm your email address then
@@ -116,13 +120,13 @@ export default {
   name: 'Register',
   components: {
     EnneagramInstructions: () =>
-      import('@/components/shared/enneagramInstructions'),
+      import('@/components/shared/enneagramInstructions')
   },
   mixins: [validationMixin],
   validations: {
     emailAddress: { required, email },
     password: { required, minLength: minLength(8) },
-    enneagramType: { required },
+    enneagramType: { required }
   },
   data: () => ({
     emailAddress: '',
@@ -139,29 +143,29 @@ export default {
       '8',
       '9',
       'Unknown',
-      'Rando',
+      'Rando'
     ],
     registerSuccess: false,
     passwordType: 'password',
 
     emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
     ],
     passwordRules: [
-      (v) => !!v || 'Password is required',
-      (v) => (v && v.length >= 8) || 'Password must be at least 8 characters',
+      v => !!v || 'Password is required',
+      v => (v && v.length >= 8) || 'Password must be at least 8 characters'
     ],
-    enneagramRules: [(v) => !!v || 'Enneagram Type is required'],
+    enneagramRules: [v => !!v || 'Enneagram Type is required']
   }),
 
   methods: {
-    async register() {
+    async register () {
       if (this.$refs.registerForm.validate()) {
         const data = {
           email: this.emailAddress,
           password: this.password,
-          enneagramType: this.enneagramType,
+          enneagramType: this.enneagramType
         }
         try {
           const resp = await this.$axios.post(endpoints.registerRoute, data)
@@ -182,13 +186,13 @@ export default {
         }
       }
     },
-    typeChosen(e) {
+    typeChosen (e) {
       console.log(e)
       this.enneagramType = e
-    },
+    }
   },
 
-  head() {
+  head () {
     const title = 'Register'
     const description = 'Register for the community for Enneagram people'
     const href = 'https://9takes.com/auth/register'
@@ -200,34 +204,34 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: description,
+          content: description
         },
         {
           property: 'og:url',
-          content: href,
+          content: href
         },
         {
           property: 'og:description',
-          content: description,
+          content: description
         },
         { property: 'og:title', content: title },
         {
           name: 'twitter:description',
-          content: description,
+          content: description
         },
         {
           name: 'twitter:title',
-          content: title,
+          content: title
         },
         {
           name: 'twitter:site',
-          content: '@9takesdotcom',
-        },
+          content: '@9takesdotcom'
+        }
       ],
 
-      link: [{ rel: 'canonical', href }],
+      link: [{ rel: 'canonical', href }]
     }
-  },
+  }
 }
 </script>
 <style>

@@ -21,9 +21,9 @@ export default {
   name: 'Id',
   components: {
     SelectedQuestion: () =>
-      import('../../components/questions/selectedQuestion'),
+      import('../../components/questions/selectedQuestion')
   },
-  async asyncData({ params, $axios, store }) {
+  async asyncData ({ params, $axios, store }) {
     store.commit('setAllCommentsCount', 0)
     const id = params.id
     let question = null
@@ -63,18 +63,18 @@ export default {
           name: question ? question.question : '9takes question',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'See what others have to say',
-          },
-        },
-      ],
+            text: 'See what others have to say'
+          }
+        }
+      ]
     }
 
     return { question, structuredData }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.getters.getUser
-    },
+    }
   },
   // jsonld () {
   //   console.log(this.question)
@@ -96,7 +96,7 @@ export default {
   // },
 
   // https://dinojoaocosta.medium.com/how-to-make-twitter-preview-your-website-links-5b20db98ac4f
-  head() {
+  head () {
     // const question = this.question ? this.question.question : {}
     // const url = this.question ? this.question.url : {}
     // console.log(question.url)
@@ -111,57 +111,57 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: `Question titled "${this.question.question}"`,
+          content: `Question titled "${this.question.question}"`
         },
         {
           property: 'og:url',
-          content: href,
+          content: href
         },
         {
           property: 'og:image',
-          content: `https://personality-app.s3.amazonaws.com/${this.question.img}`,
+          content: `https://personality-app.s3.amazonaws.com/${this.question.img}`
         },
         {
           property: 'og:image:secure_url',
-          content: `https://personality-app.s3.amazonaws.com/${this.question.img}`,
+          content: `https://personality-app.s3.amazonaws.com/${this.question.img}`
         },
         {
           property: 'og:description',
-          content: `Question titled "${this.question.question}"`,
+          content: `Question titled "${this.question.question}"`
         },
         { property: 'og:title', content: this.question.question },
         {
           name: 'twitter:card',
-          content: 'summary_large_image',
+          content: 'summary_large_image'
         },
         {
           name: 'twitter:description',
-          content: `Question titled "${this.question.question}"`,
+          content: `Question titled "${this.question.question}"`
         },
         {
           name: 'twitter:title',
-          content: this.question.question,
+          content: this.question.question
         },
         {
           name: 'twitter:image',
-          content: `https://personality-app.s3.amazonaws.com/${this.question.img}`,
+          content: `https://personality-app.s3.amazonaws.com/${this.question.img}`
         },
         {
           name: 'twitter:site',
-          content: '@9takesdotcom',
-        },
+          content: '@9takesdotcom'
+        }
       ],
       script: [
         {
           src: 'https://cdnjs.deepai.org/deepai.min.js',
           async: true,
-          defer: true,
+          defer: true
         },
-        { type: 'application/ld+json', json: this.structuredData },
+        { type: 'application/ld+json', json: this.structuredData }
       ],
-      link: [{ rel: 'canonical', href }],
+      link: [{ rel: 'canonical', href }]
     }
-  },
+  }
 }
 </script>
 

@@ -11,7 +11,7 @@ export default function () {
           changefreq: 'weekly',
           lastmod: date,
           priority: 1.0,
-          url: page,
+          url: page
         })
         return
       }
@@ -20,7 +20,7 @@ export default function () {
           changefreq: 'weekly',
           lastmod: date,
           priority: 1.0,
-          url: page,
+          url: page
         })
         return
       }
@@ -29,7 +29,7 @@ export default function () {
           changefreq: 'weekly',
           lastmod: date,
           priority: 0.51,
-          url: page,
+          url: page
         })
       } else {
         pages.push(page)
@@ -62,16 +62,15 @@ export default function () {
       '/personality/9',
       '/Profile',
       '/relationships',
-      '/questions/DeepSearch',
+      '/questions/DeepSearch'
     ] // Add any route you don't want in your sitemap. Potentially get this from an .env file.
     const allRoutes = Array.from(context.generatedRoutes)
     const filteredRoutes = allRoutes.filter(
-      (route) => !routesToExclude.includes(route)
+      route => !routesToExclude.includes(route)
     )
     const prioritizedRoutes = assignPriority(routes.concat(filteredRoutes))
     console.log('generate routes')
 
     this.nuxt.options.sitemap.routes = [...prioritizedRoutes]
-    return
   })
 }

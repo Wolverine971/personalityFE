@@ -5,7 +5,9 @@
         <div class="aboveFold mainBackground">
           <div class="center-mid-long" style="height: 90vh">
             <v-card-title class="headline">
-              <h1 class="secondary--text center">9takes Beta</h1>
+              <h1 class="secondary--text center">
+                9takes Beta
+              </h1>
             </v-card-title>
             <p>Don't you love it when the group chat is popping</p>
             <p>That deep conversation around the campfire</p>
@@ -17,7 +19,9 @@
               When you just met someone and if feels like you have known them
               your whole life
             </p>
-            <h3 class="secondary--text">Yeah, we need more of that ^</h3>
+            <h3 class="secondary--text">
+              Yeah, we need more of that ^
+            </h3>
           </div>
         </div>
       </v-parallax>
@@ -35,7 +39,9 @@
           >
             Login/ Register
 
-            <v-icon right dark> mdi-login </v-icon>
+            <v-icon right dark>
+              mdi-login
+            </v-icon>
           </v-btn>
         </header>
 
@@ -56,13 +62,13 @@ export default {
   name: 'HomeLayout',
   components: {
     theFooter: () => import('~/components/shared/theFooter'),
-    toolbar: () => import('~/components/shared/toolbar'),
+    toolbar: () => import('~/components/shared/toolbar')
   },
   computed: {
-    user() {
+    user () {
       return this.$store.getters.getUser
-    },
-  },
+    }
+  }
 }
 </script>
 

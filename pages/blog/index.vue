@@ -9,10 +9,10 @@ import { endpoints } from '../../models/endpoints'
 export default {
   name: 'All',
   components: {
-    Feed: () => import('../../components/blog/Feed.vue'),
+    Feed: () => import('../../components/blog/Feed.vue')
   },
 
-  async asyncData({ $axios, store }) {
+  async asyncData ({ $axios, store }) {
     let articles
     let count
     if (!store.getters.blogs || !store.getters.blogs.length) {
@@ -27,16 +27,16 @@ export default {
     }
     return {
       articles,
-      count,
+      count
     }
   },
   computed: {
-    blogs() {
+    blogs () {
       return this.$store.getters.blogs
-    },
+    }
   },
 
-  head() {
+  head () {
     const title = '9takes Blog'
     const description = 'Blog for Enneagram people'
     const href = 'https://9takes.com/blog'
@@ -48,40 +48,40 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: description,
+          content: description
         },
         {
           property: 'og:url',
-          content: href,
+          content: href
         },
         {
           property: 'og:description',
-          content: description,
+          content: description
         },
         { property: 'og:title', content: title },
         {
           name: 'twitter:description',
-          content: description,
+          content: description
         },
         {
           name: 'twitter:title',
-          content: title,
+          content: title
         },
         {
           name: 'twitter:site',
-          content: '@9takesdotcom',
-        },
+          content: '@9takesdotcom'
+        }
       ],
       script: [
         {
           src: 'https://cdnjs.deepai.org/deepai.min.js',
           async: true,
-          defer: true,
-        },
+          defer: true
+        }
       ],
-      link: [{ rel: 'canonical', href }],
+      link: [{ rel: 'canonical', href }]
     }
-  },
+  }
 }
 </script>
 
