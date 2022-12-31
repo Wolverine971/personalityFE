@@ -2,9 +2,7 @@
   <v-container>
     <v-card class="pad-left pad-right">
       <v-card-title>
-        <h1 class="primary_v--text">
-          Search For Or Add A Questions
-        </h1>
+        <h1 class="primary_v--text">Search For Or Add A Questions</h1>
       </v-card-title>
       <v-row class="row-center margin">
         <NuxtLink
@@ -13,16 +11,12 @@
             query: {},
           }"
         >
-          <v-btn outlined text>
-            Ask Question
-          </v-btn>
+          <v-btn outlined text> Ask Question </v-btn>
         </NuxtLink>
       </v-row>
 
       <v-spacer />
-      <h2 class="secondary--text">
-        All Asked Questions
-      </h2>
+      <h2 class="secondary--text">All Questions</h2>
       <ask-question />
     </v-card>
     <client-only>
@@ -36,11 +30,11 @@ export default {
   name: 'Index',
   components: {
     AskQuestion: () => import('../../components/shared/askQuestion'),
-    AllQuestions: () => import('../../components/admin/allQuestions')
+    AllQuestions: () => import('../../components/admin/allQuestions'),
   },
   auth: 'guest',
 
-  async asyncData ({ $axios, store }) {
+  async asyncData({ $axios, store }) {
     const lastDate = store.getters.getAllQuestionsLastDate
     if (
       !store.getters.getAllQuestions ||
@@ -57,19 +51,19 @@ export default {
       console.log('did not get questions')
     }
   },
-  head () {
+  head() {
     return {
       title: 'Questions',
       meta: [
         {
           hid: 'questions description',
           name: 'description',
-          content: 'Look through asked questions about personality'
-        }
+          content: 'Look through asked questions about personality',
+        },
       ],
-      link: [{ rel: 'canonical', href: 'https://9takes.com/questions' }]
+      link: [{ rel: 'canonical', href: 'https://9takes.com/questions' }],
     }
-  }
+  },
 }
 </script>
 

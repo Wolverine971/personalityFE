@@ -2,7 +2,7 @@
   <div>
     <v-card v-if="interact">
       <v-card-title v-if="src">
-        <img id="img" :src="src" alt="">
+        <img id="img" :src="src" alt="" />
       </v-card-title>
       <v-card-text>
         <v-textarea
@@ -30,8 +30,8 @@
     </v-card>
     <v-tabs v-model="tab">
       <v-tab>Feed</v-tab>
-      <v-tab>Images</v-tab>
-      <v-tab>Text</v-tab>
+      <v-tab>Media</v-tab>
+      <v-tab>Resources</v-tab>
     </v-tabs>
     <h3 class="primary_v--text">
       {{ 'Total Posts ' + count }}
@@ -47,9 +47,7 @@
         class="row"
         @click="loadMore"
       >
-        <v-btn outlined color="secondary">
-          Load More
-        </v-btn>
+        <v-btn outlined color="secondary"> Load More </v-btn>
       </div>
       <v-progress-linear v-else-if="contentLoading" indeterminate />
     </div>
@@ -62,17 +60,17 @@ export default {
   name: 'Personality',
   components: {
     Content: () => import('./content.vue'),
-    ImageUpload: () => import('./shared/imageUpload.vue')
+    ImageUpload: () => import('./shared/imageUpload.vue'),
   },
   props: {
     type: {
       type: Number,
       default: 0,
-      required: true
-    }
+      required: true,
+    },
   },
   middleware: ['accessToken'],
-  data () {
+  data() {
     return {
       selectedType: null,
       newPost: '',
@@ -85,19 +83,19 @@ export default {
       count: 0,
       lastDate: '',
       contentLoading: false,
-      currentCount: 0
+      currentCount: 0,
     }
   },
   computed: {
-    posts () {
+    posts() {
       return this.$store.getters.getPosts
     },
-    user () {
+    user() {
       return this.$store.getters.getUser
-    }
+    },
   },
   watch: {
-    type (val) {
+    type(val) {
       this.selectedType = val
       if (!this.posts[this.selectedType]) {
         this.$store.dispatch('getPosts', this.selectedType)
@@ -105,7 +103,7 @@ export default {
       this.canInteract()
     },
 
-    posts (vals) {
+    posts(vals) {
       if (vals) {
         if (vals[this.type]) {
           this.parseContent(vals[this.type].content)
@@ -117,13 +115,13 @@ export default {
       } else {
         this.selectedPosts = []
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.init()
   },
   methods: {
-    async init () {
+    async init() {
       this.contentLoading = true
       this.selectedType = this.type.toString()
       if (!this.posts || !this.posts[this.selectedType]) {
@@ -142,7 +140,7 @@ export default {
       this.picWidth = box.clientWidth
       this.canInteract()
     },
-    async submitPost () {
+    async submitPost() {
       const formData = new FormData()
       if (this.newPost) {
         formData.append('text', this.newPost)
@@ -164,8 +162,8 @@ export default {
         this.$store.commit('setPosts', {
           [this.selectedType]: {
             content: this.selectedPosts,
-            count: this.count
-          }
+            count: this.count,
+          },
         })
         this.newPost = ''
         this.showElem = false
@@ -177,7 +175,7 @@ export default {
       }
     },
 
-    canInteract () {
+    canInteract() {
       if (this.user) {
         this.interact = !!(
           this.user && this.selectedType === this.user.enneagramId
@@ -186,7 +184,7 @@ export default {
         this.interact = false
       }
     },
-    loadMore () {
+    loadMore() {
       this.contentLoading = true
       return this.$axios
         .get(
@@ -198,13 +196,13 @@ export default {
             this.$store.commit('setPosts', {
               [this.selectedType]: {
                 content,
-                count: this.count
-              }
+                count: this.count,
+              },
             })
           }
         })
     },
-    parseContent (content) {
+    parseContent(content) {
       if (content && content.length) {
         this.lastDate = content[content.length - 1].dateCreated
         this.selectedPosts = [...content]
@@ -214,8 +212,8 @@ export default {
       }
       this.currentCount += content.length
       this.contentLoading = false
-    }
-  }
+    },
+  },
 }
 </script>
 
