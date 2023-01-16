@@ -97,7 +97,7 @@
         />
       </svg>
     </s-reddit>
-    <s-whats-app
+    <!-- <s-whats-app
       class="buttonHovLight shareBtn"
       :window-features="windowFeatures"
       :share-options="whatsAppOptions"
@@ -120,8 +120,8 @@
           d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
         />
       </svg>
-    </s-whats-app>
-    <s-sms
+    </s-whats-app> -->
+    <!-- <s-sms
       class="buttonHovLight shareBtn"
       :window-features="windowFeatures"
       :share-options="smsOptions"
@@ -144,7 +144,7 @@
           d="M12 1c-6.338 0-12 4.226-12 10.007 0 2.05.739 4.063 2.047 5.625.055 1.83-1.023 4.456-1.993 6.368 2.602-.47 6.301-1.508 7.978-2.536 9.236 2.247 15.968-3.405 15.968-9.457 0-5.812-5.701-10.007-12-10.007zm-4.704 12.474c-.416.33-.996.495-1.74.495-.637 0-1.201-.123-1.69-.367l.274-1.083c.494.249.993.375 1.501.375.293 0 .521-.056.686-.167.315-.214.334-.646.023-.892-.149-.117-.404-.236-.769-.357-1.097-.366-1.645-.937-1.645-1.716 0-.503.202-.917.604-1.243.404-.325.943-.488 1.614-.488.586 0 1.096.099 1.535.298l-.299 1.049c-.401-.187-.82-.28-1.254-.28-.267 0-.476.052-.627.153-.299.204-.293.57-.035.787.126.107.428.246.91.416.532.188.92.42 1.167.698.246.277.369.621.369 1.034 0 .528-.208.958-.624 1.288zm6.638.401c-.091-2.281-.136-3.829-.136-4.642h-.026c-.138.611-.605 2.128-1.399 4.547h-1.031c-.476-1.669-1.178-4.547-1.178-4.547h-.018l-.204 4.642h-1.229l.366-5.75h1.792l1.014 3.967 1.228-3.967h1.811l.309 5.75h-1.299zm5.565-.377c-.419.334-1.011.502-1.76.502-.606 0-1.179-.107-1.727-.381l.29-1.147c.48.246.973.39 1.522.39.286 0 .51-.054.667-.162.302-.204.313-.61.022-.841-.145-.114-.4-.231-.757-.353-1.107-.367-1.67-.954-1.67-1.745 0-.51.208-.938.618-1.267.407-.328.956-.494 1.631-.494.587 0 1.109.101 1.55.3l.023.012-.316 1.111c-.404-.19-.81-.295-1.274-.295-.258 0-.463.05-.609.148-.281.192-.275.533-.032.738.123.103.425.242.899.41.536.188.932.426 1.181.706.25.283.378.636.378 1.055-.001.537-.215.979-.636 1.313z"
         />
       </svg>
-    </s-sms>
+    </s-sms> -->
   </div>
 </template>
 
@@ -154,8 +154,8 @@ import {
   SFacebook,
   SGmail,
   SReddit,
-  SWhatsApp,
-  SSms
+  // SWhatsApp,
+  // SSms
 } from 'vue-socials'
 
 export default {
@@ -166,50 +166,50 @@ export default {
     SFacebook,
     SGmail,
     SReddit,
-    SWhatsApp,
-    SSms
+    // SWhatsApp,
+    // SSms
   },
   props: {
     question: {
       type: String,
       required: true,
-      default: null
+      default: null,
     },
     meta: {
       type: Object,
       required: false,
-      default: null
-    }
+      default: null,
+    },
   },
 
-  data () {
+  data() {
     return {
       windowFeatures: {},
       svgColor: '#191970',
-      useNativeBehavior: false
+      useNativeBehavior: false,
     }
   },
 
   computed: {
-    url () {
+    url() {
       return `${process.env.ORIGIN}${this.$route.path.substring(1)}`
     },
-    twitterOptions () {
+    twitterOptions() {
       return {
         url: this.url,
         text: `${this.question}?`,
         hashtags: ['ama', '9takes'],
-        via: '9takesdotcom'
+        via: '9takesdotcom',
       }
     },
-    facebookOptions () {
+    facebookOptions() {
       return {
         url: this.url,
         quote: `${this.question}?`,
-        hashtag: '#9takes'
+        hashtag: '#9takes',
       }
     },
-    gmailOptions () {
+    gmailOptions() {
       return {
         to: '',
         su: 'Answer this question!',
@@ -223,37 +223,37 @@ export default {
         //         </body>
         //         </html>
         // `,
-        body: `The question:\n${this.question}?\nSee what everyone else said here ${this.url}`
+        body: `The question:\n${this.question}?\nSee what everyone else said here ${this.url}`,
       }
     },
-    redditOptions () {
+    redditOptions() {
       return {
         url: this.url,
         title: `${this.question}?`,
         text: `Answer this question:\n${this.question}?\n${this.url}`,
-        selftext: true
+        selftext: true,
       }
     },
-    whatsAppOptions () {
+    whatsAppOptions() {
       return {
         number: '',
-        text: `Answer this question:\n${this.question}?\n${this.url}`
+        text: `Answer this question:\n${this.question}?\n${this.url}`,
       }
     },
-    smsOptions () {
+    smsOptions() {
       return {
         number: '',
-        body: `Answer this question:\n${this.question}?\n${this.url}`
+        body: `Answer this question:\n${this.question}?\n${this.url}`,
       }
-    }
+    },
   },
 
   methods: {
-    onClose () {},
-    onOpen () {},
-    onBlock () {},
-    onFocus () {}
-  }
+    onClose() {},
+    onOpen() {},
+    onBlock() {},
+    onFocus() {},
+  },
 }
 </script>
 <style scoped>

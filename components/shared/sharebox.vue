@@ -1,5 +1,5 @@
 <template>
-  <v-card style="margin: 10px" flat>
+  <v-card style="margin: 10px" flat class="col-center">
     <h1>Share with others</h1>
     <share-buttons :question="question" :meta="meta" />
   </v-card>

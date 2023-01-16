@@ -52,7 +52,7 @@
             @click="subscribe"
           >
             <span class="peep-btn">
-              {{ isSubscribed ? 'peeped' : 'peep' }}
+              {{ isSubscribed ? 'Unfollow' : 'Follow' }}
             </span>
             <v-icon> face </v-icon>
           </v-btn>

@@ -62,6 +62,7 @@ export const endpoints = {
   getBlogs: '/api/blog/get',
   getBlog: '/api/blog/getOne',
 
-  getRando: '/api/rando'
+  getRando: '/api/rando',
 
+  addEmail: 'api/email/add',
 }

@@ -1,86 +1,106 @@
 <template>
   <v-app>
-    <v-container>
-      <div style="" class="top-div">
-        <div class="parallax-div">
-          <v-parallax
-            src="/group0.PNG"
-            class=""
-            :height="$vuetify.breakpoint.mobile ? 500 : 700"
-          >
-            <div class="mainBackground" v-if="$vuetify.breakpoint.mobile">
-              <div
-                class="center-mid-long"
-                :style="{
-                  height: '40vh',
-                }"
-              >
-                <v-card-title class="headline">
-                  <h1 class="secondary--text center">9takes Beta</h1>
-                </v-card-title>
-                <p>Don't you love it when the group chat is popping</p>
-                <p>That deep conversation around the campfire</p>
-                <p>
-                  That late night at a diner with friends where you aren't
-                  leaving till they kick you out
-                </p>
-                <p>
-                  When you just met someone and if feels like you have known
-                  them your whole life
-                </p>
-                <h3 class="secondary--text">Yeah, we need more of that ^</h3>
-              </div>
-            </div>
-          </v-parallax>
-        </div>
-        <div
-          class="mainBackground parallax-div"
-          v-if="!$vuetify.breakpoint.mobile"
+    <!-- <v-container> -->
+    <div class="top-div">
+      <div class="parallax-div">
+        <v-parallax
+          src="/group0.PNG"
+          class=""
+          :height="$vuetify.breakpoint.mobile ? 500 : 700"
         >
-          <div class="center-mid-long" style="height: 90vh">
-            <v-card-title class="headline">
-              <h1 class="secondary--text center">9takes Beta</h1>
-            </v-card-title>
-            <p>Don't you love it when the group chat is popping</p>
-            <p>That deep conversation around the campfire</p>
+          <div v-if="$vuetify.breakpoint.mobile" class="mainBackground">
+            <div
+              class="center-mid-long"
+              :style="{
+                height: '40vh',
+              }"
+            >
+              <v-card-title class="headline">
+                <h1 class="white--text outline-text">9takes</h1>
+                <!-- <h2 class="white--text">
+                  Community for the enneagram obsessed
+                </h2> -->
+
+                <h2 class="white--text outline-text">
+                  A place for questions and answers, that supports empathy and
+                  curiosity
+                </h2>
+              </v-card-title>
+            </div>
+          </div>
+        </v-parallax>
+        <div class="center-mid-mobile" v-if="$vuetify.breakpoint.mobile">
+          <p>Don't you love it when the group chat is popping</p>
+          <p>That deep conversation around the campfire</p>
+          <p>
+            That late night at a diner with friends where you aren't leaving
+            till they kick you out
+          </p>
+          <p>
+            When you just met someone and if feels like you have known them your
+            whole life
+          </p>
+          <h3 class="white--text outline-text">Yeah, we need more of that ^</h3>
+        </div>
+      </div>
+      <div
+        v-if="!$vuetify.breakpoint.mobile"
+        class="mainBackground parallax-div"
+      >
+        <div class="center-mid-long">
+          <div>
+            <h1 class="white--text outline-text">9takes</h1>
+            <!-- <h2 class="white--text">Community for the enneagram obsessed</h2> -->
+            <h2 class="white--text outline-text">
+              A place for questions and answers, that supports empathy and
+              curiosity
+            </h2>
+          </div>
+          <div>
+            <!-- <v-card-title class="headline"> </v-card-title> -->
+            <p>Don't you love it when the group chat is popping?💥</p>
+            <p>That deep conversation around the campfire 🔥</p>
             <p>
               That late night at a diner with friends where you aren't leaving
-              till they kick you out
+              till they kick you out 🌙
             </p>
             <p>
               When you just met someone and if feels like you have known them
-              your whole life
+              your whole life 🍻
             </p>
-            <h3 class="secondary--text">Yeah, we need more of that ^</h3>
+            <h3 class="white--text outline-text">
+              Yeah, we need more of that ^
+            </h3>
           </div>
         </div>
       </div>
-      <div class="belowFold">
-        <toolbar v-if="user" />
-        <header
-          v-if="!user"
-          id="toolbar"
-          style="display: flex; margin: auto; padding: 100px 0"
-          class="master-container"
+    </div>
+    <div class="belowFold">
+      <!-- <toolbar v-if="user" />
+      <header
+        v-if="!user"
+        id="toolbar"
+        style="display: flex; margin: auto; padding: 100px 0"
+        class="master-container"
+      >
+        <v-btn
+          :to="{ path: '/auth/register', query: {} }"
+          class="shadow btn-shrink-mobile center authBtn"
         >
-          <v-btn
-            :to="{ path: '/auth/register', query: {} }"
-            class="shadow btn-shrink-mobile center authBtn"
-          >
-            Join Here
+          Join Here
 
-            <v-icon right dark> mdi-arrow-right </v-icon>
-          </v-btn>
-        </header>
+          <v-icon right dark> mdi-arrow-right </v-icon>
+        </v-btn>
+      </header> -->
 
-        <v-main>
-          <v-container>
-            <nuxt />
-          </v-container>
-        </v-main>
-      </div>
-      <the-footer />
-    </v-container>
+      <v-main>
+        <v-container>
+          <nuxt />
+        </v-container>
+      </v-main>
+    </div>
+    <the-footer />
+    <!-- </v-container> -->
   </v-app>
 </template>
 
@@ -90,7 +110,7 @@ export default {
   name: 'HomeLayout',
   components: {
     theFooter: () => import('~/components/shared/theFooter'),
-    toolbar: () => import('~/components/shared/toolbar'),
+    // toolbar: () => import('~/components/shared/toolbar')
   },
   computed: {
     user() {
@@ -110,7 +130,7 @@ export default {
   .parallax-div {
     width: 50%;
     height: inherit;
-    margin: 5%; // 0;
+    margin: 0 5%; // 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -156,23 +176,36 @@ export default {
 }
 
 .center-mid-long {
+  height: 100vh;
   max-width: 1000px;
   margin: auto;
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-content: space-between;
-  font-size: x-large;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
+
+  // text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+  //   1px 1px 0 #000;
 
   p {
-    color: white !important;
-    background-image: linear-gradient(to right, #f72585, white);
-    -webkit-background-clip: text;
+    text-shadow: none;
+    font-size: large;
+    // color: white !important;
+    color: black;
+    // mix-blend-mode: difference;
+    // background-image: linear-gradient(to right, #f72585, white);
+    // -webkit-background-clip: text;
     // -webkit-text-fill-color: #360ddb00;
     // mix-blend-mode: difference;
   }
+}
+.center-mid-mobile {
+  margin: 50px auto 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: space-between;
 }
 </style>

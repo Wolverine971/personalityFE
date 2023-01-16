@@ -10,7 +10,7 @@
       All Blogs
     </v-btn>
     <client-only>
-      <blog :blog="blog" />
+      <blog :blog="blog" class="blog" />
     </client-only>
   </div>
 </template>
@@ -20,9 +20,9 @@ import { endpoints } from '../../models/endpoints'
 export default {
   name: 'BlogTitle',
   components: {
-    Blog: () => import('@/components/blog/blog')
+    Blog: () => import('@/components/blog/blog'),
   },
-  async asyncData ({ params, $axios, env }) {
+  async asyncData({ params, $axios, env }) {
     const title = params.title
       ? params.title.replace('/-/g', ' ')
       : params.title
@@ -51,14 +51,14 @@ export default {
         name:
           blog && blog.author
             ? `${blog.author.firstName} ${blog.author.lastName}`
-            : 'Unknown'
-      }
+            : 'Unknown',
+      },
     }
     return { url, blog, structuredData }
   },
-  data () {
+  data() {
     return {
-      loading: false
+      loading: false,
     }
   },
   // jsonld () {
@@ -75,9 +75,9 @@ export default {
   //   }
   // },
 
-  mounted () {},
+  mounted() {},
 
-  head () {
+  head() {
     const title = this.blog ? this.blog.title : 'Blog'
     const description = this.blog ? this.blog.description : 'Personality Blog'
     const href = this.url ? this.url : ''
@@ -89,42 +89,92 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: description
+          content: description,
         },
         {
           property: 'og:url',
-          content: href
+          content: href,
         },
         {
           property: 'og:description',
-          content: description
+          content: description,
         },
         { property: 'og:title', content: title },
         {
           name: 'twitter:description',
-          content: description
+          content: description,
         },
         {
           name: 'twitter:title',
-          content: title
+          content: title,
         },
         {
           name: 'twitter:site',
-          content: '@9takesdotcom'
-        }
+          content: '@9takesdotcom',
+        },
       ],
       script: [
         {
           src: 'https://cdnjs.deepai.org/deepai.min.js',
           async: true,
-          defer: true
+          defer: true,
         },
-        { type: 'application/ld+json', json: this.structuredData }
+        { type: 'application/ld+json', json: this.structuredData },
       ],
-      link: [{ rel: 'canonical', href }]
+      link: [{ rel: 'canonical', href }],
     }
-  }
+  },
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.blog {
+  p {
+    margin: 12px 0;
+  }
+  ul {
+    margin: 8px 0;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-top: 12px;
+  }
+  blockquote {
+    border: 1px solid #abceed;
+    right: 0px;
+    top: 0px;
+    border-radius: 0px 5px 0px 5px;
+    padding: 5px 15px;
+    color: #abceed;
+    z-index: 99;
+    margin: 10px;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+  }
+  .nuxt-content a {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: aquamarine;
+  }
+  .icon.icon-link {
+    background-image: url('~assets/svgs/pound-box.svg');
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 1em;
+    height: 1em;
+    background-size: 1em 1em;
+  }
+}
+</style>
