@@ -65,4 +65,5 @@ export const endpoints = {
   getRando: '/api/rando',
 
   addEmail: 'api/email/add',
+  getSignups: 'api/email',
 }

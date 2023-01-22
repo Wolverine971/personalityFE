@@ -3,18 +3,11 @@
     <!-- <v-container> -->
     <div class="top-div">
       <div class="parallax-div">
-        <v-parallax
-          src="/group0.PNG"
-          class=""
-          :height="$vuetify.breakpoint.mobile ? 500 : 700"
-        >
+        <v-parallax src="/cyber-campfire.png" class="" :height="$vuetify.breakpoint.mobile ? 500 : 700">
           <div v-if="$vuetify.breakpoint.mobile" class="mainBackground">
-            <div
-              class="center-mid-long"
-              :style="{
-                height: '40vh',
-              }"
-            >
+            <div class="center-mid-long" :style="{
+              height: '40vh',
+            }">
               <v-card-title class="headline">
                 <h1 class="white--text outline-text">9takes</h1>
                 <!-- <h2 class="white--text">
@@ -22,8 +15,7 @@
                 </h2> -->
 
                 <h2 class="white--text outline-text">
-                  A place for questions and answers, that supports empathy and
-                  curiosity
+                  Ask questions, share your story, get curious
                 </h2>
               </v-card-title>
             </div>
@@ -43,19 +35,14 @@
           <h3 class="white--text outline-text">Yeah, we need more of that ^</h3>
         </div>
       </div>
-      <div
-        v-if="!$vuetify.breakpoint.mobile"
-        class="mainBackground parallax-div"
-      >
+      <div v-if="!$vuetify.breakpoint.mobile" class="mainBackground parallax-div">
         <div class="center-mid-long">
-          <div>
-            <h1 class="white--text outline-text">9takes</h1>
-            <!-- <h2 class="white--text">Community for the enneagram obsessed</h2> -->
-            <h2 class="white--text outline-text">
-              A place for questions and answers, that supports empathy and
-              curiosity
-            </h2>
-          </div>
+          <h1 class="white--text outline-text">9takes</h1>
+          <!-- <h2 class="white--text">Community for the enneagram obsessed</h2> -->
+          <h2 class="white--text outline-text">
+            Ask questions, share your story, get curious
+          </h2>
+          <br>
           <div>
             <!-- <v-card-title class="headline"> </v-card-title> -->
             <p>Don't you love it when the group chat is popping?💥</p>
@@ -68,6 +55,7 @@
               When you just met someone and if feels like you have known them
               your whole life 🍻
             </p>
+            <br>
             <h3 class="white--text outline-text">
               Yeah, we need more of that ^
             </h3>
@@ -127,6 +115,7 @@ export default {
     width: 100%;
     justify-content: center;
   }
+
   .parallax-div {
     width: 50%;
     height: inherit;
@@ -136,6 +125,7 @@ export default {
     justify-content: center;
   }
 }
+
 @media (max-width: 1275px) {
   .top-div {
     display: flex;
@@ -143,6 +133,7 @@ export default {
     justify-content: center;
     width: 100%;
   }
+
   .parallax-div {
     width: 100%;
 
@@ -150,6 +141,7 @@ export default {
     margin: 5% 0;
   }
 }
+
 .mainBackground {
   position: relative;
   // min-height: 100vh;
@@ -171,6 +163,7 @@ export default {
   // margin-top: calc(100vh);
   margin-bottom: 100px;
 }
+
 .aboveFold {
   margin-top: calc(100vh);
 }
@@ -200,6 +193,7 @@ export default {
     // mix-blend-mode: difference;
   }
 }
+
 .center-mid-mobile {
   margin: 50px auto 0;
   text-align: center;
